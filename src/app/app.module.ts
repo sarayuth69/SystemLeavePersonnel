@@ -20,6 +20,8 @@ import { LoginComponent } from './login/login.component';
 import { PositionComponent } from './position/position.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CheckleaveComponent } from './checkleave/checkleave.component';
+import { TestleaveComponent } from './testleave/testleave.component';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'department', component: DepartmentComponent },
@@ -32,6 +34,8 @@ const appRoutes: Routes = [
   { path: 'leavetype', component: LeavetypeComponent },
   { path: 'position', component: PositionComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'checkleave', component: CheckleaveComponent },
+  { path: 'testleave', component: TestleaveComponent },
   { path: 'login', component: LoginComponent },
   { path: '',
     redirectTo: '/login', // เปลี่ยนเส้นทาง
@@ -53,7 +57,9 @@ const appRoutes: Routes = [
     LeavetypeComponent,
     LoginComponent,
     PositionComponent,
-    RegisterComponent
+    RegisterComponent,
+    CheckleaveComponent,
+    TestleaveComponent
   ],
   imports: [
     BrowserModule,
