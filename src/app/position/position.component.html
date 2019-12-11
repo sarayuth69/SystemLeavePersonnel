@@ -1,0 +1,123 @@
+<div class="tab-pane fade show active">
+    &nbsp;&nbsp;&nbsp;
+    <div class="card">
+      <div class="card-header">
+        ตำแหน่ง
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalPosition" 
+        onclick="document.getElementById('PositionInput').value = '',
+               document.getElementById('PositionInput1').value = '',
+               document.getElementById('PositionInput99').value = ''">
+          เพิ่มตำแหน่ง
+        </button>
+        <div class="modal fade" id="exampleModalPosition" tabindex="-1" role="dialog" aria-labelledby="Position "
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" id="Position ">เพิ่มตำแหน่ง</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="PositionInput">รหัสตำแหน่ง</label>
+                    <input type="text" class="form-control" id="PositionInput" [formControl]="Position_ID"
+                      placeholder="รหัสตำแหน่ง">
+                  </div>
+                  <div class="form-group">
+                    <label for="PositionInput1">ชื่อตำแหน่ง</label>
+                    <input type="text" class="form-control" id="PositionInput1" [formControl]="PositionName"
+                      placeholder="ชื่อตำแหน่ง">
+                  </div>
+                  <div class="form-group">
+                    <label for="PositionInput1">ระดับสิทธิการเข้าใช้</label>
+                    <input type="text" class="form-control" id="PositionInput99" [formControl]="Role"
+                      placeholder="ระดับสิทธิการเข้าใช้">
+                  </div>
+     
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddPosition()">บันทึก</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr class="text-center">
+              <th scope="col">รหัสตำแหน่ง</th>
+              <th scope="col">ชื่อตำแหน่ง</th>
+              <th scope="col">ระดับสิทธิการเข้าใช้</th>
+              <th scope="col">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let item of positionEmp; let i = index">
+            <tr >
+              <td class="text-center">{{item.Position_ID}}</td>
+              <td >{{item.PositionName}}</td>
+              <td class="text-center">{{item.Role}}</td>
+              <td class="text-center">
+                  
+                <button type="button" class="btn btn-outline-warning" data-toggle="modal"
+                  data-target="#exampleModalEditposition"
+                   (click)="updatePosition(item.Position_ID,item.PositionName,item.Role)">
+                  แก้ไข
+                </button>
+  
+               
+                &nbsp; &nbsp;
+                <button type="button" class="btn btn-outline-danger"
+                  (click)="deletePosition(item.Position_ID,item.PositionName)">ลบ</button>
+  
+              </td>
+  
+            </tr>
+          </tbody>
+        </table>
+         <!-- Modalแก้ไข -->
+         <div class="modal fade" id="exampleModalEditposition" tabindex="-1" role="dialog"
+         aria-labelledby="Empposition1" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="Empposition1">แก้ไขตำแหน่งบุคลากร</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+               <form>
+                 <div class="form-group">
+                   <label for="EmployeepositionInput2">รหัสตำแหน่งบุคลากร</label>
+                   <input type="text" class="form-control" id="EmployeepositionInput2"
+                     [formControl]="Position_ID" placeholder="รหัสตำแหน่งบุคลากร" readonly>
+                 </div>
+                 <div class="form-group">
+                   <label for="EmployeepositionInput3">ชื่อตำแหน่งบุคลากร</label>
+                   <input type="text" class="form-control" id="EmployeepositionInput3"
+                     [formControl]="PositionName" placeholder="ชื่อตำแหน่งบุคลากร">
+                 </div>
+                 <div class="form-group">
+                  <label for="EmployeepositionInput3">ระดับสิทธิการเข้าใช้</label>
+                  <input type="text" class="form-control" id="EmployeepositionInput99"
+                    [formControl]="Role" placeholder="ระดับสิทธิการเข้าใช้">
+                </div>
+               </form>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-danger" data-dismiss="modal" >ยกเลิก</button>
+               <button type="button" class="btn btn-primary"  (click)="updateEmpposition()">บันทึก</button>
+             </div>
+           </div>
+         </div>
+       </div>
+      </div>
+    </div>
+  </div>
