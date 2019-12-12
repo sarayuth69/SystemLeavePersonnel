@@ -100,7 +100,7 @@ export class LeavelistComponent implements OnInit {
         }
       )
     }
-    if (localStorage.getItem('Role') === "1") {
+    if (localStorage.getItem('Role') === "5") {
       this.list1 = true;
       this.list = false;
       this.http.get('http://localhost/Leavewebservice/API/getLeaveToperson.php').subscribe(
@@ -112,7 +112,7 @@ export class LeavelistComponent implements OnInit {
         })
 
     }
-    else if (localStorage.getItem('Role') === "2") {
+    else if (localStorage.getItem('Role') === "4") {
       this.list = true;
       this.list1 = false;
     }
@@ -120,11 +120,11 @@ export class LeavelistComponent implements OnInit {
       this.list = true;
       this.list1 = false;
     }
-    else if (localStorage.getItem('Role') === "4") {
+    else if (localStorage.getItem('Role') === "2") {
       this.list = true;
       this.list1 = false;
     }
-    else if (localStorage.getItem('Role') === "5") {
+    else if (localStorage.getItem('Role') === "1") {
       this.list = true;
       this.list1 = false;
       const body = 'Emp_ID=' + localStorage.getItem("Emp_ID")
@@ -153,23 +153,17 @@ export class LeavelistComponent implements OnInit {
       this.leave106 = false;
     }
   }
-  // LeaveEmp(
-  //   Emp_ID, EmpName, EmpLastName, Empstatus_ID, PositionName, DeptName, Sector ,LTypeName
-  // ) {
-  //   this.Emp_ID = new FormControl(Emp_ID);
-  //   console.log(Emp_ID);
-  //   console.log(LTypeName);
-  //   this.EmpName = new FormControl(EmpName);
-  //   console.log(this.EmpName);
-  //   this.EmpLastName = new FormControl(EmpLastName);
-  //   this.Empstatus_ID = new FormControl(Empstatus_ID);
-  //   this.PositionName = new FormControl(PositionName);
-  //   this.DeptName = new FormControl(DeptName);
-  //   this.Sector = new FormControl(Sector);
-
-  // }
-  AddLeave() {
-    const body = 'Leave_ID=' + this.Leave_ID.value
+  AddLeave(LeaveTotal) {
+    console.log(LeaveTotal);
+    this.LeaveTotal = new FormControl(LeaveTotal);
+    if(LeaveTotal === '0' ){
+      Swal.fire({
+        icon: 'error',
+        title: 'กรุณาเลือกวันลา',
+       
+      })
+    }else{
+      const body = 'Leave_ID=' + this.Leave_ID.value
       + '&Emp_ID=' + localStorage.getItem("Emp_ID")
       + '&Name_Leave=' + this.Name_Leave.value
       + '&To_Person=' + this.To_Person.value
@@ -182,7 +176,7 @@ export class LeavelistComponent implements OnInit {
       + '&UploadFile=' + this.UploadFile.value
       + '&Response_Time=' + this.Response_Time.value
       + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-
+  
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -193,8 +187,8 @@ export class LeavelistComponent implements OnInit {
       })
       .subscribe(
         (data: any) => {
-          console.log(data[0]);
-          this.addLeave = data[0];
+          console.log(data);
+          this.addLeave = data;
         },
         (error: any) => {
           console.log(error);
@@ -206,8 +200,21 @@ export class LeavelistComponent implements OnInit {
       title: 'ส่งการลาเรียบร้อย',
       showConfirmButton: false,
       timer: 1500
-
+  
     }).then(() => {
+      this.http
+        .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
+          headers: headers
+        }).subscribe(
+          (data: any) => {
+            this.leave = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        )
+    }) 
+    .then(() => {
       this.http
         .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
           headers: headers
@@ -219,8 +226,12 @@ export class LeavelistComponent implements OnInit {
             console.log(error);
           }
         )
-    })
+    }) 
+    }
+     
   }
+ 
+       
 
   onseletday(LeaveDateStart,LeaveDateLast){
     console.log(LeaveDateStart,LeaveDateLast);

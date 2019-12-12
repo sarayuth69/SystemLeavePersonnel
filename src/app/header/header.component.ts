@@ -28,13 +28,13 @@ export class HeaderComponent implements OnInit {
       // this.emp5 = false; 
       // this.emp3 = false; 
       
-    } else if(localStorage.getItem('Role') === "5" ) {
-      this.emp5 = true; 
+    } else if(localStorage.getItem('Role') === "1" ) {
+      this.emp1 = true; 
       // this.show = false; 
       // this.emp3 = false; 
       
-    } else if(localStorage.getItem('Role') === "4" ) {
-      this.emp4 = true; 
+    } else if(localStorage.getItem('Role') === "2" ) {
+      this.emp2 = true; 
       // this.show = false; 
       // this.emp3 = false; 
   
@@ -44,17 +44,17 @@ export class HeaderComponent implements OnInit {
       // this.show = false; 
       // this.emp3 = false; 
   
-    } else if(localStorage.getItem('Role') === "2" ) {
+    } else if(localStorage.getItem('Role') === "4" ) {
       // this.emp4 = false; 
       // this.emp5 = false; 
       // this.show = false; 
-      this.emp2 = true; 
+      this.emp4 = true; 
   
-    } else if(localStorage.getItem('Role') === "1" ) {
+    } else if(localStorage.getItem('Role') === "5" ) {
       // this.emp4 = false; 
       // this.emp5 = false; 
       // this.show = false; 
-      this.emp1 = true; 
+      this.emp5 = true; 
   
     } 
    

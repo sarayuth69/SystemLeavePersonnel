@@ -17,7 +17,7 @@
     $data['Address'] = $_POST['Address'];
     $data['Tel'] = $_POST['Tel'];
     $data['Username'] = $_POST['Username'];
-    $data['Passwork'] = $_POST['Passwork'];
+    $data['Password'] = $_POST['Password'];
     $data['Work_day'] = $_POST['Work_day'];
     $data['Duration_work'] = $_POST['Duration_work'];
     $data['Empstatus_ID'] = $_POST['Empstatus_ID'];

@@ -70,7 +70,49 @@ function getEmployee(){
             return $data;
         }
     }
-    
+    function getleave($Emp_ID){
+        $sql  = "SELECT
+        *
+    FROM  
+        `leave`
+    JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
+    JOIN `department`ON `employee`.`Dept_ID` = `department`.`Dept_ID`
+    WHERE  
+    leave.Emp_ID = '$Emp_ID'
+    ";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+    function getleavetoperson(){
+        $sql  = 'SELECT
+        *
+    FROM
+        `leave`
+    JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
+    JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
+    WHERE
+        1';
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
 
     function getDept(){
         $sql  = 'SELECT * FROM `department` WHERE 1';
@@ -132,9 +174,45 @@ function getEmployee(){
             return $data;
         }
     }
-    function getLtype_EI(){
-        $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus`ON `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
-         WHERE leavetype.Empstatus_ID= 104';
+    function getLtype_EI($Empstatus_ID){
+        $sql  = "SELECT * FROM `leavetype` JOIN `employeestatus`ON `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
+         WHERE leavetype.Empstatus_ID= '$Empstatus_ID'";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+
+    function getLtype_EI_admin(){
+        $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus` ON 
+        `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
+        WHERE 
+        `leavetype`.`Empstatus_ID`=104';
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+
+    function getLtype_US_admin(){
+        $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus` ON 
+        `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
+        WHERE 
+        `leavetype`.`Empstatus_ID`=105';
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -167,7 +245,7 @@ function getEmployee(){
     
     function getposition(){
 
-        $sql  = 'SELECT * FROM `position` WHERE 1';
+        $sql  = 'SELECT * FROM `position` WHERE 1 ORDER BY `position`.`Role`';
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -181,30 +259,30 @@ function getEmployee(){
         }
     }
 
-    function getDept1001(){
+    // function getDept1001(){
 
-        $sql  = 'SELECT
-                        *
+    //     $sql  = 'SELECT
+    //                     *
                 
-            FROM
-                employee
-            LEFT JOIN position ON employee.Position_ID = position.Position_ID
-            LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
-            LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
-            WHERE `employee`.`Dept_ID` = 1001
-            GROUP BY employee.Emp_ID';
-        // echo "<pre>";
-        // print_r($sql);
-        // echo "</pre>";
-        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-            $data = [];
-            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                $data[] = $row;
-            }
-            $result->close();
-            return $data;
-        }
-    }
+    //         FROM
+    //             employee
+    //         LEFT JOIN position ON employee.Position_ID = position.Position_ID
+    //         LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
+    //         LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
+    //         WHERE `employee`.`Dept_ID` = 1001
+    //         GROUP BY employee.Emp_ID';
+    //     // echo "<pre>";
+    //     // print_r($sql);
+    //     // echo "</pre>";
+    //     if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+    //         $data = [];
+    //         while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+    //             $data[] = $row;
+    //         }
+    //         $result->close();
+    //         return $data;
+    //     }
+    // }
 
 
    
@@ -302,12 +380,13 @@ function getEmployee(){
     }
 
     function InsertPosition($data = []){
-
-        $sql  = "INSERT INTO `position` (`Position_ID`, `PositionName`) VALUES 
+      
+        $sql  = "INSERT INTO `position` (`Position_ID`, `PositionName`,`Role`) VALUES 
         (
 
         '".$data['Position_ID']."',
-        '".$data['PositionName']."'
+        '".$data['PositionName']."',
+        '".$data['Role']."'
         )
         ";
         // echo "<pre>";
@@ -344,7 +423,7 @@ function getEmployee(){
     function InsertEmployee($data = []){
 
         $sql  = "INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, 
-        `Birthday`, `Age`, `Address`, `Tel`,`Username`,`Passwork`, `Work_day`, `Duration_work`, `Empstatus_ID`, `Position_ID`
+        `Birthday`, `Age`, `Address`, `Tel`,`Username`,`Password`, `Work_day`, `Duration_work`, `Empstatus_ID`, `Position_ID`
         , `Dept_ID`) VALUES
          (
         '".$data['Emp_ID']."',
@@ -357,13 +436,44 @@ function getEmployee(){
         '".$data['Address']."',
         '".$data['Tel']."',
         '".$data['Username']."',
-        '".$data['Passwork']."',
+        '".$data['Password']."',
         '".$data['Work_day']."',
         '".$data['Duration_work']."',
         '".$data['Empstatus_ID']."',
         '".$data['Position_ID']."',
         '".$data['Dept_ID']."'
        
+        )
+        ";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+    
+    function Add_Leave($data = []){
+
+        $sql  = "INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`,`To_Person`,`LeaveDateStart`, `LeaveDateLast`, 
+        `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus`, `Response_Time`, `Person_Code_Allow`) 
+          VALUES
+         (
+        '".$data['Leave_ID']."',
+        '".$data['Emp_ID']."',
+        '".$data['Name_Leave']."',
+        '".$data['To_Person']."',
+        '".$data['LeaveDateStart']."',
+        '".$data['LeaveDateLast']."',
+        '".$data['LeaveData']."',
+        '".$data['ContactInformation']."',
+        '".$data['LeaveTotal']."',
+        '".$data['LeaveStatus']."',
+        '".$data['Response_Time']."',
+        '".$data['Person_Code_Allow']."'
         )
         ";
         // echo "<pre>";
@@ -422,7 +532,8 @@ function getEmployee(){
    
     function UpdatePosition($data) {
       
-        $sql = "UPDATE `position` SET `Position_ID` = '".$data['Position_ID']."', `PositionName` = '".$data['PositionName']."'
+        $sql = "UPDATE `position` SET `Position_ID` = '".$data['Position_ID']."', `PositionName` = '".$data['PositionName']."',
+         `Role` = '".$data['Role']."'
          WHERE `position`.`Position_ID` = '".$data['Position_ID']."';
         ";
         
@@ -468,6 +579,24 @@ function getEmployee(){
         }
     }
 
+    function UpdatesetLOrdinal($data) {
+      
+        $sql = "UPDATE
+        `leavetype`
+    SET
+        `LOrdinal` = (SELECT LOrdinal WHERE LType_ID = '100002') +1
+    WHERE
+         LType_ID = '100002'
+        ";
+        
+        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+
     function search($Emp_ID){
         $sql = "SELECT
         *
@@ -495,7 +624,7 @@ function getEmployee(){
 
     function Login($data) {
       
-        $sql = "    SELECT
+        $sql = "SELECT
         *
     FROM
     `employee` JOIN `position`
@@ -506,8 +635,7 @@ function getEmployee(){
     ON
     `employee`.`Dept_ID`=`department`.`Dept_ID`
     WHERE
-        employee.Username = '".$data['Username']."' AND employee.Passwork = '".$data['Passwork']."'
-        
+        employee.Username = '".$data['Username']."' AND employee.Password = '".$data['Password']."'
         ";
       if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
         $data = [];

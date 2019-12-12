@@ -23,6 +23,7 @@ export class EmployeeshowComponent implements OnInit {
   public leave;
   public leave2;
   public seach;
+  public positionEmp;
   Empployee: any;
   Empployee1: any;
 
@@ -82,6 +83,15 @@ export class EmployeeshowComponent implements OnInit {
   ) { }
   
   ngOnInit() {
+    this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+      (data: any) => {
+        console.log(data);
+        this.positionEmp = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
     
     const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
 
@@ -122,7 +132,7 @@ export class EmployeeshowComponent implements OnInit {
     );
 
 
-    if(localStorage.getItem('Role') === "1" ){
+    if(localStorage.getItem('Role') === "5" ){
       this.table1 = true; 
       this.table2 = false; 
       this.table3 = false; 
@@ -130,7 +140,7 @@ export class EmployeeshowComponent implements OnInit {
       this.table5 = false; 
       this.table6 = false; 
     }
-    // else if(localStorage.getItem('Role') === "2" ){
+    // else if(localStorage.getItem('Role') === "4" ){
     //   this.list = true; 
     //   this.list1 = false;
     // }
@@ -138,7 +148,7 @@ export class EmployeeshowComponent implements OnInit {
     //   this.list = true; 
     //   this.list1 = false; 
     // }
-    else if(localStorage.getItem('Role') === "4" ){
+    else if(localStorage.getItem('Role') === "2" ){
       this.table1 = false; 
       this.table2 = false; 
       this.table3 = false; 
@@ -146,6 +156,14 @@ export class EmployeeshowComponent implements OnInit {
       this.table5 = false; 
       this.table6 = false; 
     }
+    // else if(localStorage.getItem('Role') === "1" ){
+    //   this.table1 = false; 
+    //   this.table2 = false; 
+    //   this.table3 = false; 
+    //   this.table4 = true; 
+    //   this.table5 = false; 
+    //   this.table6 = false; 
+    // }
     else {
       this.table1 = true; 
       
@@ -205,9 +223,9 @@ export class EmployeeshowComponent implements OnInit {
         }
       );
       Swal.fire({
-        position: 'center',
+        position: 'top-end',
         icon: 'success',
-        title: 'แก้ไขเรียบร้อย',
+        title: 'Your work has been saved',
         showConfirmButton: false,
         timer: 1500
       }).then(()=>{

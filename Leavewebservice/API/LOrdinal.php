@@ -8,12 +8,9 @@
 
     // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
     $data = [];
-    $data['Username'] = $_POST['Username'];
-    $data['Password'] = $_POST['Password'];
+   
+    $data['LOrdinal'] = $_POST['LOrdinal'];
 
-
-    $Emp = $Emp_Model -> Login($data);
+    $Emp = $Emp_Model -> UpdatesetLOrdinal($data);
  
     echo json_encode($Emp);
-
-

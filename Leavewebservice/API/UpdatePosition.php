@@ -10,6 +10,7 @@
     $data = [];
     $data['Position_ID'] = $_POST['Position_ID'];
     $data['PositionName'] = $_POST['PositionName'];
+    $data['Role'] = $_POST['Role'];
 
 
     $Emp = $Emp_Model -> UpdatePosition($data);

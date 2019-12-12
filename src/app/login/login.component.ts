@@ -75,14 +75,14 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (data: any) => {
           console.log(data);
-          // if (data.length == 0) {
-          //   Swal.fire({
-          //     type: 'error',
-          //     title: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
-          //     text: 'Something went wrong!',
-          //     footer: '<a href ="/register">สมัครสมาชิก</a>'
-          //   })
-          // } else {
+          if (data.length == 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
+              text: 'Something went wrong!',
+              footer: '<a href ="/register">สมัครสมาชิก</a>'
+            })
+          } else {
             localStorage.setItem('Emp_ID', data[0].Emp_ID);
             localStorage.setItem('EmpName', data[0].EmpName);
             localStorage.setItem('EmpLastName', data[0].EmpLastName);
@@ -98,6 +98,7 @@ export class LoginComponent implements OnInit {
             console.log(localStorage.getItem('PositionName'));
             console.log(localStorage.getItem('DeptName'));
             console.log(localStorage.getItem('Sector'));
+            console.log(localStorage.getItem('Role'));
         
             Swal.fire({
               position: 'center',
@@ -107,20 +108,20 @@ export class LoginComponent implements OnInit {
               timer: 1000
 
             }).then(()=>{
-            if (data[0].Role=="1") {
+            if (data[0].Role=="5") {
               this.router.navigate(['/leavelist']);
               
               }
-               else if (data[0].Role=="2") {
+               else if (data[0].Role=="4") {
                 this.router.navigate(['/leavelist']);
               }
               else if (data[0].Role=="3") {
                 this.router.navigate(['/leavelist']);
               }
-              else if (data[0].Role=="4") {
+              else if (data[0].Role=="2") {
                 this.router.navigate(['/leavelist']);
               }
-              else if (data[0].Role=="5") {
+              else if (data[0].Role=="1") {
                 this.router.navigate(['/leavelist']);
                 
               }
@@ -132,7 +133,7 @@ export class LoginComponent implements OnInit {
                 }, 500);
               })
            
-          // }
+          }
         },
         (error: any) => {
           console.log(error);
