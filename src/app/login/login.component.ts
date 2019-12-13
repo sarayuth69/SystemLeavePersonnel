@@ -37,12 +37,13 @@ export class LoginComponent implements OnInit {
 
         this.router.navigate(['/home']);
 
-      }) .then(() => {
-        setTimeout(() => {
-      window.location.reload();
+      }) 
+      // .then(() => {
+      //   setTimeout(() => {
+      // window.location.reload();
           
-        }, 1000);
-      })
+      //   }, 1000);
+      // })
     }
     else if (!u || !p) {
       Swal.fire({
@@ -130,7 +131,7 @@ export class LoginComponent implements OnInit {
                 setTimeout(() => {
               window.location.reload();
                   
-                }, 500);
+                }, 100);
               })
            
           }

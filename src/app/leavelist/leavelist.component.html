@@ -23,9 +23,8 @@
                                     ยื่นขอลา
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" data-toggle="modal"  id ="LTypeName" data-target="#exampleModalleave"
-                                        *ngFor="let item of leavetype106; let i = index"
-                                        >
+                                    <a class="dropdown-item" data-toggle="modal"  data-target="#exampleModalleave"
+                                        *ngFor="let item of leavetype106; let i = index" >
                                         {{item.LTypeName}}
                                     </a>
 
@@ -67,7 +66,7 @@
                         <td> </td>
                         <td class="text-center">
                             &nbsp;
-                            <button type="button" class="btn btn-outline-danger">ยกเลิก</button>
+                            <button type="button" class="btn btn-danger">ยกเลิก</button>
                         </td>
                     </tr>
                 </tbody>
@@ -103,21 +102,21 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of leave2; let i = index">
-                    <tr class="text-center">
+                    <tr >
                         <td>ชื่อ: {{item.EmpName}}
                             <p>แผนก: {{item.DeptName}} </p>
                         </td>
                         <td> </td>
 
                         <td></td>
-                        <td>{{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
-                      <td>{{item.LeaveTotal}}</td>
+                        <td class="text-center">{{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
+                      <td class="text-center">{{item.LeaveTotal}}</td>
                         <td></td>
                         <td class="text-center">
                             &nbsp;
-                            <button type="button" class="btn btn-outline-success">อนุญาต</button>
+                            <button type="button" class="btn btn-success">อนุญาต</button>
                             &nbsp;
-                            <button type="button" class="btn btn-outline-danger">ไม่อนุญาต</button>
+                            <button type="button" class="btn btn-danger">ไม่อนุญาต</button>
                         </td>
                     </tr>
                 </tbody>
@@ -156,32 +155,30 @@
                                 <div class="container">
                                     <div class="form-row">
                                         <div class="col-lg-960px">
+                                            <br>
                                             <h6>เรื่อง : </h6>
-                                            &nbsp;
+                                           <br>
+                                           <br>
                                             <h6>เรียน : </h6>
                                         </div>
                                         <div class="col-lg-960px">
                                             <input type="text" class="form-control" [formControl]="Name_Leave">
-                                            &nbsp;
                                             <input type="text" class="form-control" [formControl]="To_Person">
                                         </div>
-
                                     </div>
                                 </div>
                                 &nbsp;&nbsp;
                                 <div class="card-header text-left">
                                     ข้อมุลบุคลากร
                                 </div>
-                                &nbsp;&nbsp;
+                                &nbsp;
                                 <div class="form-row">
                                     <div class="container">
                                         <div class="form-row">
                                             <div class="col-lg-960px">
+                                                <br>
                                                 <h6>รหัส : </h6>
-                                                &nbsp;
                                             </div>
-                                            &nbsp;&nbsp;&nbsp;
-
                                             <div class="col-lg-960px">
                                                 <input type="text" class="form-control" value="{{Local_Emp_ID}}"
                                                     [formControl]="Emp_ID" readonly>
@@ -189,35 +186,35 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="col-lg-960px">
+                                                    <br>
                                                 <h6> ชื่อ : </h6>
-                                                &nbsp;
+                                                <br>
+                                                <br>
                                                 <h6>แผนก : </h6>
                                             </div>
-                                            &nbsp;
                                             <div class="col-lg-960px">
-
                                                 <input type="text" class="form-control" value="{{Local_EmpName}}"
                                                     [formControl]="EmpName" readonly>
-                                                &nbsp;
                                                 <input type="text" class="form-control" value="{{Local_DeptName}}"
                                                     [formControl]="DeptName" readonly>
                                             </div>
-                                            &nbsp;&nbsp;
                                             <div class="col-lg-960px">
+                                                    <br>
                                                 <h6> นามสกุล : </h6>
-                                                &nbsp;
+                                                <br>
+                                                <br>
                                                 <h6> ฝ่าย : </h6>
                                             </div>
-                                            &nbsp;
                                             <div class="col-lg-960px">
                                                 <input type="text" class="form-control" id="validationDefault02"
                                                     value="{{Local_EmpLastName}}" [formControl]="EmpLastName" readonly>
-                                                &nbsp;
                                                 <input type="text" class="form-control" id="validationDefault02"
                                                     value="{{Local_Sector}}" [formControl]="Sector" readonly>
                                             </div>
                                             &nbsp;
-                                            <div class="col-lg-960px">ตำแหน่ง : </div>
+                                            <div class="col-lg-960px">
+                                                    <br>
+                                                    ตำแหน่ง : </div>
                                             &nbsp;
                                             <div class="col-lg-960px">
                                                 <input type="text" class="form-control" id="validationDefault02"

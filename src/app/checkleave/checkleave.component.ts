@@ -20,35 +20,55 @@ export class CheckleaveComponent implements OnInit {
     public http: HttpClient,
   ) { }
   ngOnInit() {
-    if(localStorage.getItem('Empstatus_ID') === "106" ){
-      this.http.get('http://localhost/Leavewebservice/API/getLtype_Of.php').subscribe(
-        (data : any)=>{
+
+    const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post('http://localhost/Leavewebservice/API/getLtype.php', body, {
+        headers: headers
+      }).subscribe(
+        (data: any) => {
           this.leavetype106 = data;
+          console.log(this.leavetype106);
+          
         },
-        (error:any)=>{
+        (error: any) => {
           console.log(error);
         }
+
       )
-    }else if(localStorage.getItem('Empstatus_ID') === "105" ){
-      this.http.get('http://localhost/Leavewebservice/API/getLtype_US.php').subscribe(
-        (data : any)=>{
-          this.leavetype106 = data;
-        },
-        (error:any)=>{
-          console.log(error);
-        }
-      )
-  }
-    else if(localStorage.getItem('Empstatus_ID') === "104" ){
-      this.http.get('http://localhost/Leavewebservice/API/getLtype_EI.php').subscribe(
-        (data : any)=>{
-          this.leavetype106 = data;
-        },
-        (error:any)=>{
-          console.log(error);
-        }
-      )
-  }
+  //   if(localStorage.getItem('Empstatus_ID') === "106" ){
+  //     this.http.get('http://localhost/Leavewebservice/API/getLtype_Of.php').subscribe(
+  //       (data : any)=>{
+  //         this.leavetype106 = data;
+  //       },
+  //       (error:any)=>{
+  //         console.log(error);
+  //       }
+  //     )
+  //   }else if(localStorage.getItem('Empstatus_ID') === "105" ){
+  //     this.http.get('http://localhost/Leavewebservice/API/getLtype_US.php').subscribe(
+  //       (data : any)=>{
+  //         this.leavetype106 = data;
+  //       },
+  //       (error:any)=>{
+  //         console.log(error);
+  //       }
+  //     )
+  // }
+  //   else if(localStorage.getItem('Empstatus_ID') === "104" ){
+  //     this.http.get('http://localhost/Leavewebservice/API/getLtype_EI.php').subscribe(
+  //       (data : any)=>{
+  //         this.leavetype106 = data;
+  //       },
+  //       (error:any)=>{
+  //         console.log(error);
+  //       }
+  //     )
+  // }
 
 }
 
