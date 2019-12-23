@@ -1,4 +1,5 @@
-
+<br>
+<br>
 <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
     <div class="card" *ngIf="table1">
@@ -17,7 +18,7 @@
                       </ul>
                      
                     <form class="form-inline">
-                        <input type="text" class="form-control" #Emp_ID placeholder="ค้นหา" aria-label="ค้นหา" />
+                        <input type="text" class="form-control" (keyup)="getsearch(Emp_ID.value)" #Emp_ID placeholder="ค้นหา" aria-label="ค้นหา" />
                     </form>
                 </div>
             </div>
@@ -131,7 +132,7 @@
                                         data-target="#exampleModal" (click)="updateEmp(item.Emp_ID,item.EmpName,item.EmpLastName,item.Sex,
                                         item.Birthday,item.Age,item.Tel,item.Address,item.Work_day,item.Duration_work
                                         ,item.Empstatus_ID,item.Position_ID,item.Dept_ID)">
-                                        แก้ไข/ตรวจสอบ
+                                        แก้ไข
                                     </button>
                                     &nbsp;
                                     <button type="button" class="btn btn-danger"

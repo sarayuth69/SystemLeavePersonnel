@@ -305,6 +305,8 @@ export class EmployeeshowComponent implements OnInit {
   }
 
   getsearch(Emp_ID) {
+    console.log(Emp_ID);
+    this.seach=[];
     if(this.Emp_ID.value.length === "0"){
       Swal.fire({
         icon: 'error',

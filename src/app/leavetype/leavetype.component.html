@@ -1,3 +1,5 @@
+<br>
+<br>
 <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
     <div class="card">
@@ -45,14 +47,14 @@
               <td>{{item.EmpstatusName}}</td>
               <td>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-warning" data-toggle="modal" 
+                <button type="button" class="btn btn-warning" data-toggle="modal" 
                 data-target="#exampleModal2" (click)="updateLeavetype(item.LType_ID,item.LTypeName
                 ,item.Number,item.Remain,item.AdvanceNotice,item.LOrdinal,item.QuotaStatus,item.Empstatus_ID)">
                   แก้ไข
                 </button>
   
                 &nbsp;
-                <button type="button" class="btn btn-outline-danger"
+                <button type="button" class="btn btn-danger"
                   (click)="deleteLeavetype(item.LType_ID,item.LTypeName)">ลบ</button>
   
   
@@ -229,8 +231,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">ปิด</button>
-          <button type="button" class="btn btn-outline-primary" data-dismiss="modal" (click)="updateLeaveType1()" >บันทึก</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateLeaveType1()" >บันทึก</button>
         </div>
       </div>
     </div>

@@ -38,12 +38,12 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
 
       }) 
-      // .then(() => {
-      //   setTimeout(() => {
-      // window.location.reload();
+      .then(() => {
+        setTimeout(() => {
+      window.location.reload();
           
-      //   }, 1000);
-      // })
+        }, 100);
+      })
     }
     else if (!u || !p) {
       Swal.fire({

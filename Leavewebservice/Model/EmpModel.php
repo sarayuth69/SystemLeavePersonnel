@@ -49,15 +49,16 @@ class EmpModel extends BaseModel{
 function getEmployee(){
 
         $sql  = 'SELECT
-                *
-        
-    FROM
-        employee
-    LEFT JOIN position ON employee.Position_ID = position.Position_ID
-    LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
-    LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
-    WHERE 1
-    GROUP BY employee.Emp_ID';
+        *
+
+FROM
+employee
+LEFT JOIN position ON employee.Position_ID = position.Position_ID
+LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
+LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
+LEFT JOIN officiate_day ON employee.Emp_ID = officiate_day.Emp_ID
+WHERE 1
+ORDER BY ABS(`employee`.`Emp_ID`) ASC';
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -79,6 +80,26 @@ function getEmployee(){
     JOIN `department`ON `employee`.`Dept_ID` = `department`.`Dept_ID`
     WHERE  
     leave.Emp_ID = '$Emp_ID'
+    ";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+
+    function getLtype($Empstatus_ID){
+        $sql  = "SELECT
+        *
+    FROM
+        `leavetype` JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+    WHERE  leavetype.Empstatus_ID = '$Empstatus_ID'
     ";
         // echo "<pre>";
         // print_r($sql);
@@ -144,51 +165,54 @@ function getEmployee(){
             return $data;
         }
     }
-    function getLtype_Of(){
-        $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus`ON `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
-        WHERE leavetype.Empstatus_ID= 106 ';
-        // echo "<pre>";
-        // print_r($sql);
-        // echo "</pre>";
-        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-            $data = [];
-            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                $data[] = $row;
-            }
-            $result->close();
-            return $data;
-        }
-    }
-    function getLtype_US(){
-        $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus`ON `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
-         WHERE leavetype.Empstatus_ID= 105';
-        // echo "<pre>";
-        // print_r($sql);
-        // echo "</pre>";
-        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-            $data = [];
-            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                $data[] = $row;
-            }
-            $result->close();
-            return $data;
-        }
-    }
-    function getLtype_EI($Empstatus_ID){
-        $sql  = "SELECT * FROM `leavetype` JOIN `employeestatus`ON `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
-         WHERE leavetype.Empstatus_ID= '$Empstatus_ID'";
-        // echo "<pre>";
-        // print_r($sql);
-        // echo "</pre>";
-        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-            $data = [];
-            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                $data[] = $row;
-            }
-            $result->close();
-            return $data;
-        }
-    }
+    // ไม่ได้ใช้ฟังชั่นนี่แล้ว
+    // function getLtype_Of(){
+    //     $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus`ON `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
+    //     WHERE leavetype.Empstatus_ID= 106 ';
+    //     // echo "<pre>";
+    //     // print_r($sql);
+    //     // echo "</pre>";
+    //     if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+    //         $data = [];
+    //         while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+    //             $data[] = $row;
+    //         }
+    //         $result->close();
+    //         return $data;
+    //     }
+    // }
+     // ไม่ได้ใช้ฟังชั่นนี่แล้ว
+    // function getLtype_US(){
+    //     $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus`ON `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
+    //      WHERE leavetype.Empstatus_ID= 105';
+    //     // echo "<pre>";
+    //     // print_r($sql);
+    //     // echo "</pre>";
+    //     if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+    //         $data = [];
+    //         while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+    //             $data[] = $row;
+    //         }
+    //         $result->close();
+    //         return $data;
+    //     }
+    // }
+     // ไม่ได้ใช้ฟังชั่นนี่แล้ว
+    // function getLtype_EI($Empstatus_ID){
+    //     $sql  = "SELECT * FROM `leavetype` JOIN `employeestatus`ON `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
+    //      WHERE leavetype.Empstatus_ID= '$Empstatus_ID'";
+    //     // echo "<pre>";
+    //     // print_r($sql);
+    //     // echo "</pre>";
+    //     if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+    //         $data = [];
+    //         while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+    //             $data[] = $row;
+    //         }
+    //         $result->close();
+    //         return $data;
+    //     }
+    // }
 
     function getLtype_EI_admin(){
         $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus` ON 
@@ -619,6 +643,37 @@ function getEmployee(){
             }
       }
 
+      function Chackwork($Emp_ID) {
+      
+        $sql = "UPDATE
+        `officiate_day`
+    SET
+        `Status_Work` = 'มาทำงาน'
+    WHERE
+    `officiate_day`.`Emp_ID`= '$Emp_ID' ";
+        
+        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            return  $sql;
+        }else {
+            return 0;
+        }
+    }
+
+    function Chackwork_No($Emp_ID) {
+      
+        $sql = "UPDATE
+        `officiate_day`
+    SET
+        `Status_Work` = 'ไม่มาทำงาน'
+    WHERE
+    `officiate_day`.`Emp_ID`= '$Emp_ID' ";
+        
+        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            return  $sql;
+        }else {
+            return 0;
+        }
+    }
 
 
 

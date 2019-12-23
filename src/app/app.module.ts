@@ -22,8 +22,10 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckleaveComponent } from './checkleave/checkleave.component';
 import { TestleaveComponent } from './testleave/testleave.component';
+import { CheckdayworkComponent } from './checkdaywork/checkdaywork.component';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'checkdaywork', component: CheckdayworkComponent },
   { path: 'department', component: DepartmentComponent },
   { path: 'employee', component: EmployeeComponent },
   { path: 'employeeshow', component: EmployeeshowComponent },
@@ -59,7 +61,8 @@ const appRoutes: Routes = [
     PositionComponent,
     RegisterComponent,
     CheckleaveComponent,
-    TestleaveComponent
+    TestleaveComponent,
+    CheckdayworkComponent
   ],
   imports: [
     BrowserModule,
