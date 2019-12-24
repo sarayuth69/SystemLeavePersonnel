@@ -58,6 +58,7 @@ LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
 LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
 LEFT JOIN officiate_day ON employee.Emp_ID = officiate_day.Emp_ID
 WHERE 1
+ GROUP BY `employee`.`Emp_ID`
 ORDER BY ABS(`employee`.`Emp_ID`) ASC';
         // echo "<pre>";
         // print_r($sql);
@@ -136,7 +137,8 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
     }
 
     function getDept(){
-        $sql  = 'SELECT * FROM `department` WHERE 1';
+        $sql  = 'SELECT * FROM `department` JOIN `sector` ON `department`.`Sector_ID` = `sector`.`Sector_ID`
+        WHERE 1';
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -269,7 +271,22 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
     
     function getposition(){
 
-        $sql  = 'SELECT * FROM `position` WHERE 1 ORDER BY `position`.`Role`';
+        $sql  = 'SELECT * FROM `position` WHERE 1 ORDER BY ABS(`position`.`Position_ID`) ASC';
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+    function getsector(){
+
+        $sql  = 'SELECT * FROM `sector`';
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -315,6 +332,20 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
     function DeleteDept($Dept_ID){
 
         $sql  = "DELETE FROM `department` WHERE `department`.`Dept_ID` = '$Dept_ID'
+        ";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            return mysqli_insert_id(static::$db);
+        }else {
+            return 0;
+        }
+    }
+
+    function Deletesector($Sector_ID){
+
+        $sql  = "DELETE FROM `sector` WHERE `sector`.`Sector_ID` = '$Sector_ID'
         ";
         // echo "<pre>";
         // print_r($sql);
@@ -385,12 +416,31 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
 
     function InsertDept($data = []){
 
-        $sql  = "INSERT INTO `department` (`Dept_ID`, `DeptName`,`Sector`) VALUES 
+        $sql  = "INSERT INTO `department` (`Dept_ID`, `DeptName`,`Sector_ID`) VALUES 
         (
 
         '".$data['Dept_ID']."',
         '".$data['DeptName']."',
-        '".$data['Sector']."'
+        '".$data['Sector_ID']."'
+        )
+        ";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+    function InsertSector($data = []){
+
+        $sql  = "INSERT INTO `sector` (`Sector_ID`, `SectorName`) VALUES 
+        (
+
+        '".$data['Sector_ID']."',
+        '".$data['SectorName']."'
         )
         ";
         // echo "<pre>";
@@ -479,7 +529,27 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
         }
     }
 
-    
+    function Addworktime($data = []){
+
+        $sql  = "INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`,`Emp_ID`) VALUES 
+        (
+
+        '".$data['Day_Work']."',
+        '".$data['Status_Work']."',
+        '".$data['Emp_ID']."'
+        )
+        ";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+
     function Add_Leave($data = []){
 
         $sql  = "INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`,`To_Person`,`LeaveDateStart`, `LeaveDateLast`, 
@@ -526,8 +596,22 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
     function UpdateDept($data) {
       
         $sql = "UPDATE `department` SET `Dept_ID`='".$data['Dept_ID']."',`DeptName`='".$data['DeptName']."' 
-        ,`Sector`='".$data['Sector']."'
+        ,`Sector_ID`='".$data['Sector_ID']."'
         WHERE  `department`.`Dept_ID` = '".$data['Dept_ID']."'
+        
+        ";
+        
+        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+    function UpdateSector($data) {
+      
+        $sql = "UPDATE `sector` SET `Sector_ID`='".$data['Sector_ID']."',`SectorName`='".$data['SectorName']."' 
+        WHERE  `sector`.`Sector_ID` = '".$data['Sector_ID']."'
         
         ";
         

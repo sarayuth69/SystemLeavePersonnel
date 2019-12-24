@@ -17,10 +17,12 @@ import {
 })
 export class DepartmentComponent implements OnInit {
   public dep;
+  public sector;
+  public S;
   department: any;
   Dept_ID = new FormControl('');
   DeptName = new FormControl('');
-  Sector = new FormControl('');
+  Sector_ID = new FormControl('');
   public Dept_ID_show;
   public DeptName_show;
   constructor(
@@ -41,11 +43,22 @@ export class DepartmentComponent implements OnInit {
         console.log(error);
       }
     );
+
+    this.http.get('http://localhost/Leavewebservice/API/getsector.php').subscribe(
+      (data: any) => {
+        this.sector = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
   }
-  AddDept() {
+  AddDept(S) {
+    this.Sector_ID = S
+    console.log(this.Sector_ID);
     const body = 'Dept_ID=' + this.Dept_ID.value
     + '&DeptName=' + this.DeptName.value
-    + '&Sector=' + this.Sector.value
+    + '&Sector_ID=' + this.Sector_ID
   
     console.log(body);
     const headers = new HttpHeaders({
@@ -81,9 +94,8 @@ export class DepartmentComponent implements OnInit {
           }
         );
       })
-   
-      
  }
+
  deleteDept(id, name) {
   this.Dept_ID_show = id;
   this.DeptName_show = name;
@@ -131,17 +143,21 @@ export class DepartmentComponent implements OnInit {
 }
 
 updatedept(
-  Dept_ID, DeptName ,Sector
+  Dept_ID, DeptName ,S
 ) {
+
   this.Dept_ID = new FormControl(Dept_ID);
   this.DeptName = new FormControl(DeptName);
-  this.Sector = new FormControl(Sector);
+  this.Sector_ID = S
 }
-public updateDepartmant() {
+public updateDepartmant(S) {
+  this.Sector_ID = S
+  console.log(this.Sector_ID);
+  
   const body =
   'Dept_ID=' + this.Dept_ID.value
   + '&DeptName=' + this.DeptName.value
-  + '&Sector=' + this.Sector.value
+  + '&Sector_ID=' + this.Sector_ID
   console.log(body);
   const headers = new HttpHeaders({
     'Content-Type': 'application/x-www-form-urlencoded'

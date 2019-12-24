@@ -12,7 +12,8 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#departmentEmp"
                  onclick="document.getElementById('DepartmentInput').value = ''
                       ,document.getElementById('DepartmentInput1').value = ''
-                      ,document.getElementById('DepartmentInput8').value = ''">
+                      ,document.getElementById('DepartmentInput8').value = 'เลือกฝ่ายงาน'
+                      ">
                 เพิ่มแผนก
             </button>
             <div class="modal fade" id="departmentEmp" tabindex="-1" role="dialog" aria-labelledby="Department "
@@ -38,15 +39,18 @@
                                         [formControl]="DeptName" placeholder="ชื่อแผนก">
                                 </div>
                                 <div class="form-group">
-                                        <label for="DepartmentInput2">ฝ่ายงาน</label>
-                                        <input type="text" class="form-control" id="DepartmentInput8"
-                                            [formControl]="Sector" placeholder="ฝ่ายงาน">
+                                    <label for="DepartmentInput2">ฝ่ายงาน</label>
+                                    <select class="form-control" id="DepartmentInput8" 
+                                    #Sector_ID>
+                                        <option selected>เลือกฝ่ายงาน</option>
+                                        <option *ngFor="let item of sector; let i = index" value="{{item.Sector_ID}}">{{item.SectorName}}</option>
+                                      </select>
                                     </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddDept()">บันทึก</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddDept(Sector_ID.value)">บันทึก</button>
                         </div>
                     </div>
                 </div>
@@ -67,11 +71,11 @@
                     <tr>
                         <td class="text-center">{{item.Dept_ID}}</td>
                         <td>{{item.DeptName}}</td>
-                        <td>{{item.Sector}}</td>
+                        <td>{{item.SectorName}}</td>
 
                         <td class="text-center">
                             <button type="button" class="btn btn-warning" data-toggle="modal"
-                                data-target="#exampleModalEditDept" (click)="updatedept(item.Dept_ID,item.DeptName,item.Sector)">
+                                data-target="#exampleModalEditDept" (click)="updatedept(item.Dept_ID,item.DeptName,Sector_ID.value)">
                                 แก้ไข
                             </button>
 
@@ -97,7 +101,7 @@
                             <form>
                                 <div class="form-group">
                                     <label for="DepartmentInput2">รหัสแผนก</label>
-                                    <input type="text" class="form-control" id="DepartmentInput2"
+                                    <input type="text" class="form-control" id="DepartmentInput2" style="background-color: rgb(226, 223, 223);"
                                         [formControl]="Dept_ID">
                                 </div>
                                 <div class="form-group">
@@ -105,16 +109,19 @@
                                     <input type="text" class="form-control" id="DepartmentInput3"
                                         [formControl]="DeptName">
                                 </div>
+
                                 <div class="form-group">
-                                        <label for="DepartmentInput3">ฝ่าย</label>
-                                        <input type="text" class="form-control" id="DepartmentInput4"
-                                            [formControl]="Sector">
+                                    <label for="DepartmentInput2">ฝ่ายงาน</label>
+                                    <select class="form-control" id="DepartmentInput4" 
+                                    #Sector_ID>
+                                        <option *ngFor="let item of sector; let i = index" value="{{item.Sector_ID}}">{{item.SectorName}}</option>
+                                      </select>
                                     </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateDepartmant()">บันทึก</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateDepartmant(Sector_ID.value)">บันทึก</button>
                         </div>
                     </div>
                 </div>

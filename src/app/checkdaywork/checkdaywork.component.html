@@ -7,7 +7,7 @@
             <div class="row">
               <div class="col-sm">
                 เดือน  วัน ปี 
-                <input type="date" class="form-control" #day>
+                <input type="date" class="form-control" #Day_Work>
 
               </div>
 
@@ -34,7 +34,7 @@
       </div>
       <br>
 <table class="table">
-    <thead class=" text-primary">
+    <thead class="text-primary">
         <th>
           <b>ลำดับ</b>  
         </th>
@@ -54,12 +54,12 @@
     <tbody *ngFor="let item of Employee; let i = index">
         <td>{{item.Emp_ID}}</td>
         <td>{{item.EmpName}} {{item.EmpLastName}}</td>
-        <td >{{item.Status_Work}}</td>
+        <td>{{item.Status_Work}}</td>
         <td ></td>
         <td >
             <button type="button" class="btn btn-success" (click)="chackwork(item.Emp_ID)">มา</button>
 <button type="button" class="btn btn-danger" (click)="chack_No(item.Emp_ID)" >ไม่มา</button>
-<button type="button" class="btn btn-info" (click)="Add_daywork(item.Emp_ID,item.Status_Work,day.value)" >บันทึก</button>
+<button type="button" class="btn btn-info" (click)="Add_daywork(item.Emp_ID,item.Status_Work,Day_Work.value)" >บันทึก</button>
         </td>
         
     </tbody>

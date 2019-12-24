@@ -133,11 +133,11 @@ export class EmployeeshowComponent implements OnInit {
 
 
     if(localStorage.getItem('Role') === "5" ){
-      this.table1 = true; 
+      this.table1 = false; 
       this.table2 = false; 
       this.table3 = false; 
       this.table4 = false; 
-      this.table5 = false; 
+      this.table5 = true; 
       this.table6 = false; 
     }
     // else if(localStorage.getItem('Role') === "4" ){
