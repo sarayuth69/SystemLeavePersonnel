@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  http: any;
+  public seach;
   constructor(public router: Router) { }
   show : boolean  
   emp5 : boolean 
@@ -19,7 +21,7 @@ export class HeaderComponent implements OnInit {
   show1 : boolean 
   test  = localStorage.getItem('EmpName');
   test1  = localStorage.getItem('EmpLastName');
-
+  Emp_ID = new FormControl('');
   ngOnInit() {
 
     
@@ -64,5 +66,27 @@ export class HeaderComponent implements OnInit {
       setTimeout(() => {
       this.router.navigate(['/login']);
       }, 2000);
+  }
+  getsearch(Emp_ID) {
+    console.log(Emp_ID);
+    this.seach=[];
+    if(this.Emp_ID.value.length === "0"){
+      Swal.fire({
+        icon: 'error',
+        title: 'ไม่พบข้อมูล',
+        text: 'Something went wrong!'
+      })
+    }else{
+      this.http.get('http://localhost/Leavewebservice/API/Search.php?Emp_ID=' + Emp_ID).subscribe(
+        (data: any) => {
+          console.log(data);
+          // this.seach = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    }
+   
   }
 }

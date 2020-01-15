@@ -1,17 +1,29 @@
 <br>
 <br>
+<div style="padding: 1%;">
 <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
     <div class="card">
       <div class="card-header">
-        ตำแหน่ง
+        <div class="container">
+          <div class="row">
+            <div class="col">
+               ตำแหน่ง
+          </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalPosition" 
+              onclick="document.getElementById('PositionInput').value = '',
+                     document.getElementById('PositionInput1').value = '',
+                     document.getElementById('PositionInput99').value = ''">
+                เพิ่มตำแหน่ง
+              </button>
+            </div>
+          </div>
+          </div>
         &nbsp;&nbsp;&nbsp;
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalPosition" 
-        onclick="document.getElementById('PositionInput').value = '',
-               document.getElementById('PositionInput1').value = '',
-               document.getElementById('PositionInput99').value = ''">
-          เพิ่มตำแหน่ง
-        </button>
+        
         <div class="modal fade" id="exampleModalPosition" tabindex="-1" role="dialog" aria-labelledby="Position "
           aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -67,7 +79,7 @@
               <td class="text-center">{{item.Role}}</td>
               <td class="text-center">
                   
-                <button type="button" class="btn btn-warning" data-toggle="modal"
+                <button type="button" class="btn btn-success" data-toggle="modal"
                   data-target="#exampleModalEditposition"
                    (click)="updatePosition(item.Position_ID,item.PositionName,item.Role)">
                   แก้ไข
@@ -122,4 +134,5 @@
        </div>
       </div>
     </div>
+  </div>
   </div>

@@ -60,7 +60,8 @@
                     จัดการบุคลากร
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                    <a class="dropdown-item" href="#" [routerLink]="['/employeeshow']">บุคลากร</a>
+                     <a class="dropdown-item" href="#" [routerLink]="['/employeeshow']" (click)="getsearch(Emp_ID.value)">บุคลากร</a>
+                    <!-- <a class="dropdown-item" href="#" [routerLink]="['/employeeshow']" >บุคลากร</a> -->
                     <a class="dropdown-item" href="#" [routerLink]="['/department']">แผนก</a>
                     <a class="dropdown-item" href="#" [routerLink]="['/sector']">ฝ่ายงาน</a>
                     <a class="dropdown-item" href="#" [routerLink]="['/position']">ตำแหน่ง</a>

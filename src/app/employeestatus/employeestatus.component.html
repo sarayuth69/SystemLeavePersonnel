@@ -1,17 +1,27 @@
 <br>
 <br>
+<div style="padding: 1%;">
 <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
 <div class="card">
     <div class="card-header">
-        สถานะบุคลากร
+        <div class="container">
+            <div class="row">
+              <div class="col">        สถานะบุคลากร
+            </div>
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Empstatus"
+                onclick="document.getElementById('EmployeeStatusInput').value = ''
+                                ,document.getElementById('EmployeeStatusInput1').value = ''">
+                    เพิ่มสถานะบุคลากร
+                </button>
+              </div>
+            </div>
+            </div>
         &nbsp;&nbsp;&nbsp;
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Empstatus"
-        onclick="document.getElementById('EmployeeStatusInput').value = ''
-                        ,document.getElementById('EmployeeStatusInput1').value = ''">
-            เพิ่มสถานะบุคลากร
-        </button>
-
+      
         <!-- Modal -->
         <div class="modal fade" id="Empstatus" tabindex="-1" role="dialog" aria-labelledby="EmployeeStatus "
             aria-hidden="true">
@@ -35,7 +45,6 @@
                                 <input type="text" class="form-control" id="EmployeeStatusInput1"
                                     [formControl]="EmpstatusName" placeholder="ชื่อสถานะบุคลากร">
                             </div>
-
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -61,26 +70,19 @@
                     <td>{{item.EmpstatusName}}</td>
                     <td class="text-center">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-warning" data-toggle="modal"
+                        <button type="button" class="btn btn-success" data-toggle="modal"
                             data-target="#exampleModalEditstatus"
                             (click)="updateStatus(item.Empstatus_ID,item.EmpstatusName)">
                             แก้ไข
                         </button>
-
-                       
                         &nbsp; &nbsp;
                         <button type="button" class="btn btn-danger"
                             (click)="deletestatus(item.Empstatus_ID,item.EmpstatusName)">ลบ</button>
-
-
                     </td>
-
-
                 </tr>
             </tbody>
         </table>
                         <!-- Modalแก้ไข -->
-
         <div class="modal fade" id="exampleModalEditstatus" tabindex="-1" role="dialog"
         aria-labelledby="Empstatus1" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -115,5 +117,6 @@
         </div>
     </div>
     </div>
+</div>
 </div>
 </div>

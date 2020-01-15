@@ -1,78 +1,88 @@
 <br>
 <br>
 <br>
-<div class="tab-pane fade show active">
-  <div class="card">
-    <div class="card-header">
-      ฝ่ายงาน
-
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="document.getElementById('sectorInput').value = '',
-document.getElementById('sectorInput1').value = ''">
-        เพิ่มฝ่ายงาน
-      </button>
-
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">เพิ่มฝ่ายงาน</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+<div style="padding: 1%;">
+  <div class="tab-pane fade show active">
+    <div class="card">
+      <div class="card-header">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              ฝ่ายงาน
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="document.getElementById('sectorInput').value = '',
+      document.getElementById('sectorInput1').value = ''">
+                เพิ่มฝ่ายงาน
               </button>
             </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="sectorInput">รหัสฝ่ายงาน</label>
-                  <input type="text" class="form-control" id="sectorInput" [formControl]="Sector_ID"
-                    placeholder="รหัสฝ่ายงาน">
-                </div>
-                <div class="form-group">
-                  <label for="sectorInput1">ชื่อฝ่ายงาน</label>
-                  <input type="text" class="form-control" id="sectorInput1" [formControl]="SectorName"
-                    placeholder="ชื่อฝ่ายงาน">
-                </div>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">เพิ่มฝ่ายงาน</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="sectorInput">รหัสฝ่ายงาน</label>
+                    <input type="text" class="form-control" id="sectorInput" [formControl]="Sector_ID"
+                      placeholder="รหัสฝ่ายงาน">
+                  </div>
+                  <div class="form-group">
+                    <label for="sectorInput1">ชื่อฝ่ายงาน</label>
+                    <input type="text" class="form-control" id="sectorInput1" [formControl]="SectorName"
+                      placeholder="ชื่อฝ่ายงาน">
+                  </div>
 
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="Addsector()">บันทึก</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="Addsector()">บันทึก</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="card-body" >
+      <div class="card-body">
 
-      <table class="table table-bordered">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">รหัส</th>
-            <th scope="col">ชื่อฝ่ายงาน</th>
-            <th scope="col">จัดการ</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let item of sector; let i = index">
-          <tr>
-            <td> {{item.Sector_ID}} </td>
-            <td> {{item.SectorName}}</td>
-            <td>
-              <!-- Button trigger modal -->
-              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Editsector"
-              (click)="updateSector(item.Sector_ID,item.SectorName)">
-                แก้ไข
-              </button>
-              <button type="button" class="btn btn-danger"
-                (click)="deletesector(item.Sector_ID,item.SectorName)">ลบ</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" class="text-center">รหัส</th>
+              <th scope="col">ชื่อฝ่ายงาน</th>
+              <th scope="col">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let item of sector; let i = index">
+            <tr>
+              <td class="text-center"> {{item.Sector_ID}} </td>
+              <td> {{item.SectorName}}</td>
+              <td>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Editsector"
+                  (click)="updateSector(item.Sector_ID,item.SectorName)">
+                  แก้ไข
+                </button>
+                <button type="button" class="btn btn-danger"
+                  (click)="deletesector(item.Sector_ID,item.SectorName)">ลบ</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
+      </div>
     </div>
   </div>
 </div>
@@ -94,21 +104,20 @@ document.getElementById('sectorInput1').value = ''">
         <form>
           <div class="form-group">
             <label for="sectorInput2">รหัสฝ่ายงาน</label>
-            <input type="text" class="form-control" id="sectorInput2"
-              [formControl]="Sector_ID" placeholder="รหัสฝ่ายงาน" style="background-color: rgb(226, 223, 223);">
+            <input type="text" class="form-control" id="sectorInput2" [formControl]="Sector_ID"
+              placeholder="รหัสฝ่ายงาน" style="background-color: rgb(226, 223, 223);">
           </div>
           <div class="form-group">
             <label for="sectorInput3">ชื่อฝ่ายงาน</label>
-            <input type="text" class="form-control" id="sectorInput3"
-              [formControl]="SectorName" placeholder="ชื่อฝ่ายงาน">
+            <input type="text" class="form-control" id="sectorInput3" [formControl]="SectorName"
+              placeholder="ชื่อฝ่ายงาน">
           </div>
-       
+
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal"
-        (click)="updateSectorEmp()">บันทึก</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateSectorEmp()">บันทึก</button>
       </div>
     </div>
   </div>

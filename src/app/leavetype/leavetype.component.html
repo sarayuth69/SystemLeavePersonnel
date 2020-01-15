@@ -1,30 +1,35 @@
 <br>
 <br>
+<div style="padding: 1%;">
 <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
     <div class="card">
       <div class="card-header">
-        <div class="row-md-1">
-          <div class="col-md-4">
-            ประเภทการลา
-            &nbsp;&nbsp;&nbsp;
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="document.getElementById('LType_ID').value = ''
-            ,document.getElementById('LTypeName').value = '',document.getElementById('Number').value = ''
-            ,document.getElementById('Remain').value = '',document.getElementById('AdvanceNotice').value = ''
-            ,document.getElementById('LOrdinal').value = '',document.getElementById('QuotaStatus').value = ''
-            ,document.getElementById('Empstatus_ID').value = ''">
-              เพิ่มประเภทการลา
-            </button>
-  
+        <div class="container">
+          <div class="row">
+            <div class="col">            ประเภทการลา
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="document.getElementById('LType_ID').value = ''
+              ,document.getElementById('LTypeName').value = '',document.getElementById('Number').value = ''
+              ,document.getElementById('Remain').value = '',document.getElementById('AdvanceNotice').value = ''
+              ,document.getElementById('LOrdinal').value = '',document.getElementById('QuotaStatus').value = ''
+              ,document.getElementById('Empstatus_ID').value = ''">
+                เพิ่มประเภทการลา
+              </button>
+            </div>
           </div>
-        </div>
+      </div>
       </div>
       <div class="card-body">
         <table class="table table-bordered">
           <thead class="thead-dark">
             <tr class="text-center">
-              <th scope="col">รหัสประเภทการลา</th>
+              <th scope="col">ลำดับ</th>
+
+              <!-- <th scope="col">รหัสประเภทการลา</th> -->
               <th scope="col">ชื่อประเภทการลา</th>
               <th scope="col">จำนวนวันลา/วัน</th>
               <th scope="col">คงเหลือ/วัน</th>
@@ -37,7 +42,13 @@
           </thead>
           <tbody *ngFor="let item of leavetype; let i = index">
             <tr>
-              <td>{{item.LType_ID}}</td>
+              <td >
+                <p ng-repeat="i in range(1, 5)">
+                  {{ i+1 }}
+                </p>
+              </td>  
+
+              <!-- <td>{{item.LType_ID}}</td> -->
               <td>{{item.LTypeName}}</td>
               <td>{{item.Number}}</td>
               <td>{{item.Remain}}</td>
@@ -47,7 +58,7 @@
               <td>{{item.EmpstatusName}}</td>
               <td>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-warning" data-toggle="modal" 
+                <button type="button" class="btn btn-success" data-toggle="modal" 
                 data-target="#exampleModal2" (click)="updateLeavetype(item.LType_ID,item.LTypeName
                 ,item.Number,item.Remain,item.AdvanceNotice,item.LOrdinal,item.QuotaStatus,item.Empstatus_ID)">
                   แก้ไข
@@ -136,9 +147,9 @@
                 <label for="validationDefault05">สถานะบุคลากร</label>
                 <select id="Empstatus_ID" class="form-control" [formControl]="Empstatus_ID">
                   <option selected>เลือกสถานะบุคลากร</option>
-                  <option value="106">ราชการ</option>
-                  <option value="105">พนักงานมหาวิทยาลัย</option>
-                  <option value="104">ลูกจ้างเงินรายได้</option>
+                  <option value="203">ราชการ</option>
+                  <option value="202">พนักงานมหาวิทยาลัย</option>
+                  <option value="201">ลูกจ้างเงินรายได้</option>
                 </select>
               </div>
             </div>
@@ -237,3 +248,4 @@
       </div>
     </div>
   </div>
+</div>

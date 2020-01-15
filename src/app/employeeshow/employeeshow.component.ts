@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-employeeshow',
   templateUrl: './employeeshow.component.html',
@@ -23,6 +25,7 @@ export class EmployeeshowComponent implements OnInit {
   public leave;
   public leave2;
   public seach;
+  public numberleave =0;
   public positionEmp;
   Empployee: any;
   Empployee1: any;
@@ -83,15 +86,36 @@ export class EmployeeshowComponent implements OnInit {
   ) { }
   
   ngOnInit() {
-    this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+
+    this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
       (data: any) => {
         console.log(data);
-        this.positionEmp = data;
+        this.Employee = data;
       },
       (error: any) => {
         console.log(error);
       }
     );
+
+    this.http.get('http://localhost/Leavewebservice/API/Search.php').subscribe(
+      (data: any) => {
+        console.log(data);
+        this.seach = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+
+    // this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+    //   (data: any) => {
+    //     console.log(data);
+    //     this.positionEmp = data;
+    //   },
+    //   (error: any) => {
+    //     console.log(error);
+    //   }
+    // );
     
     const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
 
@@ -100,7 +124,7 @@ export class EmployeeshowComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/getLtype_EI_admin.php', body, {
+        .post('http://localhost/Leavewebservice/API/getLeavetype.php', body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -112,24 +136,16 @@ export class EmployeeshowComponent implements OnInit {
 
         )
      
-    this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.Employee = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-    this.http.get('http://localhost/Leavewebservice/API/getDept1001.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.Empployee1 = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+  
+    // this.http.get('http://localhost/Leavewebservice/API/getDept1001.php').subscribe(
+    //   (data: any) => {
+    //     console.log(data);
+    //     this.Empployee1 = data;
+    //   },
+    //   (error: any) => {
+    //     console.log(error);
+    //   }
+    // );
 
 
     if(localStorage.getItem('Role') === "5" ){
@@ -176,6 +192,8 @@ export class EmployeeshowComponent implements OnInit {
     ,Dept_ID
   ) {
     this.Emp_ID = new FormControl(Emp_ID);
+    console.log(this.Emp_ID);
+    
     // this.Prefix = new FormControl(Prefix);
     this.EmpName = new FormControl(EmpName);
     this.EmpLastName = new FormControl(EmpLastName);
@@ -232,7 +250,7 @@ export class EmployeeshowComponent implements OnInit {
         this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
           (data: any) => {
             console.log(data);
-            this.Employee = data;
+            this.seach = data;
           },
           (error: any) => {
             console.log(error);
@@ -292,7 +310,7 @@ export class EmployeeshowComponent implements OnInit {
   }
 
   LeaveEmp(
-    Emp_ID,EmpName,EmpLastName,Empstatus_ID,PositionName,DeptName,Sector
+    Emp_ID,EmpName,EmpLastName,Empstatus_ID,PositionName,DeptName
   ){
     this.Emp_ID = new FormControl(Emp_ID);
     // this.Prefix = new FormControl(Prefix);
@@ -301,7 +319,7 @@ export class EmployeeshowComponent implements OnInit {
     this.Empstatus_ID = new FormControl(Empstatus_ID);
     this.PositionName = new FormControl(PositionName);
     this.DeptName = new FormControl(DeptName);
-    this.Sector = new FormControl(Sector);
+
   }
 
   getsearch(Emp_ID) {
@@ -376,5 +394,21 @@ AddLeave(){
     }
   )
     })
+}
+
+
+onseletday(LeaveDateStart,LeaveDateLast){
+  console.log(LeaveDateStart,LeaveDateLast);
+  let dayleave = moment(LeaveDateLast).startOf('day').diff(moment(LeaveDateStart).startOf('day'),'day')
+  if(dayleave > 0){
+    this.numberleave = dayleave;
+  }else{
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+      footer: '<a href>Why do I have this issue?</a>'
+    })
+  }
 }
 }
