@@ -90,15 +90,17 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('Empstatus_ID', data[0].Empstatus_ID);
             localStorage.setItem('PositionName', data[0].PositionName);
             localStorage.setItem('DeptName', data[0].DeptName);
-            localStorage.setItem('Sector', data[0].Sector);
+            localStorage.setItem('Dept_ID', data[0].Dept_ID);
+            localStorage.setItem('SectorName', data[0].SectorName);
             localStorage.setItem('Role', data[0].Role);
             console.log(localStorage.getItem('Emp_ID'));
             console.log(localStorage.getItem('EmpName'));
             console.log(localStorage.getItem('EmpLastName'));
             console.log(localStorage.getItem('Empstatus_ID'));
             console.log(localStorage.getItem('PositionName'));
+            console.log(localStorage.getItem('Dept_ID'));
             console.log(localStorage.getItem('DeptName'));
-            console.log(localStorage.getItem('Sector'));
+            console.log(localStorage.getItem('SectorName'));
             console.log(localStorage.getItem('Role'));
         
             Swal.fire({

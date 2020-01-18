@@ -21,6 +21,7 @@ export class EmployeeshowComponent implements OnInit {
   public EmpName_show;
   public EmpLtype_show;
   public leavetype;
+  public Dept;
   public addLeave;
   public leave;
   public leave2;
@@ -86,6 +87,24 @@ export class EmployeeshowComponent implements OnInit {
   ) { }
   
   ngOnInit() {
+    const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+
+    console.log(body1);
+    const headers1 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post('http://localhost/Leavewebservice/API/getDept_to_head.php', body1, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.Dept = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+
+      )
 
     this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
       (data: any) => {
@@ -117,6 +136,7 @@ export class EmployeeshowComponent implements OnInit {
     //   }
     // );
     
+    
     const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
 
       console.log(body);
@@ -124,7 +144,7 @@ export class EmployeeshowComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/getLeavetype.php', body, {
+        .post('http://localhost/Leavewebservice/API/getLtype.php', body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -135,17 +155,21 @@ export class EmployeeshowComponent implements OnInit {
           }
 
         )
+
+
+         
+    
      
-  
-    // this.http.get('http://localhost/Leavewebservice/API/getDept1001.php').subscribe(
-    //   (data: any) => {
-    //     console.log(data);
-    //     this.Empployee1 = data;
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // );
+  // ฟังชันนี้อาจจะไม่ได้ใช้ ไห้ทำเป็น localStorage แบบ ประเภทการลา
+    this.http.get('http://localhost/Leavewebservice/API/getDept1001.php').subscribe(
+      (data: any) => {
+        console.log(data);
+        this.Empployee1 = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
 
 
     if(localStorage.getItem('Role') === "5" ){

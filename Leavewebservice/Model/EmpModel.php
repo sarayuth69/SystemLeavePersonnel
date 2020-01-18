@@ -48,18 +48,16 @@ class EmpModel extends BaseModel{
     
 function getEmployee(){
 
-        $sql  = 'SELECT
-        *
-
-FROM
-employee
-LEFT JOIN position ON employee.Position_ID = position.Position_ID
-LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
-LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
-LEFT JOIN officiate_day ON employee.Emp_ID = officiate_day.Emp_ID
-WHERE 1
- GROUP BY `employee`.`Emp_ID`
-ORDER BY ABS(`employee`.`Emp_ID`) ASC';
+        $sql  = "SELECT
+         * FROM employee
+ LEFT JOIN position ON employee.Position_ID = position.Position_ID
+ LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
+ LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
+ LEFT JOIN officiate_day ON employee.Emp_ID = officiate_day.Emp_ID
+ WHERE 1
+  GROUP BY `employee`.`Emp_ID`
+ ORDER BY ABS(`employee`.`Emp_ID`) ASC
+";
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -72,6 +70,23 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
             return $data;
         }
     }
+
+    function getEmployee_daywork(){
+
+        $sql  = "SELECT * FROM `employee` WHERE 1";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+    
     function getleave($Emp_ID){
         $sql  = "SELECT
         *
@@ -299,35 +314,57 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
             return $data;
         }
     }
+// อาจจะไม่ได้ใช้
+    function getDept1001(){
 
-    // function getDept1001(){
-
-    //     $sql  = 'SELECT
-    //                     *
+        $sql  = 'SELECT
+                        *
                 
-    //         FROM
-    //             employee
-    //         LEFT JOIN position ON employee.Position_ID = position.Position_ID
-    //         LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
-    //         LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
-    //         WHERE `employee`.`Dept_ID` = 1001
-    //         GROUP BY employee.Emp_ID';
-    //     // echo "<pre>";
-    //     // print_r($sql);
-    //     // echo "</pre>";
-    //     if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-    //         $data = [];
-    //         while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-    //             $data[] = $row;
-    //         }
-    //         $result->close();
-    //         return $data;
-    //     }
-    // }
+            FROM
+                employee
+            LEFT JOIN position ON employee.Position_ID = position.Position_ID
+            LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
+            LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
+            WHERE `employee`.`Dept_ID` = 1005
+            GROUP BY employee.Emp_ID';
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
 
+//    
 
-   
+function getDept_To_head($Dept_ID){
 
+    $sql  = "SELECT
+    * FROM employee
+LEFT JOIN position ON employee.Position_ID = position.Position_ID
+LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
+LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
+LEFT JOIN officiate_day ON employee.Emp_ID = officiate_day.Emp_ID
+WHERE `employee`.`Dept_ID` = '$Dept_ID'
+GROUP BY `employee`.`Emp_ID`
+ORDER BY ABS(`employee`.`Emp_ID`) ASC";
+    // echo "<pre>";
+    // print_r($sql);
+    // echo "</pre>";
+    if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+        $data = [];
+        while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+            $data[] = $row;
+        }
+        $result->close();
+        return $data;
+    }
+}
 
     function DeleteDept($Dept_ID){
 
@@ -531,12 +568,13 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
 
     function Addworktime($data = []){
 
-        $sql  = "INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`,`Emp_ID`) VALUES 
+        $sql  = "INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`,`Emp_ID`,`Data`) VALUES 
         (
 
         '".$data['Day_Work']."',
         '".$data['Status_Work']."',
-        '".$data['Emp_ID']."'
+        '".$data['Emp_ID']."',
+        '".$data['Data']."'
         )
         ";
         // echo "<pre>";
@@ -727,39 +765,6 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
             }
       }
 
-      function Chackwork($Emp_ID) {
-      
-        $sql = "UPDATE
-        `officiate_day`
-    SET
-        `Status_Work` = 'มาทำงาน'
-    WHERE
-    `officiate_day`.`Emp_ID`= '$Emp_ID' ";
-        
-        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-            return  $sql;
-        }else {
-            return 0;
-        }
-    }
-
-    function Chackwork_No($Emp_ID) {
-      
-        $sql = "UPDATE
-        `officiate_day`
-    SET
-        `Status_Work` = 'ไม่มาทำงาน'
-    WHERE
-    `officiate_day`.`Emp_ID`= '$Emp_ID' ";
-        
-        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-            return  $sql;
-        }else {
-            return 0;
-        }
-    }
-
-
 
     function Login($data) {
       
@@ -773,6 +778,10 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC';
     `department`
     ON
     `employee`.`Dept_ID`=`department`.`Dept_ID`
+    JOIN
+    `sector`
+    ON
+    `employee`.`Sector_ID`=`sector`.`Sector_ID`
     WHERE
         employee.Username = '".$data['Username']."' AND employee.Password = '".$data['Password']."'
         ";

@@ -5,9 +5,7 @@
     require_once('../Model/EmpModel.php');
 
     $Emp_Model = new EmpModel;
-   
-echo $_GET["Emp_ID"];
-    $Emp = $Emp_Model -> Chackwork($_GET["Emp_ID"]);
+    $Emp = $Emp_Model -> getEmployee_daywork();
 
     echo json_encode($Emp);
 

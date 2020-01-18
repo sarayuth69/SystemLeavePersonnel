@@ -10,6 +10,7 @@
     $data['Day_Work'] = $_POST['Day_Work'];
     $data['Status_Work'] = $_POST['Status_Work'];
     $data['Emp_ID'] = $_POST['Emp_ID'];
+    $data['Data'] = $_POST['Data'];
 
     
 
