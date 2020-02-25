@@ -1,6 +1,7 @@
 
-
-<div style="padding: 70px;">
+<div style="padding: 70px;" name="leave" id="PDF" #MPDF>
+ 
+      
         <h3 align="center">
                 <b> แบบใบลาป่วย ลาคลอดบุตร ลากิจส่วนตัว</b>
             </h3>
@@ -65,7 +66,7 @@
                     <br>
                         <div class="form-group col-md-10">
                                 <h5 align="left">เนื่องจาก.........................
-                                        <!-- <input type="text" class="form-control" id="inputCity"> -->
+                                      
                                     </h5>
                                     </div>
             </div>
@@ -219,4 +220,14 @@
               </div>
             </div>
           </div>
-</div>
+</div> 
+
+<div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline1" name="customRadioInline1" #radio class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline1">Toggle this custom radio</label>
+  </div>
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline2" name="customRadioInline1" #radio1 class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline2">Or toggle this other custom radio</label>
+  </div>
+<button (click)="pdf(MPDF)">PDF</button>

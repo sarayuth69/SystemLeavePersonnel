@@ -26,6 +26,7 @@ export class LeavelistComponent implements OnInit {
   leave106: boolean;
   leave105: boolean;
   leave104: boolean;
+  fileToUpload: File = null;
 
   constructor(
     public router: Router,
@@ -65,14 +66,14 @@ export class LeavelistComponent implements OnInit {
 
     
 
-    this.http.get('http://localhost/Leavewebservice/API/getLtype_EI_admin.php').subscribe(
-      (data: any) => {
-        this.leavetype106 = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    )
+    // this.http.get('http://localhost/Leavewebservice/API/getLtype_EI_admin.php').subscribe(
+    //   (data: any) => {
+    //     this.leavetype106 = data;
+    //   },
+    //   (error: any) => {
+    //     console.log(error);
+    //   }
+    // )
       const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
       console.log(body);
       const headers = new HttpHeaders({
@@ -175,81 +176,82 @@ export class LeavelistComponent implements OnInit {
       this.leave106 = false;
     }
   }
-  AddLeave(LeaveTotal) {
+  AddLeave(LeaveTotal,file) {
     console.log(LeaveTotal);
-    this.LeaveTotal = new FormControl(LeaveTotal);
-    if(LeaveTotal === '0' ){
-      Swal.fire({
-        icon: 'error',
-        title: 'กรุณาเลือกวันลา',
+    console.log(file);
+    // this.LeaveTotal = new FormControl(LeaveTotal);
+    // if(LeaveTotal === '0' ){
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'กรุณาเลือกวันลา',
        
-      })
-    }else{
-      const body = 'Leave_ID=' + this.Leave_ID.value
-      + '&Emp_ID=' + localStorage.getItem("Emp_ID")
-      + '&Name_Leave=' + this.Name_Leave.value
-      + '&To_Person=' + this.To_Person.value
-      + '&LeaveDateStart=' + this.LeaveDateStart.value
-      + '&LeaveDateLast=' + this.LeaveDateLast.value
-      + '&LeaveData=' + this.LeaveData.value
-      + '&ContactInformation=' + this.ContactInformation.value
-      + '&LeaveTotal=' + this.LeaveTotal.value
-      + '&LeaveStatus=' + this.LeaveStatus.value
-      + '&UploadFile=' + this.UploadFile.value
-      + '&Response_Time=' + this.Response_Time.value
-      + '&Person_Code_Allow=' + this.Person_Code_Allow.value
+    //   })
+    // }else{
+    //   const body = 'Leave_ID=' + this.Leave_ID.value
+    //   + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+    //   + '&Name_Leave=' + this.Name_Leave.value
+    //   + '&To_Person=' + this.To_Person.value
+    //   + '&LeaveDateStart=' + this.LeaveDateStart.value
+    //   + '&LeaveDateLast=' + this.LeaveDateLast.value
+    //   + '&LeaveData=' + this.LeaveData.value
+    //   + '&ContactInformation=' + this.ContactInformation.value
+    //   + '&LeaveTotal=' + this.LeaveTotal.value
+    //   + '&LeaveStatus=' + this.LeaveStatus.value
+    //   + '&UploadFile=' + this.UploadFile.value
+    //   + '&Response_Time=' + this.Response_Time.value
+    //   + '&Person_Code_Allow=' + this.Person_Code_Allow.value
   
-    console.log(body);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
-        headers: headers
-      })
-      .subscribe(
-        (data: any) => {
-          console.log(data);
-          this.addLeave = data;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'ส่งการลาเรียบร้อย',
-      showConfirmButton: false,
-      timer: 1500
+    // console.log(body);
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // });
+    // this.http
+    //   .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
+    //     headers: headers
+    //   })
+    //   .subscribe(
+    //     (data: any) => {
+    //       console.log(data);
+    //       this.addLeave = data;
+    //     },
+    //     (error: any) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // Swal.fire({
+    //   position: 'top-end',
+    //   icon: 'success',
+    //   title: 'ส่งการลาเรียบร้อย',
+    //   showConfirmButton: false,
+    //   timer: 1500
   
-    }).then(() => {
-      this.http
-        .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
-          headers: headers
-        }).subscribe(
-          (data: any) => {
-            this.leave = data;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        )
-    }) 
-    .then(() => {
-      this.http
-        .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
-          headers: headers
-        }).subscribe(
-          (data: any) => {
-            this.leave = data;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        )
-    }) 
-    }
+    // }).then(() => {
+    //   this.http
+    //     .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
+    //       headers: headers
+    //     }).subscribe(
+    //       (data: any) => {
+    //         this.leave = data;
+    //       },
+    //       (error: any) => {
+    //         console.log(error);
+    //       }
+    //     )
+    // }) 
+    // .then(() => {
+    //   this.http
+    //     .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+    //       headers: headers
+    //     }).subscribe(
+    //       (data: any) => {
+    //         this.leave = data;
+    //       },
+    //       (error: any) => {
+    //         console.log(error);
+    //       }
+    //     )
+    // }) 
+    // }
      
   }
  

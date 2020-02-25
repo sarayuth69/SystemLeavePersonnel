@@ -23,29 +23,29 @@ export class LoginComponent implements OnInit {
     // localStorage.clear();
   }
   click(u: string, p: string) {
-    if (u === 'addmin' && p === 'addmin') {
-      console.log(u, p);
-      localStorage.setItem('Role', "6");
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'เข้าสู่ระบบสำเร็จ',
-        showConfirmButton: false,
-        timer: 1000
+    // if (u === 'addmin' && p === 'addmin') {
+    //   console.log(u, p);
+    //   localStorage.setItem('Role', "6");
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'success',
+    //     title: 'เข้าสู่ระบบสำเร็จ',
+    //     showConfirmButton: false,
+    //     timer: 1000
 
-      }).then(() => {
+    //   }).then(() => {
 
-        this.router.navigate(['/home']);
+    //     this.router.navigate(['/home']);
 
-      }) 
-      .then(() => {
-        setTimeout(() => {
-      window.location.reload();
+    //   }) 
+    //   .then(() => {
+    //     setTimeout(() => {
+    //   window.location.reload();
           
-        }, 100);
-      })
-    }
-    else if (!u || !p) {
+    //     }, 100);
+    //   })
+    // }
+     if (!u || !p) {
       Swal.fire({
         icon: 'error',
         title: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
@@ -83,24 +83,25 @@ export class LoginComponent implements OnInit {
               text: 'Something went wrong!',
               footer: '<a href ="/register">สมัครสมาชิก</a>'
             })
-          } else {
+          } 
+           else {
             localStorage.setItem('Emp_ID', data[0].Emp_ID);
             localStorage.setItem('EmpName', data[0].EmpName);
             localStorage.setItem('EmpLastName', data[0].EmpLastName);
             localStorage.setItem('Empstatus_ID', data[0].Empstatus_ID);
             localStorage.setItem('PositionName', data[0].PositionName);
-            localStorage.setItem('DeptName', data[0].DeptName);
-            localStorage.setItem('Dept_ID', data[0].Dept_ID);
-            localStorage.setItem('SectorName', data[0].SectorName);
+            // localStorage.setItem('DeptName', data[0].DeptName);
+            // localStorage.setItem('Dept_ID', data[0].Dept_ID);
+            // localStorage.setItem('SectorName', data[0].SectorName);
             localStorage.setItem('Role', data[0].Role);
             console.log(localStorage.getItem('Emp_ID'));
             console.log(localStorage.getItem('EmpName'));
             console.log(localStorage.getItem('EmpLastName'));
             console.log(localStorage.getItem('Empstatus_ID'));
             console.log(localStorage.getItem('PositionName'));
-            console.log(localStorage.getItem('Dept_ID'));
-            console.log(localStorage.getItem('DeptName'));
-            console.log(localStorage.getItem('SectorName'));
+            // console.log(localStorage.getItem('Dept_ID'));
+            // console.log(localStorage.getItem('DeptName'));
+            // console.log(localStorage.getItem('SectorName'));
             console.log(localStorage.getItem('Role'));
         
             Swal.fire({
@@ -111,7 +112,11 @@ export class LoginComponent implements OnInit {
               timer: 1000
 
             }).then(()=>{
-            if (data[0].Role=="5") {
+            if (data[0].Role=="6") {
+              this.router.navigate(['/leavelist']);
+              
+              }
+              else if (data[0].Role=="5") {
               this.router.navigate(['/leavelist']);
               
               }

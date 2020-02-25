@@ -28,6 +28,8 @@ export class EmployeeshowComponent implements OnInit {
   public seach;
   public numberleave =0;
   public positionEmp;
+  public dep;
+  public status;
   Empployee: any;
   Empployee1: any;
 
@@ -57,8 +59,7 @@ export class EmployeeshowComponent implements OnInit {
   Sector = new FormControl('');
   PositionName = new FormControl('');
 
-
-
+  
   Leave_ID  = new FormControl('');
   Name_Leave  = new FormControl('');
   To_Person  = new FormControl('');
@@ -87,29 +88,47 @@ export class EmployeeshowComponent implements OnInit {
   ) { }
   
   ngOnInit() {
-    const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+    // const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
 
-    console.log(body1);
-    const headers1 = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post('http://localhost/Leavewebservice/API/getDept_to_head.php', body1, {
-        headers: headers1
-      }).subscribe(
-        (data: any) => {
-          this.Dept = data;
-        },
-        (error: any) => {
-          console.log(error);
-        }
+    // console.log(body1);
+    // const headers1 = new HttpHeaders({
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // });
+    // this.http
+    //   .post('http://localhost/Leavewebservice/API/getDept_to_head.php', body1, {
+    //     headers: headers1
+    //   }).subscribe(
+    //     (data: any) => {
+    //       this.Dept = data;
+    //     },
+    //     (error: any) => {
+    //       console.log(error);
+    //     }
 
-      )
+    //   )
 
     this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
       (data: any) => {
         console.log(data);
         this.Employee = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+    this.http.get('http://localhost/Leavewebservice/API/getStatus.php').subscribe(
+      (data: any) => {
+        console.log(data);
+        this.status = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+    this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
+      (data: any) => {
+        console.log(data);
+        this.dep = data;
       },
       (error: any) => {
         console.log(error);
@@ -126,15 +145,15 @@ export class EmployeeshowComponent implements OnInit {
       }
     );
 
-    // this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
-    //   (data: any) => {
-    //     console.log(data);
-    //     this.positionEmp = data;
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // );
+    this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+      (data: any) => {
+        console.log(data);
+        this.positionEmp = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
     
     
     const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
@@ -180,6 +199,14 @@ export class EmployeeshowComponent implements OnInit {
       this.table5 = true; 
       this.table6 = false; 
     }
+    if(localStorage.getItem('Role') === "6" ){
+      this.table1 = true; 
+      this.table2 = false; 
+      this.table3 = false; 
+      this.table4 = false; 
+      this.table5 = false; 
+      this.table6 = false; 
+    }
     // else if(localStorage.getItem('Role') === "4" ){
     //   this.list = true; 
     //   this.list1 = false;
@@ -204,12 +231,7 @@ export class EmployeeshowComponent implements OnInit {
     //   this.table5 = false; 
     //   this.table6 = false; 
     // }
-    else {
-      this.table1 = true; 
-      
-    }
-
-
+ 
   }
   updateEmp(
     Emp_ID,EmpName,EmpLastName,Sex,Birthday,Age,Tel,Address,Work_day,Duration_work,Empstatus_ID,Position_ID
