@@ -33,7 +33,7 @@ CREATE TABLE `department` (
   `Dept_ID` varchar(10) NOT NULL COMMENT 'รหัสแผนก',
   `DeptName` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ชื่อแผนก',
   `Sector_ID` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'รหัสฝ่ายงาน'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) 
 
 --
 -- Dumping data for table `department`
@@ -73,7 +73,7 @@ CREATE TABLE `employee` (
   `Dept_ID` varchar(7) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `Sector_ID` varchar(9) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `Leave_ID` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) 
 
 --
 -- Dumping data for table `employee`
@@ -141,7 +141,7 @@ INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `Bi
 CREATE TABLE `employeestatus` (
   `Empstatus_ID` varchar(10) NOT NULL COMMENT 'รหัสสถานะบุคลากร',
   `EmpstatusName` varchar(100) NOT NULL COMMENT 'สถานะบุคลากร'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) 
 
 --
 -- Dumping data for table `employeestatus`
@@ -172,7 +172,7 @@ CREATE TABLE `leave` (
   `UploadFile` blob NOT NULL COMMENT 'อัปโหลดไฟล์',
   `Response_Time` datetime NOT NULL COMMENT 'เวลาที่ตอบรับ',
   `Person_Code_Allow` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'รหัสผู้อนุญาต'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) 
 
 --
 -- Dumping data for table `leave`
@@ -200,7 +200,7 @@ CREATE TABLE `leavetype` (
   `LOrdinal` int(10) DEFAULT NULL COMMENT 'จำนวนครั้งที่ลา',
   `QuotaStatus` tinyint(1) NOT NULL COMMENT 'สถานะสิทธิ์การลา',
   `Empstatus_ID` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'สถานะบุคลากร'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) 
 
 --
 -- Dumping data for table `leavetype`
@@ -228,7 +228,7 @@ CREATE TABLE `officiate_day` (
   `Emp_ID` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'รหัสพนักงาน',
   `Data` varchar(255) NOT NULL COMMENT 'สาเหตุ',
   `Day_ID` int(20) NOT NULL COMMENT 'รหัสวันมาทำงาน'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) 
 
 --
 -- Dumping data for table `officiate_day`
@@ -399,7 +399,7 @@ CREATE TABLE `position` (
   `Position_ID` varchar(10) NOT NULL COMMENT 'รหัสตำแหน่ง',
   `PositionName` varchar(100) NOT NULL COMMENT 'ชื่อตำแหน่ง',
   `Role` varchar(1) NOT NULL COMMENT 'สิทธิการข้าใช้'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) 
 
 --
 -- Dumping data for table `position`
@@ -438,7 +438,7 @@ INSERT INTO `position` (`Position_ID`, `PositionName`, `Role`) VALUES
 CREATE TABLE `sector` (
   `Sector_ID` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'รหัสฝ่ายงาน',
   `SectorName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ชื่อฝ่ายงาน'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) 
 
 --
 -- Dumping data for table `sector`
