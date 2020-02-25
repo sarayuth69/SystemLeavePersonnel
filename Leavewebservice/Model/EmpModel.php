@@ -45,6 +45,17 @@ class EmpModel extends BaseModel{
     //         return $data;
     //     }
     // }
+
+function pdf($name){
+    require_once __DIR__ . '/vendor/autoload.php';
+
+$mpdf = new \Mpdf\Mpdf([
+	'default_font_size' => 16,
+	'default_font' => 'sarabun'
+]);
+$mpdf->WriteHTML($name);
+$mpdf->Output();
+}
     
 function getEmployee(){
 
@@ -231,11 +242,11 @@ function getEmployee(){
     //     }
     // }
 
-    function getLtype_EI_admin(){
-        $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus` ON 
+    function getLtype_EI_admin($Emp){
+        $sql  = "SELECT * FROM `leavetype` JOIN `employeestatus` ON 
         `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
         WHERE 
-        `leavetype`.`Empstatus_ID`=104';
+        `leavetype`.`Empstatus_ID`='$Emp'";
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -249,23 +260,23 @@ function getEmployee(){
         }
     }
 
-    function getLtype_US_admin(){
-        $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus` ON 
-        `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
-        WHERE 
-        `leavetype`.`Empstatus_ID`=105';
-        // echo "<pre>";
-        // print_r($sql);
-        // echo "</pre>";
-        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-            $data = [];
-            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                $data[] = $row;
-            }
-            $result->close();
-            return $data;
-        }
-    }
+    // function getLtype_US_admin(){
+    //     $sql  = 'SELECT * FROM `leavetype` JOIN `employeestatus` ON 
+    //     `leavetype`.`Empstatus_ID`= `employeestatus`.`Empstatus_ID`
+    //     WHERE 
+    //     `leavetype`.`Empstatus_ID`=105';
+    //     // echo "<pre>";
+    //     // print_r($sql);
+    //     // echo "</pre>";
+    //     if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+    //         $data = [];
+    //         while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+    //             $data[] = $row;
+    //         }
+    //         $result->close();
+    //         return $data;
+    //     }
+    // }
     
 
     function getStatus(){

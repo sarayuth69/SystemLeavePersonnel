@@ -19,6 +19,7 @@
     $data['LeaveStatus'] = $_POST['LeaveStatus'];
     $data['Response_Time'] = $_POST['Response_Time'];
     $data['Person_Code_Allow'] = $_POST['Person_Code_Allow'];
+    $data['upload_file'] = $_POST['upload_file'];
     
 
     $Emp = $Emp_Model -> Add_Leave($data);
