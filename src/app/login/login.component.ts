@@ -90,9 +90,9 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('EmpLastName', data[0].EmpLastName);
             localStorage.setItem('Empstatus_ID', data[0].Empstatus_ID);
             localStorage.setItem('PositionName', data[0].PositionName);
-            // localStorage.setItem('DeptName', data[0].DeptName);
-            // localStorage.setItem('Dept_ID', data[0].Dept_ID);
-            // localStorage.setItem('SectorName', data[0].SectorName);
+            localStorage.setItem('DeptName', data[0].DeptName);
+            localStorage.setItem('Dept_ID', data[0].Dept_ID);
+            localStorage.setItem('SectorName', data[0].SectorName);
             localStorage.setItem('Role', data[0].Role);
             console.log(localStorage.getItem('Emp_ID'));
             console.log(localStorage.getItem('EmpName'));

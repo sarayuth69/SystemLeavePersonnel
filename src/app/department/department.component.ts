@@ -54,46 +54,64 @@ export class DepartmentComponent implements OnInit {
     )
   }
   AddDept(S) {
-    this.Sector_ID = S
-    console.log(this.Sector_ID);
-    const body = 'Dept_ID=' + this.Dept_ID.value
-    + '&DeptName=' + this.DeptName.value
-    + '&Sector_ID=' + this.Sector_ID
-  
-    console.log(body);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post('http://localhost/Leavewebservice/API/InsertDept.php', body, {
-        headers: headers
+   
+      this.Sector_ID = S
+      console.log(this.Sector_ID);
+
+      const body = 'Dept_ID=' + this.Dept_ID.value
+      + '&DeptName=' + this.DeptName.value
+      + '&Sector_ID=' + this.Sector_ID
+    if(!this.Dept_ID.value || !this.DeptName.value || !this.Sector_ID.value){
+      Swal.fire(
+        'กรุณากรอกข้อมูล',
+        'That thing is still around?',
+        'question'
+      ).then(()=>{
+        this.Dept_ID = new FormControl('');
+        this.DeptName = new FormControl('');
+        this.Sector_ID = new FormControl('');
       })
-      .subscribe(
-        (data: any) => {
-          console.log(data[0]);
-          this.department = data[0];
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Your work has been saved',
-        showConfirmButton: false,
-        timer: 1500
-      }).then(()=>{
-        this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
+    }
+    else{
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post('http://localhost/Leavewebservice/API/InsertDept.php', body, {
+          headers: headers
+        })
+        .subscribe(
           (data: any) => {
-            console.log(data);
-            this.dep = data;
+            
+            console.log(data[0]);
+            this.department = data[0];
           },
           (error: any) => {
             console.log(error);
           }
         );
-      })
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500
+        }).then(()=>{
+          this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
+            (data: any) => {
+              console.log(data);
+              this.dep = data;
+            },
+            (error: any) => {
+              console.log(error);
+            }
+          );
+        })
+    }
+      
+
+    
  }
 
  deleteDept(id, name) {

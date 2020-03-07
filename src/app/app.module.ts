@@ -24,6 +24,7 @@ import { CheckleaveComponent } from './checkleave/checkleave.component';
 import { TestleaveComponent } from './testleave/testleave.component';
 import { CheckdayworkComponent } from './checkdaywork/checkdaywork.component';
 import { SectorComponent } from './sector/sector.component';
+import { SumleaveComponent } from './sumleave/sumleave.component';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'sector', component: SectorComponent },
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'checkleave', component: CheckleaveComponent },
   { path: 'testleave', component: TestleaveComponent },
+  { path: 'sumleave', component: SumleaveComponent },
   { path: 'login', component: LoginComponent },
   { path: '',
     redirectTo: '/login', // เปลี่ยนเส้นทาง
@@ -65,7 +67,8 @@ const appRoutes: Routes = [
     CheckleaveComponent,
     TestleaveComponent,
     CheckdayworkComponent,
-    SectorComponent
+    SectorComponent,
+    SumleaveComponent
   ],
   imports: [
     BrowserModule,

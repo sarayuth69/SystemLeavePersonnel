@@ -1,0 +1,45 @@
+<br>
+<br>
+<br>
+<div style="padding: 1%;">
+    <div class="tab-pane fade show active">
+        <div class="card">
+          <div class="card-header">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                    รายงานสรุปการลาประจำปี {{myDate}}
+                  
+                </div>
+          </div>
+          </div>
+          </div>
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">ชื่อ-นามสกุล</th>
+                <th scope="col">ม.ค.</th>
+                <th scope="col">ก.พ.</th>
+                <th scope="col">มี.ค.</th>
+                <th scope="col">เม.ย.</th>
+                <th scope="col">พ.ค.</th>
+                <th scope="col">มิ.ย.</th>
+                <th scope="col">ก.ค.</th>
+                <th scope="col">ส.ค.</th>
+                <th scope="col">ก.ย.</th>
+                <th scope="col">ต.ค.</th>
+                <th scope="col">พ.ย.</th>
+                <th scope="col">ธ.ค.</th>
+                <th scope="col">รวม</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of Employee; let i = index">
+              <tr>
+                <td>{{item.EmpName}} {{item.EmpLastName}}</td>
+              </tr>
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>

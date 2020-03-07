@@ -58,43 +58,59 @@ export class LeavetypeComponent implements OnInit {
     + '&LOrdinal=' + this.LOrdinal.value
     + '&QuotaStatus=' + this.QuotaStatus.value   
     + '&Empstatus_ID=' + this.Empstatus_ID.value
-
-    console.log(body);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post('http://localhost/Leavewebservice/API/InsertLeavetype.php', body, {
-        headers: headers
-      })
-      .subscribe(
-        (data: any) => {
-          console.log(data);
-          this.leavetype1 = data;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'เพิ่มประเภทการลาเรียบร้อย',
-        showConfirmButton: false,
-        timer: 1500
-        
-      }).then(()=>{
-        this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
-      (data : any)=>{
-        this.leavetype = data;
+if(!this.LType_ID.value || !this.LTypeName.value || !this.Number.value
+  || !this.Remain.value || !this.AdvanceNotice.value || !this.LOrdinal.value
+  || !this.QuotaStatus.value || !this.Empstatus_ID.value){
+    Swal.fire(
+      'กรุณากรอกข้อมูล',
+      'That thing is still around?',
+      'question'
+    ).then(()=>{
+      this.LType_ID = new FormControl('');
+      this.LTypeName = new FormControl('');
+      this.Number = new FormControl('');
+      this.Remain = new FormControl('');
+      this.AdvanceNotice = new FormControl('');
+      this.LOrdinal = new FormControl('');
+      this.QuotaStatus = new FormControl('');
+      this.Empstatus_ID = new FormControl('');
+    })
+}else{
+  console.log(body);
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded'
+  });
+  this.http
+    .post('http://localhost/Leavewebservice/API/InsertLeavetype.php', body, {
+      headers: headers
+    })
+    .subscribe(
+      (data: any) => {
+        console.log(data);
+        this.leavetype1 = data;
       },
-      (error:any)=>{
+      (error: any) => {
         console.log(error);
       }
-    )
-      })
-   
-
+    );
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'เพิ่มประเภทการลาเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+      
+    }).then(()=>{
+      this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
+    (data : any)=>{
+      this.leavetype = data;
+    },
+    (error:any)=>{
+      console.log(error);
+    }
+  )
+    })
+}
   }
 
   deleteLeavetype(id,name){

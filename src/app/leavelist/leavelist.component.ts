@@ -39,7 +39,7 @@ export class LeavelistComponent implements OnInit {
   Local_EmpLastName = localStorage.getItem('EmpLastName');
   Local_PositionName = localStorage.getItem('PositionName');
   Local_DeptName = localStorage.getItem('DeptName');
-  Local_Sector = localStorage.getItem('Sector');
+  Local_Sector = localStorage.getItem('SectorName');
 
   Leave_ID = new FormControl('');
   Emp_ID = new FormControl('');
@@ -176,82 +176,82 @@ export class LeavelistComponent implements OnInit {
       this.leave106 = false;
     }
   }
-  AddLeave(LeaveTotal,file) {
+  AddLeave(LeaveTotal) {
     console.log(LeaveTotal);
-    console.log(file);
-    // this.LeaveTotal = new FormControl(LeaveTotal);
-    // if(LeaveTotal === '0' ){
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'กรุณาเลือกวันลา',
+    // console.log(file);
+    this.LeaveTotal = new FormControl(LeaveTotal);
+    if(LeaveTotal === '0' ){
+      Swal.fire({
+        icon: 'error',
+        title: 'กรุณาเลือกวันลา',
        
-    //   })
-    // }else{
-    //   const body = 'Leave_ID=' + this.Leave_ID.value
-    //   + '&Emp_ID=' + localStorage.getItem("Emp_ID")
-    //   + '&Name_Leave=' + this.Name_Leave.value
-    //   + '&To_Person=' + this.To_Person.value
-    //   + '&LeaveDateStart=' + this.LeaveDateStart.value
-    //   + '&LeaveDateLast=' + this.LeaveDateLast.value
-    //   + '&LeaveData=' + this.LeaveData.value
-    //   + '&ContactInformation=' + this.ContactInformation.value
-    //   + '&LeaveTotal=' + this.LeaveTotal.value
-    //   + '&LeaveStatus=' + this.LeaveStatus.value
-    //   + '&UploadFile=' + this.UploadFile.value
-    //   + '&Response_Time=' + this.Response_Time.value
-    //   + '&Person_Code_Allow=' + this.Person_Code_Allow.value
+      })
+    }else{
+      const body = 'Leave_ID=' + this.Leave_ID.value
+      + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+      + '&Name_Leave=' + this.Name_Leave.value
+      + '&To_Person=' + this.To_Person.value
+      + '&LeaveDateStart=' + this.LeaveDateStart.value
+      + '&LeaveDateLast=' + this.LeaveDateLast.value
+      + '&LeaveData=' + this.LeaveData.value
+      + '&ContactInformation=' + this.ContactInformation.value
+      + '&LeaveTotal=' + this.LeaveTotal.value
+      + '&LeaveStatus=' + this.LeaveStatus.value
+      + '&UploadFile=' + this.UploadFile.value
+      + '&Response_Time=' + this.Response_Time.value
+      + '&Person_Code_Allow=' + this.Person_Code_Allow.value
   
-    // console.log(body);
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/x-www-form-urlencoded'
-    // });
-    // this.http
-    //   .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
-    //     headers: headers
-    //   })
-    //   .subscribe(
-    //     (data: any) => {
-    //       console.log(data);
-    //       this.addLeave = data;
-    //     },
-    //     (error: any) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // Swal.fire({
-    //   position: 'top-end',
-    //   icon: 'success',
-    //   title: 'ส่งการลาเรียบร้อย',
-    //   showConfirmButton: false,
-    //   timer: 1500
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
+        headers: headers
+      })
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.addLeave = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'ส่งการลาเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
   
-    // }).then(() => {
-    //   this.http
-    //     .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
-    //       headers: headers
-    //     }).subscribe(
-    //       (data: any) => {
-    //         this.leave = data;
-    //       },
-    //       (error: any) => {
-    //         console.log(error);
-    //       }
-    //     )
-    // }) 
-    // .then(() => {
-    //   this.http
-    //     .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
-    //       headers: headers
-    //     }).subscribe(
-    //       (data: any) => {
-    //         this.leave = data;
-    //       },
-    //       (error: any) => {
-    //         console.log(error);
-    //       }
-    //     )
-    // }) 
-    // }
+    }).then(() => {
+      this.http
+        .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
+          headers: headers
+        }).subscribe(
+          (data: any) => {
+            this.leave = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        )
+    }) 
+    .then(() => {
+      this.http
+        .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+          headers: headers
+        }).subscribe(
+          (data: any) => {
+            this.leave = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        )
+    }) 
+    }
      
   }
  

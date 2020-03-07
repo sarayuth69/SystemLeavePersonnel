@@ -55,51 +55,57 @@ export class PositionComponent implements OnInit {
     const body = 'Position_ID=' + this.Position_ID.value +
       '&PositionName=' + this.PositionName.value +
       '&Role=' + this.Role.value
-
-    console.log(body);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-  //   if(this.Position_ID.value === Position_ID.value){
-  //     Swal.fire({
-  //       type: 'error',
-  //       title: 'ข้อมูลไม่ถูกต้อง',
-  //       text: 'Something went wrong!'
-  //     })
-  //  } else{
-    this.http
-    .post('http://localhost/Leavewebservice/API/InsertPosition.php', body, {
-      headers: headers
-    })
-    .subscribe(
-      
-      (data: any) => {
-        console.log(data);
-        this.Empposition = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  Swal.fire({
-    position: 'center',
-    icon: 'success',
-    title: 'เพิ่มตำแหน่งเรียบร้อย',
-    showConfirmButton: false,
-    timer: 1500
-
-  }).then(()=>{
-    this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.positionEmp = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+if(!this.Position_ID.value  || !this.PositionName.value || !this.Role.value){
+  Swal.fire(
+    'กรุณากรอกข้อมูล',
+    'That thing is still around?',
+    'question'
+  ).then(()=>{
+    this.Position_ID = new FormControl('');
+    this.PositionName = new FormControl('');
+    this.Role = new FormControl('');
   })
-  //  }
+}else{
+  console.log(body);
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded'
+  });
+
+  this.http
+  .post('http://localhost/Leavewebservice/API/InsertPosition.php', body, {
+    headers: headers
+  })
+  .subscribe(
+    
+    (data: any) => {
+      console.log(data);
+      this.Empposition = data;
+    },
+    (error: any) => {
+      console.log(error);
+    }
+  );
+Swal.fire({
+  position: 'center',
+  icon: 'success',
+  title: 'เพิ่มตำแหน่งเรียบร้อย',
+  showConfirmButton: false,
+  timer: 1500
+
+}).then(()=>{
+  this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+    (data: any) => {
+      console.log(data);
+      this.positionEmp = data;
+    },
+    (error: any) => {
+      console.log(error);
+    }
+  );
+})
+}
+    
+
   }
 
   deletePosition(id, name) {

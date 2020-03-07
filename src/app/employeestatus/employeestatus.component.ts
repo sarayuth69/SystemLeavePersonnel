@@ -45,7 +45,16 @@ export class EmployeestatusComponent implements OnInit {
   AddStatus() {
     const body = 'Empstatus_ID=' + this.Empstatus_ID.value
     + '&EmpstatusName=' + this.EmpstatusName.value
-  
+  if(!this.Empstatus_ID.value||!this.EmpstatusName.value){
+    Swal.fire(
+      'กรุณากรอกข้อมูล',
+      'That thing is still around?',
+      'question'
+    ).then(()=>{
+      this.Empstatus_ID = new FormControl('');
+      this.EmpstatusName = new FormControl('');
+    })
+  }else{
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -81,7 +90,7 @@ export class EmployeestatusComponent implements OnInit {
           }
         );
       })
-     
+  }
   }
   updateStatus(
     Empstatus_ID, EmpstatusName
