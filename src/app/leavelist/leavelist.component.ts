@@ -20,6 +20,7 @@ export class LeavelistComponent implements OnInit {
   public leavetype;
   public leave;
   public leave2;
+  public leavetypeUser;
   public leavetype106;
   public addLeave;
   public numberleave =0;
@@ -54,6 +55,7 @@ export class LeavelistComponent implements OnInit {
   UploadFile = new FormControl('');
   Response_Time = new FormControl('');
   Person_Code_Allow = new FormControl('');
+  LType_ID = new FormControl('');
 
   EmpName = new FormControl('');
   EmpLastName = new FormControl('');
@@ -64,16 +66,6 @@ export class LeavelistComponent implements OnInit {
 
   ngOnInit() {
 
-    
-
-    // this.http.get('http://localhost/Leavewebservice/API/getLtype_EI_admin.php').subscribe(
-    //   (data: any) => {
-    //     this.leavetype106 = data;
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // )
       const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
       console.log(body);
       const headers = new HttpHeaders({
@@ -178,7 +170,6 @@ export class LeavelistComponent implements OnInit {
   }
   AddLeave(LeaveTotal) {
     console.log(LeaveTotal);
-    // console.log(file);
     this.LeaveTotal = new FormControl(LeaveTotal);
     if(LeaveTotal === '0' ){
       Swal.fire({
@@ -196,10 +187,11 @@ export class LeavelistComponent implements OnInit {
       + '&LeaveData=' + this.LeaveData.value
       + '&ContactInformation=' + this.ContactInformation.value
       + '&LeaveTotal=' + this.LeaveTotal.value
-      + '&LeaveStatus=' + this.LeaveStatus.value
+      + '&LeaveStatus=' + "รอการอนุญาต"
       + '&UploadFile=' + this.UploadFile.value
       + '&Response_Time=' + this.Response_Time.value
       + '&Person_Code_Allow=' + this.Person_Code_Allow.value
+      + '&LType_ID=' + this.LType_ID.value
   
     console.log(body);
     const headers = new HttpHeaders({
@@ -225,7 +217,33 @@ export class LeavelistComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
   
-    }).then(() => {
+    })
+    .then(()=>{
+      const body = 'LType_ID=' + this.LType_ID.value
+      +'&LeaveTotal=' + this.LeaveTotal.value
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post('http://localhost/Leavewebservice/API/UpdateLtypeUser.php', body, {
+        headers: headers
+      })
+      .subscribe(
+        (data: any) => {
+          this.addLeave = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    })
+    .then(() => {
+      const body = 'LType_ID=' + this.LType_ID.value
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
       this.http
         .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
           headers: headers

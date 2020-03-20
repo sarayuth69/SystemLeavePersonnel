@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 12, 2020 at 07:48 AM
+-- Generation Time: Mar 20, 2020 at 08:51 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `department` (
   `Dept_ID` varchar(10) NOT NULL COMMENT 'รหัสแผนก',
-  `DeptName` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ชื่อแผนก',
-  `Sector_ID` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'รหัสฝ่ายงาน'
+  `DeptName` varchar(100) DEFAULT NULL COMMENT 'ชื่อแผนก',
+  `Sector_ID` varchar(10) NOT NULL COMMENT 'รหัสฝ่ายงาน'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -53,25 +53,25 @@ INSERT INTO `department` (`Dept_ID`, `DeptName`, `Sector_ID`) VALUES
 --
 
 CREATE TABLE `employee` (
-  `Emp_ID` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `Prefix` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `EmpName` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `EmpLastName` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Sex` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Birthday` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Age` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Address` varchar(7) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Tel` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Username` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Password` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Work_day` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Duration_work` varchar(13) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `Emp_ID` varchar(20) NOT NULL,
+  `Prefix` varchar(6) DEFAULT NULL,
+  `EmpName` varchar(10) DEFAULT NULL,
+  `EmpLastName` varchar(15) DEFAULT NULL,
+  `Sex` varchar(4) DEFAULT NULL,
+  `Birthday` varchar(8) DEFAULT NULL,
+  `Age` varchar(3) DEFAULT NULL,
+  `Address` varchar(7) DEFAULT NULL,
+  `Tel` varchar(3) DEFAULT NULL,
+  `Username` varchar(8) DEFAULT NULL,
+  `Password` varchar(8) DEFAULT NULL,
+  `Work_day` varchar(8) DEFAULT NULL,
+  `Duration_work` varchar(13) DEFAULT NULL,
   `SendingLeaveStatus` varchar(10) NOT NULL COMMENT 'สถานะการส่งใบลา',
-  `Empstatus_ID` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Position_ID` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Dept_ID` varchar(7) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Sector_ID` varchar(9) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Leave_ID` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
+  `Empstatus_ID` varchar(12) DEFAULT NULL,
+  `Position_ID` varchar(11) DEFAULT NULL,
+  `Dept_ID` varchar(7) DEFAULT NULL,
+  `Sector_ID` varchar(9) DEFAULT NULL,
+  `Leave_ID` varchar(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -106,7 +106,6 @@ INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `Bi
 ('1000.8.193', 'นาย', 'พีระยุทธ', 'หมื่นบุญมี', 'ชาย', '', '', '', '', '', '', '', '', '', '104', '5014', '1001', '', ''),
 ('1000.87.174', 'นาย', 'มงคล', 'ทองคำ', 'ชาย', '', '', '', '', '', '', '', '', '', '104', '5016', '1001', '', ''),
 ('1000.87.175', 'นาย', 'พลากร', 'ชาญสูงเนิน', 'ชาย', '', '', '', '', '', '', '', '', '', '104', '5016', '1001', '', ''),
-('13', 'นาย', 'ทศพล', 'บุญใส', 'ชาย', '', '25', '50/6', '', 'tospron', 'tospron', '', '2', '', '201', '5016', '1003', '301', ''),
 ('242', 'ผศ.', 'พรภัสสร', 'อ่อนเกิด', 'หญิง', '', '', '', '', '', '', '', '', '', '203', '5002', '', '', ''),
 ('256', 'ผศ.', 'อภิชาต', 'ติรประเสริฐสิน', 'ชาย', '', '', '', '', 'aaa', 'aaa', '', '', '', '203', '5001', '1001', '301', ''),
 ('5229007.02', 'นาย', 'สุเทพ', 'ยนต์พิมาย', 'ชาย', '', '', '', '', '', '', '', '', '', '105', '5004', '1001', '', ''),
@@ -117,9 +116,9 @@ INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `Bi
 ('5329022.02', 'นางสาว', 'สาวอุไร', 'แสงศิริ', 'หญิง', '', '', '', '', '', '', '', '', '', '105', '5007', '1001', '', ''),
 ('5329023.02', 'นาย', 'ชัยวัฒน์', 'แดงจันทึก', 'ชาย', '', '', '', '', 'chaiwat', 'chaiwat', '', '', '', '105', '5010', '1001', '301', ''),
 ('5329032.02', 'นาย', 'สายชล', 'สารนอก', 'ชาย', '', '', '', '', '', '', '', '', '', '105', '5019', '1001', '', ''),
-('5329107', 'นางสาว', 'นรารักษ์', 'บุตรชา', 'หญิง', '', '', '', '', '', '', '', '', '', '106', '5003', '1001', '', ''),
+('5329107', 'นางสาว', 'นรารักษ์', 'บุตรชา', 'หญิง', '', '', '', '', 'ppp', 'ppp', '', '', '', '106', '5003', '1001', '', ''),
 ('5429012.02', 'นางสาว', 'ชนัญชิดา', 'เลิศจะบก', 'หญิง', '', '', '', '', '', '', '', '', '', 'null', '5008', '1001', '', ''),
-('5429016.02', 'นางสาว', 'ลำแพน', 'กลิ่นพยอม', 'หญิง', '', '', '', '', '', '', '', '', '', '105', '5009', '1001', '', ''),
+('5429016.02', 'นางสาว', 'ลำแพน', 'กลิ่นพยอม', 'หญิง', '', '', '', '', 'ooo', 'ooo', '', '', '', '105', '5005', '1001', '', ''),
 ('5429017.02', 'นาง', 'ณัฐชนันย์', 'ฉายะพงษ์', 'หญิง', '', '', '', '', '', '', '', '', '', '105', '5006', '1001', '', ''),
 ('5429018.02', 'นางสาว', 'อาภาพร', 'สุประดิษฐ์', 'หญิง', '', '', '', '', '', '', '', '', '', '105', '5019', '1001', '', ''),
 ('5429024.02', 'นาย', 'ธีรธรรม์', 'โรจจนรุ่งสถิตย์', 'ชาย', '', '', '', '', '', '', '', '', '', '105', '5012', '1001', '', ''),
@@ -159,26 +158,41 @@ INSERT INTO `employeestatus` (`Empstatus_ID`, `EmpstatusName`) VALUES
 
 CREATE TABLE `leave` (
   `Leave_ID` int(20) NOT NULL COMMENT 'รหัสการลา',
-  `Emp_ID` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'รหัสพนักงาน',
-  `Name_Leave` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'เรื่องของการลา',
-  `To_Person` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ส่งหา',
+  `Emp_ID` varchar(20) NOT NULL COMMENT 'รหัสพนักงาน',
+  `Name_Leave` varchar(255) NOT NULL COMMENT 'เรื่องของการลา',
+  `To_Person` varchar(255) NOT NULL COMMENT 'ส่งหา',
   `LeaveDateStart` date NOT NULL COMMENT 'วันเริ่มลา',
   `LeaveDateLast` date NOT NULL COMMENT 'วันสิ้นสุดการลา',
-  `LeaveData` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ข้อมูลการลา',
-  `ContactInformation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ข้อมูลการติดต่อ',
+  `LeaveData` varchar(255) NOT NULL COMMENT 'ข้อมูลการลา',
+  `ContactInformation` varchar(255) NOT NULL COMMENT 'ข้อมูลการติดต่อ',
   `LeaveTotal` int(10) NOT NULL COMMENT 'จำนวนการลา',
-  `LeaveStatus` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'สถานะการลา',
+  `LeaveStatus` varchar(20) NOT NULL COMMENT 'สถานะการลา',
   `UploadFile` blob NOT NULL COMMENT 'อัปโหลดไฟล์',
   `Response_Time` datetime NOT NULL COMMENT 'เวลาที่ตอบรับ',
-  `Person_Code_Allow` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'รหัสผู้อนุญาต'
+  `Person_Code_Allow` varchar(20) NOT NULL COMMENT 'รหัสผู้อนุญาต',
+  `LType_ID` int(10) NOT NULL COMMENT 'รหัสประเภทการลา	'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `leave`
 --
 
-INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`, `To_Person`, `LeaveDateStart`, `LeaveDateLast`, `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus`, `UploadFile`, `Response_Time`, `Person_Code_Allow`) VALUES
-(46, '1000.27.195', 'ขอลาป่วย', 'ผู้อำนวยการ', '2020-03-08', '2020-03-09', 'ไม่สบาย', '', 1, '', '', '0000-00-00 00:00:00', '');
+INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`, `To_Person`, `LeaveDateStart`, `LeaveDateLast`, `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus`, `UploadFile`, `Response_Time`, `Person_Code_Allow`, `LType_ID`) VALUES
+(1, '1000.27.195', '', '', '2020-03-21', '2020-03-27', '5', '', 6, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(2, '1000.27.195', '1', '1', '2020-03-21', '2020-03-23', '2', '', 2, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(3, '1000.27.195', '', '', '2020-03-21', '2020-03-25', '', '', 4, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(4, '1000.27.195', '', '', '2020-03-21', '2020-03-24', '', '', 3, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(5, '1000.27.195', '', '', '2020-03-21', '2020-03-25', '', '', 4, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(6, '1000.27.195', '', '', '2020-03-21', '2020-03-25', '', '', 4, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4005),
+(7, '1000.27.195', '', '', '2020-03-21', '2020-03-25', '5', '', 4, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(8, '1000.27.195', '0', '0', '2020-03-21', '2020-03-26', '1', '', 5, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(9, '1000.27.195', '', '', '2020-03-21', '2020-03-23', '1', '', 2, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(10, '1000.27.195', '', '', '2020-03-21', '2020-03-25', '', '', 0, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4),
+(11, '1000.27.195', '', '', '2020-03-21', '2020-03-24', '1', '', 3, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(12, '1000.27.195', '', '', '2020-03-23', '2020-03-24', '', '', 1, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4005),
+(13, '1000.27.195', '', '', '2020-03-27', '2020-03-28', '', '', 1, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(14, '1000.27.195', '', '', '2020-03-21', '2020-03-24', '', '', 3, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(15, '1000.27.195', '', '', '2020-03-21', '2020-03-26', '', '', 5, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4005);
 
 -- --------------------------------------------------------
 
@@ -188,13 +202,13 @@ INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`, `To_Person`, `LeaveDate
 
 CREATE TABLE `leavetype` (
   `LType_ID` int(10) NOT NULL COMMENT 'รหัสประเภทการลา',
-  `LTypeName` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ชื่อประเภทการลา',
+  `LTypeName` varchar(100) NOT NULL COMMENT 'ชื่อประเภทการลา',
   `Number` int(10) DEFAULT NULL COMMENT 'จำนวนวันลา',
   `Remain` int(10) DEFAULT NULL COMMENT 'คงเหลือ',
-  `AdvanceNotice` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'แจ้งล่วงหน้า',
+  `AdvanceNotice` varchar(50) DEFAULT NULL COMMENT 'แจ้งล่วงหน้า',
   `LOrdinal` int(10) DEFAULT NULL COMMENT 'จำนวนครั้งที่ลา',
   `QuotaStatus` tinyint(1) NOT NULL COMMENT 'สถานะสิทธิ์การลา',
-  `Empstatus_ID` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'สถานะบุคลากร'
+  `Empstatus_ID` varchar(10) NOT NULL COMMENT 'สถานะบุคลากร'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -202,11 +216,11 @@ CREATE TABLE `leavetype` (
 --
 
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `Remain`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `Empstatus_ID`) VALUES
-(4001, 'ลาป่วย', 60, 60, 'ไม่ต้องแจ่งล่วงหน้า', 1, 1, '203'),
-(4002, 'ลาป่วย', 60, 60, '-', 6, 1, '202'),
+(4001, 'ลาป่วย', 60, 60, 'ไม่ต้องแจ่งล่วงหน้า', 0, 1, '203'),
+(4002, 'ลาป่วย', 60, 60, '-', 0, 1, '202'),
 (4003, 'ลาป่วย', 15, 15, '-', 0, 1, '201'),
 (4004, 'ลากิจ', 15, 15, '5', 0, 1, '203'),
-(4005, 'ลากิจ', 15, 15, '-', 0, 1, '202'),
+(4005, 'ลากิจ', 15, 15, '-', 1, 1, '202'),
 (4006, 'ลากิจ', 10, 10, '3', 0, 1, '201'),
 (4007, 'ลาพักผ่อน', 10, 10, '7', 0, 1, '201');
 
@@ -218,8 +232,8 @@ INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `Remain`, `AdvanceNo
 
 CREATE TABLE `officiate_day` (
   `Day_Work` date NOT NULL COMMENT 'วันที่มาทำงาน',
-  `Status_Work` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'สถานนะ',
-  `Emp_ID` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'รหัสพนักงาน',
+  `Status_Work` varchar(100) NOT NULL COMMENT 'สถานนะ',
+  `Emp_ID` varchar(20) NOT NULL COMMENT 'รหัสพนักงาน',
   `Data` varchar(255) NOT NULL COMMENT 'สาเหตุ',
   `Day_ID` int(20) NOT NULL COMMENT 'รหัสวันมาทำงาน'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -431,8 +445,8 @@ INSERT INTO `position` (`Position_ID`, `PositionName`, `Role`) VALUES
 --
 
 CREATE TABLE `sector` (
-  `Sector_ID` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'รหัสฝ่ายงาน',
-  `SectorName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ชื่อฝ่ายงาน'
+  `Sector_ID` varchar(10) NOT NULL COMMENT 'รหัสฝ่ายงาน',
+  `SectorName` varchar(255) NOT NULL COMMENT 'ชื่อฝ่ายงาน'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -504,7 +518,7 @@ ALTER TABLE `sector`
 -- AUTO_INCREMENT for table `leave`
 --
 ALTER TABLE `leave`
-  MODIFY `Leave_ID` int(20) NOT NULL AUTO_INCREMENT COMMENT 'รหัสการลา', AUTO_INCREMENT=47;
+  MODIFY `Leave_ID` int(20) NOT NULL AUTO_INCREMENT COMMENT 'รหัสการลา', AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `officiate_day`

@@ -4,7 +4,7 @@ abstract class BaseModel{
     public static $db;
     protected $host="localhost";
     protected $username="root";
-    protected $password="root12345";
+    protected $password="root1234";
     protected $db_name="table_leavesystem";
     function __construct(){
         static::$db = mysqli_connect($host, $username, $password, $db_name);

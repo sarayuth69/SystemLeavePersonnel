@@ -9,42 +9,6 @@ class EmpModel extends BaseModel{
             mysqli_set_charset(static::$db,"utf8");
         }
     }
-    // function getMyData(){
-
-    //     $sql  = 'SELECT
-    //     *
-    // FROM
-    //     employee
-    // LEFT JOIN
-    //     position
-    // ON
-    //     employee.Position_ID = position.Position_ID
-    // LEFT JOIN
-    //     department
-    // ON
-    //     employee.Dep_ID = department.Dept_ID
-    // LEFT JOIN
-    //     employeestatus
-    // ON
-    //     employee.Empstatus_ID = employeestatus.Empstatus_ID
-    // LEFT JOIN
-    //     leavetype
-    // ON
-    //     employee.LeaveType_ID = leavetype.LeaveType_ID
-      
-    //     GROUP BY employee.Emp_ID';
-    //     // echo "<pre>";
-    //     // print_r($sql);
-    //     // echo "</pre>";
-    //     if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-    //         $data = [];
-    //         while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-    //             $data[] = $row;
-    //         }
-    //         $result->close();
-    //         return $data;
-    //     }
-    // }
 
 function pdf($name){
     require_once __DIR__ . '/vendor/autoload.php';
@@ -105,6 +69,7 @@ function getEmployee(){
         `leave`
     JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
     JOIN `department`ON `employee`.`Dept_ID` = `department`.`Dept_ID`
+    JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
     WHERE  
     leave.Emp_ID = '$Emp_ID'
     ";
@@ -127,6 +92,28 @@ function getEmployee(){
     FROM
         `leavetype` JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
     WHERE  leavetype.Empstatus_ID = '$Empstatus_ID'
+    ";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+    function getLtypeUser($LType_ID,$Emp_ID){
+        $sql  = "SELECT
+        *,SUM(`leavetype`.`Remain`)-(`leave`.`LeaveTotal`) AS NumberRemain
+    FROM
+        `leavetype` 
+        JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+        JOIN `leave` ON  `leavetype`.`LType_ID` = `leave`.`LType_ID`
+    WHERE  
+    `leavetype`.`LType_ID`='$LType_ID'
     ";
         // echo "<pre>";
         // print_r($sql);
@@ -602,7 +589,7 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
     function Add_Leave($data = []){
 
         $sql  = "INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`,`To_Person`,`LeaveDateStart`, `LeaveDateLast`, 
-        `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus`, `Response_Time`, `Person_Code_Allow`) 
+        `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus`, `Response_Time`, `Person_Code_Allow`,`LType_ID`) 
           VALUES
          (
         '".$data['Leave_ID']."',
@@ -616,10 +603,35 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
         '".$data['LeaveTotal']."',
         '".$data['LeaveStatus']."',
         '".$data['Response_Time']."',
-        '".$data['Person_Code_Allow']."'
+        '".$data['Person_Code_Allow']."',
+        '".$data['LType_ID']."'
         )
-        ";
-        // echo "<pre>";
+        
+        "; 
+       // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+    
+    function UpdateLtypeUser($LType_ID,$LeaveTotal){
+
+        $sql  = "UPDATE
+        `leavetype`
+        JOIN `leave` ON `leavetype`.`LType_ID` = `leave`.`LType_ID`
+    SET
+        `leavetype`.`Remain` = (SELECT `leavetype`.`Remain` WHERE `leavetype`.`LType_ID` = '$LType_ID') - '$LeaveTotal'
+    WHERE
+         `leavetype`.`LType_ID` = '$LType_ID'
+    
+         
+        
+        "; 
+       // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
         if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
@@ -736,14 +748,14 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
         }
     }
 
-    function UpdatesetLOrdinal($data) {
+    function UpdatesetLOrdinal($LType_ID) {
       
         $sql = "UPDATE
         `leavetype`
     SET
-        `LOrdinal` = (SELECT LOrdinal WHERE LType_ID = '100002') +1
+        `LOrdinal` = (SELECT LOrdinal WHERE LType_ID = '$LType_ID') + 1
     WHERE
-         LType_ID = '100002'
+         LType_ID = '$LType_ID'
         ";
         
         if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {

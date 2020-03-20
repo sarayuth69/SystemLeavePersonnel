@@ -8,9 +8,7 @@
 
     // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
     $data = [];
-   
-    $data['LOrdinal'] = $_POST['LOrdinal'];
 
-    $Emp = $Emp_Model -> UpdatesetLOrdinal($data);
+    $Emp = $Emp_Model -> UpdatesetLOrdinal($_POST["LType_ID"]);
  
     echo json_encode($Emp);
