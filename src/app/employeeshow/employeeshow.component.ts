@@ -22,6 +22,7 @@ export class EmployeeshowComponent implements OnInit {
   public EmpLtype_show;
   public leavetype;
   public Dept;
+  public Dept_to_head;
   public addLeave;
   public leave;
   public leave2;
@@ -46,6 +47,7 @@ export class EmployeeshowComponent implements OnInit {
   EmpLastName = new FormControl('');
   Sex = new FormControl('');
   Birthday = new FormControl('');
+  ID_card = new FormControl('');
   Age = new FormControl('');
   Address = new FormControl('');
   Tel = new FormControl('');
@@ -88,24 +90,24 @@ export class EmployeeshowComponent implements OnInit {
   ) { }
   
   ngOnInit() {
-    // const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+    const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
 
-    // console.log(body1);
-    // const headers1 = new HttpHeaders({
-    //   'Content-Type': 'application/x-www-form-urlencoded'
-    // });
-    // this.http
-    //   .post('http://localhost/Leavewebservice/API/getDept_to_head.php', body1, {
-    //     headers: headers1
-    //   }).subscribe(
-    //     (data: any) => {
-    //       this.Dept = data;
-    //     },
-    //     (error: any) => {
-    //       console.log(error);
-    //     }
+    console.log(body1);
+    const headers1 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post('http://localhost/Leavewebservice/API/getDept_to_head.php', body1, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.Dept_to_head = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
 
-    //   )
+      )
 
     this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
       (data: any) => {
@@ -191,6 +193,14 @@ export class EmployeeshowComponent implements OnInit {
     );
 
 
+    if(localStorage.getItem('Role') === "6" ){
+      this.table1 = false; 
+      this.table2 = false; 
+      this.table3 = false; 
+      this.table4 = false; 
+      this.table5 = false; 
+      this.table6 = true; 
+    }
     if(localStorage.getItem('Role') === "5" ){
       this.table1 = false; 
       this.table2 = false; 
@@ -199,23 +209,7 @@ export class EmployeeshowComponent implements OnInit {
       this.table5 = true; 
       this.table6 = false; 
     }
-    if(localStorage.getItem('Role') === "6" ){
-      this.table1 = true; 
-      this.table2 = false; 
-      this.table3 = false; 
-      this.table4 = false; 
-      this.table5 = false; 
-      this.table6 = false; 
-    }
-    // else if(localStorage.getItem('Role') === "4" ){
-    //   this.list = true; 
-    //   this.list1 = false;
-    // }
-    // else if(localStorage.getItem('Role') === "3" ){
-    //   this.list = true; 
-    //   this.list1 = false; 
-    // }
-    else if(localStorage.getItem('Role') === "2" ){
+    else if(localStorage.getItem('Role') === "4" ){
       this.table1 = false; 
       this.table2 = false; 
       this.table3 = false; 
@@ -223,18 +217,34 @@ export class EmployeeshowComponent implements OnInit {
       this.table5 = false; 
       this.table6 = false; 
     }
-    // else if(localStorage.getItem('Role') === "1" ){
-    //   this.table1 = false; 
-    //   this.table2 = false; 
-    //   this.table3 = false; 
-    //   this.table4 = true; 
-    //   this.table5 = false; 
-    //   this.table6 = false; 
-    // }
+    else if(localStorage.getItem('Role') === "3" ){
+      this.table1 = false; 
+      this.table2 = false; 
+      this.table3 = true; 
+      this.table4 = false; 
+      this.table5 = false; 
+      this.table6 = false; 
+    }
+    else if(localStorage.getItem('Role') === "2" ){
+      this.table1 = false; 
+      this.table2 = true; 
+      this.table3 = false; 
+      this.table4 = false; 
+      this.table5 = false; 
+      this.table6 = false; 
+    }
+    else if(localStorage.getItem('Role') === "1" ){
+      this.table1 = true; 
+      this.table2 = false; 
+      this.table3 = false; 
+      this.table4 = false; 
+      this.table5 = false; 
+      this.table6 = false; 
+    }
  
   }
   updateEmp(
-    Emp_ID,EmpName,EmpLastName,Sex,Birthday,Age,Tel,Address,Work_day,Duration_work,Empstatus_ID,Position_ID
+    Emp_ID,EmpName,EmpLastName,Sex,Birthday,ID_card,Age,Tel,Address,Work_day,Duration_work,Empstatus_ID,Position_ID
     ,Dept_ID
   ) {
     this.Emp_ID = new FormControl(Emp_ID);
@@ -245,6 +255,9 @@ export class EmployeeshowComponent implements OnInit {
     this.EmpLastName = new FormControl(EmpLastName);
     this.Sex = new FormControl(Sex);
     this.Birthday = new FormControl(Birthday);
+    this.ID_card = new FormControl(ID_card);
+    console.log(this.ID_card);
+    
     this.Age = new FormControl(Age);
     this.Address = new FormControl(Address);
     this.Tel = new FormControl(Tel);
@@ -261,6 +274,7 @@ export class EmployeeshowComponent implements OnInit {
     + '&EmpLastName=' + this.EmpLastName.value
     + '&Sex=' + this.Sex.value
     + '&Birthday=' + this.Birthday.value
+    + '&ID_card=' + this.ID_card.value
     + '&Age=' + this.Age.value
     + '&Address=' + this.Address.value
     + '&Tel=' + this.Tel.value

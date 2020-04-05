@@ -3,7 +3,20 @@
 <!-- ของบุลคลากรทั้วไป -->
 <div class="tab-pane fade show active" *ngIf="list">
     &nbsp;&nbsp;&nbsp;
-
+    <!-- <button type="button" onclick="toast()" class="btn btn-primary">Primary</button> -->
+    <!-- <p> -->
+    <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Link with href
+        </a> -->
+    <!-- <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Button with data-target
+        </button>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+      </div> -->
     <div class="card">
         <div class="card-header">
             <div class="row-md-1">
@@ -14,19 +27,31 @@
                     <div class="row">
                         <div class="col">
                             <h3>รายการลา </h3>
+                            <!-- <div class="toast" data-autohide="false">
+                                <div class="toast-header">
+                                    <strong class="mr-auto text-primary">Bootstrap</strong>
+                                    <small>11 mins ago</small>
+                                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="toast-body">
+                                    Hello, world! This is a toast message.
+                                </div>
+                            </div> -->
                         </div>
                         <div class="col-md-auto">
                         </div>
                         <div class="col col-lg-2">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    >
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     ยื่นขอลา
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" data-toggle="modal"  data-target="#exampleModalleave"
-                                        *ngFor="let item of leavetype106; let i = index" >
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#exampleModalleave"
+                                        *ngFor="let item of leavetype106; let i = index">
                                         {{item.LTypeName}}
                                     </a>
 
@@ -42,11 +67,11 @@
             </div>
         </div>
         <div class="card-body">
+
             <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th scope="col">ชื่อพนักงาน</th>
-                        <!-- <th scope="col">การลา</th> -->
                         <th scope="col">ประเภท</th>
                         <th scope="col">วันที่ลา</th>
                         <th scope="col">จำนวน/วัน</th>
@@ -56,12 +81,12 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of leave; let i = index">
-                    <tr> 
+                    <tr>
                         <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
                             <p>แผนก: {{item.DeptName}}</p>
                         </td>
                         <td class="text-center">{{item.LTypeName}}</td>
-                        <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td> 
+                        <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
                         <td class="text-center"> {{item.LeaveTotal}}</td>
                         <td></td>
                         <td class="text-center"> {{item.LeaveStatus}} </td>
@@ -99,12 +124,11 @@
                         <th scope="col">วันที่ลา</th>
                         <th scope="col">จำนวนวัน</th>
                         <th scope="col">ไฟล์แนบ</th>
-
                         <th scope="col">จัดการ</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of leave2; let i = index">
-                    <tr >
+                    <tr>
                         <td>ชื่อ: {{item.EmpName}}
                             <p>แผนก: {{item.DeptName}} </p>
                         </td>
@@ -112,13 +136,14 @@
 
                         <td></td>
                         <td class="text-center">{{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
-                      <td class="text-center">{{item.LeaveTotal}}</td>
+                        <td class="text-center">{{item.LeaveTotal}}</td>
                         <td></td>
                         <td class="text-center">
-                            &nbsp;
-                            <button type="button" class="btn btn-success">อนุญาต</button>
-                            &nbsp;
-                            <button type="button" class="btn btn-danger">ไม่อนุญาต</button>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#exampleModal">
+                                ตรวจสอบ
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -159,8 +184,8 @@
                                         <div class="col-lg-960px">
                                             <br>
                                             <h6>เรื่อง : </h6>
-                                           <br>
-                                           <br>
+                                            <br>
+                                            <br>
                                             <h6>เรียน : </h6>
                                         </div>
                                         <div class="col-lg-960px">
@@ -188,20 +213,26 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="col-lg-960px">
-                                                    <br>
+                                                <br>
                                                 <h6> ชื่อ : </h6>
                                                 <br>
                                                 <br>
                                                 <h6>แผนก : </h6>
                                             </div>
                                             <div class="col-lg-960px">
+                                                <!-- <span class="d-inline-block" data-toggle="popover" data-content="Disabled popover">
+                                                    <button class="btn btn-primary"  value="{{Local_EmpName}}"  [formControl]="EmpName" style="pointer-events: none;" type="button" disabled>{{Local_EmpName}}</button>
+                                                  </span>
+                                                <span class="d-inline-block" data-toggle="popover" data-content="Disabled popover">
+                                                    <button class="btn btn-primary"  value="{{Local_DeptName}}"  [formControl]="DeptName" style="pointer-events: none;" type="button" disabled>{{Local_DeptName}}</button>
+                                                  </span> -->
                                                 <input type="text" class="form-control" value="{{Local_EmpName}}"
                                                     [formControl]="EmpName" readonly>
                                                 <input type="text" class="form-control" value="{{Local_DeptName}}"
                                                     [formControl]="DeptName" readonly>
                                             </div>
                                             <div class="col-lg-960px">
-                                                    <br>
+                                                <br>
                                                 <h6> นามสกุล : </h6>
                                                 <br>
                                                 <br>
@@ -215,8 +246,8 @@
                                             </div>
                                             &nbsp;
                                             <div class="col-lg-960px">
-                                                    <br>
-                                                    ตำแหน่ง : </div>
+                                                <br>
+                                                ตำแหน่ง : </div>
                                             &nbsp;
                                             <div class="col-lg-960px">
                                                 <input type="text" class="form-control" id="validationDefault02"
@@ -233,12 +264,14 @@
                                 </div>
                                 <br>
                                 ประเภทการลา
-                                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref"  [formControl]="LType_ID">
-                                        <option  *ngFor="let item of leavetype106; let i = index" value="{{item.LType_ID}}"> {{item.LTypeName}}</option>
-                                        <option ></option>
-                                      </select>
-                                <div class="form-group">     
-                                        <br> 
+                                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref"
+                                    [formControl]="LType_ID">
+                                    <option *ngFor="let item of leavetype106; let i = index" value="{{item.LType_ID}}">
+                                        {{item.LTypeName}}</option>
+                                    <option></option>
+                                </select>
+                                <div class="form-group">
+                                    <br>
                                     <label for="exampleFormControlTextarea1">ขอลาเนื่องจาก</label>
                                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
                                         [formControl]="LeaveData"></textarea>
@@ -253,20 +286,21 @@
                                     <div class="col-md-2 mb-2">
                                         <label for="validationDefault05">ถึงวันที่</label>
                                         <input type="date" class="form-control" id="LeaveDateLast"
-                                           (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value)" [formControl]="LeaveDateLast" required>
+                                            (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value)"
+                                            [formControl]="LeaveDateLast" required>
                                     </div>
                                     <div class="col-md-2 mb-2">
                                         <label for="validationDefault05">จำนวนวันลา</label>
-                                        <input type="text" class="form-control" id="LeaveTotal"
-                                         [value]="numberleave"  #LeaveTotal readonly>
+                                        <input type="text" class="form-control" id="LeaveTotal" [value]="numberleave"
+                                            #LeaveTotal readonly>
                                     </div>
                                     <form>
                                         <div class="form-group">
-                                          <label for="exampleFormControlFile1">แนปไฟล์</label>
-                                          <input type="file" #file class="form-control-file" 
-                                          id="exampleFormControlFile1"  >
+                                            <label for="exampleFormControlFile1">แนปไฟล์</label>
+                                            <input type="file" #file class="form-control-file"
+                                                id="exampleFormControlFile1">
                                         </div>
-                                      </form>
+                                    </form>
                                     <div class="row">
 
                                     </div>
@@ -274,15 +308,80 @@
                                     </div>
 
                                 </div>
-                                
-                            </form>          
+
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddLeave(LeaveTotal.value)" >OK</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    (click)="AddLeave(LeaveTotal.value)">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal อนุมัติการลาของหัวหน้าหน่วยงาน -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">อนุมัติการลา </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">ชื่อ-นามสกุล</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">แผนก</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">ติดต่อ</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                    </div>
+                    <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">การลา</label>
+                        <input type="text" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputAddress2">จำนวนวันลา</label>
+                        <input type="text" class="form-control" id="inputAddress2">
+                    </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label >สาเหตุ</label>
+                        <input type="text" class="form-control" >
+                    </div>
+                    <div class="form-row">
+            
+                        <div class="form-group col-md-4">
+                                <label >วันที</label>
+                                <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group col-md-4">
+                                <label >ถึงวันที</label>
+                                <input type="text" class="form-control" >
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิดหน้าจอ</button>
+                <button type="button" class="btn btn-danger">ไม่อนุญาต</button>
+                <button type="button" class="btn btn-success">อนุญาต</button>
             </div>
         </div>
     </div>

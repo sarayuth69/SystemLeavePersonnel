@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   test  = localStorage.getItem('EmpName');
   test1  = localStorage.getItem('EmpLastName');
   PositionName  = localStorage.getItem('PositionName');
+  EmpstatusName  = localStorage.getItem('EmpstatusName');
   Emp_ID = new FormControl('');
   ngOnInit() {
 

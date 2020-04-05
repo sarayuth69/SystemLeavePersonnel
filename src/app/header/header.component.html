@@ -1,52 +1,4 @@
 <!-- ผู้ดูแลระบบ -->
-<!-- <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="show">
-    <a class="navbar-brand" href="home">ระบบจัดการบริหารบุคลากร สวส</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            จัดการบุคลากร
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-            <a class="dropdown-item" href="#" [routerLink]="['/employeeshow']">บุคลากร</a>
-            <a class="dropdown-item" href="#" [routerLink]="['/department']">แผนก</a>
-            <a class="dropdown-item" href="#" [routerLink]="['/position']">ตำแหน่ง</a>
-            <a class="dropdown-item" href="#" [routerLink]="['/employeestatus']">สถานะบุคลากร</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle" [routerLink]="['/leavetype']">
-            ประเภทการลา
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle"  [routerLink]="['/leavelist']">
-            รายการลา
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle">
-            สรุปการลา
-          </a>
-  
-        </li>
-      </ul>
-    </div>
-    <li class="list-group-item"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      ผู้ใช้งาน: {{test}} {{test1}}
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <a class="dropdown-item" (click)="clearUser()">ออกจากระบบ</a>
-    </div>
-  </li>
-  </nav> -->
-  
   <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="show">
     <a tabindex="0" class="navbar-brand faa-pulse faa-slow animated"   >
       <i class="fa fa-lg">ระ</i>
@@ -60,24 +12,22 @@
       <i class="fa fa-lg">กร</i>
       <i class="fa fa-lg">สวส</i>
   </a>
-      <!-- <a class="navbar-brand font-bold" href="/home">ระบบจัดการบริหารบุคลากร สวส</a> -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
           <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
+                  <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <i class='fa fa-cogs'></i>  จัดการบุคลากร
+                    <i class='fa fa-cogs'></i>  จัดการข้อมูล
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                     <a class="dropdown-item" href="#" [routerLink]="['/employeeshow']" (click)="getsearch(Emp_ID.value)">บุคลากร</a>
-                    <!-- <a class="dropdown-item" href="#" [routerLink]="['/employeeshow']" >บุคลากร</a> -->
-                    <a class="dropdown-item" href="#" [routerLink]="['/department']">แผนก</a>
-                    <a class="dropdown-item" href="#" [routerLink]="['/sector']">ฝ่ายงาน</a>
-                    <a class="dropdown-item" href="#" [routerLink]="['/position']">ตำแหน่ง</a>
-                    <a class="dropdown-item" href="#" [routerLink]="['/employeestatus']">สถานะบุคลากร</a>
+                     <a class="dropdown-item"  [routerLink]="['/employeeshow']" (click)="getsearch(Emp_ID.value)">บุคลากร</a>
+                    <a class="dropdown-item"  [routerLink]="['/department']">แผนก</a>
+                    <a class="dropdown-item"  [routerLink]="['/sector']">ฝ่ายงาน</a>
+                    <a class="dropdown-item"  [routerLink]="['/position']">ตำแหน่ง</a>
+                    <a class="dropdown-item"  [routerLink]="['/employeestatus']">สถานะบุคลากร</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -92,9 +42,18 @@
                   </a>
                 </li>
                 <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class='fa fa-address-book'></i>
+                    จัดการวันมาทำงาน
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                     <a class="dropdown-item"  [routerLink]="['/checkdaywork']">บันทึกวันมาทำงาน</a>
+                     <a class="dropdown-item"  [routerLink]="['/editdaywork']">ตรวจสอบวันมาทำงาน</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
                   <a class="nav-link toggle"  [routerLink]="['/checkdaywork']">
-      <i class='fa fa-address-book'></i>
-      บันทึกวันมาทำงาน
                   </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -102,57 +61,19 @@
                     <i class='fa fa-copy'></i>
                     สรุปการลา
                   </a>
-          
                 </li>
-        
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{test}} {{test1}} </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                      <a class="dropdown-item" href="#">{{PositionName}}</a>
+                      <a class="dropdown-item" >{{PositionName}}</a>
                       <a class="dropdown-item" (click)="clearUser()"><i class='fa fa-sign-out-alt'></i>&nbsp;Log out</a>
                   </div>
               </li>
           </ul>
       </div>
   </nav>
-
-  
   
   <!-- บุคลากร -->
-  <!-- <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp1">
-    <a class="navbar-brand" href="#">ระบบจัดการบริหารบุคลากร สวส</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-  
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle" [routerLink]="['/leavelist']">
-            รายการลา
-          </a>
-        </li>
-  
-        <li class="nav-item dropdown">
-            <a class="nav-link toggle" [routerLink]="['/checkleave']">
-             ตรวจสอบจำนวนวันลา
-            </a>
-          </li>
-  
-      </ul>
-    </div>
-    <li class="list-group-item"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        ผู้ใช้งาน: {{test}} {{test1}}
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" (click)="clearUser()">ออกจากระบบ</a>
-      </div>
-    </li>
-  </nav> -->
-  
-  
   <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp1">
       <a class="navbar-brand font-bold" href="/home">ระบบจัดการบริหารบุคลากร สวส</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
@@ -162,69 +83,27 @@
           <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
                 <a class="nav-link toggle" [routerLink]="['/leavelist']">
-                  รายการลา
+                  <i class='fa fa-book'></i>  รายการลา
                 </a>
               </li>
-        
               <li class="nav-item dropdown">
                   <a class="nav-link toggle" [routerLink]="['/checkleave']">
-                   ตรวจสอบจำนวนวันลา
+                    <i class="fa fa-check-square" aria-hidden="true"></i>   ตรวจสอบจำนวนวันลา
                   </a>
                 </li>
-        
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{test}} {{test1}} </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                      <a class="dropdown-item" href="#">{{PositionName}}</a>
+                      <a class="dropdown-item" >ตำแหน่ง : {{PositionName}}</a>
+                      <a class="dropdown-item" >สถานะบุคลากร : {{EmpstatusName}}</a>
                       <a class="dropdown-item" (click)="clearUser()"><i class='fas fa-sign-out-alt'></i>&nbsp;Log out</a>
                   </div>
               </li>
           </ul>
       </div>
   </nav>
-  
-  
-  <!-- หัวหน้าแผนก -->
-  <!-- <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp2">
-    <a class="navbar-brand" href="#">ระบบจัดการบริหารบุคลากร สวส</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-  
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle" [routerLink]="['/leavelist']">
-            รายการลา
-          </a>
-  
-        </li>
-  
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle" [routerLink]="['/employeeshow']">
-            บุลคากร
-          </a>
-  
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle">
-            การลาที่รอรับรอง
-          </a>
-  
-        </li>
-      </ul>
-    </div>
-    <li class="list-group-item"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      ผู้ใช้งาน: {{test}} {{test1}}
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <a class="dropdown-item" (click)="clearUser()">ออกจากระบบ</a>
-    </div>
-  </li>
-  </nav> -->
 
+    <!-- หัวหน้าแผนก -->
   <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp2">
       <a class="navbar-brand font-bold" href="/home">ระบบจัดการบริหารบุคลากร สวส</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
@@ -234,28 +113,24 @@
           <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
                   <a class="nav-link toggle" [routerLink]="['/leavelist']">
-                    รายการลา
+                    <i class='fa fa-book'></i>  รายการลา
                   </a>
-          
                 </li>
-          
                 <li class="nav-item dropdown">
                   <a class="nav-link toggle" [routerLink]="['/employeeshow']">
                     บุลคากร
                   </a>
-          
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link toggle">
                     การลาที่รอรับรอง
                   </a>
-          
                 </li>
-        
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{test}} {{test1}} </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                      <a class="dropdown-item" href="#">{{PositionName}}</a>
+                      <a class="dropdown-item" >ตำแหน่ง : {{PositionName}}</a>
+                      <a class="dropdown-item" >สถานะบุคลากร :{{EmpstatusName}}</a>
                       <a class="dropdown-item" (click)="clearUser()"><i class='fas fa-sign-out-alt'></i>&nbsp;Log out</a>
                   </div>
               </li>
@@ -264,48 +139,6 @@
   </nav>
   
   <!-- หัวหน้างาน -->
-  <!-- <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp3">
-    <a class="navbar-brand" href="/home">ระบบจัดการบริหารบุคลากร สวส</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-  
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle" [routerLink]="['/leavelist']">
-            รายการลา
-          </a>
-  
-        </li>
-  
-  
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle">
-            บุลคากร
-          </a>
-  
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle">
-            การลาที่รอรับรอง
-          </a>
-  
-        </li>
-      </ul>
-    </div>
-    <li class="list-group-item"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      ผู้ใช้งาน: {{test}} {{test1}}
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <a class="dropdown-item" (click)="clearUser()">ออกจากระบบ</a>
-    </div>
-  </li>
-  
-  </nav> -->
-
   <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp3">
       <a class="navbar-brand font-bold" href="/home">ระบบจัดการบริหารบุคลากร สวส</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
@@ -315,11 +148,11 @@
           <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
                   <a class="nav-link toggle" [routerLink]="['/leavelist']">
-                    รายการลา
+                    <i class='fa fa-book'></i>   รายการลา
                   </a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link toggle">
+                  <a class="nav-link toggle" [routerLink]="['/employeeshow']">
                     บุลคากร
                   </a>
                 </li>
@@ -331,7 +164,8 @@
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{test}} {{test1}} </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                      <a class="dropdown-item" href="#">{{PositionName}}</a>
+                      <a class="dropdown-item" >ตำแหน่ง : {{PositionName}}</a>
+                      <a class="dropdown-item" >สถานะบุคลากร : {{EmpstatusName}}</a>
                       <a class="dropdown-item" (click)="clearUser()"><i class='fas fa-sign-out-alt'></i>&nbsp;Log out</a>
                   </div>
               </li>
@@ -340,47 +174,6 @@
   </nav>
   
   <!-- รองหัวหน้าหน่วยงาน -->
-  <!-- <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp4">
-    <a class="navbar-brand" href="/home">ระบบจัดการบริหารบุคลากร สวส</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-  
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle" [routerLink]="['/leavelist']">
-            รายการลา
-          </a>
-  
-        </li>
-  
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle">
-            บุลคากร
-          </a>
-  
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle">
-            การลาที่รอรับรอง
-          </a>
-  
-        </li>
-      </ul>
-    </div>
-    <li class="list-group-item"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      ผู้ใช้งาน: {{test}} {{test1}}
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <a class="dropdown-item" (click)="clearUser()">ออกจากระบบ</a>
-    </div>
-  </li>
-  
-  </nav> -->
-
   <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp4">
       <a class="navbar-brand font-bold" href="/home">ระบบจัดการบริหารบุคลากร สวส</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
@@ -390,7 +183,7 @@
           <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
                   <a class="nav-link toggle" [routerLink]="['/leavelist']">
-                    รายการลา
+                    <i class='fa fa-book'></i> รายการลา
                   </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -406,7 +199,8 @@
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{test}} {{test1}} </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                      <a class="dropdown-item" href="#">{{PositionName}}</a>
+                      <a class="dropdown-item" >ตำแหน่ง : {{PositionName}}</a>
+                      <a class="dropdown-item" >สถานะบุคลากร : {{EmpstatusName}}</a>
                       <a class="dropdown-item" (click)="clearUser()"><i class='fas fa-sign-out-alt'></i>&nbsp;Log out</a>
                   </div>
               </li>
@@ -415,47 +209,6 @@
   </nav>
   
   <!-- หัวหน้าหน่วยงาน -->
-  <!-- <nav class="navbar navbar-expand-lg bg-info" *ngIf="emp5">
-    <a class="navbar-brand" href="/home">
-      <h1>ระบบจัดการบริหารบุคลากร สวส</h1>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-  
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle" [routerLink]="['/leavelist']">
-            รายการลาที่รออนุญาต
-          </a>
-  
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle" [routerLink]="['/employeeshow']">
-            บุลคากร
-          </a>
-  
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link toggle">
-            สรุปการลา
-          </a>
-        </li>
-      </ul>
-    </div>
-    <li class="list-group-item"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      ผู้ใช้งาน: {{test}} {{test1}}
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <a class="dropdown-item" (click)="clearUser()">ออกจากระบบ</a>
-    </div>
-  </li>
-  
-  </nav> -->
-
   <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp5">
       <a class="navbar-brand font-bold" href="/home">ระบบจัดการบริหารบุคลากร สวส</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
@@ -477,14 +230,15 @@
           
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link toggle">
+                  <a class="nav-link toggle" [routerLink]="['/sumleave']">
                     สรุปการลา
                   </a>
                 </li>
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{test}} {{test1}} </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                      <a class="dropdown-item" href="#">{{PositionName}}</a>
+                      <a class="dropdown-item" >ตำแหน่ง :  {{PositionName}}</a>
+                      <a class="dropdown-item" >สถานะบุคลากร : {{EmpstatusName}}</a>
                       <a class="dropdown-item" (click)="clearUser()"><i class='fas fa-sign-out-alt'></i>&nbsp;Log out</a>
                   </div>
               </li>

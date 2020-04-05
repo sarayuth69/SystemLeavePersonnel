@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('EmpName', data[0].EmpName);
             localStorage.setItem('EmpLastName', data[0].EmpLastName);
             localStorage.setItem('Empstatus_ID', data[0].Empstatus_ID);
+            localStorage.setItem('EmpstatusName', data[0].EmpstatusName);
             localStorage.setItem('PositionName', data[0].PositionName);
             localStorage.setItem('DeptName', data[0].DeptName);
             localStorage.setItem('Dept_ID', data[0].Dept_ID);
@@ -99,6 +100,7 @@ export class LoginComponent implements OnInit {
             console.log(localStorage.getItem('EmpLastName'));
             console.log(localStorage.getItem('Empstatus_ID'));
             console.log(localStorage.getItem('PositionName'));
+            console.log(localStorage.getItem('EmpstatusName'));
             // console.log(localStorage.getItem('Dept_ID'));
             // console.log(localStorage.getItem('DeptName'));
             // console.log(localStorage.getItem('SectorName'));
@@ -138,7 +140,7 @@ export class LoginComponent implements OnInit {
                 setTimeout(() => {
               window.location.reload();
                   
-                }, 100);
+                }, 60);
               })
            
           }

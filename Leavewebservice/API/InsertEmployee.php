@@ -13,6 +13,7 @@
     $data['EmpLastName'] = $_POST['EmpLastName'];
     $data['Sex'] = $_POST['Sex'];
     $data['Birthday'] = $_POST['Birthday'];
+    $data['ID_card'] = $_POST['ID_card'];
     $data['Age'] = $_POST['Age'];
     $data['Address'] = $_POST['Address'];
     $data['Tel'] = $_POST['Tel'];

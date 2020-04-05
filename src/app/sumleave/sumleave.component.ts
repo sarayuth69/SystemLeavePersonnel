@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class SumleaveComponent implements OnInit {
   public myDate = new Date().getFullYear();
   public Employee;
+  public countleave;
 
   constructor(
     public http: HttpClient
@@ -16,14 +17,22 @@ export class SumleaveComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.http.get('http://localhost/Leavewebservice/API/getEmployee_daywork.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.Employee = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+    this.http.get('http://localhost/Leavewebservice/API/getLtype_Of.php').subscribe(
+          (data: any) => {
+            this.countleave = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        )
+        this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
+          (data: any) => {
+            console.log(data);
+            this.Employee = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
   }
 }

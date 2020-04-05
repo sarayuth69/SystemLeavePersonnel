@@ -3,7 +3,7 @@
 <div style="padding: 1%;">
 <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
-    <div class="card" *ngIf="table1">
+    <div class="card" *ngIf="table6">
         <div class="card-header">
             <div class="container">
                 <div class="row">
@@ -16,29 +16,9 @@
                             <img src="assets\images\magnifying-glass.png" width="20" height="20px" id="icon" alt="User Icon" />
                         </button>
                     </form>
-                          
-                            <!-- <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> -->
-                                
-                                <!-- <li class="nav-item">
-                                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">บุคลากร</a>
-                                </li> -->
-                                
-                                <!-- <form class="form-inline">
-                                    <input type="text" class="form-control" (keyup)="getsearch(Emp_ID.value)" #Emp_ID placeholder="ค้นหา" aria-label="ค้นหา" />
-                                </form> -->
-                                <!-- <li class="nav-item"> -->
-                                    <!-- <button type="submit" class="btn btn-outline-primary" (click)="getsearch(Emp_ID.value)">
-                                        <img src="assets\images\magnifying-glass.png" width="20" height="20px" id="icon" alt="User Icon" />
-                                    </button> -->
-                                  <!-- <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" (click)="getsearch(Emp_ID.value)" role="tab" aria-controls="pills-profile" aria-selected="false">ค้นหา</a> -->
-                                <!-- </li> -->
-                              
-                              <!-- </ul> -->
-                             
                   </div>
                 </div>
                 </div>
-           
         </div>
 
         <div class="tab-content" id="pills-tabContent">
@@ -94,7 +74,7 @@
                                 <td >
                                     <button type="button" class="btn btn-success" data-toggle="modal"
                                         data-target="#exampleModal" (click)="updateEmp(item.Emp_ID,item.EmpName,item.EmpLastName,item.Sex,
-                                        item.Birthday,item.Age,item.Tel,item.Address,item.Work_day,item.Duration_work
+                                        item.Birthday,item.ID_card,item.Age,item.Tel,item.Address,item.Work_day,item.Duration_work
                                         ,item.Empstatus_ID,item.Position_ID,item.Dept_ID)">
                                         แก้ไข
                                     </button>
@@ -107,68 +87,6 @@
                         </tbody>
                     </table>
                 </div>
-            <!-- </div> -->
-            <!-- ค้นหา -->
-            <!-- <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <div class="card-body">
-
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr class="text-center">
-                                <th scope="col">รหัสบุคลากร</th>
-                                <th scope="col">ชื่อบุคลากร</th>
-                                <th scope="col">ตำแหน่ง/แผนก</th>
-                                <th scope="col">สถานะ</th>
-                                <th scope="col">ส่งการลางาน</th>
-                                <th scope="col">จัดการ</th>
-                            </tr>
-                        </thead>
-                        <tbody *ngFor="let item of seach; let i = index">
-                            <tr>
-                                <td>{{item.Emp_ID}}</td>
-                                <td>{{item.EmpName}} {{item.EmpLastName}}
-                                    <p class="card-text">เพศ : {{item.Sex}} </p>
-                                    
-                                </td>
-                                <td>
-                                    <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b>  {{item.PositionName}}
-                                    <p class="card-title">แผนก : {{item.DeptName}}</p>
-                                </td>
-                                <td>{{item.EmpstatusName}}</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="Leavelistadmin"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            >
-                                            ยื่นขอลา
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="Leavelistadmin" (click)="LeaveEmp(item.Emp_ID,item.EmpName,item.EmpLastName,item.Empstatus_ID
-                                     ,item.PositionName,item.DeptName)">
-                                            <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal1"
-                                                *ngFor="let item of leavetype; let i = index">
-                                                {{item.LTypeName}}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#exampleModal" (click)="updateEmp(item.Emp_ID,item.EmpName,item.EmpLastName,item.Sex,
-                                    item.Birthday,item.Age,item.Tel,item.Address,item.Work_day,item.Duration_work
-                                    ,item.Empstatus_ID,item.Position_ID,item.Dept_ID)">
-                                    แก้ไข
-                                </button>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger"
-                                        (click)="deleteEmp(item.Emp_ID,item.EmpName)">ลบ</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div> -->
-            <!-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div> -->
           </div>
     </div>
 
@@ -190,9 +108,7 @@
                     <tr class="text-center">
                         <th scope="col">รหัสบุคลากร</th>
                         <th scope="col">ชื่อบุคลากร</th>
-
                         <th scope="col">ตำแหน่ง/แผนก</th>
-
                         <th scope="col">สถานะ</th>
                     </tr>
                 </thead>
@@ -213,9 +129,8 @@
         </div>
     </div>
 
-    <!-- *************** -->
-    <!-- ของหัวหน้า -->
-    <div class="card" *ngIf="table4">
+     <!-- ของรองหัวหน้าหน่วยงาน -->
+     <div class="card" *ngIf="table4">
         <div class="card-header">
             <div class="row-md-1">
                 <div class="col-md-4">
@@ -231,15 +146,12 @@
                     <tr class="text-center">
                         <th scope="col">รหัสบุคลากร</th>
                         <th scope="col">ชื่อบุคลากร</th>
-
                         <th scope="col">ตำแหน่ง/แผนก</th>
-
                         <th scope="col">สถานะ</th>
-
-                        <th scope="col">จัดการ</th>
+                        
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of Dept; let i = index">
+                <tbody *ngFor="let item of Dept_to_head; let i = index">
                     <tr>
                         <td>{{item.Emp_ID}}</td>
                         <td>{{item.EmpName}} {{item.EmpLastName}}
@@ -252,8 +164,7 @@
                         </td>
                         <td>{{item.EmpstatusName}}</td>
 
-                        <td class="text-center">
-                        </td>
+                        
                     </tr>
                 </tbody>
             </table>
@@ -261,7 +172,86 @@
     </div>
 </div>
 
+    <!-- *************** -->
+    <!-- ของหัวหน้า -->
+    <div class="card" *ngIf="table3">
+        <div class="card-header">
+            <div class="row-md-1">
+                <div class="col-md-4">
+                    บุคลากร
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th scope="col">รหัสบุคลากร</th>
+                        <th scope="col">ชื่อบุคลากร</th>
+                        <th scope="col">ตำแหน่ง/แผนก</th>
+                        <th scope="col">สถานะ</th>
+                        
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of Dept_to_head; let i = index">
+                    <tr>
+                        <td>{{item.Emp_ID}}</td>
+                        <td>{{item.EmpName}} {{item.EmpLastName}}
+                            <p class="card-text">เพศ : {{item.Sex}} </p>
+                        </td>
+                        <td>
+                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b>  {{item.PositionName}}
+                            <p class="card-title">แผนก : {{item.DeptName}}</p>
+                        </td>
+                        <td>{{item.EmpstatusName}}</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
+    <!-- *************** -->
+    <!-- ของหัวหน้าแผนก -->
+    <div class="card" *ngIf="table2">
+        <div class="card-header">
+            <div class="row-md-1">
+                <div class="col-md-4">
+                    บุคลากร
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th scope="col">รหัสบุคลากร</th>
+                        <th scope="col">ชื่อบุคลากร</th>
+                        <th scope="col">ตำแหน่ง/แผนก</th>
+                        <th scope="col">สถานะ</th>
+                        
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of Dept_to_head; let i = index">
+                    <tr>
+                        <td>{{item.Emp_ID}}</td>
+                        <td>{{item.EmpName}} {{item.EmpLastName}}
+                            <p class="card-text">เพศ : {{item.Sex}} </p>
+                        </td>
+                        <td>
+                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b>  {{item.PositionName}}
+                            <p class="card-title">แผนก : {{item.DeptName}}</p>
+                        </td>
+                        <td>{{item.EmpstatusName}}</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+   
      <!-- Modal แก้ไข-->
      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -277,24 +267,24 @@
                  <form>
                      <div class="form-row">
                          <div class="col-md-4 mb-3">
-                             <label for="validationDefault01">รหัสบุคลากร</label>
+                             <label >รหัสบุคลากร</label>
                              <input type="text" class="form-control" [formControl]="Emp_ID"
                                  id="validationDefault01" style="background-color: rgb(226, 223, 223);">
                          </div>
                          <div class="col-md-4 mb-3">
-                             <label for="validationDefault02">ชื่อ(ภาษาไทย)</label>
+                             <label >ชื่อ(ภาษาไทย)</label>
                              <input type="text" class="form-control" [formControl]="EmpName"
                                  id="validationDefault02">
                          </div>
                          <div class="col-md-4 mb-3">
-                             <label for="validationDefaultUsername">นามสกุล(ภาษาไทย)</label>
+                             <label >นามสกุล(ภาษาไทย)</label>
 
                              <input type="text" class="form-control" [formControl]="EmpLastName"
                                  id="validationDefaultUsername">
                          </div>
                         <br>
                          <div class="col-md-3 mb-3">
-                             <label for="validationDefault04">เพศ</label>
+                             <label >เพศ</label>
                              <select class="form-control" [formControl]="Sex" id="exampleFormControlSelect1">
                                  <option value="ชาย">ชาย</option>
                                  <option value="หญิง">หญิง</option>
@@ -302,39 +292,44 @@
                              </select>
                          </div>
                          <div class="col-md-3 mb-3">
-                             <label for="validationDefault05">วันเกิด(ปี/เดือน/วัน)</label>
+                             <label >วันเกิด(ปี/เดือน/วัน)</label>
                              <input type="date" class="form-control" [formControl]="Birthday"
                                  id="validationDefault05">
                          </div>
                          <div class="col-md-3 mb-3">
-                             <label for="validationDefault06">อายุ</label>
+                             <label >อายุ</label>
                              <input type="text" class="form-control" [formControl]="Age"
                                  id="validationDefault06">
                          </div>
                          <div class="col-md-3 mb-3">
-                             <label for="validationDefault07">เบอร์โทร</label>
+                             <label >เบอร์โทร</label>
                              <input type="text" class="form-control" [formControl]="Tel"
                                  id="validationDefault07">
                          </div>
+                         <div class="col-md-3 mb-3">
+                            <label >บัตรประชาชน</label>
+                            <input type="text" class="form-control" [formControl]="ID_card"
+                                id="validationDefault23">
+                        </div>
                          <div class="col-md-8 mb-3">
-                             <label for="exampleFormControlTextarea1">ที่อยู่</label>
+                             <label >ที่อยู่</label>
                              <textarea class="form-control" [formControl]="Address"
                                  id="exampleFormControlTextarea1" rows="3"></textarea>
                          </div>
                      </div>
                      <div class="form-row">
                          <div class="col-md-3 mb-3">
-                             <label for="validationDefault08">วันเริ่มทำงาน</label>
+                             <label >วันเริ่มทำงาน</label>
                              <input type="date" class="form-control" [formControl]="Work_day"
                                  id="validationDefault08">
                          </div>
                          <div class="col-md-3 mb-3">
-                             <label for="validationDefault09">อายุงาน</label>
+                             <label >อายุงาน</label>
                              <input type="text" class="form-control" [formControl]="Duration_work"
                                  id="validationDefault09">
                          </div>
                          <div class="col-md-3 mb-3">
-                             <label for="validationDefault12">สถานะบุคลากร</label>
+                             <label >สถานะบุคลากร</label>
                              <select class="form-control" [formControl]="Empstatus_ID"
                                  id="exampleFormControlSelect4">
                                  <option selected></option>
@@ -344,7 +339,7 @@
                              </select>
                          </div>
                          <div class="col-md-7 mb-3" >
-                             <label for="validationDefault10">ตำแหน่ง</label>
+                             <label >ตำแหน่ง</label>
                              <select class="form-control" [formControl]="Position_ID"
                                  id="exampleFormControlSelect2" >
                                  <option selected >เลือกตำแหน่ง</option>
@@ -375,7 +370,7 @@
                              </select>
                          </div>
                          <div class="col-md-7 mb-3">
-                             <label for="validationDefault1">แผนก</label>
+                             <label> แผนก</label>
                              <select class="form-control" [formControl]="Dept_ID"
                                  id="exampleFormControlSelect3">
                                  <option selected>-</option>
@@ -528,23 +523,23 @@
                                 <div class="form-row">
 
                                     <div class="col-md-2 mb-2">
-                                        <label for="validationDefault04">วันที่ลา</label>
+                                        <label >วันที่ลา</label>
                                         <input type="date" class="form-control" id="LeaveDateStart"
                                             [formControl]="LeaveDateStart" required>
                                     </div>
                                     <div class="col-md-2 mb-2">
-                                        <label for="validationDefault05">ถึงวันที่</label>
+                                        <label >ถึงวันที่</label>
                                         <input type="date" class="form-control" id="LeaveDateLast"
                                            (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value)" [formControl]="LeaveDateLast" required>
                                     </div>
                                     <div class="col-md-2 mb-2">
-                                        <label for="validationDefault05">จำนวนวันลา</label>
+                                        <label >จำนวนวันลา</label>
                                         <input type="text" class="form-control" id="LeaveTotal"
                                          [value]="numberleave"  #LeaveTotal readonly>
                                     </div>
 
                                     <!-- <div class="col-md-2 mb-3">
-                                        <label for="validationDefault03">ครั้งที่</label>
+                                        <label >ครั้งที่</label>
                                         <input type="text" class="form-control" id="validationDefault03"
                                              required>
                                     </div> -->
