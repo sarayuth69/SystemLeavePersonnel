@@ -54,8 +54,9 @@ export class LoginComponent implements OnInit {
       })
 
     }
+  
     else if (u && p) {
-
+  // ส่งไปฟังชัน
       this.APILogin(u, p);
       console.log(0, 0);
 
