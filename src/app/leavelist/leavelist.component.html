@@ -57,10 +57,6 @@
 
                                 </div>
                             </div>
-                            <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" *ngIf="leave105">
-                            ยื่นขอลา
-                           </button> -->
                         </div>
                     </div>
                 </div>
@@ -220,16 +216,10 @@
                                                 <h6>แผนก : </h6>
                                             </div>
                                             <div class="col-lg-960px">
-                                                <!-- <span class="d-inline-block" data-toggle="popover" data-content="Disabled popover">
-                                                    <button class="btn btn-primary"  value="{{Local_EmpName}}"  [formControl]="EmpName" style="pointer-events: none;" type="button" disabled>{{Local_EmpName}}</button>
-                                                  </span>
-                                                <span class="d-inline-block" data-toggle="popover" data-content="Disabled popover">
-                                                    <button class="btn btn-primary"  value="{{Local_DeptName}}"  [formControl]="DeptName" style="pointer-events: none;" type="button" disabled>{{Local_DeptName}}</button>
-                                                  </span> -->
                                                 <input type="text" class="form-control" value="{{Local_EmpName}}"
                                                     [formControl]="EmpName" readonly>
-                                                <input type="text" class="form-control" value="{{Local_DeptName}}"
-                                                    [formControl]="DeptName" readonly>
+                                                <input type="text" class="form-control" [formControl]="DeptName"
+                                                    readonly>
                                             </div>
                                             <div class="col-lg-960px">
                                                 <br>
@@ -242,7 +232,7 @@
                                                 <input type="text" class="form-control" id="validationDefault02"
                                                     value="{{Local_EmpLastName}}" [formControl]="EmpLastName" readonly>
                                                 <input type="text" class="form-control" id="validationDefault02"
-                                                    value="{{Local_Sector}}" [formControl]="Sector" readonly>
+                                                    [formControl]="Sector" readonly>
                                             </div>
                                             &nbsp;
                                             <div class="col-lg-960px">
@@ -297,8 +287,7 @@
                                     <form>
                                         <div class="form-group">
                                             <label for="exampleFormControlFile1">แนปไฟล์</label>
-                                            <input type="file" #file class="form-control-file"
-                                                id="exampleFormControlFile1">
+                                            <input type="file" (change)="onFileChanged($event)">
                                         </div>
                                     </form>
                                     <div class="row">
@@ -316,12 +305,36 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
-                    (click)="AddLeave(LeaveTotal.value)">OK</button>
+                <!-- <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    (click)="AddLeave(LeaveTotal.value)">OK</button> -->
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onUpload()">OK</button>
             </div>
         </div>
     </div>
 </div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody *ngFor= "let item of file">
+      <tr>
+        <th scope="row">1</th>
+        <td>{{item.file_ID}}</td>
+        <td><img src="">{{item.file_name}}</td>
+        <td>@mdo</td>
+      </tr>
+    </tbody>
+  </table>
+
+<input type="file" (change)="onFileChanged($event)">
+<button type="button" (click)="onUpload()">OK</button>
+
 
 
 <!-- Modal อนุมัติการลาของหัวหน้าหน่วยงาน -->
@@ -340,11 +353,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">ชื่อ-นามสกุล</label>
-                            <input type="text" class="form-control" >
+                            <input type="text" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">แผนก</label>
-                            <input type="text" class="form-control" >
+                            <input type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -352,28 +365,28 @@
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
                     </div>
                     <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputPassword4">การลา</label>
-                        <input type="text" class="form-control" >
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">การลา</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputAddress2">จำนวนวันลา</label>
+                            <input type="text" class="form-control" id="inputAddress2">
+                        </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputAddress2">จำนวนวันลา</label>
-                        <input type="text" class="form-control" id="inputAddress2">
-                    </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label >สาเหตุ</label>
-                        <input type="text" class="form-control" >
+                        <label>สาเหตุ</label>
+                        <input type="text" class="form-control">
                     </div>
                     <div class="form-row">
-            
+
                         <div class="form-group col-md-4">
-                                <label >วันที</label>
-                                <input type="text" class="form-control" >
+                            <label>วันที</label>
+                            <input type="text" class="form-control">
                         </div>
                         <div class="form-group col-md-4">
-                                <label >ถึงวันที</label>
-                                <input type="text" class="form-control" >
+                            <label>ถึงวันที</label>
+                            <input type="text" class="form-control">
                         </div>
                     </div>
                 </form>

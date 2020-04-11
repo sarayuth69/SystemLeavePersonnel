@@ -847,6 +847,32 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
             }
       }
 
+      function upload($data){
+        $sql = "INSERT INTO `upload` (`file_name`) 
+        VALUES ('".$data['file_name']."')
+        ";
+             if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+                $data = [];
+                while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                    $data[] = $row;
+                }
+                $result->close();
+                return $data;
+            }
+      }
+      function getfile(){
+        $sql = "SELECT * FROM `upload` WHERE 1
+        ";
+             if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+                $data = [];
+                while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                    $data[] = $row;
+                }
+                $result->close();
+                return $data;
+            }
+      }
+
 
     function Login($data) {
       
@@ -868,6 +894,31 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
     `employeestatus`
     ON
     `employee`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+    WHERE
+        employee.Username = '".$data['Username']."' AND employee.Password = '".$data['Password']."'
+        ";
+      if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+        $data = [];
+        while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+            $data[] = $row;
+        }
+        $result->close();
+        return $data;
+    }
+    }
+    function Login1($data) {
+      
+        $sql = "SELECT
+        *
+    FROM
+    `employee` JOIN `position`
+     ON
+    `employee`.`Position_ID` = `position`.`Position_ID`
+    JOIN
+    `employeestatus`
+    ON
+    `employee`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+    
     WHERE
         employee.Username = '".$data['Username']."' AND employee.Password = '".$data['Password']."'
         ";
