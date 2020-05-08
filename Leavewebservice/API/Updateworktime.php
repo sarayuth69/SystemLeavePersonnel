@@ -11,9 +11,6 @@
     $data['Status_Work'] = $_POST['Status_Work'];
     $data['Data'] = $_POST['Data'];
     $data['Day_ID'] = $_POST['Day_ID'];
-
-
-
     $Emp = $Emp_Model -> Updateworktime($data);
  
     echo json_encode($Emp);

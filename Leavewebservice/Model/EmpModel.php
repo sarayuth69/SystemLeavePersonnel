@@ -848,18 +848,16 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
       }
 
       function upload($data){
-        $sql = "INSERT INTO `upload` (`file_name`) 
-        VALUES ('".$data['file_name']."')
+        $sql = "INSERT INTO `upload` (`file_ID``file_name`) 
+        VALUES ('".$data['file_ID']."','".$data['file_name']."')
         ";
-             if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-                $data = [];
-                while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                    $data[] = $row;
-                }
-                $result->close();
-                return $data;
+              if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+                return 1;
+            }else {
+                return 0;
             }
       }
+
       function getfile(){
         $sql = "SELECT * FROM `upload` WHERE 1
         ";
