@@ -36,7 +36,7 @@ export class PositionComponent implements OnInit {
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
@@ -55,56 +55,57 @@ export class PositionComponent implements OnInit {
     const body = 'Position_ID=' + this.Position_ID.value +
       '&PositionName=' + this.PositionName.value +
       '&Role=' + this.Role.value
-if(!this.Position_ID.value  || !this.PositionName.value || !this.Role.value){
-  Swal.fire(
-    'กรุณากรอกข้อมูล',
-    'That thing is still around?',
-    'question'
-  ).then(()=>{
-    this.Position_ID = new FormControl('');
-    this.PositionName = new FormControl('');
-    this.Role = new FormControl('');
-  })
-}else{
-  console.log(body);
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/x-www-form-urlencoded'
-  });
+    if (this.Position_ID.value === "" || this.PositionName.value === "" || this.Role.value === "") {
+      Swal.fire(
+        'กรุณากรอกข้อมูล',
+        'That thing is still around?',
+        'question'
+      )
+    } else {
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
 
-  this.http
-  .post('http://localhost/Leavewebservice/API/InsertPosition.php', body, {
-    headers: headers
-  })
-  .subscribe(
-    
-    (data: any) => {
-      console.log(data);
-      this.Empposition = data;
-    },
-    (error: any) => {
-      console.log(error);
-    }
-  );
-Swal.fire({
-  position: 'center',
-  icon: 'success',
-  title: 'เพิ่มตำแหน่งเรียบร้อย',
-  showConfirmButton: false,
-  timer: 1500
+      this.http
+        .post('http://localhost/Leavewebservice/API/InsertPosition.php', body, {
+          headers: headers
+        })
+        .subscribe(
 
-}).then(()=>{
-  this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
-    (data: any) => {
-      console.log(data);
-      this.positionEmp = data;
-    },
-    (error: any) => {
-      console.log(error);
+          (data: any) => {
+            console.log(data);
+            this.Empposition = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'เพิ่มตำแหน่งเรียบร้อย',
+        showConfirmButton: false,
+        timer: 1500
+
+      }).then(() => {
+        // window.location.reload();
+        this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+          (data: any) => {
+            console.log(data);
+            this.positionEmp = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }).then(() => {
+        this.Position_ID = new FormControl('');
+        this.PositionName = new FormControl('');
+        this.Role = new FormControl('');
+      })
     }
-  );
-})
-}
-    
+
 
   }
 
@@ -126,7 +127,8 @@ Swal.fire({
           title: 'ลบเรียบร้อย',
           showConfirmButton: false,
           timer: 1500
-        }).then(()=>{
+        }).then(() => {
+          // window.location.reload();
           this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
             (data: any) => {
               console.log(data);
@@ -151,13 +153,13 @@ Swal.fire({
               console.log(error);
             }
           );
-       
+
       }
     })
   }
 
   updatePosition(
-    Position_ID, PositionName,Role
+    Position_ID, PositionName, Role
   ) {
     this.Position_ID = new FormControl(Position_ID);
     this.PositionName = new FormControl(PositionName);
@@ -166,7 +168,7 @@ Swal.fire({
   public updateEmpposition() {
     const body =
       'Position_ID=' + this.Position_ID.value +
-      '&PositionName=' + this.PositionName.value+
+      '&PositionName=' + this.PositionName.value +
       '&Role=' + this.Role.value
     console.log(body);
     const headers = new HttpHeaders({
@@ -191,7 +193,8 @@ Swal.fire({
       title: 'แก้ไขเรียบร้อย',
       showConfirmButton: false,
       timer: 1500
-    }).then(()=>{
+    }).then(() => {
+      // window.location.reload();
       this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
         (data: any) => {
           console.log(data);
@@ -201,6 +204,10 @@ Swal.fire({
           console.log(error);
         }
       );
+    }).then(() => {
+      this.Position_ID = new FormControl('');
+      this.PositionName = new FormControl('');
+      this.Role = new FormControl('');
     })
   }
 

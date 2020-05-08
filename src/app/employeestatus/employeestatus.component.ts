@@ -23,7 +23,7 @@ export class EmployeestatusComponent implements OnInit {
   Empstatus_ID = new FormControl('');
   EmpstatusName = new FormControl('');
   constructor(
-    public router: Router  ,
+    public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
@@ -44,42 +44,39 @@ export class EmployeestatusComponent implements OnInit {
 
   AddStatus() {
     const body = 'Empstatus_ID=' + this.Empstatus_ID.value
-    + '&EmpstatusName=' + this.EmpstatusName.value
-  if(!this.Empstatus_ID.value||!this.EmpstatusName.value){
-    Swal.fire(
-      'กรุณากรอกข้อมูล',
-      'That thing is still around?',
-      'question'
-    ).then(()=>{
-      this.Empstatus_ID = new FormControl('');
-      this.EmpstatusName = new FormControl('');
-    })
-  }else{
-    console.log(body);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post('http://localhost/Leavewebservice/API/InsertEmpstatus.php', body, {
-        headers: headers
-      })
-      .subscribe(
-        (data: any) => {
-          console.log(data[0]);
-          this.Empstatus = data[0];
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+      + '&EmpstatusName=' + this.EmpstatusName.value
+    if (this.Empstatus_ID.value === "" || this.EmpstatusName.value === "") {
+      Swal.fire(
+        'กรุณากรอกข้อมูล',
+        'That thing is still around?',
+        'question'
+      )
+    } else {
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post('http://localhost/Leavewebservice/API/InsertEmpstatus.php', body, {
+          headers: headers
+        })
+        .subscribe(
+          (data: any) => {
+            console.log(data[0]);
+            this.Empstatus = data[0];
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
       Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'เพิ่มสถานะบุคลากรเรียบร้อย',
         showConfirmButton: false,
         timer: 1500
-        
-      }).then(()=>{
+
+      }).then(() => {
         this.http.get('http://localhost/Leavewebservice/API/getStatus.php').subscribe(
           (data: any) => {
             console.log(data);
@@ -89,8 +86,11 @@ export class EmployeestatusComponent implements OnInit {
             console.log(error);
           }
         );
+      }).then(() => {
+        this.Empstatus_ID = new FormControl('');
+        this.EmpstatusName = new FormControl('');
       })
-  }
+    }
   }
   updateStatus(
     Empstatus_ID, EmpstatusName
@@ -100,8 +100,8 @@ export class EmployeestatusComponent implements OnInit {
   }
   public updateEmpStatus() {
     const body =
-    'Empstatus_ID=' + this.Empstatus_ID.value
-    + '&EmpstatusName=' + this.EmpstatusName.value
+      'Empstatus_ID=' + this.Empstatus_ID.value
+      + '&EmpstatusName=' + this.EmpstatusName.value
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -119,30 +119,33 @@ export class EmployeestatusComponent implements OnInit {
           console.log(error);
         }
       );
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'แก้ไขเรียบร้อย',
-        showConfirmButton: false,
-        timer: 1500
-      }).then(()=>{
-        this.http.get('http://localhost/Leavewebservice/API/getStatus.php').subscribe(
-          (data: any) => {
-            console.log(data);
-            this.status = data;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
-      })
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'แก้ไขเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      this.http.get('http://localhost/Leavewebservice/API/getStatus.php').subscribe(
+        (data: any) => {
+          console.log(data);
+          this.status = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    }).then(() => {
+      this.Empstatus_ID = new FormControl('');
+      this.EmpstatusName = new FormControl('');
+    })
   }
 
   deletestatus(id, name) {
     this.Empstatus_ID_show = id;
     this.EmpstatusName_show = name;
     Swal.fire({
-      title: 'คุณจะลบ'+' '+this.EmpstatusName_show+' '+'หรือไม่' ,
+      title: 'คุณจะลบ' + ' ' + this.EmpstatusName_show + ' ' + 'หรือไม่',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#00FF33',
@@ -156,7 +159,7 @@ export class EmployeestatusComponent implements OnInit {
           title: 'ลบเรียบร้อย',
           showConfirmButton: false,
           timer: 1500
-        }).then(()=>{
+        }).then(() => {
           this.http.get('http://localhost/Leavewebservice/API/getStatus.php').subscribe(
             (data: any) => {
               console.log(data);
@@ -167,20 +170,20 @@ export class EmployeestatusComponent implements OnInit {
             }
           );
         })
-        
+
         this.http
-    .get(
-      'http://localhost/Leavewebservice/API/DeleteStatus.php?Empstatus_ID=' + this.Empstatus_ID_show
-    )
-    .subscribe(
-      (data: any) => {
-        console.log(data[0]);
-        this.Empstatus = data[0];
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+          .get(
+            'http://localhost/Leavewebservice/API/DeleteStatus.php?Empstatus_ID=' + this.Empstatus_ID_show
+          )
+          .subscribe(
+            (data: any) => {
+              console.log(data[0]);
+              this.Empstatus = data[0];
+            },
+            (error: any) => {
+              console.log(error);
+            }
+          );
       }
     })
   }

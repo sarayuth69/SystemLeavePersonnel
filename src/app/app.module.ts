@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { JwPaginationComponent } from 'jw-angular-pagination';
+
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { DepartmentComponent } from './department/department.component';
 import { EmployeeComponent } from './employee/employee.component';
@@ -45,7 +48,8 @@ const appRoutes: Routes = [
   { path: 'sumleave', component: SumleaveComponent },
   { path: 'editdaywork', component: EditdayworkComponent },
   { path: 'login', component: LoginComponent },
-  { path: '',
+  {
+    path: '',
     redirectTo: '/login', // เปลี่ยนเส้นทาง
     pathMatch: 'full'
   },
@@ -71,7 +75,8 @@ const appRoutes: Routes = [
     CheckdayworkComponent,
     SectorComponent,
     SumleaveComponent,
-    EditdayworkComponent
+    EditdayworkComponent,
+    JwPaginationComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +85,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     HttpModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only set true

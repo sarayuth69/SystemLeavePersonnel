@@ -1,0 +1,48 @@
+UPDATE
+    `leavetype`
+    JOIN `leave` ON `leavetype`.`LType_ID` = `leave`.`LType_ID`
+SET
+    `leavetype`.`Remain` = (SELECT `leavetype`.`Remain` WHERE `leavetype`.`LType_ID` = '4002') - 8
+WHERE
+     `leavetype`.`LType_ID` = '4002'
+
+
+เพิ่มครั้งการลา
+UPDATE
+    `leavetype`
+SET
+    `LOrdinal` = (SELECT LOrdinal WHERE LType_ID = '100001') +1
+WHERE
+     LType_ID = '100001'
+
+
+
+
+ตรวจสอบวันมาทำงาน
+
+SELECT
+    *
+FROM
+    `officiate_day`
+WHERE
+    `Day_Work`= '2019-12-24'
+************************************
+SELECT * FROM `officiate_day` WHERE `officiate_day`.`Emp_ID` = '5429110' ORDER BY `officiate_day`.`Day_ID` DESC
+
+แบ่งหน้า
+SELECT ROUND(COUNT(*)/10,0) COUNT_page FROM `officiate_day` WHERE 1
+
+ลบข้อมูลในตาราง
+TRUNCATE `ชื่อตาราง`
+
+
+
+คำสั่งลบ จำนวนวันลา
+SELECT
+   (`leavetype`.`Remain`)-(`leave`.`LeaveTotal`)AS num
+    FROM
+    `leavetype`
+    JOIN
+    `leave` ON `leavetype`.`LType_ID` =`leave`.`LType_ID`
+    WHERE
+    `leavetype`.`LType_ID`= 4002

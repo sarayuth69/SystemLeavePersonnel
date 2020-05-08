@@ -315,22 +315,23 @@
 
 <table class="table">
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
     </thead>
-    <tbody *ngFor= "let item of file">
-      <tr>
-        <th scope="row">1</th>
-        <td>{{item.file_ID}}</td>
-        <td><img src="">{{item.file_name}}</td>
-        <td>@mdo</td>
-      </tr>
+    <tbody *ngFor="let item of file">
+        <tr>
+            <th scope="row">1</th>
+            <td>{{item.file_ID}}</td>
+            <td><img src="">{{item.file_name}}</td>
+            <td>@mdo</td>
+        </tr>
     </tbody>
-  </table>
+</table>
+
 
 <input type="file" (change)="onFileChanged($event)">
 <button type="button" (click)="onUpload()">OK</button>

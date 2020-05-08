@@ -1,0 +1,122 @@
+#Angular
+________________________________________
+#โปรแกรม
+-Nodejs #เฉพาะเวอร์ชั่นที่เป็นLTS
+-VSCode
+________________________________________
+
+npm i -g @angular/cli #ติดตั้งAngular
+ng new my-project --routing --style=scss #สร้างโปรเจ็ค
+ng serve -o #รันโปรเจ็ค
+________________________________________
+
+ng g m pages/home --routing --spec=false #สร้างโมดูล
+ng g c pages/home --spec=false #สร้างคอมโพเน้น
+________________________________________
+
+npm i #ติดตั้งแพ็กเกจnode_module
+________________________________________
+#เรียกใช้Router
+<a [routerLink]="['/home']">หน้าหลัก</a> &nbsp; 
+<a [routerLink]="['/about']">เกี่ยวกับ</a>
+
+#ตั้งค่าRouter
+{ path: "", redirectTo: "/home", pathMatch: "full" },
+{ path: "home", loadChildren: "./pages/home/home.module#HomeModule" }
+________________________________________
+#Binding
+{{ _____ }}
+
+#2WayBinding
+import { FormsModule } from '@angular/forms';
+
+[(ngModel)]="_________"
+________________________________________
+#Service
+ng g service service/data --spec=false
+________________________________________
+#Pipe
+{{ ______ | json }}
+________________________________________
+#Build_Angular
+ng build --prod --build-optimizer --base-href /____/ --deploy-url /____/
+ng build --prod --build-optimizer --base-href /student/sarayuth.kr/SystemLeavePersonnel/ --deploy-url /student/sarayuth.kr/SystemLeavePersonnel/
+#ON_base_href
+ng build --prod --build-optimizer
+
+
+\\files.rmuti.ac.th
+
+rmuti.ac.th/student/jarukit.bu/micro/
+_____________________________
+
+by จารบิว
+ng g c layout/pages/home --spec=false
+ng g m layout/pages/home --routing --spec=false
+
+
+ทำเลซี่โลดดิ่ง
+ng g m pages/home --routing
+ng g c pages/home --spec=false
+
+
+ng g service services/data --spec=false
+
+consle.log("dfs")  = printf
+
+
+--front end
+  -html
+  -css
+  -js
+
+--back end
+  -server side
+  -database 
+  -authentication
+
+--fullstack
+  -frontend
+  -backend
+  -authentication
+.........................................................
+--front end
+  -vuejs(mvc)
+  -react(mvc)
+  -angular(mvw) w=whatever
+  -polymer(mvc)
+
+--back end
+  -php -> mysql
+    --laravel(mvc)
+    --lumen(mvc)
+    --slim(api,webservice)
+  -Asp -> mssql
+    --ASP.net
+  -go ->All Database(google)
+  -node js->All Database
+
+
+
+shot if
+if(pwn==pwn2){
+a = pwn
+}else{
+a = 'error'
+}
+
+
+int a = pwn==pwn2?pwn : 'error'
+
+
+npm i- g cordova@7
+
+ng new project --enable-ivy
+----------------------------------------------------------------
+ลงเเมทีเรียว
+ng add @angular/material
+ng add @angular/cdk
+ng generate @angular/material:nav ชื่อ
+
+
+ng update

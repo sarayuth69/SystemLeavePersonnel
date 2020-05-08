@@ -1,15 +1,15 @@
 <br>
 <br>
 <div style="padding: 1%;">
-<div class="tab-pane fade show active">
+  <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
     <div class="card">
       <div class="card-header">
         <div class="container">
           <div class="row">
             <div class="col">
-               ตำแหน่ง
-          </div>
+              ตำแหน่ง
+            </div>
             <div class="col"></div>
             <div class="col"></div>
             <div class="col">
@@ -18,9 +18,9 @@
               </button>
             </div>
           </div>
-          </div>
+        </div>
         &nbsp;&nbsp;&nbsp;
-        
+
         <div class="modal fade" id="exampleModalPosition" tabindex="-1" role="dialog" aria-labelledby="Position "
           aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -48,12 +48,13 @@
                     <input type="text" class="form-control" id="PositionInput99" [formControl]="Role"
                       placeholder="ระดับสิทธิการเข้าใช้">
                   </div>
-     
+
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddPosition()">บันทึก</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                  (click)="AddPosition()">บันทึก</button>
               </div>
             </div>
           </div>
@@ -69,67 +70,71 @@
               <th scope="col">จัดการ</th>
             </tr>
           </thead>
-          <tbody *ngFor="let item of positionEmp; let i = index">
-            <tr >
+          <tbody
+            *ngFor="let item of positionEmp | paginate: { itemsPerPage: 5, currentPage: pageActual}; let i = index">
+            <tr>
               <td class="text-center">{{item.Position_ID}}</td>
-              <td >{{item.PositionName}}</td>
+              <td>{{item.PositionName}}</td>
               <td class="text-center">{{item.Role}}</td>
               <td class="text-center">
-                  
+
                 <button type="button" class="btn btn-success" data-toggle="modal"
                   data-target="#exampleModalEditposition"
-                   (click)="updatePosition(item.Position_ID,item.PositionName,item.Role)">
+                  (click)="updatePosition(item.Position_ID,item.PositionName,item.Role)">
                   แก้ไข
                 </button>
-  
-               
+
+
                 &nbsp; &nbsp;
                 <button type="button" class="btn btn-danger"
                   (click)="deletePosition(item.Position_ID,item.PositionName)">ลบ</button>
-  
+
               </td>
-  
+
             </tr>
           </tbody>
         </table>
-         <!-- Modalแก้ไข -->
-         <div class="modal fade" id="exampleModalEditposition" tabindex="-1" role="dialog"
-         aria-labelledby="Empposition1" aria-hidden="true">
-         <div class="modal-dialog" role="document">
-           <div class="modal-content">
-             <div class="modal-header">
-               <h5 class="modal-title" id="Empposition1">แก้ไขตำแหน่งบุคลากร</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-               </button>
-             </div>
-             <div class="modal-body">
-               <form>
-                 <div class="form-group">
-                   <label for="EmployeepositionInput2">รหัสตำแหน่งบุคลากร</label>
-                   <input type="text" class="form-control" id="EmployeepositionInput2"
-                     [formControl]="Position_ID" placeholder="รหัสตำแหน่งบุคลากร" style="background-color: rgb(226, 223, 223);">
-                 </div>
-                 <div class="form-group">
-                   <label for="EmployeepositionInput3">ชื่อตำแหน่งบุคลากร</label>
-                   <input type="text" class="form-control" id="EmployeepositionInput3"
-                     [formControl]="PositionName" placeholder="ชื่อตำแหน่งบุคลากร">
-                 </div>
-                 <div class="form-group">
-                  <label for="EmployeepositionInput3">ระดับสิทธิการเข้าใช้</label>
-                  <input type="text" class="form-control" id="EmployeepositionInput99"
-                    [formControl]="Role" placeholder="ระดับสิทธิการเข้าใช้">
-                </div>
-               </form>
-             </div>
-             <div class="modal-footer">
-               <button type="button" class="btn btn-danger" data-dismiss="modal" >ยกเลิก</button>
-               <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateEmpposition()">บันทึก</button>
-             </div>
-           </div>
-         </div>
-       </div>
+        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+
+        <!-- Modalแก้ไข -->
+        <div class="modal fade" id="exampleModalEditposition" tabindex="-1" role="dialog" aria-labelledby="Empposition1"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="Empposition1">แก้ไขตำแหน่งบุคลากร</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="EmployeepositionInput2">รหัสตำแหน่งบุคลากร</label>
+                    <input type="text" class="form-control" id="EmployeepositionInput2" [formControl]="Position_ID"
+                      placeholder="รหัสตำแหน่งบุคลากร" style="background-color: rgb(226, 223, 223);">
+                  </div>
+                  <div class="form-group">
+                    <label for="EmployeepositionInput3">ชื่อตำแหน่งบุคลากร</label>
+                    <input type="text" class="form-control" id="EmployeepositionInput3" [formControl]="PositionName"
+                      placeholder="ชื่อตำแหน่งบุคลากร">
+                  </div>
+                  <div class="form-group">
+                    <label for="EmployeepositionInput3">ระดับสิทธิการเข้าใช้</label>
+                    <input type="text" class="form-control" id="EmployeepositionInput99" [formControl]="Role"
+                      placeholder="ระดับสิทธิการเข้าใช้">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                  (click)="updateEmpposition()">บันทึก</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  </div>
+</div>

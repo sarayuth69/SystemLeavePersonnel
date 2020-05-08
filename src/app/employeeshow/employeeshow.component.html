@@ -1,29 +1,31 @@
 <br>
 <br>
 <div style="padding: 1%;">
-<div class="tab-pane fade show active">
-    &nbsp;&nbsp;&nbsp;
-    <div class="card" *ngIf="table6">
-        <div class="card-header">
-            <div class="container">
-                <div class="row">
-                  <div class="col">บุคลากร</div>
-                  <div class="col"></div>
-                  <div class="col">
-                    <form class="form-inline">
-                        <input type="text" class="form-control" (keyup)="getsearch(Emp_ID.value)" #Emp_ID placeholder="ค้นหา" aria-label="ค้นหา" />
-                        <button type="submit" class="btn btn-outline-primary" (click)="getsearch(Emp_ID.value)">
-                            <img src="assets\images\magnifying-glass.png" width="20" height="20px" id="icon" alt="User Icon" />
-                        </button>
-                    </form>
-                  </div>
+    <div class="tab-pane fade show active">
+        &nbsp;&nbsp;&nbsp;
+        <div class="card" *ngIf="table6">
+            <div class="card-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">บุคลากร</div>
+                        <div class="col"></div>
+                        <div class="col">
+                            <form class="form-inline">
+                                <input type="text" class="form-control" (keyup)="getsearch(Emp_ID.value)" #Emp_ID
+                                    placeholder="ค้นหา" aria-label="ค้นหา" />
+                                <button type="submit" class="btn btn-outline-primary" (click)="getsearch(Emp_ID.value)">
+                                    <img src="assets\images\magnifying-glass.png" width="20" height="20px" id="icon"
+                                        alt="User Icon" />
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                </div>
-        </div>
+            </div>
 
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                <!-- <div class="card-body" *ngIf="table1"> -->
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <!-- <div class="card-body" *ngIf="table1"> -->
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr class="text-center">
@@ -36,27 +38,29 @@
                                 <th scope="col">จัดการ</th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let item of seach; let i = index">
-                            <tr>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of seach | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
                                 <!-- <td></td> -->
                                 <td>
                                     <p ng-repeat="i in range(1, 5)">
-                                    {{ i+1 }}
-                                  </p>
+                                        {{ i+1 }}
+                                    </p>
                                 </td>
-                                <td>{{item.EmpName}} {{item.EmpLastName}}
+                                <td> {{item.EmpName}} {{item.EmpLastName}}
                                     <p class="card-text">เพศ : {{item.Sex}} </p>
                                     โทร : {{item.Tel}}
                                 </td>
                                 <td>
-                                   <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b>  {{item.PositionName}}
+                                    <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
                                     <p class="card-title">แผนก : {{item.DeptName}}</p>
                                 </td>
                                 <td>{{item.EmpstatusName}}</td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="Leavelistadmin"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="Leavelistadmin" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
                                             ยื่นขอลา
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="Leavelistadmin" (click)="LeaveEmp(item.Emp_ID,item.EmpName,item.EmpLastName,item.Empstatus_ID
@@ -64,14 +68,14 @@
                                             <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal1"
                                                 *ngFor="let item of leavetype; let i = index">
                                                 {{item.LTypeName}}
-        
+
                                             </a>
-        
+
                                         </div>
                                     </div>
                                 </td>
-        
-                                <td >
+
+                                <td>
                                     <button type="button" class="btn btn-success" data-toggle="modal"
                                         data-target="#exampleModal" (click)="updateEmp(item.Emp_ID,item.EmpName,item.EmpLastName,item.Sex,
                                         item.Birthday,item.ID_card,item.Age,item.Tel,item.Address,item.Work_day,item.Duration_work
@@ -81,96 +85,98 @@
                                     &nbsp;
                                     <button type="button" class="btn btn-danger"
                                         (click)="deleteEmp(item.Emp_ID,item.EmpName)">ลบ</button>
-        
+
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-          </div>
-    </div>
-
-
-    <!-- ของผอ -->
-    <div class="card" *ngIf="table5">
-        <div class="card-header">
-            <div class="row-md-1">
-                <div class="col-md-4">
-                    บุคลากร
-                    &nbsp;&nbsp;&nbsp;
+                    <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
 
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr class="text-center">
-                        <th scope="col">รหัสบุคลากร</th>
-                        <th scope="col">ชื่อบุคลากร</th>
-                        <th scope="col">ตำแหน่ง/แผนก</th>
-                        <th scope="col">สถานะ</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let item of Employee; let i = index">
-                    <tr>
-                        <td>{{item.Emp_ID}}</td>
-                        <td>{{item.EmpName}} {{item.EmpLastName}}
-                            <p class="card-text">เพศ : {{item.Sex}} </p>
-                        </td>
-                        <td>
-                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b>  {{item.PositionName}}
-                            <p class="card-title">แผนก : {{item.DeptName}}</p>
-                        </td>
-                        <td>{{item.EmpstatusName}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 
-     <!-- ของรองหัวหน้าหน่วยงาน -->
-     <div class="card" *ngIf="table4">
-        <div class="card-header">
-            <div class="row-md-1">
-                <div class="col-md-4">
-                    บุคลากร
-                    &nbsp;&nbsp;&nbsp;
 
+        <!-- ของผอ -->
+        <div class="card" *ngIf="table5">
+            <div class="card-header">
+                <div class="row-md-1">
+                    <div class="col-md-4">
+                        บุคลากร
+                        &nbsp;&nbsp;&nbsp;
+
+                    </div>
                 </div>
             </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr class="text-center">
+                            <th scope="col">รหัสบุคลากร</th>
+                            <th scope="col">ชื่อบุคลากร</th>
+                            <th scope="col">ตำแหน่ง/แผนก</th>
+                            <th scope="col">สถานะ</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of Employee; let i = index">
+                        <tr>
+                            <td>{{item.Emp_ID}}</td>
+                            <td>{{item.EmpName}} {{item.EmpLastName}}
+                                <p class="card-text">เพศ : {{item.Sex}} </p>
+                            </td>
+                            <td>
+                                <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
+                                <p class="card-title">แผนก : {{item.DeptName}}</p>
+                            </td>
+                            <td>{{item.EmpstatusName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr class="text-center">
-                        <th scope="col">รหัสบุคลากร</th>
-                        <th scope="col">ชื่อบุคลากร</th>
-                        <th scope="col">ตำแหน่ง/แผนก</th>
-                        <th scope="col">สถานะ</th>
-                        
-                    </tr>
-                </thead>
-                <tbody *ngFor="let item of Dept_to_head; let i = index">
-                    <tr>
-                        <td>{{item.Emp_ID}}</td>
-                        <td>{{item.EmpName}} {{item.EmpLastName}}
-                            <p class="card-text">เพศ : {{item.Sex}} </p>
-                        </td>
-                        <td>
-                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b>  {{item.PositionName}}
 
-                            <p class="card-title">แผนก : {{item.DeptName}}</p>
-                        </td>
-                        <td>{{item.EmpstatusName}}</td>
+        <!-- ของรองหัวหน้าหน่วยงาน -->
+        <div class="card" *ngIf="table4">
+            <div class="card-header">
+                <div class="row-md-1">
+                    <div class="col-md-4">
+                        บุคลากร
+                        &nbsp;&nbsp;&nbsp;
 
-                        
-                    </tr>
-                </tbody>
-            </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr class="text-center">
+                            <th scope="col">รหัสบุคลากร</th>
+                            <th scope="col">ชื่อบุคลากร</th>
+                            <th scope="col">ตำแหน่ง/แผนก</th>
+                            <th scope="col">สถานะ</th>
+
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of Dept_to_head; let i = index">
+                        <tr>
+                            <td>{{item.Emp_ID}}</td>
+                            <td>{{item.EmpName}} {{item.EmpLastName}}
+                                <p class="card-text">เพศ : {{item.Sex}} </p>
+                            </td>
+                            <td>
+                                <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
+
+                                <p class="card-title">แผนก : {{item.DeptName}}</p>
+                            </td>
+                            <td>{{item.EmpstatusName}}</td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
     <!-- *************** -->
     <!-- ของหัวหน้า -->
@@ -191,7 +197,7 @@
                         <th scope="col">ชื่อบุคลากร</th>
                         <th scope="col">ตำแหน่ง/แผนก</th>
                         <th scope="col">สถานะ</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of Dept_to_head; let i = index">
@@ -201,11 +207,11 @@
                             <p class="card-text">เพศ : {{item.Sex}} </p>
                         </td>
                         <td>
-                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b>  {{item.PositionName}}
+                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
                             <p class="card-title">แผนก : {{item.DeptName}}</p>
                         </td>
                         <td>{{item.EmpstatusName}}</td>
-                        
+
                     </tr>
                 </tbody>
             </table>
@@ -231,7 +237,7 @@
                         <th scope="col">ชื่อบุคลากร</th>
                         <th scope="col">ตำแหน่ง/แผนก</th>
                         <th scope="col">สถานะ</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of Dept_to_head; let i = index">
@@ -241,327 +247,334 @@
                             <p class="card-text">เพศ : {{item.Sex}} </p>
                         </td>
                         <td>
-                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b>  {{item.PositionName}}
+                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
                             <p class="card-title">แผนก : {{item.DeptName}}</p>
                         </td>
                         <td>{{item.EmpstatusName}}</td>
-                        
+
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-   
-     <!-- Modal แก้ไข-->
-     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-     <div class="modal-dialog modal-xl" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title" id="exampleModalLabel">แก้ไข</h5>
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                 </button>
-             </div>
-             <div class="modal-body">
-                 <form>
-                     <div class="form-row">
-                         <div class="col-md-4 mb-3">
-                             <label >รหัสบุคลากร</label>
-                             <input type="text" class="form-control" [formControl]="Emp_ID"
-                                 id="validationDefault01" style="background-color: rgb(226, 223, 223);">
-                         </div>
-                         <div class="col-md-4 mb-3">
-                             <label >ชื่อ(ภาษาไทย)</label>
-                             <input type="text" class="form-control" [formControl]="EmpName"
-                                 id="validationDefault02">
-                         </div>
-                         <div class="col-md-4 mb-3">
-                             <label >นามสกุล(ภาษาไทย)</label>
 
-                             <input type="text" class="form-control" [formControl]="EmpLastName"
-                                 id="validationDefaultUsername">
-                         </div>
-                        <br>
-                         <div class="col-md-3 mb-3">
-                             <label >เพศ</label>
-                             <select class="form-control" [formControl]="Sex" id="exampleFormControlSelect1">
-                                 <option value="ชาย">ชาย</option>
-                                 <option value="หญิง">หญิง</option>
+    <!-- Modal แก้ไข-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">แก้ไข</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>รหัสบุคลากร</label>
+                                <input type="text" class="form-control" [formControl]="Emp_ID" id="validationDefault01"
+                                    style="background-color: rgb(226, 223, 223);">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label>ชื่อ(ภาษาไทย)</label>
+                                <input type="text" class="form-control" [formControl]="EmpName"
+                                    id="validationDefault02">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label>นามสกุล(ภาษาไทย)</label>
 
-                             </select>
-                         </div>
-                         <div class="col-md-3 mb-3">
-                             <label >วันเกิด(ปี/เดือน/วัน)</label>
-                             <input type="date" class="form-control" [formControl]="Birthday"
-                                 id="validationDefault05">
-                         </div>
-                         <div class="col-md-3 mb-3">
-                             <label >อายุ</label>
-                             <input type="text" class="form-control" [formControl]="Age"
-                                 id="validationDefault06">
-                         </div>
-                         <div class="col-md-3 mb-3">
-                             <label >เบอร์โทร</label>
-                             <input type="text" class="form-control" [formControl]="Tel"
-                                 id="validationDefault07">
-                         </div>
-                         <div class="col-md-3 mb-3">
-                            <label >บัตรประชาชน</label>
-                            <input type="text" class="form-control" [formControl]="ID_card"
-                                id="validationDefault23">
-                        </div>
-                         <div class="col-md-8 mb-3">
-                             <label >ที่อยู่</label>
-                             <textarea class="form-control" [formControl]="Address"
-                                 id="exampleFormControlTextarea1" rows="3"></textarea>
-                         </div>
-                     </div>
-                     <div class="form-row">
-                         <div class="col-md-3 mb-3">
-                             <label >วันเริ่มทำงาน</label>
-                             <input type="date" class="form-control" [formControl]="Work_day"
-                                 id="validationDefault08">
-                         </div>
-                         <div class="col-md-3 mb-3">
-                             <label >อายุงาน</label>
-                             <input type="text" class="form-control" [formControl]="Duration_work"
-                                 id="validationDefault09">
-                         </div>
-                         <div class="col-md-3 mb-3">
-                             <label >สถานะบุคลากร</label>
-                             <select class="form-control" [formControl]="Empstatus_ID"
-                                 id="exampleFormControlSelect4">
-                                 <option selected></option>
-                                 <option value="201">ลูกจ้างเงินรายได้</option>
-                                 <option value="202">พนักงานมหาวิทยาลัย</option>
-                                 <option value="203">ราชการ</option>
-                             </select>
-                         </div>
-                         <div class="col-md-7 mb-3" >
-                             <label >ตำแหน่ง</label>
-                             <select class="form-control" [formControl]="Position_ID"
-                                 id="exampleFormControlSelect2" >
-                                 <option selected >เลือกตำแหน่ง</option>
-                                 <option value="5001">ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ</option>
-                                 <option value="5002">รองผู้อำนวยการฝ่ายบริหารงานทั่วไป</option>
-                                 <option value="5003">รองผู้อำนวยการฝ่ายวิทยบริการ</option>
-                                 <option value="5004">หัวหน้าสำนักงานผู้อำนวยการ</option>
-                                 <option value="5005">หัวหน้างานเทคโนโลยีสารสนเทศ</option>
-                                 <option value="5006">หัวหน้างานวิทยบริการ</option>
-                                 <option value="5007">หัวหน้าบริหารงานทั่วไป</option>
-                                 <option value="5008">หัวหน้าแผนกงานห้องสมุด</option>
-                                 <option value="5009">หัวหน้าแผนกงานธุรการสำนักงาน</option>
-                                 <option value="5010">หัวหน้าแผนกงานวิศวกรรมเครือข่าย</option>
-                                 <option value="5011">หัวหน้าแผนกอีเลิร์นนิ่งและเทคโนโลยีสารสนเทศ</option>
-                                 <option value="5012">หัวหน้าแผนกระบบสารสนเทศเพื่อการบริหาร</option>
-                                 <option value="5013">หัวหน้าแผนกศูนย์การเรียนรู้ด้วยตนเอง</option>
-                                 <option value="5014">นักวิชาการคอมพิวเตอร์</option>
-                                 <option value="5015">ผู้ปฏิบัติงานบริหาร</option>
-                                 <option value="5016">วิศวกร</option>
-                                 <option value="5017">นักเอกสารสนเทศ</option>
-                                 <option value="5018">เจ้าหน้าที่ห้องสมุด</option>
-                                 <option value="5019">นักวิชาการศึกษา</option>
-                                 <option value="5020">นักวิชาการโสตทัศนศึกษา</option>
-                                 <option value="5021">บรรณารักษ์</option>
-                                 <option value="5022">เจ้าหน้าที่บริหารงานทั่วไป</option>
-                                 <option value="5023">ผู้ดูแลระบบ</option>
-                                
-                             </select>
-                         </div>
-                         <div class="col-md-7 mb-3">
-                             <label> แผนก</label>
-                             <select class="form-control" [formControl]="Dept_ID"
-                                 id="exampleFormControlSelect3">
-                                 <option selected>-</option>
-                                 <option value="1001">แผนกงานธุรการสำนัก</option>
-                                 <option value="1002">แผนกงานห้องสมุด</option>
-                                 <option value="1003">แผนกงานศุนย์การเรียนรู้ด้วยตนเอง</option>
-                                 <option value="1004">แผนกงานวิศวกรรมเครือข่าย</option>
-                                 <option value="1005">แผนกงานอีเลิร์นนิ่งและเทคโนโลยีการศึกษา</option>
-                                 <option value="1006">ระบบสารสนเทศเพื่อการบริหาร</option>
-                             </select>
-                         </div>
-                     </div>
+                                <input type="text" class="form-control" [formControl]="EmpLastName"
+                                    id="validationDefaultUsername">
+                            </div>
+                            <br>
+                            <div class="col-md-3 mb-3">
+                                <label>เพศ</label>
+                                <select class="form-control" [formControl]="Sex" id="exampleFormControlSelect1">
+                                    <option value="ชาย">ชาย</option>
+                                    <option value="หญิง">หญิง</option>
 
-                     <div class="form-group">
-                         <div class="form-check">
-                             <input class="form-check-input" type="checkbox" value="" id="invalidCheck2">
-                             <label class="form-check-label" for="invalidCheck2">
-                                 Agree to terms and conditions
-                             </label>
-                         </div>
-                     </div>
-                 </form>
-             </div>
-             <div class="modal-footer">
-                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                 <button type="button" class="btn btn-primary" data-dismiss="modal"
-                     (click)="updateEmployee()">บันทึก</button>
-             </div>
-         </div>
-     </div>
- </div>
-
-
-<!-- การลางาน -->
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ลาป่วย</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="tab-pane fade show active">
-
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row-md-1">
-
-                                <div class="col-md-4">
-                                    ยื่นการลางาน
-
-                                </div>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>วันเกิด(ปี/เดือน/วัน)</label>
+                                <input type="date" class="form-control" [formControl]="Birthday"
+                                    id="validationDefault05">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>อายุ</label>
+                                <input type="text" class="form-control" [formControl]="Age" id="validationDefault06">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>เบอร์โทร</label>
+                                <input type="text" class="form-control" [formControl]="Tel" id="validationDefault07">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>บัตรประชาชน</label>
+                                <input type="text" class="form-control" [formControl]="ID_card"
+                                    id="validationDefault23">
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label>ที่อยู่</label>
+                                <textarea class="form-control" [formControl]="Address" id="exampleFormControlTextarea1"
+                                    rows="3"></textarea>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="container">
-                                    <div class="form-row">
-                                        <div class="col-lg-960px">
-                                            <br>
-                                            <h6>เรื่อง : </h6>
-                                           <br>
-                                           <br>
-                                            <h6>เรียน : </h6>
-                                        </div>
-                                        <div class="col-lg-960px">
-                                            <input type="text" class="form-control" [formControl]="Name_Leave">
-                                            <input type="text" class="form-control" [formControl]="To_Person">
-                                        </div>
+                        <div class="form-row">
+                            <div class="col-md-3 mb-3">
+                                <label>วันเริ่มทำงาน</label>
+                                <input type="date" class="form-control" [formControl]="Work_day"
+                                    id="validationDefault08">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>อายุงาน</label>
+                                <input type="text" class="form-control" [formControl]="Duration_work"
+                                    id="validationDefault09">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>สถานะบุคลากร</label>
+                                <select class="form-control" [formControl]="Empstatus_ID"
+                                    id="exampleFormControlSelect4">
+                                    <option selected></option>
+                                    <option *ngFor="let item of status; let i = index" value="{{item.Empstatus_ID}}">
+                                        {{item.EmpstatusName}}</option>
+                                    <!-- <option selected></option>
+                                    <option value="201">ลูกจ้างเงินรายได้</option>
+                                    <option value="202">พนักงานมหาวิทยาลัย</option>
+                                    <option value="203">ราชการ</option> -->
+                                </select>
+                            </div>
+                            <div class="col-md-7 mb-3">
+                                <label>ตำแหน่ง</label>
+                                <select class="form-control" [formControl]="Position_ID" id="exampleFormControlSelect2">
+                                    <option selected>เลือกตำแหน่ง</option>
+                                    <option *ngFor="let item of positionEmp; let i = index"
+                                        value="{{item.Position_ID}}">
+                                        {{item.PositionName}}</option>
+                                    <!-- <option value="5001">ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ</option>
+                                    <option value="5002">รองผู้อำนวยการฝ่ายบริหารงานทั่วไป</option>
+                                    <option value="5003">รองผู้อำนวยการฝ่ายวิทยบริการ</option>
+                                    <option value="5004">หัวหน้าสำนักงานผู้อำนวยการ</option>
+                                    <option value="5005">หัวหน้างานเทคโนโลยีสารสนเทศ</option>
+                                    <option value="5006">หัวหน้างานวิทยบริการ</option>
+                                    <option value="5007">หัวหน้าบริหารงานทั่วไป</option>
+                                    <option value="5008">หัวหน้าแผนกงานห้องสมุด</option>
+                                    <option value="5009">หัวหน้าแผนกงานธุรการสำนักงาน</option>
+                                    <option value="5010">หัวหน้าแผนกงานวิศวกรรมเครือข่าย</option>
+                                    <option value="5011">หัวหน้าแผนกอีเลิร์นนิ่งและเทคโนโลยีสารสนเทศ</option>
+                                    <option value="5012">หัวหน้าแผนกระบบสารสนเทศเพื่อการบริหาร</option>
+                                    <option value="5013">หัวหน้าแผนกศูนย์การเรียนรู้ด้วยตนเอง</option>
+                                    <option value="5014">นักวิชาการคอมพิวเตอร์</option>
+                                    <option value="5015">ผู้ปฏิบัติงานบริหาร</option>
+                                    <option value="5016">วิศวกร</option>
+                                    <option value="5017">นักเอกสารสนเทศ</option>
+                                    <option value="5018">เจ้าหน้าที่ห้องสมุด</option>
+                                    <option value="5019">นักวิชาการศึกษา</option>
+                                    <option value="5020">นักวิชาการโสตทัศนศึกษา</option>
+                                    <option value="5021">บรรณารักษ์</option>
+                                    <option value="5022">เจ้าหน้าที่บริหารงานทั่วไป</option>
+                                    <option value="5023">ผู้ดูแลระบบ</option> -->
+
+                                </select>
+                            </div>
+                            <div class="col-md-7 mb-3">
+                                <label> แผนก</label>
+                                <select class="form-control" [formControl]="Dept_ID" id="exampleFormControlSelect3">
+                                    <option selected>-</option>
+
+                                    <option *ngFor="let item of dep; let i = index" value="{{item.Dept_ID}}">
+                                        {{item.DeptName}}</option>
+                                    <!-- <option value="1001">แผนกงานธุรการสำนัก</option>
+                                    <option value="1002">แผนกงานห้องสมุด</option>
+                                    <option value="1003">แผนกงานศุนย์การเรียนรู้ด้วยตนเอง</option>
+                                    <option value="1004">แผนกงานวิศวกรรมเครือข่าย</option>
+                                    <option value="1005">แผนกงานอีเลิร์นนิ่งและเทคโนโลยีการศึกษา</option>
+                                    <option value="1006">ระบบสารสนเทศเพื่อการบริหาร</option> -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2">
+                                <label class="form-check-label" for="invalidCheck2">
+                                    Agree to terms and conditions
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        (click)="updateEmployee()">บันทึก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- การลางาน -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ลาป่วย</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-pane fade show active">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row-md-1">
+
+                                    <div class="col-md-4">
+                                        ยื่นการลางาน
+
                                     </div>
                                 </div>
-                                &nbsp;&nbsp;
-                                <div class="card-header text-left">
-                                    ข้อมุลบุคลากร
-                                </div>
-                                &nbsp;
-                                <div class="form-row">
+                            </div>
+                            <div class="card-body">
+                                <form>
                                     <div class="container">
                                         <div class="form-row">
                                             <div class="col-lg-960px">
                                                 <br>
-                                                <h6>รหัส : </h6>
+                                                <h6>เรื่อง : </h6>
+                                                <br>
+                                                <br>
+                                                <h6>เรียน : </h6>
                                             </div>
                                             <div class="col-lg-960px">
-                                                <input type="text" class="form-control" value="{{Local_Emp_ID}}"
-                                                    [formControl]="Emp_ID" readonly>
+                                                <input type="text" class="form-control" [formControl]="Name_Leave">
+                                                <input type="text" class="form-control" [formControl]="To_Person">
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="col-lg-960px">
-                                                    <br>
-                                                <h6> ชื่อ : </h6>
-                                                <br>
-                                                <br>
-                                                <h6>แผนก : </h6>
-                                            </div>
-                                            <div class="col-lg-960px">
-                                                <input type="text" class="form-control" value="{{Local_EmpName}}"
-                                                    [formControl]="EmpName" readonly>
-                                                <input type="text" class="form-control" value="{{Local_DeptName}}"
-                                                    [formControl]="DeptName" readonly>
-                                            </div>
-                                            <div class="col-lg-960px">
-                                                    <br>
-                                                <h6> นามสกุล : </h6>
-                                                <br>
-                                                <br>
-                                                <h6> ฝ่าย : </h6>
-                                            </div>
-                                            <div class="col-lg-960px">
-                                                <input type="text" class="form-control" id="validationDefault02"
-                                                    value="{{Local_EmpLastName}}" [formControl]="EmpLastName" readonly>
-                                                <input type="text" class="form-control" id="validationDefault02"
-                                                    value="{{Local_Sector}}" [formControl]="Sector" readonly>
-                                            </div>
-                                            &nbsp;
-                                            <div class="col-lg-960px">
-                                                    <br>
-                                                    ตำแหน่ง : </div>
-                                            &nbsp;
-                                            <div class="col-lg-960px">
-                                                <input type="text" class="form-control" id="validationDefault02"
-                                                    value="{{Local_PositionName}}" [formControl]="PositionName"
-                                                    readonly>
-                                            </div>
-
-                                        </div>
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="card-header text-left">
+                                        ข้อมุลบุคลากร
                                     </div>
                                     &nbsp;
-                                </div>
-                                <div class="card-header text-left">
-                                    ข้อมูลการลา
-                                </div>
-                                <br>
-                                ประเภทการลา
-                                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                                    <div class="form-row">
+                                        <div class="container">
+                                            <div class="form-row">
+                                                <div class="col-lg-960px">
+                                                    <br>
+                                                    <h6>รหัส : </h6>
+                                                </div>
+                                                <div class="col-lg-960px">
+                                                    <input type="text" class="form-control" value="{{Local_Emp_ID}}"
+                                                        [formControl]="Emp_ID" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-lg-960px">
+                                                    <br>
+                                                    <h6> ชื่อ : </h6>
+                                                    <br>
+                                                    <br>
+                                                    <h6>แผนก : </h6>
+                                                </div>
+                                                <div class="col-lg-960px">
+                                                    <input type="text" class="form-control" value="{{Local_EmpName}}"
+                                                        [formControl]="EmpName" readonly>
+                                                    <input type="text" class="form-control" value="{{Local_DeptName}}"
+                                                        [formControl]="DeptName" readonly>
+                                                </div>
+                                                <div class="col-lg-960px">
+                                                    <br>
+                                                    <h6> นามสกุล : </h6>
+                                                    <br>
+                                                    <br>
+                                                    <h6> ฝ่าย : </h6>
+                                                </div>
+                                                <div class="col-lg-960px">
+                                                    <input type="text" class="form-control" id="validationDefault02"
+                                                        value="{{Local_EmpLastName}}" [formControl]="EmpLastName"
+                                                        readonly>
+                                                    <input type="text" class="form-control" id="validationDefault02"
+                                                        value="{{Local_Sector}}" [formControl]="Sector" readonly>
+                                                </div>
+                                                &nbsp;
+                                                <div class="col-lg-960px">
+                                                    <br>
+                                                    ตำแหน่ง : </div>
+                                                &nbsp;
+                                                <div class="col-lg-960px">
+                                                    <input type="text" class="form-control" id="validationDefault02"
+                                                        value="{{Local_PositionName}}" [formControl]="PositionName"
+                                                        readonly>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        &nbsp;
+                                    </div>
+                                    <div class="card-header text-left">
+                                        ข้อมูลการลา
+                                    </div>
+                                    <br>
+                                    ประเภทการลา
+                                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
                                         <option></option>
                                         <option></option>
-                                      </select>
-                                      
-                                <div class="form-group">     
-                                        <br> 
-                                    <label for="exampleFormControlTextarea1">ขอลาเนื่องจาก</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                        [formControl]="LeaveData"></textarea>
-                                </div>
-                                <div class="form-row">
+                                    </select>
 
-                                    <div class="col-md-2 mb-2">
-                                        <label >วันที่ลา</label>
-                                        <input type="date" class="form-control" id="LeaveDateStart"
-                                            [formControl]="LeaveDateStart" required>
+                                    <div class="form-group">
+                                        <br>
+                                        <label for="exampleFormControlTextarea1">ขอลาเนื่องจาก</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                            [formControl]="LeaveData"></textarea>
                                     </div>
-                                    <div class="col-md-2 mb-2">
-                                        <label >ถึงวันที่</label>
-                                        <input type="date" class="form-control" id="LeaveDateLast"
-                                           (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value)" [formControl]="LeaveDateLast" required>
-                                    </div>
-                                    <div class="col-md-2 mb-2">
-                                        <label >จำนวนวันลา</label>
-                                        <input type="text" class="form-control" id="LeaveTotal"
-                                         [value]="numberleave"  #LeaveTotal readonly>
-                                    </div>
+                                    <div class="form-row">
 
-                                    <!-- <div class="col-md-2 mb-3">
+                                        <div class="col-md-2 mb-2">
+                                            <label>วันที่ลา</label>
+                                            <input type="date" class="form-control" id="LeaveDateStart"
+                                                [formControl]="LeaveDateStart" required>
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <label>ถึงวันที่</label>
+                                            <input type="date" class="form-control" id="LeaveDateLast"
+                                                (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value)"
+                                                [formControl]="LeaveDateLast" required>
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <label>จำนวนวันลา</label>
+                                            <input type="text" class="form-control" id="LeaveTotal"
+                                                [value]="numberleave" #LeaveTotal readonly>
+                                        </div>
+
+                                        <!-- <div class="col-md-2 mb-3">
                                         <label >ครั้งที่</label>
                                         <input type="text" class="form-control" id="validationDefault03"
                                              required>
                                     </div> -->
-                                    <div class="row">
+                                        <div class="row">
+
+                                        </div>
+                                        <div class="form-row">
+                                        </div>
 
                                     </div>
-                                    <div class="form-row">
-                                    </div>
 
-                                </div>
-                                
-                            </form> 
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddLeave()">OK</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddLeave()">OK</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>

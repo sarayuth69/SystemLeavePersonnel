@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from '../api.service';
 import {
   HttpClient,
-  HttpHeaders
+  HttpHeaders,
+  HttpEventType
 } from '@angular/common/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
@@ -35,7 +36,7 @@ export class LeavelistComponent implements OnInit {
     public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
-    public http: HttpClient,
+    private http: HttpClient
   ) { }
   Local_Emp_ID = localStorage.getItem('Emp_ID');
   Local_EmpName = localStorage.getItem('EmpName');
@@ -159,109 +160,109 @@ export class LeavelistComponent implements OnInit {
     //   this.leave106 = false;
     // }
   }
-  // AddLeave(LeaveTotal) {
-  //   this.LeaveTotal = new FormControl(LeaveTotal);
-  //   if (LeaveTotal === '0') {
-  //     Swal.fire({
-  //       icon: 'error',
-  //       title: 'กรุณาเลือกวันลา',
+  AddLeave(LeaveTotal) {
+    this.LeaveTotal = new FormControl(LeaveTotal);
+    if (LeaveTotal === '0') {
+      Swal.fire({
+        icon: 'error',
+        title: 'กรุณาเลือกวันลา',
 
-  //     })
-  //   } else {
-  //     const body = 'Leave_ID=' + this.Leave_ID.value
-  //       + '&Emp_ID=' + localStorage.getItem("Emp_ID")
-  //       + '&Name_Leave=' + this.Name_Leave.value
-  //       + '&To_Person=' + this.To_Person.value
-  //       + '&LeaveDateStart=' + this.LeaveDateStart.value
-  //       + '&LeaveDateLast=' + this.LeaveDateLast.value
-  //       + '&LeaveData=' + this.LeaveData.value
-  //       + '&ContactInformation=' + this.ContactInformation.value
-  //       + '&LeaveTotal=' + this.LeaveTotal.value
-  //       + '&LeaveStatus=' + "รอการอนุญาต"
-  //       + '&UploadFile=' + this.UploadFile.value
-  //       + '&Response_Time=' + this.Response_Time.value
-  //       + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-  //       + '&LType_ID=' + this.LType_ID.value
+      })
+    } else {
+      const body = 'Leave_ID=' + this.Leave_ID.value
+        + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+        + '&Name_Leave=' + this.Name_Leave.value
+        + '&To_Person=' + this.To_Person.value
+        + '&LeaveDateStart=' + this.LeaveDateStart.value
+        + '&LeaveDateLast=' + this.LeaveDateLast.value
+        + '&LeaveData=' + this.LeaveData.value
+        + '&ContactInformation=' + this.ContactInformation.value
+        + '&LeaveTotal=' + this.LeaveTotal.value
+        + '&LeaveStatus=' + "รอการอนุญาต"
+        + '&UploadFile=' + this.UploadFile.value
+        + '&Response_Time=' + this.Response_Time.value
+        + '&Person_Code_Allow=' + this.Person_Code_Allow.value
+        + '&LType_ID=' + this.LType_ID.value
 
-  //     console.log(body);
-  //     const headers = new HttpHeaders({
-  //       'Content-Type': 'application/x-www-form-urlencoded'
-  //     });
-  //     this.http
-  //       .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
-  //         headers: headers
-  //       })
-  //       .subscribe(
-  //         (data: any) => {
-  //           console.log(data);
-  //           this.addLeave = data;
-  //         },
-  //         (error: any) => {
-  //           console.log(error);
-  //         }
-  //       );
-  //     Swal.fire({
-  //       position: 'top-end',
-  //       icon: 'success',
-  //       title: 'ส่งการลาเรียบร้อย',
-  //       showConfirmButton: false,
-  //       timer: 1500
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
+          headers: headers
+        })
+        .subscribe(
+          (data: any) => {
+            console.log(data);
+            this.addLeave = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'ส่งการลาเรียบร้อย',
+        showConfirmButton: false,
+        timer: 1500
 
-  //     })
-  //       .then(() => {
-  //         const body = 'LType_ID=' + this.LType_ID.value
-  //           + '&LeaveTotal=' + this.LeaveTotal.value
-  //         console.log(body);
-  //         const headers = new HttpHeaders({
-  //           'Content-Type': 'application/x-www-form-urlencoded'
-  //         });
-  //         this.http
-  //           .post('http://localhost/Leavewebservice/API/UpdateLtypeUser.php', body, {
-  //             headers: headers
-  //           })
-  //           .subscribe(
-  //             (data: any) => {
-  //               this.addLeave = data;
-  //             },
-  //             (error: any) => {
-  //               console.log(error);
-  //             }
-  //           );
-  //       })
-  //       .then(() => {
-  //         const body = 'LType_ID=' + this.LType_ID.value
-  //         console.log(body);
-  //         const headers = new HttpHeaders({
-  //           'Content-Type': 'application/x-www-form-urlencoded'
-  //         });
-  //         this.http
-  //           .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
-  //             headers: headers
-  //           }).subscribe(
-  //             (data: any) => {
-  //               this.leave = data;
-  //             },
-  //             (error: any) => {
-  //               console.log(error);
-  //             }
-  //           )
-  //       })
-  //       .then(() => {
-  //         this.http
-  //           .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
-  //             headers: headers
-  //           }).subscribe(
-  //             (data: any) => {
-  //               this.leave = data;
-  //             },
-  //             (error: any) => {
-  //               console.log(error);
-  //             }
-  //           )
-  //       })
-  //   }
+      })
+        .then(() => {
+          const body = 'LType_ID=' + this.LType_ID.value
+            + '&LeaveTotal=' + this.LeaveTotal.value
+          console.log(body);
+          const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+          });
+          this.http
+            .post('http://localhost/Leavewebservice/API/UpdateLtypeUser.php', body, {
+              headers: headers
+            })
+            .subscribe(
+              (data: any) => {
+                this.addLeave = data;
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            );
+        })
+        .then(() => {
+          const body = 'LType_ID=' + this.LType_ID.value
+          console.log(body);
+          const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+          });
+          this.http
+            .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
+              headers: headers
+            }).subscribe(
+              (data: any) => {
+                this.leave = data;
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            )
+        })
+        .then(() => {
+          this.http
+            .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+              headers: headers
+            }).subscribe(
+              (data: any) => {
+                this.leave = data;
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            )
+        })
+    }
 
-  // }
+  }
 
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
@@ -270,17 +271,22 @@ export class LeavelistComponent implements OnInit {
   onUpload() {
     const uploadData = new FormData();
     uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // });
     this.http.post('http://localhost/Leavewebservice/API/Uploadfile.php', uploadData, {
-
+      // headers: headers,
       reportProgress: true,
       observe: 'events'
     })
-    .subscribe(event => {
-      console.log(event);
-    })
+      .subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          console.log('Upload Progres:' + Math.round(event.loaded / event.total * 100) + '%');
+        } else if (event.type === HttpEventType.Response) {
+          console.log(event);
+
+        }
+      })
   }
 
 

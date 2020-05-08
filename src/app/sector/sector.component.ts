@@ -33,56 +33,56 @@ export class SectorComponent implements OnInit {
   Addsector() {
     const body = 'Sector_ID=' + this.Sector_ID.value
       + '&SectorName=' + this.SectorName.value
-if(!this.Sector_ID.value||!this.SectorName.value){
-  Swal.fire(
-    'กรุณากรอกข้อมูล',
-    'That thing is still around?',
-    'question'
-  ).then(()=>{
-    this.Sector_ID = new FormControl('');
-    this.SectorName = new FormControl('');
-  })
-}
-else{
-  console.log(body);
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/x-www-form-urlencoded'
-  });
+    if (this.Sector_ID.value === "" || this.SectorName.value === "") {
+      Swal.fire(
+        'กรุณากรอกข้อมูล',
+        'That thing is still around?',
+        'question'
+      )
+    }
+    else {
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
 
-  this.http
-    .post('http://localhost/Leavewebservice/API/InsertSector.php', body, {
-      headers: headers
-    })
-    .subscribe(
+      this.http
+        .post('http://localhost/Leavewebservice/API/InsertSector.php', body, {
+          headers: headers
+        })
+        .subscribe(
 
-      (data: any) => {
-        console.log(data);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  Swal.fire({
-    position: 'center',
-    icon: 'success',
-    title: 'เพิ่มฝ่ายงานเรียบร้อย',
-    showConfirmButton: false,
-    timer: 1500
+          (data: any) => {
+            console.log(data);
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'เพิ่มฝ่ายงานเรียบร้อย',
+        showConfirmButton: false,
+        timer: 1500
 
-  }).then(() => {
-    this.http.get('http://localhost/Leavewebservice/API/getsector.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.sector = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  })
-}
-     
-    
+      }).then(() => {
+        this.http.get('http://localhost/Leavewebservice/API/getsector.php').subscribe(
+          (data: any) => {
+            console.log(data);
+            this.sector = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }).then(() => {
+        this.Sector_ID = new FormControl('');
+        this.SectorName = new FormControl('');
+      })
+    }
+
+
   }
 
   deletesector(id, name) {
@@ -103,7 +103,7 @@ else{
           title: 'ลบเรียบร้อย',
           showConfirmButton: false,
           timer: 1500
-        }).then(()=>{
+        }).then(() => {
           this.http.get('http://localhost/Leavewebservice/API/getsector.php').subscribe(
             (data: any) => {
               console.log(data);
@@ -139,9 +139,9 @@ else{
   }
   public updateSectorEmp() {
     const body =
-      'Sector_ID=' + this.Sector_ID.value 
-      +'&SectorName=' + this.SectorName.value
-      
+      'Sector_ID=' + this.Sector_ID.value
+      + '&SectorName=' + this.SectorName.value
+
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -164,7 +164,7 @@ else{
       title: 'แก้ไขเรียบร้อย',
       showConfirmButton: false,
       timer: 1500
-    }).then(()=>{
+    }).then(() => {
       this.http.get('http://localhost/Leavewebservice/API/getsector.php').subscribe(
         (data: any) => {
           this.sector = data;
@@ -173,6 +173,9 @@ else{
           console.log(error);
         }
       )
+    }).then(() => {
+      this.Sector_ID = new FormControl('');
+      this.SectorName = new FormControl('');
     })
   }
 }

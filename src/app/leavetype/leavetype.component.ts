@@ -14,12 +14,12 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./leavetype.component.scss']
 })
 export class LeavetypeComponent implements OnInit {
- 
+
   public leavetype;
- 
+
   public leavetype_ID_show;
   public leavetypeName_show;
-  leavetype1 :any;
+  leavetype1: any;
   LType_ID = new FormControl('');
   LTypeName = new FormControl('');
   Number = new FormControl('');
@@ -28,10 +28,10 @@ export class LeavetypeComponent implements OnInit {
   LOrdinal = new FormControl('');
   QuotaStatus = new FormControl('');
   Empstatus_ID = new FormControl('');
- 
+
 
   constructor(
-    public router: Router  ,
+    public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
@@ -39,81 +39,81 @@ export class LeavetypeComponent implements OnInit {
 
   ngOnInit() {
     this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
-      (data : any)=>{
-        this.leavetype = data;
-      },
-      (error:any)=>{
-        console.log(error);
-      }
-    )
-
-   
-  }
-  AddLeavetype(){
-    const body = 'LType_ID=' + this.LType_ID.value
-    + '&LTypeName=' + this.LTypeName.value
-    + '&Number=' + this.Number.value
-    + '&Remain=' + this.Remain.value
-    + '&AdvanceNotice=' + this.AdvanceNotice.value
-    + '&LOrdinal=' + this.LOrdinal.value
-    + '&QuotaStatus=' + this.QuotaStatus.value   
-    + '&Empstatus_ID=' + this.Empstatus_ID.value
-if(!this.LType_ID.value || !this.LTypeName.value || !this.Number.value
-  || !this.Remain.value || !this.AdvanceNotice.value || !this.LOrdinal.value
-  || !this.QuotaStatus.value || !this.Empstatus_ID.value){
-    Swal.fire(
-      'กรุณากรอกข้อมูล',
-      'That thing is still around?',
-      'question'
-    ).then(()=>{
-      this.LType_ID = new FormControl('');
-      this.LTypeName = new FormControl('');
-      this.Number = new FormControl('');
-      this.Remain = new FormControl('');
-      this.AdvanceNotice = new FormControl('');
-      this.LOrdinal = new FormControl('');
-      this.QuotaStatus = new FormControl('');
-      this.Empstatus_ID = new FormControl('');
-    })
-}else{
-  console.log(body);
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/x-www-form-urlencoded'
-  });
-  this.http
-    .post('http://localhost/Leavewebservice/API/InsertLeavetype.php', body, {
-      headers: headers
-    })
-    .subscribe(
       (data: any) => {
-        console.log(data);
-        this.leavetype1 = data;
+        this.leavetype = data;
       },
       (error: any) => {
         console.log(error);
       }
-    );
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'เพิ่มประเภทการลาเรียบร้อย',
-      showConfirmButton: false,
-      timer: 1500
-      
-    }).then(()=>{
-      this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
-    (data : any)=>{
-      this.leavetype = data;
-    },
-    (error:any)=>{
-      console.log(error);
+    )
+
+
+  }
+  AddLeavetype() {
+    const body = 'LType_ID=' + this.LType_ID.value
+      + '&LTypeName=' + this.LTypeName.value
+      + '&Number=' + this.Number.value
+      + '&Remain=' + this.Remain.value
+      + '&AdvanceNotice=' + this.AdvanceNotice.value
+      + '&LOrdinal=' + this.LOrdinal.value
+      + '&QuotaStatus=' + this.QuotaStatus.value
+      + '&Empstatus_ID=' + this.Empstatus_ID.value
+    if (this.LType_ID.value === "" || this.LTypeName.value === "" || this.Number.value === ""
+      || this.Remain.value === "" || this.AdvanceNotice.value === "" || this.LOrdinal.value === ""
+      || this.QuotaStatus.value === "" || this.Empstatus_ID.value === "") {
+      Swal.fire(
+        'กรุณากรอกข้อมูล',
+        'That thing is still around?',
+        'question'
+      )
+    } else {
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post('http://localhost/Leavewebservice/API/InsertLeavetype.php', body, {
+          headers: headers
+        })
+        .subscribe(
+          (data: any) => {
+            console.log(data);
+            this.leavetype1 = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'เพิ่มประเภทการลาเรียบร้อย',
+        showConfirmButton: false,
+        timer: 1500
+
+      }).then(() => {
+        this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
+          (data: any) => {
+            this.leavetype = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        )
+      }).then(() => {
+        this.LType_ID = new FormControl('');
+        this.LTypeName = new FormControl('');
+        this.Number = new FormControl('');
+        this.Remain = new FormControl('');
+        this.AdvanceNotice = new FormControl('');
+        this.LOrdinal = new FormControl('');
+        this.QuotaStatus = new FormControl('');
+        this.Empstatus_ID = new FormControl('');
+      })
     }
-  )
-    })
-}
   }
 
-  deleteLeavetype(id,name){
+  deleteLeavetype(id, name) {
     this.leavetype_ID_show = id;
     this.leavetypeName_show = name;
     Swal.fire({
@@ -131,7 +131,7 @@ if(!this.LType_ID.value || !this.LTypeName.value || !this.Number.value
           title: 'ลบเรียบร้อย',
           showConfirmButton: false,
           timer: 1500
-        }).then(()=>{
+        }).then(() => {
           this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
             (data: any) => {
               console.log(data);
@@ -156,7 +156,7 @@ if(!this.LType_ID.value || !this.LTypeName.value || !this.Number.value
               console.log(error);
             }
           );
-       
+
       }
     })
 
@@ -164,7 +164,7 @@ if(!this.LType_ID.value || !this.LTypeName.value || !this.Number.value
 
 
   updateLeavetype(
-    LType_ID, LTypeName,Number,Remain,AdvanceNotice,LOrdinal,QuotaStatus,Empstatus_ID
+    LType_ID, LTypeName, Number, Remain, AdvanceNotice, LOrdinal, QuotaStatus, Empstatus_ID
   ) {
     this.LType_ID = new FormControl(LType_ID);
     this.LTypeName = new FormControl(LTypeName);
@@ -178,13 +178,13 @@ if(!this.LType_ID.value || !this.LTypeName.value || !this.Number.value
   public updateLeaveType1() {
     const body =
       'LType_ID=' + this.LType_ID.value
-       +'&LTypeName=' + this.LTypeName.value
-       +'&Number=' + this.Number.value
-       +'&Remain=' + this.Remain.value
-       +'&AdvanceNotice=' + this.AdvanceNotice.value
-       +'&LOrdinal=' + this.LOrdinal.value
-       +'&QuotaStatus=' + this.QuotaStatus.value
-       +'&Empstatus_ID=' + this.Empstatus_ID.value
+      + '&LTypeName=' + this.LTypeName.value
+      + '&Number=' + this.Number.value
+      + '&Remain=' + this.Remain.value
+      + '&AdvanceNotice=' + this.AdvanceNotice.value
+      + '&LOrdinal=' + this.LOrdinal.value
+      + '&QuotaStatus=' + this.QuotaStatus.value
+      + '&Empstatus_ID=' + this.Empstatus_ID.value
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -208,7 +208,7 @@ if(!this.LType_ID.value || !this.LTypeName.value || !this.Number.value
       title: 'แก้ไขเรียบร้อย',
       showConfirmButton: false,
       timer: 1500
-    }).then(()=>{
+    }).then(() => {
       this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
         (data: any) => {
           console.log(data);
@@ -218,6 +218,15 @@ if(!this.LType_ID.value || !this.LTypeName.value || !this.Number.value
           console.log(error);
         }
       );
+    }).then(() => {
+      this.LType_ID = new FormControl('');
+      this.LTypeName = new FormControl('');
+      this.Number = new FormControl('');
+      this.Remain = new FormControl('');
+      this.AdvanceNotice = new FormControl('');
+      this.LOrdinal = new FormControl('');
+      this.QuotaStatus = new FormControl('');
+      this.Empstatus_ID = new FormControl('');
     })
   }
 

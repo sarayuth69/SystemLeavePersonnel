@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class APIService {
 
-  URL: 'http://localhost/Leavewebservice/API/getMyData.php';
+  // URL: 'http://localhost/Leavewebservice/API/getMyData.php';
 
- constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {
 
- }
+  }
 
- getConfig() {
-  return this.http.get(this.URL);
-}
+  getConfig(): Observable<any> {
+
+    const url = 'http://localhost/Leavewebservice/API/getMyData.php';
+
+    return this.http.get<any>(url);
+  }
 
 }
