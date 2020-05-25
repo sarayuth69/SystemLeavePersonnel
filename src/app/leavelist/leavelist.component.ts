@@ -264,6 +264,7 @@ export class LeavelistComponent implements OnInit {
 
   }
 
+
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
     console.log(this.selectedFile);
@@ -287,26 +288,8 @@ export class LeavelistComponent implements OnInit {
 
         }
       })
+
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   onseletday(LeaveDateStart, LeaveDateLast) {
@@ -339,6 +322,7 @@ export class LeavelistComponent implements OnInit {
 
   }
 
-
-
+  nextpage(EmpName) {
+    this.router.navigate(['/Filelaeveprint']);
+  }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 05, 2020 at 09:37 AM
+-- Generation Time: May 25, 2020 at 10:36 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -39,12 +39,15 @@ CREATE TABLE `department` (
 --
 
 INSERT INTO `department` (`Dept_ID`, `DeptName`, `Sector_ID`) VALUES
+('', '', ''),
 ('1001', 'แผนกงานธุรการสำนัก', '301'),
 ('1002', 'แผนกงานห้องสมุด', '301'),
 ('1003', 'แผนกงานศุนย์การเรียนรู้ด้วยตนเอง', '302'),
 ('1004', 'แผนกงานวิศวกรรมเครือข่าย', '302'),
 ('1005', 'แผนกงานอีเลิร์นนิ่งและเทคโนโลยีการศึกษา', '303'),
-('1006', 'ระบบสารสนเทศเพื่อการบริหาร', '301');
+('1006', 'ระบบสารสนเทศเพื่อการบริหาร', '301'),
+('5656565', '5', '[object Ob'),
+('s', 'a', '301');
 
 -- --------------------------------------------------------
 
@@ -53,26 +56,26 @@ INSERT INTO `department` (`Dept_ID`, `DeptName`, `Sector_ID`) VALUES
 --
 
 CREATE TABLE `employee` (
-  `Emp_ID` varchar(20) NOT NULL,
-  `Prefix` varchar(6) DEFAULT NULL,
-  `EmpName` varchar(10) DEFAULT NULL,
-  `EmpLastName` varchar(15) DEFAULT NULL,
-  `Sex` varchar(4) DEFAULT NULL,
-  `Birthday` varchar(8) DEFAULT NULL,
+  `Emp_ID` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'รหัสบุคลากร',
+  `Prefix` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'คำนำหน้า',
+  `EmpName` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ชื่อบุคลากร',
+  `EmpLastName` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'นามสกุล',
+  `Sex` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'เพศ',
+  `Birthday` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'วันเกิด',
   `ID_card` int(13) NOT NULL COMMENT 'รหัสบัตรประชาชน',
-  `Age` varchar(3) DEFAULT NULL,
-  `Address` varchar(7) DEFAULT NULL,
-  `Tel` varchar(3) DEFAULT NULL,
-  `Username` varchar(8) DEFAULT NULL,
-  `Password` varchar(8) DEFAULT NULL,
-  `Work_day` varchar(8) DEFAULT NULL,
-  `Duration_work` varchar(13) DEFAULT NULL,
+  `Age` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'อายุ',
+  `Address` varchar(7) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ที่อยู่',
+  `Tel` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'เบอร์โทร',
+  `Username` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Username',
+  `Password` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Password',
+  `Work_day` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'วันทำงาน',
+  `Duration_work` varchar(13) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'อายุงาน',
   `SendingLeaveStatus` varchar(10) NOT NULL COMMENT 'สถานะการส่งใบลา',
-  `Empstatus_ID` varchar(12) DEFAULT NULL,
-  `Position_ID` varchar(11) DEFAULT NULL,
-  `Dept_ID` varchar(7) DEFAULT NULL,
-  `Sector_ID` varchar(9) DEFAULT NULL,
-  `Leave_ID` varchar(8) DEFAULT NULL
+  `Empstatus_ID` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'รหัสสถานะ',
+  `Position_ID` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'รหัสตำแหน่ง',
+  `Dept_ID` varchar(7) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'รหัสแผนก',
+  `Sector_ID` varchar(9) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'รหัสฝ่านงาน',
+  `Leave_ID` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'รหัสการลางาน'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -80,12 +83,12 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `Birthday`, `ID_card`, `Age`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `SendingLeaveStatus`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `Leave_ID`) VALUES
-('1000.11.170', 'นางสาว', 'จิตติรัตน์', 'มาบจะบก', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5006', '1004', '', ''),
+('1000.11.170', 'นางสาว', 'จิตติรัตน์', 'มาบจะบก', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5015', '1004', '', ''),
 ('1000.11.194', 'นางสาว', 'อุดมลักษณ์', 'พึ่งอารมณ์', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5015', '1004', '', ''),
 ('1000.14.172', 'นางสาว', 'กาญจนาภรณ์', 'เจนศิริวงษ์', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5015', '1005', '', ''),
 ('1000.14.178', 'นางสาว', 'นาตยา', 'ธารณะกลาง', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5015', '1001', '', ''),
 ('1000.2.184', 'นางสาว', 'อนัญญา', 'สีกระโทก', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5022', '1001', '', ''),
-('1000.2.188', 'นางสาว', 'อัจฉรา', 'เทือกพุดซา', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5022', '1001', '', ''),
+('1000.2.188', 'นางสาว', 'อัจฉรา', 'เทือกพุดซา', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5022', '-', '', ''),
 ('1000.2.189', 'นาง', 'จุฑารัตน์', 'บุญคำ', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5022', '1006', '', ''),
 ('1000.2.190', 'นางสาว', 'พิมพ์ชนก', 'แยกโคกสูง', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5022', '1001', '', ''),
 ('1000.25.191', 'นาย', 'ศุภกร', 'จันทเสวต', 'ชาย', '', 0, '', '', '', '', '', '', '', '', '202', '5018', '1002', '', ''),
@@ -104,11 +107,11 @@ INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `Bi
 ('1000.8.180', 'นางสาว', 'มยุรี', 'รุนสูงเนิน', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5014', '1006', '', ''),
 ('1000.8.181', 'นาย', 'จักรพงษ์', 'ทาวะรมย์', 'ชาย', '', 0, '', '', '', '', '', '', '', '', '202', '5014', '1002', '', ''),
 ('1000.8.192', 'นางสาว', 'เมธวดี', 'กรองโพธิ์', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '202', '5014', '1005', '', ''),
-('1000.8.193', 'นาย', 'พีระยุทธ', 'หมื่นบุญมี', 'ชาย', '', 0, '', '', '', 'qqq', 'qqq', '', '', '', '203', '5011', '1002', '302', ''),
+('1000.8.193', 'นาย', 'พีระยุทธ', 'หมื่นบุญมี', 'ชาย', '', 0, '', '', '', 'qqq', 'qqq', '', '', '', '203', '5011', '1002', '301', ''),
 ('1000.87.174', 'นาย', 'มงคล', 'ทองคำ', 'ชาย', '', 0, '', '', '', '', '', '', '', '', '202', '5016', '1001', '', ''),
 ('1000.87.175', 'นาย', 'พลากร', 'ชาญสูงเนิน', 'ชาย', '', 0, '', '', '', '', '', '', '', '', '202', '5016', '1001', '', ''),
 ('242', 'ผศ.', 'พรภัสสร', 'อ่อนเกิด', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '203', '5002', '-', '', ''),
-('256', 'ผศ.', 'อภิชาต', 'ติรประเสริฐสิน', 'ชาย', '', 0, '', '', '', 'opo', 'aaa', '', '', '', '203', '5001', '1001', '301', ''),
+('256', 'ผศ.', 'อภิชาต', 'ติรประเสริฐสิน', 'ชาย', '', 0, '', '', '', 'opo', 'aaa', '', '', '', '203', '5001', '-', '', ''),
 ('5229007.02', 'นาย', 'สุเทพ', 'ยนต์พิมาย', 'ชาย', '', 0, '', '', '', '', '', '', '', '', '201', '5004', '1001', '', ''),
 ('5329018.02', 'นางสาว', 'กัญญาภัทร', 'ชูพุทธพงษ์', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '201', '5019', '1001', '', ''),
 ('5329019.02', 'นาง', 'รติมา', 'ปลั่งกลาง', 'หญิง', '', 0, '', '', '', '', '', '', '', '', '201', '5021', '1001', '', ''),
@@ -179,8 +182,9 @@ CREATE TABLE `leave` (
 --
 
 INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`, `To_Person`, `LeaveDateStart`, `LeaveDateLast`, `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus`, `UploadFile`, `Response_Time`, `Person_Code_Allow`, `LType_ID`) VALUES
-(1, '1000.27.195', '', '', '2020-03-21', '2020-03-27', '', '', 6, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002),
-(2, '1000.27.195', '', '', '2020-03-21', '2020-03-31', '', '', 10, 'รอการอนุญาต', '', '0000-00-00 00:00:00', '', 4002);
+(4, '1000.27.195', '4545', '4545', '2020-05-31', '2020-06-02', 'qwqwqeqwe', '', 2, 'รออนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(6, '1000.11.170', '', '', '2020-03-04', '2020-03-10', '', '', 6, 'อนุญาต', '', '0000-00-00 00:00:00', '', 4002),
+(7, '1000.34.166', '', '', '2020-02-01', '2020-02-03', '', '', 2, 'อนุญาต', '', '0000-00-00 00:00:00', '', 4004);
 
 -- --------------------------------------------------------
 
@@ -349,6 +353,8 @@ CREATE TABLE `position` (
 --
 
 INSERT INTO `position` (`Position_ID`, `PositionName`, `Role`) VALUES
+('4545', '44', '4'),
+('456456', '444', '4'),
 ('5001', 'ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ', '5'),
 ('5002', 'รองผู้อำนวยการฝ่ายบริหารงานทั่วไป', '4'),
 ('5003', 'รองผู้อำนวยการฝ่ายวิทยบริการ', '4'),
@@ -392,6 +398,17 @@ INSERT INTO `sector` (`Sector_ID`, `SectorName`) VALUES
 ('301', 'งานบริหารงานทั่วไป'),
 ('302', 'งานวิทยบริการ'),
 ('303', 'งานเทคโนโลยีสารสนเทศ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `upload`
+--
+
+CREATE TABLE `upload` (
+  `file_ID` int(11) NOT NULL,
+  `file_name` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -446,6 +463,12 @@ ALTER TABLE `sector`
   ADD PRIMARY KEY (`Sector_ID`);
 
 --
+-- Indexes for table `upload`
+--
+ALTER TABLE `upload`
+  ADD PRIMARY KEY (`file_ID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -453,13 +476,19 @@ ALTER TABLE `sector`
 -- AUTO_INCREMENT for table `leave`
 --
 ALTER TABLE `leave`
-  MODIFY `Leave_ID` int(20) NOT NULL AUTO_INCREMENT COMMENT 'รหัสการลา', AUTO_INCREMENT=3;
+  MODIFY `Leave_ID` int(20) NOT NULL AUTO_INCREMENT COMMENT 'รหัสการลา', AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `officiate_day`
 --
 ALTER TABLE `officiate_day`
   MODIFY `Day_ID` int(20) NOT NULL AUTO_INCREMENT COMMENT 'รหัสวันมาทำงาน', AUTO_INCREMENT=101;
+
+--
+-- AUTO_INCREMENT for table `upload`
+--
+ALTER TABLE `upload`
+  MODIFY `file_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12559;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

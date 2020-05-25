@@ -61,6 +61,41 @@ function getEmployee(){
             return $data;
         }
     }
+
+    function getSumleave(){
+
+        $sql  = "SELECT
+        `employee`.`EmpName`,`employee`.`EmpLastName` ,YEAR(`LeaveDateStart`) AS `year`,
+        SUM(IF(MONTH(`LeaveDateStart`)=1,`LeaveTotal`,0)) AS `Jan`,
+    SUM(IF(MONTH(`LeaveDateStart`)=2,`LeaveTotal`,0)) AS `Feb`,
+    SUM(IF(MONTH(`LeaveDateStart`)=3,`LeaveTotal`,0)) AS `Mar`,
+    SUM(IF(MONTH(`LeaveDateStart`)=4,`LeaveTotal`,0)) AS `Apr`,
+    SUM(IF(MONTH(`LeaveDateStart`)=5,`LeaveTotal`,0)) AS `May`,
+    SUM(IF(MONTH(`LeaveDateStart`)=6,`LeaveTotal`,0)) AS `Jun`,
+    SUM(IF(MONTH(`LeaveDateStart`)=7,`LeaveTotal`,0)) AS `Jul`,
+    SUM(IF(MONTH(`LeaveDateStart`)=8,`LeaveTotal`,0)) AS `Aug`,
+    SUM(IF(MONTH(`LeaveDateStart`)=9,`LeaveTotal`,0)) AS `Sep`,
+    SUM(IF(MONTH(`LeaveDateStart`)=10,`LeaveTotal`,0)) AS `Oct`,
+    SUM(IF(MONTH(`LeaveDateStart`)=11,`LeaveTotal`,0)) AS `Nov`,
+    SUM(IF(MONTH(`LeaveDateStart`)=12,`LeaveTotal`,0)) AS `Dec`,
+    sum(`LeaveTotal`) as Total
+    FROM
+        `leave`
+        JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
+        WHERE `leave`.`LeaveStatus` = 'อนุญาต'
+    GROUP BY `employee`.`Emp_ID`";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
     
     function getleave($Emp_ID){
         $sql  = "SELECT
@@ -156,8 +191,9 @@ function getEmployee(){
         `leave`
     JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
     JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
+    JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
     WHERE
-        1';
+        `leave`.`LeaveStatus` = "รออนุญาต"';
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";

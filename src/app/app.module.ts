@@ -29,8 +29,12 @@ import { CheckdayworkComponent } from './checkdaywork/checkdaywork.component';
 import { SectorComponent } from './sector/sector.component';
 import { SumleaveComponent } from './sumleave/sumleave.component';
 import { EditdayworkComponent } from './editdaywork/editdaywork.component';
+
+import { FilelaeveprintComponent } from './filelaeveprint/filelaeveprint.component';
+
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'Filelaeveprint', component: FilelaeveprintComponent },
   { path: 'sector', component: SectorComponent },
   { path: 'checkdaywork', component: CheckdayworkComponent },
   { path: 'department', component: DepartmentComponent },
@@ -76,7 +80,9 @@ const appRoutes: Routes = [
     SectorComponent,
     SumleaveComponent,
     EditdayworkComponent,
-    JwPaginationComponent
+    JwPaginationComponent,
+    FilelaeveprintComponent
+
   ],
   imports: [
     BrowserModule,

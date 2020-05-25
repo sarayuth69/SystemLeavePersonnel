@@ -118,11 +118,12 @@
                             <th scope="col">สถานะ</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let item of Employee; let i = index">
+                    <tbody
+                        *ngFor="let item of Employee | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
                         <tr>
                             <td>{{item.Emp_ID}}</td>
                             <td>{{item.EmpName}} {{item.EmpLastName}}
-                                <p class="card-text">เพศ : {{item.Sex}} </p>
+                                <p class=" card-text">เพศ : {{item.Sex}} </p>
                             </td>
                             <td>
                                 <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
@@ -132,6 +133,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
             </div>
         </div>
 
@@ -157,7 +159,8 @@
 
                         </tr>
                     </thead>
-                    <tbody *ngFor="let item of Dept_to_head; let i = index">
+                    <tbody
+                        *ngFor="let item of Dept_to_head | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
                         <tr>
                             <td>{{item.Emp_ID}}</td>
                             <td>{{item.EmpName}} {{item.EmpLastName}}
@@ -169,11 +172,10 @@
                                 <p class="card-title">แผนก : {{item.DeptName}}</p>
                             </td>
                             <td>{{item.EmpstatusName}}</td>
-
-
                         </tr>
                     </tbody>
                 </table>
+                <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
             </div>
         </div>
     </div>
@@ -200,7 +202,7 @@
 
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of Dept_to_head; let i = index">
+                <tbody *ngFor="let item of Dept_to_head | paginate: { itemsPerPage: 10, currentPage: pageActual};">
                     <tr>
                         <td>{{item.Emp_ID}}</td>
                         <td>{{item.EmpName}} {{item.EmpLastName}}
@@ -215,6 +217,9 @@
                     </tr>
                 </tbody>
             </table>
+            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+
+
         </div>
     </div>
 

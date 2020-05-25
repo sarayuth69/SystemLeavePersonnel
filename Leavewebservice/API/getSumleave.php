@@ -5,9 +5,8 @@
     require_once('../Model/EmpModel.php');
 
     $Emp_Model = new EmpModel;
-    $Emp = $Emp_Model -> getDept1001();
+    $Emp = $Emp_Model -> getSumleave();
 
     echo json_encode($Emp);
-
 
 

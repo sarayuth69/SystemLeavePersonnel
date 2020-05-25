@@ -1,21 +1,30 @@
 <br>
 <br>
 <br>
+
 <div style="padding: 1%;">
-    <div class="tab-pane fade show active">
-        <div class="card">
-          <div class="card-header">
-            <div class="container">
-              <div class="row">
-                <div class="col">
-                    รายงานสรุปการลาประจำปี {{myDate}}
-                  
-                </div>
-          </div>
-          </div>
-          </div>
+  <div class="tab-pane fade show active">
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="Year-tab" data-toggle="tab" href="#Year" role="tab" aria-controls="Year"
+              aria-selected="true">รายงานสรุปการลาประจำปี {{myYear}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="Month-tab" data-toggle="tab" href="#Month" role="tab" aria-controls="Month"
+              aria-selected="false">รายงานสรุปการลาประจำเดือน </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="Day-tab" data-toggle="tab" href="#Day" role="tab" aria-controls="Day"
+              aria-selected="false">รายงานสรุปการลาประจำวัน </a>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="Year" role="tabpanel" aria-labelledby="Year-tab">
           <table class="table table-borderless">
-            <thead>
+            <thead class="text-success">
               <tr>
                 <th scope="col">ชื่อ-นามสกุล</th>
                 <th scope="col">ม.ค.</th>
@@ -33,13 +42,31 @@
                 <th scope="col">รวม</th>
               </tr>
             </thead>
-            <tbody *ngFor="let item of Employee; let i = index">
+            <tbody *ngFor="let item of sumleave; let i = index">
               <tr>
                 <td>{{item.EmpName}} {{item.EmpLastName}}</td>
+                <td>{{item.Jan}} </td>
+                <td>{{item.Feb}} </td>
+                <td>{{item.Mar}} </td>
+                <td>{{item.Apr}} </td>
+                <td>{{item.May}} </td>
+                <td>{{item.Jun}} </td>
+                <td>{{item.Jul}} </td>
+                <td>{{item.Aug}} </td>
+                <td>{{item.Sep}} </td>
+                <td>{{item.Oct}} </td>
+                <td>{{item.Nov}} </td>
+                <td>{{item.Dec}} </td>
+                <td>{{item.Total}} </td>
               </tr>
-            
+
             </tbody>
           </table>
         </div>
+        <div class="tab-pane fade" id="Month" role="tabpanel" aria-labelledby="Month-tab">...</div>
+        <div class="tab-pane fade" id="Day" role="tabpanel" aria-labelledby="Day-tab">...</div>
       </div>
+
+    </div>
+  </div>
 </div>

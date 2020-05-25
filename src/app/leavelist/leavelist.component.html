@@ -73,6 +73,7 @@
                         <th scope="col">จำนวน/วัน</th>
                         <th scope="col">ไฟล์แนบ</th>
                         <th scope="col">สถานะ</th>
+                        <th scope="col">ปริ้นใบลา</th>
                         <th scope="col">จัดการ</th>
                     </tr>
                 </thead>
@@ -87,6 +88,12 @@
                         <td></td>
                         <td class="text-center"> {{item.LeaveStatus}} </td>
                         <td class="text-center">
+
+                            <button type="button" class="btn btn-success" (click)="nextpage(item.EmpName)"></button>
+                            <!-- <a routerLink="/FilelaeveprintComponent">ปริ้น</a> -->
+
+                        </td>
+                        <td class="text-center">
                             &nbsp;
                             <button type="button" class="btn btn-danger">ยกเลิก</button>
                         </td>
@@ -94,6 +101,7 @@
                 </tbody>
             </table>
         </div>
+
     </div>
 </div>
 <!-- ----- -->
@@ -115,11 +123,11 @@
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th scope="col">ชื่อพนักงาน</th>
-                        <th scope="col">การลา</th>
                         <th scope="col">ประเภท</th>
                         <th scope="col">วันที่ลา</th>
                         <th scope="col">จำนวนวัน</th>
                         <th scope="col">ไฟล์แนบ</th>
+                        <th scope="col">สถานะ</th>
                         <th scope="col">จัดการ</th>
                     </tr>
                 </thead>
@@ -128,12 +136,18 @@
                         <td>ชื่อ: {{item.EmpName}}
                             <p>แผนก: {{item.DeptName}} </p>
                         </td>
-                        <td> </td>
+                        <td class="text-center"><span class="badge badge-pill badge-success">
+                                <h6>{{item.LTypeName}}</h6>
+                            </span>
+                        </td>
 
-                        <td></td>
+
                         <td class="text-center">{{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
                         <td class="text-center">{{item.LeaveTotal}}</td>
                         <td></td>
+                        <td class="text-center" style="color:navy;">
+                            <h6>{{item.LeaveStatus}}</h6>
+                        </td>
                         <td class="text-center">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -313,7 +327,7 @@
     </div>
 </div>
 
-<table class="table">
+<!-- <table class="table">
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -330,11 +344,11 @@
             <td>@mdo</td>
         </tr>
     </tbody>
-</table>
+</table> -->
 
 
-<input type="file" (change)="onFileChanged($event)">
-<button type="button" (click)="onUpload()">OK</button>
+<!-- <input type="file" (change)="onFileChanged($event)">
+<button type="button" (click)="onUpload()">OK</button> -->
 
 
 
@@ -353,40 +367,45 @@
                 <form>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputEmail4">ชื่อ-นามสกุล</label>
+                            <label style="color: dodgerblue;">ชื่อ-นามสกุล</label>
                             <input type="text" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputEmail4">แผนก</label>
+                            <label style="color: dodgerblue;">แผนก</label>
                             <input type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputAddress">ติดต่อ</label>
+                        <label style="color: dodgerblue;">ติดต่อ</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputPassword4">การลา</label>
+                            <label style="color: dodgerblue;">การลา</label>
                             <input type="text" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputAddress2">จำนวนวันลา</label>
+                            <label style="color: dodgerblue;">จำนวนวันลา</label>
                             <input type="text" class="form-control" id="inputAddress2">
                         </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label>สาเหตุ</label>
-                        <input type="text" class="form-control">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label style="color: dodgerblue;">สาเหตุ</label>
+                            <input type="text" class="form-control">
+                        </div>
                     </div>
                     <div class="form-row">
-
                         <div class="form-group col-md-4">
-                            <label>วันที</label>
+                            <label style="color: dodgerblue;">วันที่</label>
                             <input type="text" class="form-control">
                         </div>
                         <div class="form-group col-md-4">
-                            <label>ถึงวันที</label>
+                            <label style="color: dodgerblue;">ถึงวันที่</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label style="color: dodgerblue;">จำนวน/วัน</label>
                             <input type="text" class="form-control">
                         </div>
                     </div>
