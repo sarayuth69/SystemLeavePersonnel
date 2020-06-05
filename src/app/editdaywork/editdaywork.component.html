@@ -9,18 +9,6 @@
           เดือน วัน ปี
           <input type="date" class="form-control" placeholder="Search" #Day_Work>
           <button type="button" class="btn btn-success" (click)="getsearchDay_Work(Day_Work.value)">ค้นหา</button>
-          <!-- <div class="card-body">
-                    <form class="form-inline ml-auto">
-                        <div class="form-group has-white">
-                          <input type="text" class="form-control" placeholder="Search">
-                          
-                          <button type="submit" class="btn btn-outline-primary" (click)="getsearchDay_Work(Day_Work.value)" >
-                            <img src="assets\images\magnifying-glass.png" width="20" height="20px" id="icon" alt="User Icon" />
-                        </button>
-                        </div>
-                       
-                    </form>
-                </div> -->
         </div>
 
         <div class="col-sm">
@@ -55,8 +43,7 @@
         <td> {{item.Data}} </td>
         <td>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-outline-warning" data-toggle="modal"
-           data-target="#exampleModal" (click)="Updateworktime(item.Day_ID,item.EmpName,item.EmpLastName,
+          <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" (click)="Updateworktime(item.Day_ID,item.EmpName,item.EmpLastName,
            item.Status_Work,item.Data)">
             Warning
           </button>
@@ -85,15 +72,15 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <span class="d-inline-block" data-toggle="popover" data-content="ไม่สามารถแก้ไขได้">
-              <label for="formGroupExampleInput">ชื่อ</label>
-              <input type="text" class="form-control" id="formGroupExampleInput" [formControl]="EmpName"  readonly >
-            </span>
+                <label for="formGroupExampleInput">ชื่อ</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" [formControl]="EmpName" readonly>
+              </span>
             </div>
             <div class="form-group col-md-6">
               <span class="d-inline-block" data-toggle="popover" data-content="ไม่สามารถแก้ไขได้">
-              <label for="formGroupExampleInput">นามสกุล</label>
-              <input type="text" class="form-control" id="formGroupExampleInput"  [formControl]="EmpLastName" readonly>
-            </span>
+                <label for="formGroupExampleInput">นามสกุล</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" [formControl]="EmpLastName" readonly>
+              </span>
             </div>
           </div>
           <div class="form-group ">
@@ -108,12 +95,13 @@
             <label for="formGroupExampleInput">สาเหตุ</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" [formControl]="Data" rows="3"></textarea>
           </div>
-        
+
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateworktime()">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateworktime()">Save
+          changes</button>
       </div>
     </div>
   </div>

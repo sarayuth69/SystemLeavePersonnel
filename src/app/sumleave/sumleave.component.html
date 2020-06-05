@@ -64,7 +64,69 @@
           </table>
         </div>
         <div class="tab-pane fade" id="Month" role="tabpanel" aria-labelledby="Month-tab">...</div>
-        <div class="tab-pane fade" id="Day" role="tabpanel" aria-labelledby="Day-tab">...</div>
+
+
+
+
+        <div class="tab-pane fade" id="Day" role="tabpanel" aria-labelledby="Day-tab">
+
+
+          <div class="container">
+            <div class="row">
+              <!-- <div class="col-sm">
+                    เดือน วัน ปี
+                    <input type="date" class="form-control" placeholder="Search" #Day_leave>
+                    <button type="button" class="btn btn-success"
+                      (click)="getsearchdayleave(Day_leave.value)">ค้นหา</button>
+                  </div> -->
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search" #Day_leave>
+                <button class="btn btn-outline-success my-2 my-sm-0"
+                  (click)="getsearchdayleave(Day_leave.value)">ค้นหา</button>
+              </form>
+              <div class="col-sm">
+
+              </div>
+              <div class="col-sm">
+
+              </div>
+            </div>
+          </div>
+
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">ลำดับ</th>
+                <th scope="col">ชื่อ-นามสกุล</th>
+                <th scope="col">สถานะ</th>
+                <th scope="col">จำนวนวันลา</th>
+                <th scope="col">วันลา</th>
+
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of searchdayleave; let i = index">
+              <tr>
+                <td>
+                  <p ng-repeat="i in range(1, 5)">
+                    {{ i+1 }}
+                  </p>
+                </td>
+
+                <td> {{item.EmpName}} {{item.EmpLastName}} </td>
+                <td> {{item.LTypeName}} </td>
+                <td> {{item.LeaveTotal}} </td>
+                <td>
+                  {{item.LeaveDateStart}}
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+
+
       </div>
 
     </div>

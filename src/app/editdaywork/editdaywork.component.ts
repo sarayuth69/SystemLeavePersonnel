@@ -13,6 +13,7 @@ import { FormControl } from '@angular/forms';
 export class EditdayworkComponent implements OnInit {
   public searchdaywork;
   public Empployee;
+  public getdaywork;
   Day_Work: any;
   Emp_ID = new FormControl('');
   EmpName = new FormControl('');
@@ -20,8 +21,8 @@ export class EditdayworkComponent implements OnInit {
   Status_Work = new FormControl('');
   Data = new FormControl('');
   Day_ID = new FormControl('');
-  
-  
+
+
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -74,7 +75,7 @@ export class EditdayworkComponent implements OnInit {
   }
 
   Updateworktime(
-    Day_ID,EmpName,EmpLastName,Status_Work,Data
+    Day_ID, EmpName, EmpLastName, Status_Work, Data
   ) {
     this.Day_ID = new FormControl(Day_ID);
     console.log(this.Day_ID);
@@ -87,10 +88,10 @@ export class EditdayworkComponent implements OnInit {
   }
   public updateworktime(Day_Work) {
     const body = 'Day_ID=' + this.Day_ID.value
-    // + '&EmpName=' + this.EmpName.value
-    // + '&EmpLastName=' + this.EmpLastName.value
-    + '&Status_Work=' + this.Status_Work.value
-    + '&Data=' + this.Data.value;
+      // + '&EmpName=' + this.EmpName.value
+      // + '&EmpLastName=' + this.EmpLastName.value
+      + '&Status_Work=' + this.Status_Work.value
+      + '&Data=' + this.Data.value;
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -108,15 +109,25 @@ export class EditdayworkComponent implements OnInit {
           console.log(error);
         }
       );
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'แก้ไขข้อมูลเรียบร้อย',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      
-     
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'แก้ไขข้อมูลเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      this.http.get('http://localhost/Leavewebservice/API/getdaywork.php').subscribe(
+        (data: any) => {
+          console.log(data);
+          this.getdaywork = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    })
+
+
   }
 
 }
