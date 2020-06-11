@@ -32,6 +32,7 @@ import { EditdayworkComponent } from './editdaywork/editdaywork.component';
 
 import { FilelaeveprintComponent } from './filelaeveprint/filelaeveprint.component';
 
+
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'Filelaeveprint', component: FilelaeveprintComponent },
@@ -81,7 +82,8 @@ const appRoutes: Routes = [
     SumleaveComponent,
     EditdayworkComponent,
     JwPaginationComponent,
-    FilelaeveprintComponent
+    FilelaeveprintComponent,
+  
 
   ],
   imports: [

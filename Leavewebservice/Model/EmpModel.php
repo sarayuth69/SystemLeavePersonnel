@@ -6,7 +6,7 @@ class EmpModel extends BaseModel{
     function __construct(){
         if(!static::$db){
             static::$db = mysqli_connect($this->host, $this->username, $this->password, $this->db_name);
-            mysqli_set_charset(static::$db,"utf8");
+            mysqli_set_charset(static::$db,"set names utf-8");
         }
     }
 
@@ -49,6 +49,30 @@ function getEmployee(){
     function getEmployee_daywork(){
 
         $sql  = "SELECT * FROM `employee` WHERE 1";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+
+    function getLeave_type_User($Emp_ID){
+
+        $sql  = "SELECT *,(`leavetype`.`Remain`) -(`leave`.`LeaveTotal`) AS num
+    FROM
+        `leavetype`
+    JOIN `leave` ON `leavetype`.`LType_ID` = `leave`.`LType_ID`
+    JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+    WHERE
+        `leave`.`Emp_ID` = '$Emp_ID'
+        GROUP BY `leavetype`.`LType_ID`
+        ";
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -873,6 +897,35 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
      Day_Work LIKE '%$Day_Work%' 
      
          ";
+             if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+                $data = [];
+                while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                    $data[] = $row;
+                }
+                $result->close();
+                return $data;
+            }
+      }
+      function getdaywork(){
+        $sql = "SELECT * FROM `officiate_day`
+         ";
+             if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+                $data = [];
+                while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                    $data[] = $row;
+                }
+                $result->close();
+                return $data;
+            }
+      }
+      function searchdayleave($Day_leave){
+          
+        $sql = "SELECT *
+        FROM `employee`
+        JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
+        JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
+        WHERE`leave`.`LeaveDateStart` LIKE '%$Day_leave%'
+        GROUP BY`employee`.`Emp_ID`";
              if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
                 $data = [];
                 while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){

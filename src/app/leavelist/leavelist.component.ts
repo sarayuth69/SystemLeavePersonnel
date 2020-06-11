@@ -106,6 +106,9 @@ export class LeavelistComponent implements OnInit {
         }
 
       )
+
+
+      
     if (localStorage.getItem('Role') === "5") {
       this.list1 = true;
       this.list = false;
@@ -159,6 +162,7 @@ export class LeavelistComponent implements OnInit {
     //   this.leave105 = true;
     //   this.leave106 = false;
     // }
+
   }
   AddLeave(LeaveTotal) {
     this.LeaveTotal = new FormControl(LeaveTotal);

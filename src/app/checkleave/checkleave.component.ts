@@ -22,7 +22,25 @@ export class CheckleaveComponent implements OnInit {
   ) { }
   ngOnInit() {
  
+    const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+    console.log(tpyeUser);
+    const headers1 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post('http://localhost/Leavewebservice/API/getLeave_type_User.php', tpyeUser, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.leavetypeUser = data;
+          console.log(this.leavetypeUser);
 
+        },
+        (error: any) => {
+          console.log(error);
+        }
+
+      )
     const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
     console.log(body);
     const headers = new HttpHeaders({

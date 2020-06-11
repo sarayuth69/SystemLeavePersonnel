@@ -39,10 +39,9 @@ TRUNCATE `ชื่อตาราง`
 
 คำสั่งลบ จำนวนวันลา
 SELECT
-   (`leavetype`.`Remain`)-(`leave`.`LeaveTotal`)AS num
-    FROM
+    `leave`.`Emp_ID`,(`leavetype`.`Remain`) -(`leave`.`LeaveTotal`) AS num
+FROM
     `leavetype`
-    JOIN
-    `leave` ON `leavetype`.`LType_ID` =`leave`.`LType_ID`
-    WHERE
-    `leavetype`.`LType_ID`= 4002
+JOIN `leave` ON `leavetype`.`LType_ID` = `leave`.`LType_ID`
+WHERE
+    `leavetype`.`LType_ID` = 4002  AND `leave`.`Emp_ID` = '1000.11.170'

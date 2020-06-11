@@ -24,11 +24,11 @@
                         <th scope="col">สถานะบุคลากร</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of leavetype106 ; let i = index">
+                <tbody *ngFor="let item of leavetypeUser ; let i = index">
                     <tr>
                         <td>{{item.LTypeName}}</td>
                         <td>{{item.Number}}</td>
-                        <td >{{item.Remain}}</td>
+                        <td >{{item.num}}</td>
                         <td>{{item.AdvanceNotice}}</td>
                         <td>{{item.LOrdinal}}</td>
                         <td>{{item.QuotaStatus}}</td>
