@@ -18,22 +18,11 @@ import { APIService } from '../api.service';
 export class FilelaeveprintComponent implements OnInit {
 public Employee;
   constructor(
-    public router: Router,
-    public route: ActivatedRoute,
-    public api: APIService,
-    public http: HttpClient,
+    public http: HttpClient
   ) { }
 
   ngOnInit() {
-    this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.Employee = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+ 
   }
   print() {
     window.print();

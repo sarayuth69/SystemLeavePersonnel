@@ -97,8 +97,8 @@ export class LeavelistComponent implements OnInit {
         headers: headers
       }).subscribe(
         (data: any) => {
-          this.leavetype106 = data;
-          console.log(this.leavetype106);
+          this.leavetype = data;
+          console.log(this.leavetype);
 
         },
         (error: any) => {
@@ -108,7 +108,7 @@ export class LeavelistComponent implements OnInit {
       )
 
 
-      
+
     if (localStorage.getItem('Role') === "5") {
       this.list1 = true;
       this.list = false;
@@ -182,7 +182,7 @@ export class LeavelistComponent implements OnInit {
         + '&LeaveData=' + this.LeaveData.value
         + '&ContactInformation=' + this.ContactInformation.value
         + '&LeaveTotal=' + this.LeaveTotal.value
-        + '&LeaveStatus=' + "รอการอนุญาต"
+        + '&LeaveStatus_ID=' + "1"
         + '&UploadFile=' + this.UploadFile.value
         + '&Response_Time=' + this.Response_Time.value
         + '&Person_Code_Allow=' + this.Person_Code_Allow.value
@@ -213,26 +213,27 @@ export class LeavelistComponent implements OnInit {
         timer: 1500
 
       })
-        .then(() => {
-          const body = 'LType_ID=' + this.LType_ID.value
-            + '&LeaveTotal=' + this.LeaveTotal.value
-          console.log(body);
-          const headers = new HttpHeaders({
-            'Content-Type': 'application/x-www-form-urlencoded'
-          });
-          this.http
-            .post('http://localhost/Leavewebservice/API/UpdateLtypeUser.php', body, {
-              headers: headers
-            })
-            .subscribe(
-              (data: any) => {
-                this.addLeave = data;
-              },
-              (error: any) => {
-                console.log(error);
-              }
-            );
-        })
+        // ฟังชั้น จำนวนครั้งที่ลา 
+        // .then(() => {
+        //   const body = 'LType_ID=' + this.LType_ID.value
+        //     + '&LeaveTotal=' + this.LeaveTotal.value
+        //   console.log(body);
+        //   const headers = new HttpHeaders({
+        //     'Content-Type': 'application/x-www-form-urlencoded'
+        //   });
+        //   this.http
+        //     .post('http://localhost/Leavewebservice/API/UpdateLtypeUser.php', body, {
+        //       headers: headers
+        //     })
+        //     .subscribe(
+        //       (data: any) => {
+        //         this.addLeave = data;
+        //       },
+        //       (error: any) => {
+        //         console.log(error);
+        //       }
+        //     );
+        // })
         .then(() => {
           const body = 'LType_ID=' + this.LType_ID.value
           console.log(body);
@@ -325,8 +326,9 @@ export class LeavelistComponent implements OnInit {
     // }
 
   }
+  nextpage(item) {
+    console.log(item);
 
-  nextpage(EmpName) {
-    this.router.navigate(['/Filelaeveprint']);
+    this.router.navigate(['/testleave', item]);
   }
 }

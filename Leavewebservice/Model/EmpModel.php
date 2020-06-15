@@ -64,14 +64,17 @@ function getEmployee(){
 
     function getLeave_type_User($Emp_ID){
 
-        $sql  = "SELECT *,(`leavetype`.`Remain`) -(`leave`.`LeaveTotal`) AS num
+        $sql  = "SELECT `leavetype`.`LType_ID`,`leavetype`.`LTypeName`,`leavetype`.`Number`,`leave`.`Emp_ID`,
+        `leave`.`LeaveTotal`,SUM(`leave`.`LeaveTotal`),(`leavetype`.`Number` - SUM(`leave`.`LeaveTotal`)) AS num,
+        `leavetype`.`AdvanceNotice`,`leavetype`.`LOrdinal`,
+        `leavetype`.`QuotaStatus`,`employeestatus`.`EmpstatusName`,SUM(`leavetype`.`LOrdinal` + 1)AS Ordinal
     FROM
         `leavetype`
-    JOIN `leave` ON `leavetype`.`LType_ID` = `leave`.`LType_ID`
+    JOIN `leave` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
     JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
-    WHERE
-        `leave`.`Emp_ID` = '$Emp_ID'
-        GROUP BY `leavetype`.`LType_ID`
+    WHERE    
+    `leave`.`Emp_ID` = '$Emp_ID'
+        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`
         ";
         // echo "<pre>";
         // print_r($sql);
@@ -106,7 +109,7 @@ function getEmployee(){
     FROM
         `leave`
         JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
-        WHERE `leave`.`LeaveStatus` = 'อนุญาต'
+        WHERE `leave`.`LeaveStatus_ID` = '4'
     GROUP BY `employee`.`Emp_ID`";
         // echo "<pre>";
         // print_r($sql);
@@ -129,6 +132,7 @@ function getEmployee(){
     JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
     JOIN `department`ON `employee`.`Dept_ID` = `department`.`Dept_ID`
     JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
+    JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
     WHERE  
     leave.Emp_ID = '$Emp_ID'
     ";
@@ -150,7 +154,8 @@ function getEmployee(){
         *
     FROM
         `leavetype` JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
-    WHERE  leavetype.Empstatus_ID = '$Empstatus_ID'
+    WHERE 
+     leavetype.Empstatus_ID = '$Empstatus_ID'
     ";
         // echo "<pre>";
         // print_r($sql);
@@ -186,16 +191,39 @@ function getEmployee(){
             return $data;
         }
     }
-    function getLtypeUser($LType_ID,$Emp_ID){
-        $sql  = "SELECT
-        *,SUM(`leavetype`.`Remain`)-(`leave`.`LeaveTotal`) AS NumberRemain
+    // function getLtypeUser($LType_ID,$Emp_ID){
+    //     $sql  = "SELECT
+    //     *,SUM(`leavetype`.`Remain`)-(`leave`.`LeaveTotal`) AS NumberRemain
+    // FROM
+    //     `leavetype` 
+    //     JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+    //     JOIN `leave` ON  `leavetype`.`LType_ID` = `leave`.`LType_ID`
+    // WHERE  
+    // `leavetype`.`LType_ID`='$LType_ID'
+    // ";
+    //     // echo "<pre>";
+    //     // print_r($sql);
+    //     // echo "</pre>";
+    //     if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+    //         $data = [];
+    //         while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+    //             $data[] = $row;
+    //         }
+    //         $result->close();
+    //         return $data;
+    //     }
+    // }
+    function getleavetoperson(){
+        $sql  = 'SELECT
+        *
     FROM
-        `leavetype` 
-        JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
-        JOIN `leave` ON  `leavetype`.`LType_ID` = `leave`.`LType_ID`
-    WHERE  
-    `leavetype`.`LType_ID`='$LType_ID'
-    ";
+        `leave`
+    JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
+    JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
+    JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
+    JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
+    WHERE
+        `leave`.`LeaveStatus_ID` = "4"';
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -208,16 +236,56 @@ function getEmployee(){
             return $data;
         }
     }
-    function getleavetoperson(){
-        $sql  = 'SELECT
-        *
-    FROM
-        `leave`
+    function getleavetoDeputyleader($Dept_ID){
+        $sql  = "SELECT * FROM `leave`
+        JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
+        JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
+        JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
+        JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
+        WHERE `employee`.`Dept_ID` = '$Dept_ID' AND `leave`.`LeaveStatus_ID` = '3' 
+        GROUP BY `employee`.`Emp_ID`";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+    function getleavetoSupervisor($Dept_ID){
+        $sql  = "SELECT * FROM `leave`
+        JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
+        JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
+        JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
+        JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
+        WHERE `employee`.`Dept_ID` = '$Dept_ID' AND `leave`.`LeaveStatus_ID` = '2' 
+        GROUP BY `employee`.`Emp_ID`";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+    function getleavetoDepartmenthead($Dept_ID){
+        $sql  ="SELECT *,COUNT(`leave`.`LeaveStatus_ID`) as countleave FROM `leave`
     JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
     JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
     JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
-    WHERE
-        `leave`.`LeaveStatus` = "รออนุญาต"';
+    JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
+    WHERE 
+    `employee`.`Dept_ID` = '$Dept_ID' AND `leave`.`LeaveStatus_ID` = '1' 
+    
+        ";
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -672,7 +740,7 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
     function Add_Leave($data = []){
 
         $sql  = "INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`,`To_Person`,`LeaveDateStart`, `LeaveDateLast`, 
-        `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus`, `Response_Time`, `Person_Code_Allow`,`LType_ID`) 
+        `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus_ID`, `Response_Time`, `Person_Code_Allow`,`LType_ID`) 
           VALUES
          (
         '".$data['Leave_ID']."',
@@ -684,7 +752,7 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
         '".$data['LeaveData']."',
         '".$data['ContactInformation']."',
         '".$data['LeaveTotal']."',
-        '".$data['LeaveStatus']."',
+        '".$data['LeaveStatus_ID']."',
         '".$data['Response_Time']."',
         '".$data['Person_Code_Allow']."',
         '".$data['LType_ID']."'
@@ -751,6 +819,21 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
             return 0;
         }
     }
+    function setleavestatus($data) {
+      
+        $sql = "UPDATE `leave` SET `Leave_ID`='".$data['Leave_ID']."',`LeaveStatus_ID`='".$data['LeaveStatus_ID']."'
+        WHERE  `leave`.`Leave_ID` = '".$data['Leave_ID']."'";
+        
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+
 
     function UpdateSector($data) {
       
@@ -844,23 +927,23 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
             return 0;
         }
     }
-
-    function UpdatesetLOrdinal($LType_ID) {
+// ฟังชั้น จำนวนครั้งที่ลา 
+    // function UpdatesetLOrdinal($LType_ID) {
       
-        $sql = "UPDATE
-        `leavetype`
-    SET
-        `LOrdinal` = (SELECT LOrdinal WHERE LType_ID = '$LType_ID') + 1
-    WHERE
-         LType_ID = '$LType_ID'
-        ";
+    //     $sql = "UPDATE
+    //     `leavetype`
+    // SET
+    //     `LOrdinal` = (SELECT LOrdinal WHERE LType_ID = '$LType_ID') + 1
+    // WHERE
+    //      LType_ID = '$LType_ID'
+    //     ";
         
-        if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
-            return 1;
-        }else {
-            return 0;
-        }
-    }
+    //     if (mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+    //         return 1;
+    //     }else {
+    //         return 0;
+    //     }
+    // }
 
 
 

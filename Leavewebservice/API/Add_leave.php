@@ -16,7 +16,7 @@
     $data['LeaveData'] = $_POST['LeaveData'];
     $data['ContactInformation'] = $_POST['ContactInformation'];
     $data['LeaveTotal'] = $_POST['LeaveTotal'];
-    $data['LeaveStatus'] = $_POST['LeaveStatus'];
+    $data['LeaveStatus_ID'] = $_POST['LeaveStatus_ID'];
     $data['Response_Time'] = $_POST['Response_Time'];
     $data['Person_Code_Allow'] = $_POST['Person_Code_Allow'];
     $data['upload_file'] = $_POST['upload_file'];

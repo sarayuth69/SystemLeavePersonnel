@@ -5,3 +5,8 @@
     top: 0;
     display: none;
 }
+@media print {
+    #button {
+        display: none;
+    }
+  }
