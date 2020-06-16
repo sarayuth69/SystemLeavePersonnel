@@ -26,7 +26,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <h3>รายการลา </h3>
+                            <h3> รายการลา </h3>
                             <!-- <div class="toast" data-autohide="false">
                                 <div class="toast-header">
                                     <strong class="mr-auto text-primary">Bootstrap</strong>
@@ -45,17 +45,17 @@
                         </div>
                         <div class="col col-lg-2">
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-secondary " type="button" data-toggle="modal"
+                                    data-target="#exampleModalleave">
                                     ยื่นขอลา
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" data-toggle="modal" data-target="#exampleModalleave"
                                         *ngFor="let item of leavetype; let i = index">
                                         {{item.LTypeName}}
                                     </a>
 
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -64,8 +64,8 @@
         </div>
         <div class="card-body">
 
-            <table class="table table-bordered">
-                <thead class="thead-dark">
+            <table class="table table-hover">
+                <thead>
                     <tr class="text-center">
                         <th scope="col">ชื่อพนักงาน</th>
                         <th scope="col">ประเภท</th>
@@ -77,7 +77,7 @@
                         <th scope="col">จัดการ</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of leave; let i = index">
+                <tbody *ngFor="let item of leave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
                     <tr>
                         <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
                             <p>แผนก: {{item.DeptName}}</p>
@@ -86,10 +86,11 @@
                         <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
                         <td class="text-center"> {{item.LeaveTotal}}</td>
                         <td></td>
-                        <td class="text-center"> {{item.LeaveStatus_Name}} </td>
+                        <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
                         <td class="text-center">
 
-                            <button type="button" class="btn btn-success" (click)="nextpage(item)"></button>
+                            <button type="button" class="btn btn-success" (click)="nextpage(item)"><i
+                                    class="fa fa-print" aria-hidden="true"></i></button>
                             <!-- <a routerLink="/FilelaeveprintComponent">ปริ้น</a> -->
 
                         </td>
@@ -100,14 +101,78 @@
                     </tr>
                 </tbody>
             </table>
+            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
         </div>
 
     </div>
 </div>
+<!-- <div class="tab-pane fade show active" *ngIf="list6">
+    &nbsp;&nbsp;&nbsp;
+    <div class="card">
+        <div class="card-header">
+            <div class="row-md-1">
+                <div class="row">
+                    <div class="col-md-4"> </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h3> รายการลา </h3>
+                        </div>
+                        <div class="col-md-auto">
+                        </div>
+                        <div class="col col-lg-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead >
+                    <tr class="text-center">
+                        <th scope="col">ชื่อพนักงาน</th>
+                        <th scope="col">ประเภท</th>
+                        <th scope="col">วันที่ลา</th>
+                        <th scope="col">จำนวน/วัน</th>
+                        <th scope="col">ไฟล์แนบ</th>
+                        <th scope="col">สถานะ</th>
+                        <th scope="col">ปริ้นใบลา</th>
+                        <th scope="col">จัดการ</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of leave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                    <tr>
+                        <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
+                            <p>แผนก: {{item.DeptName}}</p>
+                        </td>
+                        <td class="text-center">{{item.LTypeName}}</td>
+                        <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
+                        <td class="text-center"> {{item.LeaveTotal}}</td>
+                        <td></td>
+                        <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-success" (click)="nextpage(item)"><i
+                                    class="fa fa-print" aria-hidden="true"></i></button>
+                        </td>
+                        <td class="text-center">
+                            &nbsp;
+                            <button type="button" class="btn btn-danger">ยกเลิก</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+        </div>
+    </div>
+</div> -->
 <!-- ----- -->
+
+
+
 <!-- ของผอ -->
-<br><br>
-<div class="tab-pane fade show active" *ngIf="list1">
+<!-- <br><br>
+<div class="tab-pane fade show active" *ngIf="list5">
     &nbsp;&nbsp;&nbsp;
     <div class="card">
         <div class="card-header">
@@ -119,8 +184,8 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
-                <thead class="thead-dark">
+            <table class="table table-hover">
+                <thead>
                     <tr class="text-center">
                         <th scope="col">ชื่อพนักงาน</th>
                         <th scope="col">ประเภท</th>
@@ -131,7 +196,7 @@
                         <th scope="col">จัดการ</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of leave2; let i = index">
+                <tbody *ngFor="let item of leave2 | paginate: { itemsPerPage: 10, currentPage: pageActual};">
                     <tr>
                         <td>ชื่อ: {{item.EmpName}}
                             <p>แผนก: {{item.DeptName}} </p>
@@ -149,7 +214,7 @@
                             <h6>{{item.LeaveStatus_Name}}</h6>
                         </td>
                         <td class="text-center">
-                            <!-- Button trigger modal -->
+                            
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#exampleModal">
                                 ตรวจสอบ
@@ -158,11 +223,12 @@
                     </tr>
                 </tbody>
             </table>
+            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
         </div>
     </div>
 
 
-</div>
+</div> -->
 <!-- ----- -->
 <!-- Modal การลาของบุคลากร-->
 <div class="modal fade" id="exampleModalleave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -180,17 +246,18 @@
 
                     <div class="card">
                         <!-- <div class="card-header">
-                            <div class="row-md-1">
+                <div class="row-md-1">
 
-                                <div class="col-md-4">
-                                    ยื่นการลางาน
-                                </div>
-                            </div>
-                        </div> -->
+                    <div class="col-md-4">
+                        ยื่นการลางาน
+                    </div>
+                </div>
+            </div> -->
                         <div class="card-body">
                             <form>
                                 <div class="container">
                                     <div class="form-row">
+
                                         <div class="col-lg-960px">
                                             <br>
                                             <h6>เรื่อง : </h6>
@@ -281,7 +348,6 @@
                                         [formControl]="LeaveData"></textarea>
                                 </div>
                                 <div class="form-row">
-
                                     <div class="col-md-2 mb-2">
                                         <label for="validationDefault04">วันที่ลา</label>
                                         <input type="date" class="form-control" id="LeaveDateStart"
@@ -301,17 +367,15 @@
                                     <form>
                                         <div class="form-group">
                                             <label for="exampleFormControlFile1">แนปไฟล์</label>
+                                            <br>
                                             <input type="file" (change)="onFileChanged($event)">
                                         </div>
                                     </form>
                                     <div class="row">
-
                                     </div>
                                     <div class="form-row">
                                     </div>
-
                                 </div>
-
                             </form>
                         </div>
                     </div>
@@ -327,33 +391,8 @@
     </div>
 </div>
 
-<!-- <table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-        </tr>
-    </thead>
-    <tbody *ngFor="let item of file">
-        <tr>
-            <th scope="row">1</th>
-            <td>{{item.file_ID}}</td>
-            <td><img src="">{{item.file_name}}</td>
-            <td>@mdo</td>
-        </tr>
-    </tbody>
-</table> -->
-
-
-<!-- <input type="file" (change)="onFileChanged($event)">
-<button type="button" (click)="onUpload()">OK</button> -->
-
-
-
 <!-- Modal อนุมัติการลาของหัวหน้าหน่วยงาน -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content ">
@@ -418,4 +457,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

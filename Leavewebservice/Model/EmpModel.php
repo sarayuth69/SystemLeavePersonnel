@@ -24,7 +24,8 @@ $mpdf->Output();
 function getEmployee(){
 
         $sql  = "SELECT
-         * FROM employee
+         *
+          FROM employee
  LEFT JOIN position ON employee.Position_ID = position.Position_ID
  LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
  LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
@@ -46,6 +47,26 @@ function getEmployee(){
         }
     }
 
+    function countUser(){
+
+        $sql  = "SELECT
+          COUNT(`employee`.`Emp_ID`) AS countUser
+          FROM employee
+        WHERE 1
+
+";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
     function getEmployee_daywork(){
 
         $sql  = "SELECT * FROM `employee` WHERE 1";
@@ -109,7 +130,7 @@ function getEmployee(){
     FROM
         `leave`
         JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
-        WHERE `leave`.`LeaveStatus_ID` = '4'
+        WHERE `leave`.`LeaveStatus_ID` = '5'
     GROUP BY `employee`.`Emp_ID`";
         // echo "<pre>";
         // print_r($sql);
@@ -135,6 +156,8 @@ function getEmployee(){
     JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
     WHERE  
     leave.Emp_ID = '$Emp_ID'
+    ORDER BY `leave`.`LeaveDateStart` DESC
+    
     ";
         // echo "<pre>";
         // print_r($sql);
@@ -236,13 +259,13 @@ function getEmployee(){
             return $data;
         }
     }
-    function getleavetoDeputyleader($Dept_ID){
+    function getleavetoDeputyleader(){
         $sql  = "SELECT * FROM `leave`
         JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
         JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
         JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
         JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
-        WHERE `employee`.`Dept_ID` = '$Dept_ID' AND `leave`.`LeaveStatus_ID` = '3' 
+        WHERE  `leave`.`LeaveStatus_ID` = '3' 
         GROUP BY `employee`.`Emp_ID`";
         // echo "<pre>";
         // print_r($sql);
@@ -263,7 +286,7 @@ function getEmployee(){
         JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
         JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
         WHERE `employee`.`Dept_ID` = '$Dept_ID' AND `leave`.`LeaveStatus_ID` = '2' 
-        GROUP BY `employee`.`Emp_ID`";
+        ";
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -490,7 +513,7 @@ function getEmployee(){
 
 //    
 
-function getDept_To_head($Dept_ID){
+function getDept_To_head($Dept_ID,$Role){
 
     $sql  = "SELECT
     * FROM employee
@@ -498,7 +521,7 @@ LEFT JOIN position ON employee.Position_ID = position.Position_ID
 LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
 LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
 LEFT JOIN officiate_day ON employee.Emp_ID = officiate_day.Emp_ID
-WHERE `employee`.`Dept_ID` = '$Dept_ID'
+WHERE `employee`.`Dept_ID` = '$Dept_ID' AND `position`.`Role`< '$Role'
 GROUP BY `employee`.`Emp_ID`
 ORDER BY ABS(`employee`.`Emp_ID`) ASC";
     // echo "<pre>";

@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/leavelist']);
               }
               else if (data[0].Role == "5") {
-                this.router.navigate(['/leavelist']);
+                this.router.navigate(['/leavetowaiting']);
               }
               else if (data[0].Role == "4") {
                 this.router.navigate(['/leavelist']);

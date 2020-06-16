@@ -5,6 +5,6 @@
     require_once('../Model/EmpModel.php');
 
     $Emp_Model = new EmpModel;
-    $Emp = $Emp_Model -> getleavetoDepartmenthead($_POST["Dept_ID"]);
+    $Emp = $Emp_Model -> getleavetoDeputyleader();
 
     echo json_encode($Emp);

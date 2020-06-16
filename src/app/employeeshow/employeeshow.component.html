@@ -4,30 +4,37 @@
     <div class="tab-pane fade show active">
         &nbsp;&nbsp;&nbsp;
         <div class="card" *ngIf="table6">
-            <div class="card-header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">บุคลากร</div>
-                        <div class="col"></div>
-                        <div class="col">
-                            <form class="form-inline">
-                                <input type="text" class="form-control" (keyup)="getsearch(Emp_ID.value)" #Emp_ID
-                                    placeholder="ค้นหา" aria-label="ค้นหา" />
-                                <button type="submit" class="btn btn-outline-primary" (click)="getsearch(Emp_ID.value)">
-                                    <img src="assets\images\magnifying-glass.png" width="20" height="20px" id="icon"
-                                        alt="User Icon" />
-                                </button>
-                            </form>
+
+            <div class="card">
+                <!-- <div class="container"> -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card-counter success">
+                            <i class="fa fa-users"></i>
+                            <span class="count-numbers" *ngFor="let item of countUser">จำนวน {{item.countUser}}</span>
+                            <span class="count-name">บุคลากร</span>
                         </div>
                     </div>
+                    <div class="col"></div>
+                    <div class="col">
+                        <form class="form-inline">
+                            <input type="text" class="form-control" (keyup)="getsearch(Emp_ID.value)" #Emp_ID
+                                placeholder="ค้นหา" aria-label="ค้นหา" />
+                            <button type="submit" class="btn btn-outline-primary" (click)="getsearch(Emp_ID.value)">
+                                <img src="assets\images\magnifying-glass.png" width="20" height="20px" id="icon"
+                                    alt="User Icon" />
+                            </button>
+                        </form>
+                    </div>
                 </div>
+                <!-- </div> -->
             </div>
 
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <!-- <div class="card-body" *ngIf="table1"> -->
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
+                    <table class="table table-hover">
+                        <thead>
                             <tr class="text-center">
                                 <th scope="col">ลำดับ</th>
                                 <!-- <th scope="col">รหัสบุคลากร</th> -->
@@ -109,8 +116,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
+                <table class="table table-hover">
+                    <thead>
                         <tr class="text-center">
                             <th scope="col">รหัสบุคลากร</th>
                             <th scope="col">ชื่อบุคลากร</th>
@@ -149,8 +156,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
+                <table class="table table-hover">
+                    <thead>
                         <tr class="text-center">
                             <th scope="col">รหัสบุคลากร</th>
                             <th scope="col">ชื่อบุคลากร</th>
@@ -192,8 +199,8 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
-                <thead class="thead-dark">
+            <table class="table table-hover">
+                <thead>
                     <tr class="text-center">
                         <th scope="col">รหัสบุคลากร</th>
                         <th scope="col">ชื่อบุคลากร</th>
@@ -235,8 +242,8 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
-                <thead class="thead-dark">
+            <table class="table table-hover">
+                <thead>
                     <tr class="text-center">
                         <th scope="col">รหัสบุคลากร</th>
                         <th scope="col">ชื่อบุคลากร</th>
@@ -279,27 +286,36 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>รหัสบุคลากร</label>
-                                <input type="text" class="form-control" [formControl]="Emp_ID" id="validationDefault01"
-                                    style="background-color: rgb(226, 223, 223);">
+                                <!-- <input type="text" class="btn-primary disabled" [formControl]="Emp_ID" id="validationDefault01"
+                                    style="background-color: rgb(226, 223, 223);"> -->
+                                <button type="button" class="btn btn-light" data-container="body" data-toggle="popover"
+                                    data-placement="top" data-content="ไม่สามารถแก้ไขได้">
+                                    <input type="text" [formControl]="Emp_ID" readonly>
+                                </button>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label>ชื่อ(ภาษาไทย)</label>
-                                <input type="text" class="form-control" [formControl]="EmpName"
-                                    id="validationDefault02">
+                                <button type="button" class="btn btn-light">
+                                    <input type="text" id="validationDefault02" [formControl]="EmpName">
+                                </button>
+                                <!-- <input type="text" class="form-control" [formControl]="EmpName"
+                                    id="validationDefault02"> -->
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label>นามสกุล(ภาษาไทย)</label>
-
-                                <input type="text" class="form-control" [formControl]="EmpLastName"
-                                    id="validationDefaultUsername">
+                                <button type="button" class="btn btn-light">
+                                    <input type="text" id="validationDefault02" [formControl]="EmpLastName">
+                                </button>
+                                <!-- <input type="text" class="form-control" [formControl]="EmpLastName"
+                                    id="validationDefaultUsername"> -->
                             </div>
                             <br>
                             <div class="col-md-3 mb-3">
                                 <label>เพศ</label>
+
                                 <select class="form-control" [formControl]="Sex" id="exampleFormControlSelect1">
                                     <option value="ชาย">ชาย</option>
                                     <option value="หญิง">หญิง</option>
-
                                 </select>
                             </div>
                             <div class="col-md-3 mb-3">
@@ -309,16 +325,25 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label>อายุ</label>
-                                <input type="text" class="form-control" [formControl]="Age" id="validationDefault06">
+                                <button type="button" class="btn btn-light">
+                                    <input type="text" id="validationDefault02" [formControl]="Age">
+                                </button>
+                                <!-- <input type="text" class="form-control" [formControl]="Age" id="validationDefault06"> -->
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label>เบอร์โทร</label>
-                                <input type="text" class="form-control" [formControl]="Tel" id="validationDefault07">
+                                <button type="button" class="btn btn-light">
+                                    <input type="text" id="validationDefault02" [formControl]="Tel">
+                                </button>
+                                <!-- <input type="text" class="form-control" [formControl]="Tel" id="validationDefault07"> -->
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label>บัตรประชาชน</label>
-                                <input type="text" class="form-control" [formControl]="ID_card"
-                                    id="validationDefault23">
+                                <button type="button" class="btn btn-light">
+                                    <input type="text" id="validationDefault02" [formControl]="ID_card">
+                                </button>
+                                <!-- <input type="text" class="form-control" [formControl]="ID_card"
+                                    id="validationDefault23"> -->
                             </div>
                             <div class="col-md-8 mb-3">
                                 <label>ที่อยู่</label>

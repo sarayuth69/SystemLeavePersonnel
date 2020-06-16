@@ -19,8 +19,8 @@ export class HeaderComponent implements OnInit {
   emp2 : boolean 
   emp1 : boolean 
   show1 : boolean 
-  test  = localStorage.getItem('EmpName');
-  test1  = localStorage.getItem('EmpLastName');
+  EmpName  = localStorage.getItem('EmpName');
+  EmpLastName  = localStorage.getItem('EmpLastName');
   PositionName  = localStorage.getItem('PositionName');
   EmpstatusName  = localStorage.getItem('EmpstatusName');
   Emp_ID = new FormControl('');

@@ -5,6 +5,9 @@
     require_once('../Model/EmpModel.php');
 
     $Emp_Model = new EmpModel;
-    $Emp = $Emp_Model -> getleavetoSupervisor($_POST["Dept_ID"]);
+    $Emp = $Emp_Model -> countUser();
 
     echo json_encode($Emp);
+
+
+

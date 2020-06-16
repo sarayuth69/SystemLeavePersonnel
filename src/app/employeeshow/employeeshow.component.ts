@@ -31,6 +31,7 @@ export class EmployeeshowComponent implements OnInit {
   public positionEmp;
   public dep;
   public status;
+  public countUser;
   Empployee: any;
   Empployee1: any;
 
@@ -92,7 +93,7 @@ export class EmployeeshowComponent implements OnInit {
 
   ngOnInit() {
     const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
-
+      + '&Role=' + localStorage.getItem("Role")
     console.log(body1);
     const headers1 = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -114,6 +115,16 @@ export class EmployeeshowComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.Employee = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+
+    this.http.get('http://localhost/Leavewebservice/API/countUser.php').subscribe(
+      (data: any) => {
+        console.log(data);
+        this.countUser = data;
       },
       (error: any) => {
         console.log(error);
@@ -160,7 +171,6 @@ export class EmployeeshowComponent implements OnInit {
 
 
     const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
-
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -183,15 +193,15 @@ export class EmployeeshowComponent implements OnInit {
 
 
     // ฟังชันนี้อาจจะไม่ได้ใช้ ไห้ทำเป็น localStorage แบบ ประเภทการลา
-    this.http.get('http://localhost/Leavewebservice/API/getDept1001.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.Empployee1 = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+    // this.http.get('http://localhost/Leavewebservice/API/getDept1001.php').subscribe(
+    //   (data: any) => {
+    //     console.log(data);
+    //     this.Empployee1 = data;
+    //   },
+    //   (error: any) => {
+    //     console.log(error);
+    //   }
+    // );
 
 
     if (localStorage.getItem('Role') === "6") {
@@ -308,18 +318,18 @@ export class EmployeeshowComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     })
-    //  .then(() => {
-    //   window.location.reload();
-    //   // this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
-    //   //   (data: any) => {
-    //   //     console.log(data);
-    //   //     this.seach = data;
-    //   //   },
-    //   //   (error: any) => {
-    //   //     console.log(error);
-    //   //   }
-    //   // );
-    // })
+     .then(() => {
+       window.location.reload();
+    //   this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
+    //     (data: any) => {
+    //       console.log(data);
+    //       this.Employee = data;
+    //     },
+    //     (error: any) => {
+    //       console.log(error);
+    //     }
+    //   );
+     })
 
   }
 
