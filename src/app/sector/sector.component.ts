@@ -178,4 +178,6 @@ export class SectorComponent implements OnInit {
       this.SectorName = new FormControl('');
     })
   }
+
+
 }

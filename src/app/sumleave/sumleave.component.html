@@ -101,6 +101,7 @@
                 <th scope="col">สถานะ</th>
                 <th scope="col">จำนวนวันลา</th>
                 <th scope="col">วันลา</th>
+                <th scope="col">ถึงวัน</th>
 
               </tr>
             </thead>
@@ -115,10 +116,8 @@
                 <td> {{item.EmpName}} {{item.EmpLastName}} </td>
                 <td> {{item.LTypeName}} </td>
                 <td> {{item.LeaveTotal}} </td>
-                <td>
-                  {{item.LeaveDateStart}}
-
-                </td>
+                <td> {{item.LeaveDateStart}} </td>
+                <td> {{item.LeaveDateLast}} </td>
               </tr>
 
             </tbody>

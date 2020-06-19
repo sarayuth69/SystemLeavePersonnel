@@ -14,7 +14,10 @@
             <div class="col"></div>
             <div class="col">
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              <button type="button" class="btn btn-primary" 
+              data-toggle="modal" data-target="#exampleModal"
+              onclick="document.getElementById('sectorInput').value = '',
+              document.getElementById('sectorInput1').value = ''">
                 เพิ่มฝ่ายงาน
               </button>
             </div>
@@ -34,12 +37,12 @@
               <div class="modal-body">
                 <form>
                   <div class="form-group">
-                    <label for="sectorInput">รหัสฝ่ายงาน</label>
+                    <label >รหัสฝ่ายงาน</label>
                     <input type="text" class="form-control" id="sectorInput" [formControl]="Sector_ID"
                       placeholder="รหัสฝ่ายงาน">
                   </div>
                   <div class="form-group">
-                    <label for="sectorInput1">ชื่อฝ่ายงาน</label>
+                    <label >ชื่อฝ่ายงาน</label>
                     <input type="text" class="form-control" id="sectorInput1" [formControl]="SectorName"
                       placeholder="ชื่อฝ่ายงาน">
                   </div>
@@ -54,6 +57,7 @@
           </div>
         </div>
       </div>
+      
       <div class="card-body">
 
         <table class="table table-bordered">

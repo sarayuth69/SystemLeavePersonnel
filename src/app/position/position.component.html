@@ -13,7 +13,11 @@
             <div class="col"></div>
             <div class="col"></div>
             <div class="col">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalPosition">
+              <button type="button" class="btn btn-primary"
+               data-toggle="modal" data-target="#exampleModalPosition"
+               onclick="document.getElementById('PositionInput').value = '',
+               document.getElementById('PositionInput1').value = '',
+               document.getElementById('PositionInput2').value = ''">
                 เพิ่มตำแหน่ง
               </button>
             </div>
@@ -45,7 +49,15 @@
                   </div>
                   <div class="form-group">
                     <label for="PositionInput1">ระดับสิทธิการเข้าใช้</label>
-                    <input type="text" class="form-control" id="PositionInput99" [formControl]="Role"
+                    <!-- <select class="form-control" id="PositionInput99" [formControl]="Role">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                    </select> -->
+                    <input type="text" class="form-control" id="PositionInput2" [formControl]="Role"
                       placeholder="ระดับสิทธิการเข้าใช้">
                   </div>
 
@@ -62,7 +74,7 @@
       </div>
       <div class="card-body">
         <table class="table table-hover">
-          <thead >
+          <thead>
             <tr class="text-center">
               <th scope="col">รหัสตำแหน่ง</th>
               <th scope="col">ชื่อตำแหน่ง</th>

@@ -49,10 +49,10 @@
                                         <label>ฝ่ายงาน</label>
                                         <!-- <input type="text" class="form-control" [formControl]="SectorName"
                                             placeholder="ชื่อฝ่ายงาน"> -->
-                                        <select class="form-control" #Sector_ID>
-                                            <option *ngFor="let item of sector; let i = index"
-                                                value="{{item.Sector_ID}}">{{item.SectorName}}</option>
-                                        </select>
+                                            <select class="form-control" id="DepartmentInput2" #Sector_ID>
+                                                <option *ngFor="let item of sector; let i = index"
+                                                    value="{{item.Sector_ID}}">{{item.SectorName}}</option>
+                                            </select>
                                     </div>
                                 </form>
                             </div>

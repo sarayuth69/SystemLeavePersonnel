@@ -472,7 +472,7 @@ function getEmployee(){
     }
     function getsector(){
 
-        $sql  = 'SELECT * FROM `sector`';
+        $sql  = 'SELECT * FROM `sector` WHERE 1 ORDER BY ABS(`sector`.`sector_ID`) ASC';
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -1031,7 +1031,8 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
         JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
         JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
         WHERE`leave`.`LeaveDateStart` LIKE '%$Day_leave%'
-        GROUP BY`employee`.`Emp_ID`";
+        -- GROUP BY`employee`.`Emp_ID`
+        ";
              if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
                 $data = [];
                 while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
@@ -1041,6 +1042,26 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
                 return $data;
             }
       }
+      function Checkleaveinfo($Emp_ID){
+        $sql = "SELECT *
+        FROM `employee`
+        JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
+        JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
+        JOIN `leavestatus` ON `leavestatus`.`LeaveStatus_ID` = `leave`.`LeaveStatus_ID`
+        JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
+        JOIN `position` ON `employee`.`Position_ID` = `position`.`Position_ID`
+        WHERE`employee`.`Emp_ID` LIKE '%$Emp_ID%' 
+        ";
+             if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+                $data = [];
+                while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                    $data[] = $row;
+                }
+                $result->close();
+                return $data;
+            }
+      }
+
 
       function upload($data){
         $sql = "INSERT INTO `upload` (`file_ID``file_name`) 

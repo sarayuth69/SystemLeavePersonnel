@@ -32,12 +32,14 @@ import { EditdayworkComponent } from './editdaywork/editdaywork.component';
 
 import { FilelaeveprintComponent } from './filelaeveprint/filelaeveprint.component';
 import { LeavetowaitingComponent } from './leavetowaiting/leavetowaiting.component';
+import { CheckleaveinfoComponent } from './checkleaveinfo/checkleaveinfo.component';
 
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'filelaeveprint', component: FilelaeveprintComponent },
   { path: 'leavetowaiting', component: LeavetowaitingComponent },
+  { path: 'checkleaveinfo', component: CheckleaveinfoComponent },
   { path: 'sector', component: SectorComponent },
   { path: 'checkdaywork', component: CheckdayworkComponent },
   { path: 'department', component: DepartmentComponent },
@@ -85,7 +87,8 @@ const appRoutes: Routes = [
     EditdayworkComponent,
     JwPaginationComponent,
     FilelaeveprintComponent,
-    LeavetowaitingComponent
+    LeavetowaitingComponent,
+    CheckleaveinfoComponent
   
 
   ],
