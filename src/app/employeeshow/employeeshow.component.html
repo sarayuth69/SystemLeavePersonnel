@@ -364,7 +364,7 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label>สถานะบุคลากร</label>
-                                <select class="form-control" [formControl]="Empstatus_ID"
+                                <select class="form-control form-control-lg" [formControl]="Empstatus_ID"
                                     id="exampleFormControlSelect4">
                                     <option selected></option>
                                     <option *ngFor="let item of status; let i = index" value="{{item.Empstatus_ID}}">
@@ -377,7 +377,7 @@
                             </div>
                             <div class="col-md-7 mb-3">
                                 <label>ตำแหน่ง</label>
-                                <select class="form-control" [formControl]="Position_ID" id="exampleFormControlSelect2">
+                                <select class="form-control form-control-lg" [formControl]="Position_ID" id="exampleFormControlSelect2">
                                     <option selected>เลือกตำแหน่ง</option>
                                     <option *ngFor="let item of positionEmp; let i = index"
                                         value="{{item.Position_ID}}">
@@ -410,7 +410,7 @@
                             </div>
                             <div class="col-md-7 mb-3">
                                 <label> แผนก</label>
-                                <select class="form-control" [formControl]="Dept_ID" id="exampleFormControlSelect3">
+                                <select class="form-control form-control-lg" [formControl]="Dept_ID" id="exampleFormControlSelect3">
                                     <option selected>-</option>
 
                                     <option *ngFor="let item of dep; let i = index" value="{{item.Dept_ID}}">

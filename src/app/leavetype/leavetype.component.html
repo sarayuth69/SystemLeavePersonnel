@@ -1,13 +1,13 @@
 <br>
 <br>
 <div style="padding: 1%;">
-<div class="tab-pane fade show active">
+  <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
     <div class="card">
       <div class="card-header">
         <div class="container">
           <div class="row">
-            <div class="col">            ประเภทการลา
+            <div class="col"> ประเภทการลา
             </div>
             <div class="col"></div>
             <div class="col"></div>
@@ -21,73 +21,205 @@
               </button>
             </div>
           </div>
+        </div>
       </div>
-      </div>
-      <div class="card-body">
-        <table class="table table-hover">
-          <thead >
-            <tr class="text-center">
-              <th scope="col">ลำดับ</th>
 
-              <!-- <th scope="col">รหัสประเภทการลา</th> -->
-              <th scope="col">ชื่อประเภทการลา</th>
-              <th scope="col">จำนวนวันลา/วัน</th>
-              <th scope="col">คงเหลือ/วัน</th>
-              <th scope="col">แจ้งล่วงหน้า/วัน</th>
-              <th scope="col">จำนวนครั้งที่ลา/วัน</th>
-              <th scope="col">สถานะสิทธิการลา</th>
-              <th scope="col">สถานะบุคลากร</th>
-              <th scope="col">จัดการ</th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let item of leavetype; let i = index">
-            <tr>
-              <td >
-                <p ng-repeat="i in range(1, 5)">
-                  {{ i+1 }}
-                </p>
-              </td>  
 
-              <!-- <td>{{item.LType_ID}}</td> -->
-              <td>{{item.LTypeName}}</td>
-              <td>{{item.Number}}</td>
-              <td>{{item.Remain}}</td>
-              <td>{{item.AdvanceNotice}}</td>
-              <td>{{item.LOrdinal}}</td>
-              <td>{{item.QuotaStatus}}</td>
-              <td>{{item.EmpstatusName}}</td>
-              <td>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-toggle="modal" 
-                data-target="#exampleModal2" (click)="updateLeavetype(item.LType_ID,item.LTypeName
-                ,item.Number,item.Remain,item.AdvanceNotice,item.LOrdinal,item.QuotaStatus,item.Empstatus_ID)">
-                  แก้ไข
-                </button>
-  
-                &nbsp;
-                <button type="button" class="btn btn-danger"
-                  (click)="deleteLeavetype(item.LType_ID,item.LTypeName)">ลบ</button>
-  
-  
-              </td>
-  
-            </tr>
-          </tbody>
-        </table>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+            aria-selected="true">ราชการ</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+            aria-selected="false">พนักงานมหาวิทยาลัย</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+            aria-selected="false">ลูกจ้างเงินรายได้</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">ลำดับ</th>
+
+                  <!-- <th scope="col">รหัสประเภทการลา</th> -->
+                  <th scope="col">ชื่อประเภทการลา</th>
+                  <th scope="col">จำนวนวันลา/วัน</th>
+                  <th scope="col">คงเหลือ/วัน</th>
+                  <th scope="col">แจ้งล่วงหน้า/วัน</th>
+                  <th scope="col">จำนวนครั้งที่ลา/วัน</th>
+                  <th scope="col">สถานะสิทธิการลา</th>
+                  <th scope="col">สถานะบุคลากร</th>
+                  <th scope="col">จัดการ</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let item of leavetype_ratcakan; let i = index">
+                <tr>
+                  <td>
+                    <p ng-repeat="i in range(1, 5)">
+                      {{ i+1 }}
+                    </p>
+                  </td>
+
+                  <!-- <td>{{item.LType_ID}}</td> -->
+                  <td>{{item.LTypeName}}</td>
+                  <td>{{item.Number}}</td>
+                  <td>{{item.Remain}}</td>
+                  <td>{{item.AdvanceNotice}}</td>
+                  <td>{{item.LOrdinal}}</td>
+                  <td>{{item.QuotaStatus}}</td>
+                  <td>{{item.EmpstatusName}}</td>
+                  <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
+                      (click)="updateLeavetype(item.LType_ID,item.LTypeName
+                    ,item.Number,item.Remain,item.AdvanceNotice,item.LOrdinal,item.QuotaStatus,item.Empstatus_ID)">
+                      แก้ไข
+                    </button>
+
+                    &nbsp;
+                    <button type="button" class="btn btn-danger"
+                      (click)="deleteLeavetype(item.LType_ID,item.LTypeName)">ลบ</button>
+
+
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">ลำดับ</th>
+
+                  <!-- <th scope="col">รหัสประเภทการลา</th> -->
+                  <th scope="col">ชื่อประเภทการลา</th>
+                  <th scope="col">จำนวนวันลา/วัน</th>
+                  <th scope="col">คงเหลือ/วัน</th>
+                  <th scope="col">แจ้งล่วงหน้า/วัน</th>
+                  <th scope="col">จำนวนครั้งที่ลา/วัน</th>
+                  <th scope="col">สถานะสิทธิการลา</th>
+                  <th scope="col">สถานะบุคลากร</th>
+                  <th scope="col">จัดการ</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let item of leavetype_emp_in_univercity; let i = index">
+                <tr>
+                  <td>
+                    <p ng-repeat="i in range(1, 5)">
+                      {{ i+1 }}
+                    </p>
+                  </td>
+
+                  <!-- <td>{{item.LType_ID}}</td> -->
+                  <td>{{item.LTypeName}}</td>
+                  <td>{{item.Number}}</td>
+                  <td>{{item.Remain}}</td>
+                  <td>{{item.AdvanceNotice}}</td>
+                  <td>{{item.LOrdinal}}</td>
+                  <td>{{item.QuotaStatus}}</td>
+                  <td>{{item.EmpstatusName}}</td>
+                  <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
+                      (click)="updateLeavetype(item.LType_ID,item.LTypeName
+                    ,item.Number,item.Remain,item.AdvanceNotice,item.LOrdinal,item.QuotaStatus,item.Empstatus_ID)">
+                      แก้ไข
+                    </button>
+
+                    &nbsp;
+                    <button type="button" class="btn btn-danger"
+                      (click)="deleteLeavetype(item.LType_ID,item.LTypeName)">ลบ</button>
+
+
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">ลำดับ</th>
+
+                  <!-- <th scope="col">รหัสประเภทการลา</th> -->
+                  <th scope="col">ชื่อประเภทการลา</th>
+                  <th scope="col">จำนวนวันลา/วัน</th>
+                  <th scope="col">คงเหลือ/วัน</th>
+                  <th scope="col">แจ้งล่วงหน้า/วัน</th>
+                  <th scope="col">จำนวนครั้งที่ลา/วัน</th>
+                  <th scope="col">สถานะสิทธิการลา</th>
+                  <th scope="col">สถานะบุคลากร</th>
+                  <th scope="col">จัดการ</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let item of leavetype_Temporary_worker; let i = index">
+                <tr>
+                  <td>
+                    <p ng-repeat="i in range(1, 5)">
+                      {{ i+1 }}
+                    </p>
+                  </td>
+
+                  <!-- <td>{{item.LType_ID}}</td> -->
+                  <td>{{item.LTypeName}}</td>
+                  <td>{{item.Number}}</td>
+                  <td>{{item.Remain}}</td>
+                  <td>{{item.AdvanceNotice}}</td>
+                  <td>{{item.LOrdinal}}</td>
+                  <td>{{item.QuotaStatus}}</td>
+                  <td>{{item.EmpstatusName}}</td>
+                  <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
+                      (click)="updateLeavetype(item.LType_ID,item.LTypeName
+                    ,item.Number,item.Remain,item.AdvanceNotice,item.LOrdinal,item.QuotaStatus,item.Empstatus_ID)">
+                      แก้ไข
+                    </button>
+
+                    &nbsp;
+                    <button type="button" class="btn btn-danger"
+                      (click)="deleteLeavetype(item.LType_ID,item.LTypeName)">ลบ</button>
+
+
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
-  
-  
-  
-  
+
+
+
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">เพิ่มประเภทการลา</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -96,7 +228,9 @@
           <form>
             <div class="form-row">
               <div class="col-md-4 mb-3">
-                <label for="validationDefault01">รหัสประเภทการลา</label>
+                <label for="validationDefault01">รหัสประเภทการลา <b> *กรอกเป็นตัวเลข</b>
+
+                </label>
                 <input type="text" class="form-control" id="LType_ID" placeholder="รหัสประเภทการลา"
                   [formControl]="LType_ID" required>
               </div>
@@ -139,8 +273,8 @@
                 <label for="validationDefault05">สถานะสิทธิการลา</label>
                 <select id="QuotaStatus" class="form-control" [formControl]="QuotaStatus">
                   <option selected>สถานะสิทธิการลา</option>
-                  <option value="1">ลาได้</option>
-                  <option value="0">ลาไม่ได้</option>
+                  <option value="ลาได้">ลาได้</option>
+                  <option value="ลาไม่ได้">ลาไม่ได้</option>
                 </select>
               </div>
               <div class="col-md-3 mb-3">
@@ -153,7 +287,7 @@
                 </select>
               </div>
             </div>
-  
+
           </form>
         </div>
         <div class="modal-footer">
@@ -163,17 +297,17 @@
       </div>
     </div>
   </div>
-  
-  
-  
-  
+
+
+
+
   <!-- Modal แก้ไขประเภทการลา -->
   <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">แก้ไขประเภทการลา</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -183,8 +317,10 @@
             <div class="form-row">
               <div class="col-md-4 mb-3">
                 <label for="validationDefault01">รหัสประเภทการลา</label>
-                <input type="text" class="form-control" id="LType_ID" placeholder="รหัสประเภทการลา"
-                  [formControl]="LType_ID" required>
+                <button type="button" class="btn btn-light" data-container="body" data-toggle="popover"
+                  data-placement="top" data-content="ไม่สามารถแก้ไขได้">
+                  <input type="text" [formControl]="LType_ID" readonly>
+                </button>
               </div>
               <div class="col-md-4 mb-3">
                 <label for="validationDefault02">ชื่อประเภทการลา</label>
@@ -225,17 +361,17 @@
                 <label for="validationDefault05">สถานะสิทธิการลา</label>
                 <select id="QuotaStatus" class="form-control" [formControl]="QuotaStatus">
                   <option selected>สถานะสิทธิการลา</option>
-                  <option value="1">ลาได้</option>
-                  <option value="0">ลาไม่ได้</option>
+                  <option value="ลาได้">ลาได้</option>
+                  <option value="ลาไม่ได้">ลาไม่ได้</option>
                 </select>
               </div>
               <div class="col-md-3 mb-3">
                 <label for="validationDefault05">สถานะบุคลากร</label>
                 <select id="Empstatus_ID" class="form-control" [formControl]="Empstatus_ID">
                   <option selected>เลือกสถานะบุคลากร</option>
-                  <option value="106">ราชการ</option>
-                  <option value="105">พนักงานมหาวิทยาลัย</option>
-                  <option value="104">ลูกจ้างเงินรายได้</option>
+                  <option value="203">ราชการ</option>
+                  <option value="202">พนักงานมหาวิทยาลัย</option>
+                  <option value="201">ลูกจ้างเงินรายได้</option>
                 </select>
               </div>
             </div>
@@ -243,7 +379,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateLeaveType1()" >บันทึก</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal"
+            (click)="updateLeaveType1()">บันทึก</button>
         </div>
       </div>
     </div>

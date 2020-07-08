@@ -16,7 +16,9 @@ import { FormControl } from '@angular/forms';
 export class LeavetypeComponent implements OnInit {
 
   public leavetype;
-
+  leavetype_ratcakan
+  leavetype_emp_in_univercity
+  leavetype_Temporary_worker
   public leavetype_ID_show;
   public leavetypeName_show;
   leavetype1: any;
@@ -41,6 +43,30 @@ export class LeavetypeComponent implements OnInit {
     this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
       (data: any) => {
         this.leavetype = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+    this.http.get('http://localhost/Leavewebservice/API/getleavetype_ratcakan.php').subscribe(
+      (data: any) => {
+        this.leavetype_ratcakan = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+    this.http.get('http://localhost/Leavewebservice/API/getleavetype_emp_in_univercity.php').subscribe(
+      (data: any) => {
+        this.leavetype_emp_in_univercity = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+    this.http.get('http://localhost/Leavewebservice/API/getleavetype_Temporary_worker.php').subscribe(
+      (data: any) => {
+        this.leavetype_Temporary_worker = data;
       },
       (error: any) => {
         console.log(error);
@@ -92,14 +118,39 @@ export class LeavetypeComponent implements OnInit {
         timer: 1500
 
       }).then(() => {
-        this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
-          (data: any) => {
-            this.leavetype = data;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        )
+        if(this.Empstatus_ID.value == 203){
+          this.http.get('http://localhost/Leavewebservice/API/getleavetype_ratcakan.php').subscribe(
+            (data: any) => {
+              console.log(data);
+              this.leavetype_ratcakan = data;
+            },
+            (error: any) => {
+              console.log(error);
+            }
+          );
+        }
+       else if(this.Empstatus_ID.value == 202){
+          this.http.get('http://localhost/Leavewebservice/API/getleavetype_emp_in_univercity.php').subscribe(
+            (data: any) => {
+              console.log(data);
+              this.leavetype_emp_in_univercity = data;
+            },
+            (error: any) => {
+              console.log(error);
+            }
+          );
+        }
+       else if(this.Empstatus_ID.value == 201){
+          this.http.get('http://localhost/Leavewebservice/API/getleavetype_Temporary_worker.php').subscribe(
+            (data: any) => {
+              console.log(data);
+              this.leavetype_Temporary_worker = data;
+            },
+            (error: any) => {
+              console.log(error);
+            }
+          );
+       }
       }).then(() => {
         this.LType_ID = new FormControl('');
         this.LTypeName = new FormControl('');
@@ -132,15 +183,8 @@ export class LeavetypeComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
-            (data: any) => {
-              console.log(data);
-              this.leavetype = data;
-            },
-            (error: any) => {
-              console.log(error);
-            }
-          );
+          
+          window.location.reload();
         })
 
         this.http
@@ -176,6 +220,7 @@ export class LeavetypeComponent implements OnInit {
     this.Empstatus_ID = new FormControl(Empstatus_ID);
   }
   public updateLeaveType1() {
+  
     const body =
       'LType_ID=' + this.LType_ID.value
       + '&LTypeName=' + this.LTypeName.value
@@ -209,15 +254,40 @@ export class LeavetypeComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     }).then(() => {
-      this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
-        (data: any) => {
-          console.log(data);
-          this.leavetype = data;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+      if(this.Empstatus_ID.value == 203){
+        this.http.get('http://localhost/Leavewebservice/API/getleavetype_ratcakan.php').subscribe(
+          (data: any) => {
+            console.log(data);
+            this.leavetype_ratcakan = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }
+     else if(this.Empstatus_ID.value == 202){
+        this.http.get('http://localhost/Leavewebservice/API/getleavetype_emp_in_univercity.php').subscribe(
+          (data: any) => {
+            console.log(data);
+            this.leavetype_emp_in_univercity = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }
+     else if(this.Empstatus_ID.value == 201){
+        this.http.get('http://localhost/Leavewebservice/API/getleavetype_Temporary_worker.php').subscribe(
+          (data: any) => {
+            console.log(data);
+            this.leavetype_Temporary_worker = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }
+     
     }).then(() => {
       this.LType_ID = new FormControl('');
       this.LTypeName = new FormControl('');

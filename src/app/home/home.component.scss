@@ -1,140 +1,75 @@
+$size: 95vw;
+$folds: 5;
 
-// body {
-//   font-family: Arial, Helvetica, "Liberation Sans", FreeSans, sans-serif;
-//   background-color: #044;
-//   margin:0;
-//   padding:0;
-//   border-width:0;
-//   cursor: pointer;
-// }
+$skew: 15deg;
+$crunch: 0.6;
+$duration: 4s;
+$delay: 1s;
 
+$url: url(https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Pittsburgh_Panorama_from_the_Duquesne_Incline.jpg/1280px-Pittsburgh_Panorama_from_the_Duquesne_Incline.jpg);
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
-
-* {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
+html {
+	background: radial-gradient(at center right, #222, #000);
 }
 
 body {
-	background: #7e9dff;
-	font-family: "Roboto", sans-serif;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	height: 100vh;
+	animation: crunch $duration $delay ease-in-out infinite;
+
+	@keyframes crunch {
+		50% {
+			transform: scaleX($crunch);
+		}
+	}
 }
 
-.main-container {
-	background: #ecfffc;
-	color: #7e9dff;
-	width: 500px;
-	margin: auto;
-	border-radius: 10px;
-}
-
-h4 {
-	color: #7e9dff;
-	opacity: 0.7;
-}
-
-ul {
-	list-style: none;
-}
-
-a {
-	text-decoration: none;
-}
-
-.calendar-head {
+.card {
 	display: flex;
-	justify-content: space-between;
-	padding: 30px;
-	border-bottom: 2px solid #7e9dff;
+	width: $size;
+	height: 304/1280 * $size;
 }
 
-.calendar-body {
-	padding: 30px;
-	text-align: center;
-}
+.fold {
+	flex: 1;
+	background: $url;
+	background-size: cover;
 
-.weekdays {
-	text-transform: uppercase;
-	color: #7e9dff;
-	font-weight: bold;
-	font-size: 0.9rem;
-	display: grid;
-	grid-template-columns: repeat(7, 1fr);
-	margin-bottom: 10px;
-}
+	@for $i from 1 through $folds {
+		&:nth-child(#{$i}) {
+			background-position: ($i - 1) / ($folds - 1) * 100%;
+		}
+	}
 
-.days {
-	display: grid;
-	grid-template-columns: repeat(7, 1fr);
-}
+	&:first-child {
+		border-radius: 2vw 0 0 2vw;
+	}
+	&:last-child {
+		border-radius: 0 2vw 2vw 0;
+	}
 
-.days li {
-	padding: 10px 0;
-	cursor: pointer;
-	position: relative;
-}
+	animation: $duration $delay ease-in-out infinite;
 
-.days li:hover {
-	color: #c74b43;
-}
+	&:nth-child(odd) {
+		animation-name: odd-fold;
 
-.previous-month {
-	opacity: 0.2;
-}
+		@keyframes odd-fold {
+			50% {
+				transform: skewY($skew);
+				filter: brightness(1.25);
+			}
+		}
+	}
+	&:nth-child(even) {
+		animation-name: even-fold;
 
-.date-with-event {
-	border: 2px solid #7e9dff;
-	padding: 10px;
-	border-radius: 50%;
-}
-
-.date-with-event:hover {
-	background: #7e9dff;
-	color: #ecfffc;
-	font-weight: bold;
-}
-
-.event-count {
-	position: absolute;
-	top: 0;
-	right: 5px;
-	font-size: 0.6rem;
-	background: #c74b43;
-	color: #fff;
-	display: block;
-	padding: 2px 5px;
-	border-radius: 50px;
-}
-
-.active {
-	background: #7e9dff;
-	color: #ecfffc;
-	font-weight: bold;
-	padding: 10px;
-	border-radius: 50%;
-}
-
-.calendar-footer {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 30px;
-	border-top: 2px solid #7e9dff;
-}
-
-.add-event-btn {
-	color: #7e9dff;
-	padding: 10px 15px;
-	border: 2px solid #7e9dff;
-	border-radius: 50%;
-}
-
-.add-event-btn:hover {
-	background: #7e9dff;
-	color: #ecfffc;
+		@keyframes even-fold {
+			50% {
+				transform: skewY(-$skew);
+				filter: brightness(0.75);
+			}
+		}
+	}
 }

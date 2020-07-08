@@ -13,7 +13,9 @@ export class LeavetowaitingComponent implements OnInit {
   table_leaveto_waiting
   table_leaveto_waiting_3
   setleavestatus
+  Emp_ID
   Leave_ID
+  LeaveTotal
   tableleavewaiting_2: boolean;
   tableleavewaiting_3: boolean;
   tableleavewaiting_4: boolean;
@@ -25,7 +27,7 @@ export class LeavetowaitingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     if (localStorage.getItem('Role') === "2") {
       this.tableleavewaiting_2 = true;
       this.tableleavewaiting_3 = false;
@@ -43,12 +45,12 @@ export class LeavetowaitingComponent implements OnInit {
           (data: any) => {
             this.table_leaveto_waiting = data;
             console.log(this.table_leaveto_waiting);
-  
+
           },
           (error: any) => {
             console.log(error);
           }
-  
+
         )
 
     }
@@ -69,12 +71,12 @@ export class LeavetowaitingComponent implements OnInit {
           (data: any) => {
             this.table_leaveto_waiting = data;
             console.log(this.table_leaveto_waiting);
-  
+
           },
           (error: any) => {
             console.log(error);
           }
-  
+
         )
 
     }
@@ -84,14 +86,14 @@ export class LeavetowaitingComponent implements OnInit {
       this.tableleavewaiting_4 = true;
       this.tableleavewaiting_5 = false;
       this.http.get('http://localhost/Leavewebservice/API/getleavetoDeputyleader.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.table_leaveto_waiting = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+        (data: any) => {
+          console.log(data);
+          this.table_leaveto_waiting = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
     }
     else if (localStorage.getItem('Role') === "5") {
       this.tableleavewaiting_2 = false;
@@ -99,14 +101,14 @@ export class LeavetowaitingComponent implements OnInit {
       this.tableleavewaiting_4 = false;
       this.tableleavewaiting_5 = true;
       this.http.get('http://localhost/Leavewebservice/API/getleavetoperson.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.table_leaveto_waiting = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+        (data: any) => {
+          console.log(data);
+          this.table_leaveto_waiting = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
     }
     // else if (localStorage.getItem('Role') === "3") {
     //   this.list = true;
@@ -276,14 +278,14 @@ export class LeavetowaitingComponent implements OnInit {
         timer: 1500
       }).then(() => {
         this.http.get('http://localhost/Leavewebservice/API/getleavetoDeputyleader.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.table_leaveto_waiting = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+          (data: any) => {
+            console.log(data);
+            this.table_leaveto_waiting = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
       })
     }
     else if (localStorage.getItem('Role') === "5") {
@@ -326,6 +328,39 @@ export class LeavetowaitingComponent implements OnInit {
         );
       })
     }
+
+  }
+  No_allow(Emp_ID,LeaveTotal) {
+    this.LeaveTotal = LeaveTotal
+    this.Emp_ID = Emp_ID
+    const body = 'Emp_ID=' + this.Emp_ID +
+    '&LeaveTotal=' + this.LeaveTotal
+
+    console.log(body);
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // });
+    // this.http
+    //   .post('http://localhost/Leavewebservice/API/No_allow.php', body, {
+    //     headers: headers
+    //   }).subscribe(
+    //     (data: any) => {
+    //       this.No_allow = data;
+    //       console.log(data);
+
+    //     },
+    //     (error: any) => {
+    //       console.log(error);
+    //     }
+
+    //   )
+    // Swal.fire({
+    //   position: 'center',
+    //   icon: 'success',
+    //   title: 'อนุญาตเรียบร้อย',
+    //   showConfirmButton: false,
+    //   timer: 1500
+    // })
 
   }
 

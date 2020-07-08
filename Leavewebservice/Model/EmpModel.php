@@ -83,6 +83,33 @@ function getEmployee(){
         }
     }
 
+// function No_allow($Emp_ID,$LeaveTotal){
+
+//     $sql  = "SELECT `leavetype`.`LType_ID`,`leavetype`.`LTypeName`,`leavetype`.`Number`,`leave`.`Emp_ID`,
+//     `leave`.`LeaveTotal`,SUM(`leave`.`LeaveTotal`),(`leavetype`.`Number` + SUM(`leave`.`LeaveTotal`)) AS num,
+//     `leavetype`.`AdvanceNotice`,`leavetype`.`LOrdinal`,
+//     `leavetype`.`QuotaStatus`,`employeestatus`.`EmpstatusName`,SUM(`leavetype`.`LOrdinal` - 1)AS Ordinal
+// FROM
+//     `leavetype`
+// JOIN `leave` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
+// JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+// WHERE    
+// `leave`.`Emp_ID` = '$Emp_ID'
+//     GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`
+//     ";
+//         // echo "<pre>";
+//         // print_r($sql);
+//         // echo "</pre>";
+//         if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+//             $data = [];
+//             while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+//                 $data[] = $row;
+//             }
+//             $result->close();
+//             return $data;
+//         }
+//     }
+
     function getLeave_type_User($Emp_ID){
 
         $sql  = "SELECT `leavetype`.`LType_ID`,`leavetype`.`LTypeName`,`leavetype`.`Number`,`leave`.`Emp_ID`,
@@ -192,6 +219,69 @@ function getEmployee(){
             return $data;
         }
     }
+    function getleavetype_ratcakan(){
+        $sql  = "SELECT
+        *
+    FROM
+        `leavetype`
+        JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+    WHERE
+        `leavetype`.`Empstatus_ID` = 203
+    ";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+    function getleavetype_emp_in_univercity(){
+        $sql  = "SELECT
+        *
+    FROM
+        `leavetype`
+        JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+    WHERE
+        `leavetype`.`Empstatus_ID` = 202
+    ";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
+    function getleavetype_Temporary_worker(){
+        $sql  = "SELECT
+        *
+    FROM
+        `leavetype`
+        JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+    WHERE
+        `leavetype`.`Empstatus_ID` = 201
+    ";
+        // echo "<pre>";
+        // print_r($sql);
+        // echo "</pre>";
+        if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+            $data = [];
+            while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $data[] = $row;
+            }
+            $result->close();
+            return $data;
+        }
+    }
 
     function getcountleave(){
         $sql  = "SELECT
@@ -246,7 +336,8 @@ function getEmployee(){
     JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
     JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
     WHERE
-        `leave`.`LeaveStatus_ID` = "4"';
+        `leave`.`LeaveStatus_ID` = "4"
+        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`';
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -266,7 +357,7 @@ function getEmployee(){
         JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
         JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
         WHERE  `leave`.`LeaveStatus_ID` = '3' 
-        GROUP BY `employee`.`Emp_ID`";
+        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`";
         // echo "<pre>";
         // print_r($sql);
         // echo "</pre>";
@@ -286,6 +377,7 @@ function getEmployee(){
         JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
         JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
         WHERE `employee`.`Dept_ID` = '$Dept_ID' AND `leave`.`LeaveStatus_ID` = '2' 
+        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`
         ";
         // echo "<pre>";
         // print_r($sql);
@@ -307,7 +399,7 @@ function getEmployee(){
     JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
     WHERE 
     `employee`.`Dept_ID` = '$Dept_ID' AND `leave`.`LeaveStatus_ID` = '1' 
-    
+    GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`
         ";
         // echo "<pre>";
         // print_r($sql);

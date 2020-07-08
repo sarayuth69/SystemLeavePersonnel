@@ -5,12 +5,12 @@
 <div style="padding: 1%;">
     <div class="table-responsive-lg">
         <label for="exampleFormControlSelect1">เลือกบุคลากร</label>
-        <select class="form-control" id="exampleFormControlSelect1" #Emp_ID>
+        <select class="form-control form-control-lg" id="exampleFormControlSelect1" #Emp_ID>
             <option selected>เลือกบุคลากร</option>
             <option *ngFor="let item of Dept_to_head" value="{{item.Emp_ID}}">{{item.EmpName}} {{item.EmpLastName}}
             </option>
         </select>
-        <button type="button" class="btn btn-primary" (click)="leaveSearch(Emp_ID.value)">Primary</button>
+        <button type="button" class="btn btn-primary" (click)="leaveSearch(Emp_ID.value)">ค้นหา</button>
         <table class="table table-hover">
             <thead>
                 <tr class="text-center">

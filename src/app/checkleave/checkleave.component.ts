@@ -21,7 +21,7 @@ export class CheckleaveComponent implements OnInit {
     public http: HttpClient,
   ) { }
   ngOnInit() {
- 
+    
     const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
     console.log(tpyeUser);
     const headers1 = new HttpHeaders({

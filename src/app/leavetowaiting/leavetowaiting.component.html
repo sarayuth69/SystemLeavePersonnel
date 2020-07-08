@@ -66,8 +66,10 @@
 
         <td class="text-center">
           &nbsp;
+
           <button type="button" class="btn btn-info" data-toggle="modal"
             data-target="#exampleModal">ตรวจสอบข้อมูล</button>
+            <button type="button" class="btn btn-danger" (click)="No_allow(item.Emp_ID,item.LeaveTotal)">ไม่อนุญาต</button>
             <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button>
 
           <!-- <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button> -->
