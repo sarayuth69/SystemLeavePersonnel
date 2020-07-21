@@ -215,19 +215,19 @@ export class LeavelistComponent implements OnInit {
 
         )
     }
-     else if (localStorage.getItem('Role') === "6") {
+    else if (localStorage.getItem('Role') === "6") {
       this.list = false;
       this.list1 = false;
       this.list6 = true;
       this.http.get('http://localhost/Leavewebservice/API/getleavetoperson.php').subscribe(
-      (data: any) => {
-        console.log(data);
-        this.leave = data;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+        (data: any) => {
+          console.log(data);
+          this.leave = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
     }
     // else if (localStorage.getItem('Empstatus_ID') === "105") {
     //   this.leave105 = true;
@@ -243,7 +243,7 @@ export class LeavelistComponent implements OnInit {
         title: 'กรุณาเลือกวันลา',
 
       })
-    } else if(localStorage.getItem('Role') === "1") {
+    } else if (localStorage.getItem('Role') === "1") {
       const body = 'Leave_ID=' + this.Leave_ID.value
         + '&Emp_ID=' + localStorage.getItem("Emp_ID")
         + '&Name_Leave=' + this.Name_Leave.value
@@ -254,6 +254,7 @@ export class LeavelistComponent implements OnInit {
         + '&ContactInformation=' + this.ContactInformation.value
         + '&LeaveTotal=' + this.LeaveTotal.value
         + '&LeaveStatus_ID=' + "1"
+        + '&LeaveStatus=' + "Y"
         + '&UploadFile=' + this.UploadFile.value
         + '&Response_Time=' + this.Response_Time.value
         + '&Person_Code_Allow=' + this.Person_Code_Allow.value
@@ -337,7 +338,7 @@ export class LeavelistComponent implements OnInit {
             )
         })
     }
-    else if(localStorage.getItem('Role') === "2") {
+    else if (localStorage.getItem('Role') === "2") {
       const body = 'Leave_ID=' + this.Leave_ID.value
         + '&Emp_ID=' + localStorage.getItem("Emp_ID")
         + '&Name_Leave=' + this.Name_Leave.value
@@ -348,6 +349,7 @@ export class LeavelistComponent implements OnInit {
         + '&ContactInformation=' + this.ContactInformation.value
         + '&LeaveTotal=' + this.LeaveTotal.value
         + '&LeaveStatus_ID=' + "2"
+        + '&LeaveStatus=' + "Y"
         + '&UploadFile=' + this.UploadFile.value
         + '&Response_Time=' + this.Response_Time.value
         + '&Person_Code_Allow=' + this.Person_Code_Allow.value
@@ -431,7 +433,7 @@ export class LeavelistComponent implements OnInit {
             )
         })
     }
-    else if(localStorage.getItem('Role') === "3") {
+    else if (localStorage.getItem('Role') === "3") {
       const body = 'Leave_ID=' + this.Leave_ID.value
         + '&Emp_ID=' + localStorage.getItem("Emp_ID")
         + '&Name_Leave=' + this.Name_Leave.value
@@ -442,6 +444,7 @@ export class LeavelistComponent implements OnInit {
         + '&ContactInformation=' + this.ContactInformation.value
         + '&LeaveTotal=' + this.LeaveTotal.value
         + '&LeaveStatus_ID=' + "3"
+        + '&LeaveStatus=' + "Y"
         + '&UploadFile=' + this.UploadFile.value
         + '&Response_Time=' + this.Response_Time.value
         + '&Person_Code_Allow=' + this.Person_Code_Allow.value
@@ -525,7 +528,7 @@ export class LeavelistComponent implements OnInit {
             )
         })
     }
-    else if(localStorage.getItem('Role') === "4") {
+    else if (localStorage.getItem('Role') === "4") {
       const body = 'Leave_ID=' + this.Leave_ID.value
         + '&Emp_ID=' + localStorage.getItem("Emp_ID")
         + '&Name_Leave=' + this.Name_Leave.value
@@ -536,6 +539,7 @@ export class LeavelistComponent implements OnInit {
         + '&ContactInformation=' + this.ContactInformation.value
         + '&LeaveTotal=' + this.LeaveTotal.value
         + '&LeaveStatus_ID=' + "4"
+        + '&LeaveStatus=' + "Y"
         + '&UploadFile=' + this.UploadFile.value
         + '&Response_Time=' + this.Response_Time.value
         + '&Person_Code_Allow=' + this.Person_Code_Allow.value

@@ -112,17 +112,24 @@ function getEmployee(){
 
     function getLeave_type_User($Emp_ID){
 
-        $sql  = "SELECT `leavetype`.`LType_ID`,`leavetype`.`LTypeName`,`leavetype`.`Number`,`leave`.`Emp_ID`,
-        `leave`.`LeaveTotal`,SUM(`leave`.`LeaveTotal`),(`leavetype`.`Number` - SUM(`leave`.`LeaveTotal`)) AS num,
-        `leavetype`.`AdvanceNotice`,`leavetype`.`LOrdinal`,
-        `leavetype`.`QuotaStatus`,`employeestatus`.`EmpstatusName`,SUM(`leavetype`.`LOrdinal` + 1)AS Ordinal
-    FROM
-        `leavetype`
-    JOIN `leave` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
-    JOIN `employeestatus` ON `leavetype`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
-    WHERE    
-    `leave`.`Emp_ID` = '$Emp_ID'
-        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`
+        $sql  = "SELECT
+        employee.Emp_ID,
+        employee.EmpName,
+        employee.Empstatus_ID,
+        leavetype.Empstatus_ID,
+        leavetype.LTypeName,
+        leavetype.Number,
+        IFNULL(sum(`leave`.LeaveTotal),0) ,
+        IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number) as  num
+        FROM
+        employee
+        LEFT JOIN leavetype ON leavetype.Empstatus_ID = employee.Empstatus_ID
+        LEFT JOIN (SELECT * FROM `leave` WHERE LeaveStatus ='Y' AND LeaveStatus_ID = 5 )AS `leave` ON `leave`.Emp_ID = employee.Emp_ID AND `leave`.LType_ID = leavetype.LType_ID
+        WHERE 
+          employee.Emp_ID ='$Emp_ID' 
+        GROUP BY
+        employee.Emp_ID,
+        leavetype.LType_ID
         ";
         // echo "<pre>";
         // print_r($sql);
@@ -140,7 +147,7 @@ function getEmployee(){
     function getSumleave(){
 
         $sql  = "SELECT
-        `employee`.`EmpName`,`employee`.`EmpLastName` ,YEAR(`LeaveDateStart`) AS `year`,
+        `employee`.`EmpName`,`employee`.`EmpLastName` ,YEAR(`LeaveDateStart`  ) AS `year`,
         SUM(IF(MONTH(`LeaveDateStart`)=1,`LeaveTotal`,0)) AS `Jan`,
     SUM(IF(MONTH(`LeaveDateStart`)=2,`LeaveTotal`,0)) AS `Feb`,
     SUM(IF(MONTH(`LeaveDateStart`)=3,`LeaveTotal`,0)) AS `Mar`,
@@ -370,6 +377,7 @@ function getEmployee(){
             return $data;
         }
     }
+
     function getleavetoSupervisor($Dept_ID){
         $sql  = "SELECT * FROM `leave`
         JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
@@ -714,7 +722,7 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
         }
     }
 
-    function InsertDept($data = []){
+    function InsertDept($data){
 
         $sql  = "INSERT INTO `department` (`Dept_ID`, `DeptName`,`Sector_ID`) VALUES 
         (
@@ -855,7 +863,7 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
     function Add_Leave($data = []){
 
         $sql  = "INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`,`To_Person`,`LeaveDateStart`, `LeaveDateLast`, 
-        `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus_ID`, `Response_Time`, `Person_Code_Allow`,`LType_ID`) 
+        `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus_ID`,`LeaveStatus`, `Response_Time`, `Person_Code_Allow`,`LType_ID`) 
           VALUES
          (
         '".$data['Leave_ID']."',
@@ -868,6 +876,7 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
         '".$data['ContactInformation']."',
         '".$data['LeaveTotal']."',
         '".$data['LeaveStatus_ID']."',
+        '".$data['LeaveStatus']."',
         '".$data['Response_Time']."',
         '".$data['Person_Code_Allow']."',
         '".$data['LType_ID']."'
@@ -1236,6 +1245,34 @@ ORDER BY ABS(`employee`.`Emp_ID`) ASC";
         $result->close();
         return $data;
     }
+    }
+     function loginsso($data) {
+         $SSO = json_decode(\file_get_contents('http://cpe.rmuti.ac.th/project/QR_Student/sso/catchJson/'.$data.'.json'));
+        //  unlink('http://cpe.rmuti.ac.th/project/QR_Student/sso/catchJson/'.$data.'.json');
+
+    //     $sql = "SELECT
+    //     *
+    // FROM
+    // `employee` JOIN `position`
+    //  ON
+    // `employee`.`Position_ID` = `position`.`Position_ID`
+    // JOIN
+    // `employeestatus`
+    // ON
+    // `employee`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
+    
+    // WHERE
+    //     employee.Username = '".$data['Username']."' AND employee.Password = '".$data['Password']."'
+    //     ";
+    //   if ($result = mysqli_query(static::$db,$sql, MYSQLI_USE_RESULT)) {
+    //     $data = [];
+    //     while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+    //         $data[] = $row;
+    //     }
+    //     $result->close();
+      
+    // }
+    return $SSO;
     }
 
 }

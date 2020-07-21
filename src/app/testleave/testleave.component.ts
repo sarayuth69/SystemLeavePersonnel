@@ -11,6 +11,8 @@ export class TestleaveComponent implements OnInit {
   sector:any;
   a:any;
   Employee;
+  thTime;
+  thDate;
   day = new Date().getUTCDate();
   mont = new Date().getUTCMonth() +1 ;
   year = new Date().getUTCFullYear()+543;
@@ -19,9 +21,13 @@ export class TestleaveComponent implements OnInit {
   EmpName = localStorage.getItem('EmpName')
   constructor(
     public http: HttpClient
-  ) { }
+  ) { 
+
+    this.getYear();
+  }
 
   ngOnInit() {
+
     this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
       (data: any) => {
         console.log(data);
@@ -36,6 +42,48 @@ export class TestleaveComponent implements OnInit {
   print() {
     window.print();
   }
+  public getYear = () => {
+    var now = new Date();
+    var thday = new Array(
+      ' อาทิตย์ ',
+      ' จันทร์ ',
+      ' อังคาร ',
+      ' พุธ ',
+      ' พฤหัส ',
+      ' ศุกร์ ',
+      ' เสาร์ '
+    );
+    var thmonth = new Array(
+      ' มกราคม ',
+      ' กุมภาพันธ์ ',
+      ' มีนาคม ',
+      ' เมษายน ',
+      ' พฤษภาคม ',
+      ' มิถุนายน ',
+      ' กรกฎาคม ',
+      ' สิงหาคม ',
+      ' กันยายน ',
+      ' ตุลาคม ',
+      ' พฤศจิกายน ',
+      ' ธันวาคม '
+    );
+    this.thDate =
+      'วัน' +
+      thday[now.getDay()] +
+      'ที่' +
+      ' ' +
+      now.getDate() +
+      ' ' +
+      'เดือน' +
+      thmonth[now.getMonth()] +
+      ' ' +
+      'พ.ศ.' +
+      (0 + now.getFullYear() + 543);
+    this.thTime =
+      'เวลา' + ' ' +
+      now.getHours()
+      + ':' + now.getMinutes() + ' ' + 'น.';
+  };
   // pdf(a){
   //   console.log(a);
   //   this.a = a;

@@ -8,6 +8,8 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { log } from 'util';
+import { environment } from 'src/environments/environment';
+import { async } from '@angular/core/testing';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,6 +17,7 @@ import { log } from 'util';
 })
 export class LoginComponent implements OnInit {
   getname: any;
+  test;
   constructor(public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
@@ -22,6 +25,28 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     // localStorage.clear();
+    this.route.queryParams.subscribe((value: any) => {
+      console.log(value);
+      this.http
+      .get(
+        'http://localhost/Leavewebservice/API/loginsso.php?perid=' + value.perid
+      )
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          if(data.perid="1309901383809"){
+            localStorage.setItem('Emp_ID', data.perid);
+            // this.router.navigate(['/leavelist']);
+          }
+        },
+        (error: any) => {
+          console.log(error);
+        }
+        )
+        
+    
+        });
+
   }
   click(u: string, p: string) {
     if (!u || !p) {
@@ -119,6 +144,12 @@ export class LoginComponent implements OnInit {
         }
       );
 
+  }
+  public  loginsso = async()=>{
+    window.location.replace(environment.ssoLogin);
+  }
+  public  logoutsso = async()=>{
+    window.location.replace(environment.ssoLogout);
   }
 
 }
