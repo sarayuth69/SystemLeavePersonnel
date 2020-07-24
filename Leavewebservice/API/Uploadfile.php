@@ -1,10 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header('Content-type: application/json', true);
-
-require_once('../Model/EmpModel.php');
-$Emp_Model = new EmpModel;
-
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
 
 // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
 
@@ -16,8 +13,12 @@ echo $target_file = $target_dir . basename($_FILES["myFile"]["name"]);
 move_uploaded_file($_FILES["myFile"]["tmp_name"],$target_file);
 }
 print_r($data);
- $Emp = $Emp_Model -> upload($data);
 
-
-
-?>
+ $sql = "INSERT INTO `upload` (`file_ID``file_name`) 
+ VALUES ('".$data['file_ID']."','".$data['file_name']."')
+ ";
+      if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }

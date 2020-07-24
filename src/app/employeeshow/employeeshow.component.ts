@@ -33,6 +33,8 @@ export class EmployeeshowComponent implements OnInit {
   public dep;
   public status;
   public countUser;
+  table_Emp: boolean;
+  table_search: boolean;
   Empployee: any;
   Empployee1: any;
   pageActual: any;
@@ -83,7 +85,7 @@ export class EmployeeshowComponent implements OnInit {
   Local_PositionName = localStorage.getItem('PositionName');
   Local_DeptName = localStorage.getItem('DeptName');
   Local_Sector = localStorage.getItem('Sector');
-  
+
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -116,13 +118,17 @@ export class EmployeeshowComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.Employee = data;
+        if (this.Employee.leagth > 0) {
+          this.table_Emp = true;
+          this.table_search = false;
+        }
       },
       (error: any) => {
         console.log(error);
       }
     );
 
-    this.http.get(`${this.baseUrl}API/countUser.php`).subscribe(
+    this.http.get(`${this.baseUrl}countUser.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.countUser = data;
@@ -140,7 +146,7 @@ export class EmployeeshowComponent implements OnInit {
         console.log(error);
       }
     );
-    this.http.get(`${this.baseUrl}API/getDept.php`).subscribe(
+    this.http.get(`${this.baseUrl}getDept.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.dep = data;
@@ -319,18 +325,18 @@ export class EmployeeshowComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     })
-     .then(() => {
-       window.location.reload();
-    //   this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
-    //     (data: any) => {
-    //       console.log(data);
-    //       this.Employee = data;
-    //     },
-    //     (error: any) => {
-    //       console.log(error);
-    //     }
-    //   );
-     })
+      .then(() => {
+        window.location.reload();
+        //   this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
+        //     (data: any) => {
+        //       console.log(data);
+        //       this.Employee = data;
+        //     },
+        //     (error: any) => {
+        //       console.log(error);
+        //     }
+        //   );
+      })
 
   }
 
@@ -411,6 +417,7 @@ export class EmployeeshowComponent implements OnInit {
         (data: any) => {
           console.log(data);
           this.seach = data;
+       
         },
         (error: any) => {
           console.log(error);

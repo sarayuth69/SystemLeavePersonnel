@@ -1,32 +1,20 @@
-
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
-
-    require_once('../Model/EmpModel.php');
-    $Emp_Model = new EmpModel;
-
-    // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
-    $data = [];
-    $data['Emp_ID'] = $_POST['Emp_ID'];
-    $data['Prefix'] = $_POST['Prefix'];
-    $data['EmpName'] = $_POST['EmpName'];
-    $data['EmpLastName'] = $_POST['EmpLastName'];
-    $data['Sex'] = $_POST['Sex'];
-    $data['Birthday'] = $_POST['Birthday'];
-    $data['ID_card'] = $_POST['ID_card'];
-    $data['Age'] = $_POST['Age'];
-    $data['Address'] = $_POST['Address'];
-    $data['Tel'] = $_POST['Tel'];
-    $data['Work_day'] = $_POST['Work_day'];
-    $data['Duration_work'] = $_POST['Duration_work'];
-    $data['Empstatus_ID'] = $_POST['Empstatus_ID'];
-    $data['Position_ID'] = $_POST['Position_ID'];
-    $data['Dept_ID'] = $_POST['Dept_ID'];
-
-
-    $Emp = $Emp_Model -> UpdateEmployee($data);
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
  
-    echo json_encode($Emp);
+    $sql = "UPDATE `employee` SET `Emp_ID`='".$_POST['Emp_ID']."',`EmpName`='".$_POST['EmpName']."'
+    ,`EmpLastName`='".$_POST['EmpLastName']."',`Sex`='".$_POST['Sex']."',`Birthday`='".$_POST['Birthday']."'
+    ,`ID_card`='".$_POST['ID_card']."',`Age`='".$_POST['Age']."',`Address`='".$_POST['Address']."',`Tel`='".$_POST['Tel']."'
+    ,`Work_day`='".$_POST['Work_day']."',`Duration_work`='".$_POST['Duration_work']."'
+    ,`Empstatus_ID`='".$_POST['Empstatus_ID']."',`Position_ID`='".$_POST['Position_ID']."'
+    ,`Dept_ID`='".$_POST['Dept_ID']."'
+    WHERE  `employee`.`Emp_ID` = '".$_POST['Emp_ID']."'
+    
+    ";
 
-
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }

@@ -1,20 +1,17 @@
-
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
-
-    require_once('../Model/EmpModel.php');
-    $Emp_Model = new EmpModel;
-
-    // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
-    $data = [];
-    $data['Dept_ID'] = $_POST['Dept_ID'];
-    $data['DeptName'] = $_POST['DeptName'];
-    $data['Sector_ID'] = $_POST['Sector_ID'];
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
 
 
-    $Emp = $Emp_Model -> UpdateDept($data);
- 
-    echo json_encode($Emp);
-
-
+    $sql = "UPDATE `department` SET `Dept_ID`='".$_POST['Dept_ID']."',`DeptName`='".$_POST['DeptName']."' 
+    ,`Sector_ID`='".$_POST['Sector_ID']."'
+    WHERE  `department`.`Dept_ID` = '".$_POST['Dept_ID']."'
+    
+    ";
+    
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }

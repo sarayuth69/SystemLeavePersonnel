@@ -1,19 +1,20 @@
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
 
-    require_once('../Model/EmpModel.php');
-    $Emp_Model= new EmpModel;
+    $sql  = "INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`,`Emp_ID`,
+    `Data`) VALUES 
+    (
 
-    // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
-    $data = [];
-    $data['Day_Work'] = $_POST['Day_Work'];
-    $data['Status_Work'] = $_POST['Status_Work'];
-    $data['Emp_ID'] = $_POST['Emp_ID'];
-    $data['Data'] = $_POST['Data'];
-
-    
-
-    $Emp = $Emp_Model -> Addworktime($data);
- 
-    echo json_encode($Emp);
+    '".$_POST['Day_Work']."',
+    '".$_POST['Status_Work']."',
+    '".$_POST['Emp_ID']."',
+    '".$_POST['Data']."'
+    )
+    ";
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }

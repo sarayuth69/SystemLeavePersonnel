@@ -1,12 +1,25 @@
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
-    require_once('../Model/EmpModel.php');
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
 
-    $Emp_Model = new EmpModel;
-    $Emp = $Emp_Model -> searchdayleave($_GET['Day_leave']);
-    echo json_encode($Emp);
-
-
-
-
+ $sql = "SELECT *
+        FROM `employee`
+        JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
+        JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
+        WHERE`leave`.`LeaveDateStart` LIKE '%{$_GET['Day_leave']}%'
+        -- GROUP BY`employee`.`Emp_ID`
+        ";
+            $result = mysqli_query($conn,$sql); 
+            $myArray = array();
+            if ($result->num_rows > 0) {
+            // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $myArray[] = $row;
+                }
+                print json_encode($myArray);
+            } 
+            else 
+            {
+                echo "0 results";
+            }

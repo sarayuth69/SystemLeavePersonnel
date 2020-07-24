@@ -1,18 +1,32 @@
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
 
-    require_once('../Model/EmpModel.php');
-    $Emp_Model = new EmpModel;
+ $sql = "SELECT
+ *
+FROM
+`employee` JOIN `position`
+ON
+`employee`.`Position_ID` = `position`.`Position_ID`
+JOIN
+`employeestatus`
+ON
+`employee`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
 
-    // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
-    $data = [];
-    $data['Username'] = $_POST['Username'];
-    $data['Password'] = $_POST['Password'];
-
-
-    $Emp = $Emp_Model -> Login1($data);
- 
-    echo json_encode($Emp);
-
-
+WHERE
+ employee.Username = '".$_POST['Username']."' AND employee.Password = '".$_POST['Password']."'
+ ";
+ $result = mysqli_query($conn,$sql); 
+ $myArray = array();
+ if ($result->num_rows > 0) {
+ // output data of each row
+     while($row = $result->fetch_assoc()) {
+         $myArray[] = $row;
+     }
+     print json_encode($myArray);
+ } 
+ else 
+ {
+     echo "0 results";
+ }

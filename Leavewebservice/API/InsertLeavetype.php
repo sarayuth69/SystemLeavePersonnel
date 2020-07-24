@@ -1,21 +1,20 @@
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
+ 
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
 
-    require_once('../Model/EmpModel.php');
-    $Emp_Model= new EmpModel;
-
-    // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
-    $data = [];
-    $data['LType_ID'] = $_POST['LType_ID'];
-    $data['LTypeName'] = $_POST['LTypeName'];
-    $data['Number'] = $_POST['Number'];
-    $data['Remain'] = $_POST['Remain'];
-    $data['AdvanceNotice'] = $_POST['AdvanceNotice'];
-    $data['LOrdinal'] = $_POST['LOrdinal'];
-    $data['QuotaStatus'] = $_POST['QuotaStatus'];
-    $data['Empstatus_ID'] = $_POST['Empstatus_ID'];
+    $sql  = "INSERT INTO `leavetype` (`LType_ID`,`LTypeName`,
+    `Number`,`Remain`,`AdvanceNotice`,`LOrdinal`, `QuotaStatus`,
+     `Empstatus_ID` ) VALUES (
+         '".$_POST['LType_ID']."',
+         '".$_POST['LTypeName']."','".$_POST['Number']."',
+         '".$_POST['Remain']."','".$_POST['AdvanceNotice']."',
+         '".$_POST['LOrdinal']."','".$_POST['QuotaStatus']."',
+         '".$_POST['Empstatus_ID']."')";
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
     
-    $Emp = $Emp_Model -> InsertLeavetype($data);
-    echo json_encode($Emp);
-  

@@ -1,13 +1,22 @@
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
-
-    require_once('../Model/EmpModel.php');
-
-    $Emp_Model = new EmpModel;
-    $Emp = $Emp_Model -> getLeavetype();
-
-    echo json_encode($Emp);
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
 
 
-
+ $sql  = 'SELECT * FROM leavetype JOIN employeestatus ON
+        leavetype.Empstatus_ID = employeestatus.Empstatus_ID 
+        WHERE 1 ORDER BY leavetype.LType_ID';
+        $result = mysqli_query($conn,$sql); 
+        $myArray = array();
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                $myArray[] = $row;
+            }
+            print json_encode($myArray);
+        } 
+        else 
+        {
+            echo "0 results";
+        }

@@ -1,13 +1,13 @@
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
+   
 
-    require_once('../Model/EmpModel.php');
-    $Emp_Model = new EmpModel;
-    
-
-    echo $_GET["Emp_ID"];
-    $Emp = $Emp_Model -> DeleteEmp($_GET["Emp_ID"]);
  
-    echo json_encode($Emp);
-
+    $sql  = "DELETE FROM `employee` WHERE `employee`.`Emp_ID` = '".$_GET["Emp_ID"]."'";
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }

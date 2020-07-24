@@ -1,31 +1,35 @@
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
 
-    require_once('../Model/EmpModel.php');
-    $Emp_Model= new EmpModel;
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
 
-    // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
-    $data = [];
-    $data['Emp_ID'] = $_POST['Emp_ID'];
-    $data['Prefix'] = $_POST['Prefix'];
-    $data['EmpName'] = $_POST['EmpName'];
-    $data['EmpLastName'] = $_POST['EmpLastName'];
-    $data['Sex'] = $_POST['Sex'];
-    $data['Birthday'] = $_POST['Birthday'];
-    $data['ID_card'] = $_POST['ID_card'];
-    $data['Age'] = $_POST['Age'];
-    $data['Address'] = $_POST['Address'];
-    $data['Tel'] = $_POST['Tel'];
-    $data['Username'] = $_POST['Username'];
-    $data['Password'] = $_POST['Password'];
-    $data['Work_day'] = $_POST['Work_day'];
-    $data['Duration_work'] = $_POST['Duration_work'];
-    $data['Empstatus_ID'] = $_POST['Empstatus_ID'];
-    $data['Position_ID'] = $_POST['Position_ID'];
-    $data['Dept_ID'] = $_POST['Dept_ID'];
-    
-
-    $Emp = $Emp_Model -> InsertEmployee($data);
- 
-    echo json_encode($Emp);
+    $sql  = "INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, 
+    `Birthday`,`ID_card`, `Age`, `Address`, `Tel`,`Username`,`Password`, `Work_day`, `Duration_work`, `Empstatus_ID`, `Position_ID`
+    , `Dept_ID`) VALUES
+     (
+    '".$_POST['Emp_ID']."',
+    '".$_POST['Prefix']."',
+    '".$_POST['EmpName']."',
+    '".$_POST['EmpLastName']."',
+    '".$_POST['Sex']."',
+    '".$_POST['Birthday']."',
+    '".$_POST['ID_card']."',
+    '".$_POST['Age']."',
+    '".$_POST['Address']."',
+    '".$_POST['Tel']."',
+    '".$_POST['Username']."',
+    '".$_POST['Password']."',
+    '".$_POST['Work_day']."',
+    '".$_POST['Duration_work']."',
+    '".$_POST['Empstatus_ID']."',
+    '".$_POST['Position_ID']."',
+    '".$_POST['Dept_ID']."'
+   
+    )
+    ";
+     if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }

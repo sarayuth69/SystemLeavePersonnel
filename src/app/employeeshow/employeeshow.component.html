@@ -30,8 +30,10 @@
                 <!-- </div> -->
             </div>
 
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+         
+
+            <div class="tab-content" id="pills-tabContent" >
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" >
                     <!-- <div class="card-body" *ngIf="table1"> -->
                     <table class="table table-hover">
                         <thead>
@@ -377,7 +379,8 @@
                             </div>
                             <div class="col-md-7 mb-3">
                                 <label>ตำแหน่ง</label>
-                                <select class="form-control form-control-lg" [formControl]="Position_ID" id="exampleFormControlSelect2">
+                                <select class="form-control form-control-lg" [formControl]="Position_ID"
+                                    id="exampleFormControlSelect2">
                                     <option selected>เลือกตำแหน่ง</option>
                                     <option *ngFor="let item of positionEmp; let i = index"
                                         value="{{item.Position_ID}}">
@@ -410,7 +413,8 @@
                             </div>
                             <div class="col-md-7 mb-3">
                                 <label> แผนก</label>
-                                <select class="form-control form-control-lg" [formControl]="Dept_ID" id="exampleFormControlSelect3">
+                                <select class="form-control form-control-lg" [formControl]="Dept_ID"
+                                    id="exampleFormControlSelect3">
                                     <option selected>-</option>
 
                                     <option *ngFor="let item of dep; let i = index" value="{{item.Dept_ID}}">

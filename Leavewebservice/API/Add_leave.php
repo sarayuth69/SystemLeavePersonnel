@@ -1,29 +1,28 @@
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
-
-    require_once('../Model/EmpModel.php');
-    $Emp_Model= new EmpModel;
-
-    // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
-    $data = [];
-    $data['Leave_ID'] = $_POST['Leave_ID'];
-    $data['Emp_ID'] = $_POST['Emp_ID'];
-    $data['Name_Leave'] = $_POST['Name_Leave'];
-    $data['To_Person'] = $_POST['To_Person'];
-    $data['LeaveDateStart'] = $_POST['LeaveDateStart'];
-    $data['LeaveDateLast'] = $_POST['LeaveDateLast'];
-    $data['LeaveData'] = $_POST['LeaveData'];
-    $data['ContactInformation'] = $_POST['ContactInformation'];
-    $data['LeaveTotal'] = $_POST['LeaveTotal'];
-    $data['LeaveStatus_ID'] = $_POST['LeaveStatus_ID'];
-    $data['LeaveStatus'] = $_POST['LeaveStatus'];
-    $data['Response_Time'] = $_POST['Response_Time'];
-    $data['Person_Code_Allow'] = $_POST['Person_Code_Allow'];
-    $data['upload_file'] = $_POST['upload_file'];
-    $data['LType_ID'] = $_POST['LType_ID'];
-    
-
-    $Emp = $Emp_Model -> Add_Leave($data);
- 
-    echo json_encode($Emp);
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
+    $sql  = "INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`,`To_Person`,`LeaveDateStart`, `LeaveDateLast`, 
+    `LeaveData`, `ContactInformation`, `LeaveTotal`, `LeaveStatus_ID`,`LeaveStatus`, `Response_Time`, `Person_Code_Allow`,`LType_ID`) 
+      VALUES
+     (
+    '".$_POST['Leave_ID']."',
+    '".$_POST['Emp_ID']."',
+    '".$_POST['Name_Leave']."',
+    '".$_POST['To_Person']."',
+    '".$_POST['LeaveDateStart']."',
+    '".$_POST['LeaveDateLast']."',
+    '".$_POST['LeaveData']."',
+    '".$_POST['ContactInformation']."',
+    '".$_POST['LeaveTotal']."',
+    '".$_POST['LeaveStatus_ID']."',
+    '".$_POST['LeaveStatus']."',
+    '".$_POST['Response_Time']."',
+    '".$_POST['Person_Code_Allow']."',
+    '".$_POST['LType_ID']."'
+    )"; 
+ if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }

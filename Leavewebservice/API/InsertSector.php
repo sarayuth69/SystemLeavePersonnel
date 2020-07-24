@@ -1,17 +1,19 @@
-<?PHP
-    header("Access-Control-Allow-Origin: *");
-    header('Content-type: application/json', true);
-
-    require_once('../Model/EmpModel.php');
-    $Emp_Model= new EmpModel;
-
-    // ฝั่งนี่จะนำข้อมูลที่ได้มาจาก html มาไส่ในดาต้าเบส
-    $data = [];
-  
-    $data['Sector_ID'] = $_POST['Sector_ID'];
-    $data['SectorName'] = $_POST['SectorName'];
-    
-
-    $Emp = $Emp_Model -> InsertSector($data);
  
-    echo json_encode($Emp);
+<?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
+ require 'connect_DB.php' ;
+
+
+    $sql  = "INSERT INTO `sector` (`Sector_ID`, `SectorName`) VALUES 
+    (
+
+    '".$_POST['Sector_ID']."',
+    '".$_POST['SectorName']."'
+    )
+    ";
+   if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }

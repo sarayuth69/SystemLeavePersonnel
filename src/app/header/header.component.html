@@ -1,6 +1,6 @@
 <!-- ผู้ดูแลระบบ -->
 <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="show">
-  <a  href="/home" class="navbar-brand faa-pulse faa-slow animated">
+  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
     <i class="fa fa-lg">ระ</i>
     <i class="fa fa-lg">บบ</i>
     <i class="fa fa-lg">จัด</i>
@@ -25,7 +25,7 @@
           <i class='fa fa-cogs'></i> จัดการข้อมูล
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-          <a class="dropdown-item" [routerLink]="['/employeeshow']" (click)="getsearch(Emp_ID.value)">บุคลากร</a>
+          <a class="dropdown-item" [routerLink]="['/employeeshow']">บุคลากร</a>
           <a class="dropdown-item" [routerLink]="['/department']">แผนก</a>
           <a class="dropdown-item" [routerLink]="['/sector']">ฝ่ายงาน</a>
 
@@ -79,7 +79,7 @@
 
 <!-- บุคลากร -->
 <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp1">
-  <a  href="/home" class="navbar-brand faa-pulse faa-slow animated">
+  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
     <i class="fa fa-lg">ระ</i>
     <i class="fa fa-lg">บบ</i>
     <i class="fa fa-lg">จัด</i>
@@ -122,7 +122,7 @@
 
 <!-- หัวหน้าแผนก -->
 <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp2">
-  <a  href="/home" class="navbar-brand faa-pulse faa-slow animated">
+  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
     <i class="fa fa-lg">ระ</i>
     <i class="fa fa-lg">บบ</i>
     <i class="fa fa-lg">จัด</i>
@@ -153,7 +153,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-id-card" ></i> บุลคากร/การลา
+          <i class="fa fa-id-card"></i> บุลคากร/การลา
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
           <a class="nav-link toggle" [routerLink]="['/employeeshow']">
@@ -164,13 +164,13 @@
           </a>
         </div>
       </li>
-    
+
       <li class="nav-item dropdown">
 
         <a class="nav-link toggle" [routerLink]="['/leavetowaiting']">
-          <i class="fa fa-hourglass" ></i> การลาที่รอรับรอง <span class="badge badge-danger">5</span>
+          <i class="fa fa-hourglass"></i> การลาที่รอรับรอง <span class="badge badge-danger">5</span>
         </a>
-        
+
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
@@ -187,7 +187,7 @@
 
 <!-- หัวหน้างาน -->
 <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp3">
-  <a  href="/home" class="navbar-brand faa-pulse faa-slow animated">
+  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
     <i class="fa fa-lg">ระ</i>
     <i class="fa fa-lg">บบ</i>
     <i class="fa fa-lg">จัด</i>
@@ -218,7 +218,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-id-card" ></i> บุลคากร/การลา
+          <i class="fa fa-id-card"></i> บุลคากร/การลา
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
           <a class="nav-link toggle" [routerLink]="['/employeeshow']">
@@ -249,7 +249,7 @@
 
 <!-- รองหัวหน้าหน่วยงาน -->
 <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp4">
-  <a  href="/home" class="navbar-brand faa-pulse faa-slow animated">
+  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
     <i class="fa fa-lg">ระ</i>
     <i class="fa fa-lg">บบ</i>
     <i class="fa fa-lg">จัด</i>
@@ -280,7 +280,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-id-card" ></i> บุลคากร/การลา
+          <i class="fa fa-id-card"></i> บุลคากร/การลา
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
           <a class="nav-link toggle" [routerLink]="['/employeeshow']">
@@ -311,7 +311,7 @@
 
 <!-- หัวหน้าหน่วยงาน -->
 <nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp5">
-  <a  href="/home" class="navbar-brand faa-pulse faa-slow animated">
+  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
     <i class="fa fa-lg">ระ</i>
     <i class="fa fa-lg">บบ</i>
     <i class="fa fa-lg">จัด</i>
@@ -338,7 +338,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-id-card" ></i> บุลคากร/การลา
+          <i class="fa fa-id-card"></i> บุลคากร/การลา
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
           <a class="nav-link toggle" [routerLink]="['/employeeshow']">
