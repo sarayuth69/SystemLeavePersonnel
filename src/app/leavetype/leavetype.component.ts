@@ -14,6 +14,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./leavetype.component.scss']
 })
 export class LeavetypeComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
 
   public leavetype;
   leavetype_ratcakan
@@ -40,7 +41,7 @@ export class LeavetypeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.http.get('http://localhost/Leavewebservice/API/getLeavetype.php').subscribe(
+    this.http.get(`${this.baseUrl}getLeavetype.php`).subscribe(
       (data: any) => {
         this.leavetype = data;
       },
@@ -48,7 +49,7 @@ export class LeavetypeComponent implements OnInit {
         console.log(error);
       }
     )
-    this.http.get('http://localhost/Leavewebservice/API/getleavetype_ratcakan.php').subscribe(
+    this.http.get(`${this.baseUrl}getleavetype_ratcakan.php`).subscribe(
       (data: any) => {
         this.leavetype_ratcakan = data;
       },
@@ -56,7 +57,7 @@ export class LeavetypeComponent implements OnInit {
         console.log(error);
       }
     )
-    this.http.get('http://localhost/Leavewebservice/API/getleavetype_emp_in_univercity.php').subscribe(
+    this.http.get(`${this.baseUrl}getleavetype_emp_in_univercity.php`).subscribe(
       (data: any) => {
         this.leavetype_emp_in_univercity = data;
       },
@@ -64,7 +65,7 @@ export class LeavetypeComponent implements OnInit {
         console.log(error);
       }
     )
-    this.http.get('http://localhost/Leavewebservice/API/getleavetype_Temporary_worker.php').subscribe(
+    this.http.get(`${this.baseUrl}getleavetype_Temporary_worker.php`).subscribe(
       (data: any) => {
         this.leavetype_Temporary_worker = data;
       },
@@ -98,7 +99,7 @@ export class LeavetypeComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/InsertLeavetype.php', body, {
+        .post(`${this.baseUrl}InsertLeavetype.php`, body, {
           headers: headers
         })
         .subscribe(
@@ -119,7 +120,7 @@ export class LeavetypeComponent implements OnInit {
 
       }).then(() => {
         if(this.Empstatus_ID.value == 203){
-          this.http.get('http://localhost/Leavewebservice/API/getleavetype_ratcakan.php').subscribe(
+          this.http.get(`${this.baseUrl}getleavetype_ratcakan.php`).subscribe(
             (data: any) => {
               console.log(data);
               this.leavetype_ratcakan = data;
@@ -130,7 +131,7 @@ export class LeavetypeComponent implements OnInit {
           );
         }
        else if(this.Empstatus_ID.value == 202){
-          this.http.get('http://localhost/Leavewebservice/API/getleavetype_emp_in_univercity.php').subscribe(
+          this.http.get(`${this.baseUrl}getleavetype_emp_in_univercity.php`).subscribe(
             (data: any) => {
               console.log(data);
               this.leavetype_emp_in_univercity = data;
@@ -141,7 +142,7 @@ export class LeavetypeComponent implements OnInit {
           );
         }
        else if(this.Empstatus_ID.value == 201){
-          this.http.get('http://localhost/Leavewebservice/API/getleavetype_Temporary_worker.php').subscribe(
+          this.http.get(`${this.baseUrl}getleavetype_Temporary_worker.php`).subscribe(
             (data: any) => {
               console.log(data);
               this.leavetype_Temporary_worker = data;
@@ -189,7 +190,7 @@ export class LeavetypeComponent implements OnInit {
 
         this.http
           .get(
-            'http://localhost/Leavewebservice/API/Deleteleavetype.php?LType_ID=' + this.leavetype_ID_show
+            `${this.baseUrl}Deleteleavetype.php?LType_ID=` + this.leavetype_ID_show
           )
           .subscribe(
             (data: any) => {
@@ -235,7 +236,7 @@ export class LeavetypeComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/UpdateLeavetype.php', body, {
+      .post(`${this.baseUrl}UpdateLeavetype.php`, body, {
         headers: headers
       })
       .subscribe(
@@ -255,7 +256,7 @@ export class LeavetypeComponent implements OnInit {
       timer: 1500
     }).then(() => {
       if(this.Empstatus_ID.value == 203){
-        this.http.get('http://localhost/Leavewebservice/API/getleavetype_ratcakan.php').subscribe(
+        this.http.get(`${this.baseUrl}getleavetype_ratcakan.php`).subscribe(
           (data: any) => {
             console.log(data);
             this.leavetype_ratcakan = data;
@@ -266,7 +267,7 @@ export class LeavetypeComponent implements OnInit {
         );
       }
      else if(this.Empstatus_ID.value == 202){
-        this.http.get('http://localhost/Leavewebservice/API/getleavetype_emp_in_univercity.php').subscribe(
+        this.http.get(`${this.baseUrl}getleavetype_emp_in_univercity.php`).subscribe(
           (data: any) => {
             console.log(data);
             this.leavetype_emp_in_univercity = data;
@@ -277,7 +278,7 @@ export class LeavetypeComponent implements OnInit {
         );
       }
      else if(this.Empstatus_ID.value == 201){
-        this.http.get('http://localhost/Leavewebservice/API/getleavetype_Temporary_worker.php').subscribe(
+        this.http.get(`${this.baseUrl}getleavetype_Temporary_worker.php`).subscribe(
           (data: any) => {
             console.log(data);
             this.leavetype_Temporary_worker = data;

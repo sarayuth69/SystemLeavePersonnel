@@ -10,16 +10,18 @@ import 'sweetalert2/src/sweetalert2.scss'
   styleUrls: ['./leavetowaiting.component.scss']
 })
 export class LeavetowaitingComponent implements OnInit {
-  table_leaveto_waiting
-  table_leaveto_waiting_3
-  setleavestatus
-  Emp_ID
-  Leave_ID
-  LeaveTotal
+  baseUrl = 'http://localhost/Leavewebservice/API/';
+  table_leaveto_waiting;
+  table_leaveto_waiting_3;
+  setleavestatus;
+  Emp_ID;
+  Leave_ID;
+  LeaveTotal;
   tableleavewaiting_2: boolean;
   tableleavewaiting_3: boolean;
   tableleavewaiting_4: boolean;
   tableleavewaiting_5: boolean;
+  pageActual: any;
   constructor(
     public http: HttpClient,
     public route: ActivatedRoute,
@@ -39,7 +41,7 @@ export class LeavetowaitingComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/getleavetoDepartmenthead.php', body2, {
+        .post(`${this.baseUrl}getleavetoDepartmenthead.php`, body2, {
           headers: headers2
         }).subscribe(
           (data: any) => {
@@ -65,7 +67,7 @@ export class LeavetowaitingComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/getleavetoSupervisor.php', body3, {
+        .post(`${this.baseUrl}getleavetoSupervisor.php`, body3, {
           headers: headers3
         }).subscribe(
           (data: any) => {
@@ -85,7 +87,7 @@ export class LeavetowaitingComponent implements OnInit {
       this.tableleavewaiting_3 = false;
       this.tableleavewaiting_4 = true;
       this.tableleavewaiting_5 = false;
-      this.http.get('http://localhost/Leavewebservice/API/getleavetoDeputyleader.php').subscribe(
+      this.http.get(`${this.baseUrl}getleavetoDeputyleader.php`).subscribe(
         (data: any) => {
           console.log(data);
           this.table_leaveto_waiting = data;
@@ -100,7 +102,7 @@ export class LeavetowaitingComponent implements OnInit {
       this.tableleavewaiting_3 = false;
       this.tableleavewaiting_4 = false;
       this.tableleavewaiting_5 = true;
-      this.http.get('http://localhost/Leavewebservice/API/getleavetoperson.php').subscribe(
+      this.http.get(`${this.baseUrl}getleavetoperson.php`).subscribe(
         (data: any) => {
           console.log(data);
           this.table_leaveto_waiting = data;
@@ -127,7 +129,7 @@ export class LeavetowaitingComponent implements OnInit {
     //     'Content-Type': 'application/x-www-form-urlencoded'
     //   });
     //   this.http
-    //     .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+    //     .post(`${this.baseUrl}getLeave.php`, body, {
     //       headers: headers
     //     }).subscribe(
     //       (data: any) => {
@@ -157,7 +159,7 @@ export class LeavetowaitingComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/setleavestatus.php', body, {
+        .post(`${this.baseUrl}setleavestatus.php`, body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -183,7 +185,7 @@ export class LeavetowaitingComponent implements OnInit {
           'Content-Type': 'application/x-www-form-urlencoded'
         });
         this.http
-          .post('http://localhost/Leavewebservice/API/getleavetoDepartmenthead.php', body, {
+          .post(`${this.baseUrl}getleavetoDepartmenthead.php`, body, {
             headers: headers
           }).subscribe(
             (data: any) => {
@@ -207,7 +209,7 @@ export class LeavetowaitingComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/setleavestatus.php', body, {
+        .post(`${this.baseUrl}setleavestatus.php`, body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -233,7 +235,7 @@ export class LeavetowaitingComponent implements OnInit {
           'Content-Type': 'application/x-www-form-urlencoded'
         });
         this.http
-          .post('http://localhost/Leavewebservice/API/getleavetoSupervisor.php', body, {
+          .post(`${this.baseUrl}getleavetoSupervisor.php`, body, {
             headers: headers
           }).subscribe(
             (data: any) => {
@@ -257,7 +259,7 @@ export class LeavetowaitingComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/setleavestatus.php', body, {
+        .post(`${this.baseUrl}setleavestatus.php`, body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -277,7 +279,7 @@ export class LeavetowaitingComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
-        this.http.get('http://localhost/Leavewebservice/API/getleavetoDeputyleader.php').subscribe(
+        this.http.get(`${this.baseUrl}getleavetoDeputyleader.php`).subscribe(
           (data: any) => {
             console.log(data);
             this.table_leaveto_waiting = data;
@@ -297,7 +299,7 @@ export class LeavetowaitingComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/setleavestatus.php', body, {
+        .post(`${this.baseUrl}setleavestatus.php`, body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -317,7 +319,7 @@ export class LeavetowaitingComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
-        this.http.get('http://localhost/Leavewebservice/API/getleavetoperson.php').subscribe(
+        this.http.get(`${this.baseUrl}getleavetoperson.php`).subscribe(
           (data: any) => {
             console.log(data);
             this.table_leaveto_waiting = data;
@@ -341,7 +343,7 @@ export class LeavetowaitingComponent implements OnInit {
     //   'Content-Type': 'application/x-www-form-urlencoded'
     // });
     // this.http
-    //   .post('http://localhost/Leavewebservice/API/No_allow.php', body, {
+    //   .post(`${this.baseUrl}No_allow.php`, body, {
     //     headers: headers
     //   }).subscribe(
     //     (data: any) => {

@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   http: any;
   public seach;
   constructor(public router: Router) { }
@@ -79,7 +80,7 @@ export class HeaderComponent implements OnInit {
         text: 'Something went wrong!'
       })
     }else{
-      this.http.get('http://localhost/Leavewebservice/API/Search.php?Emp_ID=' + Emp_ID).subscribe(
+      this.http.get(`${this.baseUrl}Search.php?Emp_ID=` + Emp_ID).subscribe(
         (data: any) => {
           console.log(data);
           // this.seach = data;

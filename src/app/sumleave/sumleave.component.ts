@@ -8,6 +8,7 @@ import 'sweetalert2/src/sweetalert2.scss'
   styleUrls: ['./sumleave.component.scss']
 })
 export class SumleaveComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   public myYear = new Date().getFullYear();
   public myMonth = new Date().getMonth();
   public myDay = new Date().getDay();
@@ -31,7 +32,7 @@ export class SumleaveComponent implements OnInit {
     //         console.log(error);
     //       }
     //     )
-    this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
+    this.http.get(`${this.baseUrl}getEmployee.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.Employee = data;
@@ -40,10 +41,13 @@ export class SumleaveComponent implements OnInit {
         console.log(error);
       }
     );
-    this.http.get('http://localhost/Leavewebservice/API/getSumleave.php').subscribe(
+    this.http.get(`${this.baseUrl}getSumleave.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.sumleave = data;
+        for (var i = 0; i < this.sumleave.length; i++) {
+          console.log(this.sumleave[i].jen);
+        }
       },
       (error: any) => {
         console.log(error);
@@ -60,7 +64,7 @@ export class SumleaveComponent implements OnInit {
         text: 'Something went wrong!'
       })
     } else {
-      this.http.get('http://localhost/Leavewebservice/API/searchdayleave.php?LeaveDateStart=' + Day_leave).subscribe(
+      this.http.get(`${this.baseUrl}searchdayleave.php?LeaveDateStart=` + Day_leave).subscribe(
         (data: any) => {
           console.log(data);
           if (data.length === 0) {

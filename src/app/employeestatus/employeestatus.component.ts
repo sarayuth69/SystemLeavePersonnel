@@ -16,6 +16,7 @@ import { APIService } from '../api.service';
   styleUrls: ['./employeestatus.component.scss']
 })
 export class EmployeestatusComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   public status;
   Empstatus: any;
   public Empstatus_ID_show;
@@ -30,7 +31,7 @@ export class EmployeestatusComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.http.get('http://localhost/Leavewebservice/API/getStatus.php').subscribe(
+    this.http.get(`${this.baseUrl}getStatus.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.status = data;
@@ -57,7 +58,7 @@ export class EmployeestatusComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/InsertEmpstatus.php', body, {
+        .post(`${this.baseUrl}InsertEmpstatus.php`, body, {
           headers: headers
         })
         .subscribe(
@@ -77,7 +78,7 @@ export class EmployeestatusComponent implements OnInit {
         timer: 1500
 
       }).then(() => {
-        this.http.get('http://localhost/Leavewebservice/API/getStatus.php').subscribe(
+        this.http.get(`${this.baseUrl}getStatus.php`).subscribe(
           (data: any) => {
             console.log(data);
             this.status = data;
@@ -107,7 +108,7 @@ export class EmployeestatusComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/UpdateStatus.php', body, {
+      .post(`${this.baseUrl}UpdateStatus.php`, body, {
         headers: headers
       })
       .subscribe(
@@ -126,7 +127,7 @@ export class EmployeestatusComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     }).then(() => {
-      this.http.get('http://localhost/Leavewebservice/API/getStatus.php').subscribe(
+      this.http.get(`${this.baseUrl}getStatus.php`).subscribe(
         (data: any) => {
           console.log(data);
           this.status = data;
@@ -160,7 +161,7 @@ export class EmployeestatusComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          this.http.get('http://localhost/Leavewebservice/API/getStatus.php').subscribe(
+          this.http.get(`${this.baseUrl}getStatus.php`).subscribe(
             (data: any) => {
               console.log(data);
               this.status = data;
@@ -173,7 +174,7 @@ export class EmployeestatusComponent implements OnInit {
 
         this.http
           .get(
-            'http://localhost/Leavewebservice/API/DeleteStatus.php?Empstatus_ID=' + this.Empstatus_ID_show
+            `${this.baseUrl}DeleteStatus.php?Empstatus_ID=` + this.Empstatus_ID_show
           )
           .subscribe(
             (data: any) => {

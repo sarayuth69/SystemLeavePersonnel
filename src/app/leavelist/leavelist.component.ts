@@ -16,6 +16,7 @@ import * as moment from 'moment';
   styleUrls: ['./leavelist.component.scss']
 })
 export class LeavelistComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   list1: boolean
   list: boolean
   list6: boolean
@@ -35,7 +36,7 @@ export class LeavelistComponent implements OnInit {
   leave106: boolean;
   leave105: boolean;
   leave104: boolean;
-
+  pageActual: any;
 
   constructor(
     public router: Router,
@@ -74,7 +75,7 @@ export class LeavelistComponent implements OnInit {
   Sector = new FormControl('');
   selectedFile: File;
   ngOnInit() {
-    this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
+    this.http.get(`${this.baseUrl}getEmployee.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.Employee = data;
@@ -83,7 +84,7 @@ export class LeavelistComponent implements OnInit {
         console.log(error);
       }
     );
-    this.http.get('http://localhost/Leavewebservice/API/getfile.php').subscribe(
+    this.http.get(`${this.baseUrl}getfile.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.file = data;
@@ -98,7 +99,7 @@ export class LeavelistComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/getLtype.php', body, {
+      .post(`${this.baseUrl}getLtype.php`, body, {
         headers: headers
       }).subscribe(
         (data: any) => {
@@ -118,7 +119,7 @@ export class LeavelistComponent implements OnInit {
       this.list5 = true;
       this.list = false;
       this.list6 = false;
-      this.http.get('http://localhost/Leavewebservice/API/getLeaveToperson.php').subscribe(
+      this.http.get(`${this.baseUrl}getLeaveToperson.php`).subscribe(
         (data: any) => {
           this.leave2 = data;
         },
@@ -137,7 +138,7 @@ export class LeavelistComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+        .post(`${this.baseUrl}getLeave.php`, body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -159,7 +160,7 @@ export class LeavelistComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+        .post(`${this.baseUrl}getLeave.php`, body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -181,7 +182,7 @@ export class LeavelistComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+        .post(`${this.baseUrl}getLeave.php`, body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -203,7 +204,7 @@ export class LeavelistComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+        .post(`${this.baseUrl}getLeave.php`, body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -219,7 +220,7 @@ export class LeavelistComponent implements OnInit {
       this.list = false;
       this.list1 = false;
       this.list6 = true;
-      this.http.get('http://localhost/Leavewebservice/API/getleavetoperson.php').subscribe(
+      this.http.get(`${this.baseUrl}getleavetoperson.php`).subscribe(
         (data: any) => {
           console.log(data);
           this.leave = data;
@@ -265,7 +266,7 @@ export class LeavelistComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
+        .post(`${this.baseUrl}Add_leave.php`, body, {
           headers: headers
         })
         .subscribe(
@@ -294,7 +295,7 @@ export class LeavelistComponent implements OnInit {
         //     'Content-Type': 'application/x-www-form-urlencoded'
         //   });
         //   this.http
-        //     .post('http://localhost/Leavewebservice/API/UpdateLtypeUser.php', body, {
+        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
         //       headers: headers
         //     })
         //     .subscribe(
@@ -313,7 +314,7 @@ export class LeavelistComponent implements OnInit {
             'Content-Type': 'application/x-www-form-urlencoded'
           });
           this.http
-            .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
+            .post(`${this.baseUrl}LOrdinal.php`, body, {
               headers: headers
             }).subscribe(
               (data: any) => {
@@ -326,7 +327,7 @@ export class LeavelistComponent implements OnInit {
         })
         .then(() => {
           this.http
-            .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+            .post(`${this.baseUrl}getLeave.php`, body, {
               headers: headers
             }).subscribe(
               (data: any) => {
@@ -360,7 +361,7 @@ export class LeavelistComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
+        .post(`${this.baseUrl}Add_leave.php`, body, {
           headers: headers
         })
         .subscribe(
@@ -389,7 +390,7 @@ export class LeavelistComponent implements OnInit {
         //     'Content-Type': 'application/x-www-form-urlencoded'
         //   });
         //   this.http
-        //     .post('http://localhost/Leavewebservice/API/UpdateLtypeUser.php', body, {
+        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
         //       headers: headers
         //     })
         //     .subscribe(
@@ -408,7 +409,7 @@ export class LeavelistComponent implements OnInit {
             'Content-Type': 'application/x-www-form-urlencoded'
           });
           this.http
-            .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
+            .post(`${this.baseUrl}LOrdinal.php`, body, {
               headers: headers
             }).subscribe(
               (data: any) => {
@@ -421,7 +422,7 @@ export class LeavelistComponent implements OnInit {
         })
         .then(() => {
           this.http
-            .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+            .post(`${this.baseUrl}getLeave.php`, body, {
               headers: headers
             }).subscribe(
               (data: any) => {
@@ -455,7 +456,7 @@ export class LeavelistComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
+        .post(`${this.baseUrl}Add_leave.php`, body, {
           headers: headers
         })
         .subscribe(
@@ -484,7 +485,7 @@ export class LeavelistComponent implements OnInit {
         //     'Content-Type': 'application/x-www-form-urlencoded'
         //   });
         //   this.http
-        //     .post('http://localhost/Leavewebservice/API/UpdateLtypeUser.php', body, {
+        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
         //       headers: headers
         //     })
         //     .subscribe(
@@ -503,7 +504,7 @@ export class LeavelistComponent implements OnInit {
             'Content-Type': 'application/x-www-form-urlencoded'
           });
           this.http
-            .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
+            .post(`${this.baseUrl}LOrdinal.php`, body, {
               headers: headers
             }).subscribe(
               (data: any) => {
@@ -516,7 +517,7 @@ export class LeavelistComponent implements OnInit {
         })
         .then(() => {
           this.http
-            .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+            .post(`${this.baseUrl}getLeave.php`, body, {
               headers: headers
             }).subscribe(
               (data: any) => {
@@ -550,7 +551,7 @@ export class LeavelistComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
+        .post(`${this.baseUrl}Add_leave.php`, body, {
           headers: headers
         })
         .subscribe(
@@ -579,7 +580,7 @@ export class LeavelistComponent implements OnInit {
         //     'Content-Type': 'application/x-www-form-urlencoded'
         //   });
         //   this.http
-        //     .post('http://localhost/Leavewebservice/API/UpdateLtypeUser.php', body, {
+        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
         //       headers: headers
         //     })
         //     .subscribe(
@@ -598,7 +599,7 @@ export class LeavelistComponent implements OnInit {
             'Content-Type': 'application/x-www-form-urlencoded'
           });
           this.http
-            .post('http://localhost/Leavewebservice/API/LOrdinal.php', body, {
+            .post(`${this.baseUrl}LOrdinal.php`, body, {
               headers: headers
             }).subscribe(
               (data: any) => {
@@ -611,7 +612,7 @@ export class LeavelistComponent implements OnInit {
         })
         .then(() => {
           this.http
-            .post('http://localhost/Leavewebservice/API/getLeave.php', body, {
+            .post(`${this.baseUrl}getLeave.php`, body, {
               headers: headers
             }).subscribe(
               (data: any) => {
@@ -637,7 +638,7 @@ export class LeavelistComponent implements OnInit {
     // const headers = new HttpHeaders({
     //   'Content-Type': 'application/x-www-form-urlencoded'
     // });
-    this.http.post('http://localhost/Leavewebservice/API/Uploadfile.php', uploadData, {
+    this.http.post(`${this.baseUrl}Uploadfile.php`, uploadData, {
       // headers: headers,
       reportProgress: true,
       observe: 'events'
@@ -655,6 +656,7 @@ export class LeavelistComponent implements OnInit {
 
 
   onseletday(LeaveDateStart, LeaveDateLast) {
+
     console.log(LeaveDateStart, LeaveDateLast);
     let dayleave = moment(LeaveDateLast).startOf('day').diff(moment(LeaveDateStart).startOf('day'), 'day')
     if (dayleave > 0) {
@@ -668,24 +670,9 @@ export class LeavelistComponent implements OnInit {
       })
     }
   }
-  onselectleave(LTypeName) {
-    console.log(LTypeName);
-    // let dayleave = moment(LeaveDateLast).startOf('day').diff(moment(LeaveDateStart).startOf('day'),'day')
-    // if(dayleave > 0){
-    //   this.numberleave = dayleave;
-    // }else{
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Oops...',
-    //     text: 'Something went wrong!',
-    //     footer: '<a href>Why do I have this issue?</a>'
-    //   })
-    // }
 
-  }
-  nextpage(item) {
-    console.log(item);
 
-    this.router.navigate(['/testleave', item]);
+  day() {
+    moment().format('dddd');
   }
 }

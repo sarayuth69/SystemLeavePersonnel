@@ -24,7 +24,10 @@ import {
   styleUrls: ['./position.component.scss']
 })
 export class PositionComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   public positionEmp;
+  pageActual: any;
+
   Position_ID = new FormControl('');
   PositionName = new FormControl('');
   Role = new FormControl('');
@@ -39,7 +42,7 @@ export class PositionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+    this.http.get(`${this.baseUrl}getPosition.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.positionEmp = data;
@@ -68,7 +71,7 @@ export class PositionComponent implements OnInit {
       });
 
       this.http
-        .post('http://localhost/Leavewebservice/API/InsertPosition.php', body, {
+        .post(`${this.baseUrl}InsertPosition.php`, body, {
           headers: headers
         })
         .subscribe(
@@ -90,7 +93,7 @@ export class PositionComponent implements OnInit {
 
       }).then(() => {
         // window.location.reload();
-        this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+        this.http.get(`${this.baseUrl}getPosition.php`).subscribe(
           (data: any) => {
             console.log(data);
             this.positionEmp = data;
@@ -129,7 +132,7 @@ export class PositionComponent implements OnInit {
           timer: 1500
         }).then(() => {
           // window.location.reload();
-          this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+          this.http.get(`${this.baseUrl}getPosition.php`).subscribe(
             (data: any) => {
               console.log(data);
               this.positionEmp = data;
@@ -142,7 +145,7 @@ export class PositionComponent implements OnInit {
 
         this.http
           .get(
-            'http://localhost/Leavewebservice/API/DeletePosition.php?Position_ID=' + this.Position_ID_show
+            `${this.baseUrl}DeletePosition.php?Position_ID=` + this.Position_ID_show
           )
           .subscribe(
             (data: any) => {
@@ -175,7 +178,7 @@ export class PositionComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/UpdatePosition.php', body, {
+      .post(`${this.baseUrl}UpdatePosition.php`, body, {
         headers: headers
       })
       .subscribe(
@@ -195,7 +198,7 @@ export class PositionComponent implements OnInit {
       timer: 1500
     }).then(() => {
       // window.location.reload();
-      this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+      this.http.get(`${this.baseUrl}getPosition.php`).subscribe(
         (data: any) => {
           console.log(data);
           this.positionEmp = data;

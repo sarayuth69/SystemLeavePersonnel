@@ -10,6 +10,7 @@ import 'sweetalert2/src/sweetalert2.scss'
   styleUrls: ['./checkdaywork.component.scss']
 })
 export class CheckdayworkComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   public Employee;
   public chack;
   public Emp_IDshow;
@@ -20,7 +21,7 @@ export class CheckdayworkComponent implements OnInit {
   Emp_ID = new FormControl('');
   Day_Work = new FormControl('');
   textdata = new FormControl('');
-
+  
   constructor(
     public http: HttpClient,
   ) { }
@@ -38,7 +39,7 @@ export class CheckdayworkComponent implements OnInit {
     //   }
     // }, 2000);
 
-    this.http.get('http://localhost/Leavewebservice/API/getEmployee_daywork.php').subscribe(
+    this.http.get(`${this.baseUrl}getEmployee_daywork.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.Employee = data;

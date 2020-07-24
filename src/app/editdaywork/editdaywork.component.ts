@@ -15,6 +15,8 @@ export class EditdayworkComponent implements OnInit {
   public Empployee;
   public getdaywork;
   Day_Work: any;
+  pageActual: any;
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   Emp_ID = new FormControl('');
   EmpName = new FormControl('');
   EmpLastName = new FormControl('');
@@ -53,7 +55,7 @@ export class EditdayworkComponent implements OnInit {
       })
     } else {
 
-      this.http.get('http://localhost/Leavewebservice/API/searchdaywork.php?Day_Work=' + Day_Work).subscribe(
+      this.http.get(`${this.baseUrl}searchdaywork.php?Day_Work=` + Day_Work).subscribe(
         (data: any) => {
           console.log(data);
           if (data.length === 0) {
@@ -86,7 +88,7 @@ export class EditdayworkComponent implements OnInit {
     this.Data = new FormControl(Data);
 
   }
-  public updateworktime(Day_Work) {
+  public updateworktime() {
     const body = 'Day_ID=' + this.Day_ID.value
       // + '&EmpName=' + this.EmpName.value
       // + '&EmpLastName=' + this.EmpLastName.value
@@ -97,7 +99,7 @@ export class EditdayworkComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/Updateworktime.php', body, {
+      .post(`${this.baseUrl}Updateworktime.php`, body, {
         headers: headers
       })
       .subscribe(
@@ -116,7 +118,7 @@ export class EditdayworkComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     }).then(() => {
-      this.http.get('http://localhost/Leavewebservice/API/getdaywork.php').subscribe(
+      this.http.get(`${this.baseUrl}getdaywork.php`).subscribe(
         (data: any) => {
           console.log(data);
           this.getdaywork = data;

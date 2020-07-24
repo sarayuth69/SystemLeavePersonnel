@@ -16,6 +16,7 @@ import { async } from '@angular/core/testing';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   getname: any;
   test;
   constructor(public router: Router,
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
       console.log(value);
       this.http
       .get(
-        'http://localhost/Leavewebservice/API/loginsso.php?perid=' + value.perid
+        `${this.baseUrl}loginsso.php?perid=` + value.perid
       )
       .subscribe(
         (data: any) => {
@@ -72,7 +73,7 @@ export class LoginComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/Login1.php', body, {
+      .post(`${this.baseUrl}Login1.php`, body, {
         headers: headers
       })
       .subscribe(
@@ -145,11 +146,11 @@ export class LoginComponent implements OnInit {
       );
 
   }
-  public  loginsso = async()=>{
-    window.location.replace(environment.ssoLogin);
-  }
-  public  logoutsso = async()=>{
-    window.location.replace(environment.ssoLogout);
-  }
+  // public  loginsso = async()=>{
+  //   window.location.replace(environment.ssoLogin);
+  // }
+  // public  logoutsso = async()=>{
+  //   window.location.replace(environment.ssoLogout);
+  // }
 
 }

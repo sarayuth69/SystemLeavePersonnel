@@ -16,6 +16,7 @@ import {
   styleUrls: ['./department.component.scss']
 })
 export class DepartmentComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   public dep;
   public sector;
   public S;
@@ -34,7 +35,7 @@ export class DepartmentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
+    this.http.get(`${this.baseUrl}getDept.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.dep = data;
@@ -44,7 +45,7 @@ export class DepartmentComponent implements OnInit {
       }
     );
 
-    this.http.get('http://localhost/Leavewebservice/API/getsector.php').subscribe(
+    this.http.get(`${this.baseUrl}getsector.php`).subscribe(
       (data: any) => {
         this.sector = data;
       },
@@ -130,7 +131,7 @@ export class DepartmentComponent implements OnInit {
           'Your file has been deleted.',
           'success'
         ).then(() => {
-          this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
+          this.http.get(`${this.baseUrl}getDept.php`).subscribe(
             (data: any) => {
               console.log(data);
               this.dep = data;
@@ -142,7 +143,7 @@ export class DepartmentComponent implements OnInit {
         })
         this.http
           .get(
-            'http://localhost/Leavewebservice/API/DeleteDept.php?Dept_ID=' + this.Dept_ID_show
+            `${this.baseUrl}DeleteDept.php?Dept_ID=` + this.Dept_ID_show
           )
           .subscribe(
             (data: any) => {
@@ -179,7 +180,7 @@ export class DepartmentComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/UpdateDepartmant.php', body, {
+      .post(`${this.baseUrl}UpdateDepartmant.php`, body, {
         headers: headers
       })
       .subscribe(
@@ -198,7 +199,7 @@ export class DepartmentComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     }).then(() => {
-      this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
+      this.http.get(`${this.baseUrl}getDept.php`).subscribe(
         (data: any) => {
           console.log(data);
           this.dep = data;

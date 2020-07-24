@@ -16,6 +16,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrls: ['./employeeshow.component.scss']
 })
 export class EmployeeshowComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   public Employee;
   public Emp_ID_show;
   public EmpName_show;
@@ -34,7 +35,7 @@ export class EmployeeshowComponent implements OnInit {
   public countUser;
   Empployee: any;
   Empployee1: any;
-
+  pageActual: any;
   table1: boolean;
   table2: boolean;
   table3: boolean;
@@ -82,7 +83,7 @@ export class EmployeeshowComponent implements OnInit {
   Local_PositionName = localStorage.getItem('PositionName');
   Local_DeptName = localStorage.getItem('DeptName');
   Local_Sector = localStorage.getItem('Sector');
-  pageActual: number = 1;
+  
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -99,7 +100,7 @@ export class EmployeeshowComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/getDept_to_head.php', body1, {
+      .post(`${this.baseUrl}getDept_to_head.php`, body1, {
         headers: headers1
       }).subscribe(
         (data: any) => {
@@ -111,7 +112,7 @@ export class EmployeeshowComponent implements OnInit {
 
       )
 
-    this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
+    this.http.get(`${this.baseUrl}getEmployee.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.Employee = data;
@@ -121,7 +122,7 @@ export class EmployeeshowComponent implements OnInit {
       }
     );
 
-    this.http.get('http://localhost/Leavewebservice/API/countUser.php').subscribe(
+    this.http.get(`${this.baseUrl}API/countUser.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.countUser = data;
@@ -130,7 +131,7 @@ export class EmployeeshowComponent implements OnInit {
         console.log(error);
       }
     );
-    this.http.get('http://localhost/Leavewebservice/API/getStatus.php').subscribe(
+    this.http.get(`${this.baseUrl}getStatus.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.status = data;
@@ -139,7 +140,7 @@ export class EmployeeshowComponent implements OnInit {
         console.log(error);
       }
     );
-    this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
+    this.http.get(`${this.baseUrl}API/getDept.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.dep = data;
@@ -149,7 +150,7 @@ export class EmployeeshowComponent implements OnInit {
       }
     );
 
-    this.http.get('http://localhost/Leavewebservice/API/Search.php').subscribe(
+    this.http.get(`${this.baseUrl}Search.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.seach = data;
@@ -159,7 +160,7 @@ export class EmployeeshowComponent implements OnInit {
       }
     );
 
-    this.http.get('http://localhost/Leavewebservice/API/getPosition.php').subscribe(
+    this.http.get(`${this.baseUrl}getPosition.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.positionEmp = data;
@@ -176,7 +177,7 @@ export class EmployeeshowComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/getLtype.php', body, {
+      .post(`${this.baseUrl}getLtype.php`, body, {
         headers: headers
       }).subscribe(
         (data: any) => {
@@ -299,7 +300,7 @@ export class EmployeeshowComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/UpdateEmployee.php', body, {
+      .post(`${this.baseUrl}UpdateEmployee.php`, body, {
         headers: headers
       })
       .subscribe(
@@ -368,7 +369,7 @@ export class EmployeeshowComponent implements OnInit {
 
         this.http
           .get(
-            'http://localhost/Leavewebservice/API/DeleteEmployee.php?Emp_ID=' + this.Emp_ID_show
+            `${this.baseUrl}DeleteEmployee.php?Emp_ID=` + this.Emp_ID_show
           )
           .subscribe(
             (data: any) => {
@@ -406,7 +407,7 @@ export class EmployeeshowComponent implements OnInit {
         text: 'Something went wrong!'
       })
     } else {
-      this.http.get('http://localhost/Leavewebservice/API/Search.php?Emp_ID=' + Emp_ID).subscribe(
+      this.http.get(`${this.baseUrl}Search.php?Emp_ID=` + Emp_ID).subscribe(
         (data: any) => {
           console.log(data);
           this.seach = data;
@@ -439,7 +440,7 @@ export class EmployeeshowComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/Add_leave.php', body, {
+      .post(`${this.baseUrl}Add_leave.php`, body, {
         headers: headers
       })
       .subscribe(
@@ -459,7 +460,7 @@ export class EmployeeshowComponent implements OnInit {
       timer: 1500
 
     }).then(() => {
-      this.http.get('http://localhost/Leavewebservice/API/getLeave.php').subscribe(
+      this.http.get(`${this.baseUrl}getLeave.php`).subscribe(
         (data: any) => {
           this.leave = data;
         },

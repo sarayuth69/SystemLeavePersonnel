@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 
-import { JwPaginationComponent } from 'jw-angular-pagination';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -85,11 +84,10 @@ const appRoutes: Routes = [
     SectorComponent,
     SumleaveComponent,
     EditdayworkComponent,
-    JwPaginationComponent,
     FilelaeveprintComponent,
     LeavetowaitingComponent,
     CheckleaveinfoComponent
-  
+
 
   ],
   imports: [

@@ -14,8 +14,10 @@ import 'sweetalert2/src/sweetalert2.scss'
   styleUrls: ['./checkleaveinfo.component.scss']
 })
 export class CheckleaveinfoComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   Dept_to_head;
   seachleave;
+  pageActual: any;
   Emp_ID = new FormControl('');
   constructor(
     public router: Router,
@@ -31,7 +33,7 @@ export class CheckleaveinfoComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/getDept_to_head.php', body, {
+      .post(`${this.baseUrl}getDept_to_head.php`, body, {
         headers: headers
       }).subscribe(
         (data: any) => {
@@ -44,22 +46,22 @@ export class CheckleaveinfoComponent implements OnInit {
   }
   leaveSearch(Emp_ID) {
     console.log(Emp_ID);
-      this.http.get('http://localhost/Leavewebservice/API/Checkleaveinfo.php?Emp_ID=' + Emp_ID).subscribe(
-        (data: any) => {
-          console.log(data);
-          if(data.length === 0){
-              Swal.fire({
-                icon: 'error',
-                title: 'ไม่พบข้อมูล',
-                text: 'Something went wrong!'
-            })
-          }else{
-            this.seachleave = data;
-          }
-        },
-        (error: any) => {
-          console.log(error);
+    this.http.get(`${this.baseUrl}Checkleaveinfo.php?Emp_ID=` + Emp_ID).subscribe(
+      (data: any) => {
+        console.log(data);
+        if (data.length === 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'ไม่พบข้อมูล',
+            text: 'Something went wrong!'
+          })
+        } else {
+          this.seachleave = data;
         }
-      );
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }

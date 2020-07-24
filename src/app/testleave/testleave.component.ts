@@ -8,6 +8,7 @@ import { months } from 'moment';
   styleUrls: ['./testleave.component.scss']
 })
 export class TestleaveComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   sector:any;
   a:any;
   Employee;
@@ -28,7 +29,7 @@ export class TestleaveComponent implements OnInit {
 
   ngOnInit() {
 
-    this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
+    this.http.get(`${this.baseUrl}getEmployee.php`).subscribe(
       (data: any) => {
         console.log(data);
         this.Employee = data;
@@ -92,7 +93,7 @@ export class TestleaveComponent implements OnInit {
   // });
 
   // this.http
-  //   .post('http://localhost/Leavewebservice/API/testpdf.php', this.a, {
+  //   .post(`${this.baseUrl}testpdf.php`, this.a, {
   //     headers: headers
   //   })
   //   .subscribe(
@@ -105,7 +106,7 @@ export class TestleaveComponent implements OnInit {
   //     }
   //   );
  
-    // this.http.get('http://localhost/Leavewebservice/API/testpdf.php').subscribe(
+    // this.http.get(`${this.baseUrl}testpdf.php`).subscribe(
     //   (data: any) => {
     //     this.sector = data;
     //   },

@@ -11,9 +11,11 @@ import {
   styleUrls: ['./checkleave.component.scss']
 })
 export class CheckleaveComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   public leavetype106;
   public leavetype104;
   public leavetypeUser;
+  pageActual: any;
   constructor(
     public router: Router  ,
     public route: ActivatedRoute,
@@ -28,7 +30,7 @@ export class CheckleaveComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/getLeave_type_User.php', tpyeUser, {
+      .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
         headers: headers1
       }).subscribe(
         (data: any) => {
@@ -47,7 +49,7 @@ export class CheckleaveComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/getLtype.php', body, {
+      .post(`${this.baseUrl}getLtype.php`, body, {
         headers: headers
       }).subscribe(
         (data: any) => {

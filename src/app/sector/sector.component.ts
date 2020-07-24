@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./sector.component.scss']
 })
 export class SectorComponent implements OnInit {
+  baseUrl = 'http://localhost/Leavewebservice/API/';
   public sector;
   public Sector_ID_show;
   public SectorName_show;
@@ -19,7 +20,7 @@ export class SectorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.http.get('http://localhost/Leavewebservice/API/getsector.php').subscribe(
+    this.http.get(`${this.baseUrl}getsector.php`).subscribe(
       (data: any) => {
         this.sector = data;
       },
@@ -47,7 +48,7 @@ export class SectorComponent implements OnInit {
       });
 
       this.http
-        .post('http://localhost/Leavewebservice/API/InsertSector.php', body, {
+        .post(`${this.baseUrl}InsertSector.php`, body, {
           headers: headers
         })
         .subscribe(
@@ -67,7 +68,7 @@ export class SectorComponent implements OnInit {
         timer: 1500
 
       }).then(() => {
-        this.http.get('http://localhost/Leavewebservice/API/getsector.php').subscribe(
+        this.http.get(`${this.baseUrl}getsector.php`).subscribe(
           (data: any) => {
             console.log(data);
             this.sector = data;
@@ -104,7 +105,7 @@ export class SectorComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          this.http.get('http://localhost/Leavewebservice/API/getsector.php').subscribe(
+          this.http.get(`${this.baseUrl}getsector.php`).subscribe(
             (data: any) => {
               console.log(data);
               this.sector = data;
@@ -116,7 +117,7 @@ export class SectorComponent implements OnInit {
         })
         this.http
           .get(
-            'http://localhost/Leavewebservice/API/DeleteSector.php?Sector_ID=' + this.Sector_ID_show
+            `${this.baseUrl}DeleteSector.php?Sector_ID=` + this.Sector_ID_show
           )
           .subscribe(
             (data: any) => {
@@ -147,7 +148,7 @@ export class SectorComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post('http://localhost/Leavewebservice/API/UpdateSector.php', body, {
+      .post(`${this.baseUrl}UpdateSector.php`, body, {
         headers: headers
       })
       .subscribe(
@@ -165,7 +166,7 @@ export class SectorComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     }).then(() => {
-      this.http.get('http://localhost/Leavewebservice/API/getsector.php').subscribe(
+      this.http.get(`${this.baseUrl}getsector.php`).subscribe(
         (data: any) => {
           this.sector = data;
         },
