@@ -12,11 +12,12 @@
             <div class="col"></div>
             <div class="col"></div>
             <div class="col">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="document.getElementById('LType_ID').value = ''
-              ,document.getElementById('LTypeName').value = '',document.getElementById('Number').value = ''
-              ,document.getElementById('Remain').value = '',document.getElementById('AdvanceNotice').value = ''
-              ,document.getElementById('LOrdinal').value = '',document.getElementById('QuotaStatus').value = ''
-              ,document.getElementById('Empstatus_ID').value = ''">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="
+              document.getElementById('LTypeName').value = '',document.getElementById('Number').value = ''
+              ,document.getElementById('AdvanceNotice').value = ''
+              ,document.getElementById('QuotaStatus').value = ''
+              ,document.getElementById('Empstatus_ID').value = ''
+              ,document.getElementById('leavetype_remark').value = ''">
                 เพิ่มประเภทการลา
               </button>
             </div>
@@ -50,11 +51,12 @@
                   <!-- <th scope="col">รหัสประเภทการลา</th> -->
                   <th scope="col">ชื่อประเภทการลา</th>
                   <th scope="col">จำนวนวันลา/วัน</th>
-                  <th scope="col">คงเหลือ/วัน</th>
+                  <!-- <th scope="col">คงเหลือ/วัน</th> -->
                   <th scope="col">แจ้งล่วงหน้า/วัน</th>
-                  <th scope="col">จำนวนครั้งที่ลา/วัน</th>
+                  <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
                   <th scope="col">สถานะสิทธิการลา</th>
                   <th scope="col">สถานะบุคลากร</th>
+                  <th scope="col">หมายเหตุ</th>
                   <th scope="col">จัดการ</th>
                 </tr>
               </thead>
@@ -69,16 +71,17 @@
                   <!-- <td>{{item.LType_ID}}</td> -->
                   <td>{{item.LTypeName}}</td>
                   <td>{{item.Number}}</td>
-                  <td>{{item.Remain}}</td>
+                  <!-- <td>{{item.Remain}}</td> -->
                   <td>{{item.AdvanceNotice}}</td>
-                  <td>{{item.LOrdinal}}</td>
+                  <!-- <td>{{item.LOrdinal}}</td> -->
                   <td>{{item.QuotaStatus}}</td>
                   <td>{{item.EmpstatusName}}</td>
+                  <td>{{item.leavetype_remark}}</td>
                   <td>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
                       (click)="updateLeavetype(item.LType_ID,item.LTypeName
-                    ,item.Number,item.Remain,item.AdvanceNotice,item.LOrdinal,item.QuotaStatus,item.Empstatus_ID)">
+                    ,item.Number,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
                       แก้ไข
                     </button>
 
@@ -106,11 +109,12 @@
                   <!-- <th scope="col">รหัสประเภทการลา</th> -->
                   <th scope="col">ชื่อประเภทการลา</th>
                   <th scope="col">จำนวนวันลา/วัน</th>
-                  <th scope="col">คงเหลือ/วัน</th>
+                  <!-- <th scope="col">คงเหลือ/วัน</th> -->
                   <th scope="col">แจ้งล่วงหน้า/วัน</th>
-                  <th scope="col">จำนวนครั้งที่ลา/วัน</th>
+                  <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
                   <th scope="col">สถานะสิทธิการลา</th>
                   <th scope="col">สถานะบุคลากร</th>
+                  <th scope="col">หมายเหตุ</th>
                   <th scope="col">จัดการ</th>
                 </tr>
               </thead>
@@ -125,16 +129,17 @@
                   <!-- <td>{{item.LType_ID}}</td> -->
                   <td>{{item.LTypeName}}</td>
                   <td>{{item.Number}}</td>
-                  <td>{{item.Remain}}</td>
+                  <!-- <td>{{item.Remain}}</td> -->
                   <td>{{item.AdvanceNotice}}</td>
-                  <td>{{item.LOrdinal}}</td>
+                  <!-- <td>{{item.LOrdinal}}</td> -->
                   <td>{{item.QuotaStatus}}</td>
                   <td>{{item.EmpstatusName}}</td>
+                  <td>{{item.leavetype_remark}}</td>
                   <td>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
                       (click)="updateLeavetype(item.LType_ID,item.LTypeName
-                    ,item.Number,item.Remain,item.AdvanceNotice,item.LOrdinal,item.QuotaStatus,item.Empstatus_ID)">
+                    ,item.Number,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
                       แก้ไข
                     </button>
 
@@ -161,11 +166,12 @@
                   <!-- <th scope="col">รหัสประเภทการลา</th> -->
                   <th scope="col">ชื่อประเภทการลา</th>
                   <th scope="col">จำนวนวันลา/วัน</th>
-                  <th scope="col">คงเหลือ/วัน</th>
+                  <!-- <th scope="col">คงเหลือ/วัน</th> -->
                   <th scope="col">แจ้งล่วงหน้า/วัน</th>
-                  <th scope="col">จำนวนครั้งที่ลา/วัน</th>
+                  <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
                   <th scope="col">สถานะสิทธิการลา</th>
                   <th scope="col">สถานะบุคลากร</th>
+                  <th scope="col">หมายเหตุ</th>
                   <th scope="col">จัดการ</th>
                 </tr>
               </thead>
@@ -180,16 +186,17 @@
                   <!-- <td>{{item.LType_ID}}</td> -->
                   <td>{{item.LTypeName}}</td>
                   <td>{{item.Number}}</td>
-                  <td>{{item.Remain}}</td>
+                  <!-- <td>{{item.Remain}}</td> -->
                   <td>{{item.AdvanceNotice}}</td>
-                  <td>{{item.LOrdinal}}</td>
+                  <!-- <td>{{item.LOrdinal}}</td> -->
                   <td>{{item.QuotaStatus}}</td>
                   <td>{{item.EmpstatusName}}</td>
+                  <td>{{item.leavetype_remark}}</td>
                   <td>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
                       (click)="updateLeavetype(item.LType_ID,item.LTypeName
-                    ,item.Number,item.Remain,item.AdvanceNotice,item.LOrdinal,item.QuotaStatus,item.Empstatus_ID)">
+                    ,item.Number,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
                       แก้ไข
                     </button>
 
@@ -213,7 +220,7 @@
 
 
 
-  <!-- Modal -->
+  <!-- Modal เพิ่ม -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -227,67 +234,40 @@
         <div class="modal-body">
           <form>
             <div class="form-row">
-              <div class="col-md-4 mb-3">
-                <label for="validationDefault01">รหัสประเภทการลา <b> *กรอกเป็นตัวเลข</b>
-
-                </label>
-                <input type="text" class="form-control" id="LType_ID" placeholder="รหัสประเภทการลา"
-                  [formControl]="LType_ID" required>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label for="validationDefault02">ชื่อประเภทการลา</label>
-                <input type="text" class="form-control" id="LTypeName" placeholder="ชื่อประเภทการลา"
-                  [formControl]="LTypeName" required>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label>จำนวนวันลา</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                  </div>
-                  <input type="text" class="form-control" id="Number" placeholder="จำนวนวันลา" [formControl]="Number"
-                    required>
+              <label for="validationDefault02">ชื่อประเภทการลา</label>
+              <input type="text" class="form-control" id="LTypeName" placeholder="ชื่อประเภทการลา"
+                [formControl]="LTypeName" required>
+              <label>จำนวนวันลา</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
                 </div>
+                <input type="text" class="form-control" id="Number" placeholder="จำนวนวันลา" [formControl]="Number"
+                  required>
               </div>
-              <div class="col-md-4 mb-3">
-                <label>คงเหลือ</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                  </div>
-                  <input type="text" class="form-control" id="Remain" placeholder="จำนวนวันลา" [formControl]="Remain"
-                    required>
-                </div>
-              </div>
+              <label>แจ้งล่วงหน้า</label>
+              <input type="text" class="form-control" id="AdvanceNotice" placeholder="แจ้งล่วงหน้า"
+                [formControl]="AdvanceNotice" required>
             </div>
             <div class="form-row">
-              <div class="col-md-3 mb-3">
-                <label>แจ้งล่วงหน้า</label>
-                <input type="text" class="form-control" id="AdvanceNotice" placeholder="แจ้งล่วงหน้า"
-                  [formControl]="AdvanceNotice" required>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="validationDefault04">จำนวนครั้งที่ลา</label>
-                <input type="text" class="form-control" id="LOrdinal" placeholder="จำนวนครั้งที่ลา"
-                  [formControl]="LOrdinal" required>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="validationDefault05">สถานะสิทธิการลา</label>
-                <select id="QuotaStatus" class="form-control" [formControl]="QuotaStatus">
-                  <option selected>สถานะสิทธิการลา</option>
-                  <option value="ลาได้">ลาได้</option>
-                  <option value="ลาไม่ได้">ลาไม่ได้</option>
-                </select>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="validationDefault05">สถานะบุคลากร</label>
-                <select id="Empstatus_ID" class="form-control" [formControl]="Empstatus_ID">
-                  <option selected>เลือกสถานะบุคลากร</option>
-                  <option value="203">ราชการ</option>
-                  <option value="202">พนักงานมหาวิทยาลัย</option>
-                  <option value="201">ลูกจ้างเงินรายได้</option>
-                </select>
-              </div>
-            </div>
+              <label>หมายเหตุ</label>
+              <input type="text" class="form-control" id="leavetype_remark" placeholder="หมายเหตุ"
+                [formControl]="leavetype_remark" required>
+              <br>
 
+              <label for="validationDefault05">สถานะสิทธิการลา</label>
+              <select id="QuotaStatus" class="form-control" [formControl]="QuotaStatus">
+                <option selected>สถานะสิทธิการลา</option>
+                <option value="ลาได้">ลาได้</option>
+                <option value="ลาไม่ได้">ลาไม่ได้</option>
+              </select>
+              <label for="validationDefault05">สถานะบุคลากร</label>
+              <select id="Empstatus_ID" class="form-control" [formControl]="Empstatus_ID">
+                <option selected>เลือกสถานะบุคลากร</option>
+                <option value="203">ราชการ</option>
+                <option value="202">พนักงานมหาวิทยาลัย</option>
+                <option value="201">ลูกจ้างเงินรายได้</option>
+              </select>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -315,65 +295,39 @@
         <div class="modal-body">
           <form>
             <div class="form-row">
-              <div class="col-md-4 mb-3">
-                <label for="validationDefault01">รหัสประเภทการลา</label>
-                <button type="button" class="btn btn-light" data-container="body" data-toggle="popover"
-                  data-placement="top" data-content="ไม่สามารถแก้ไขได้">
-                  <input type="text" [formControl]="LType_ID" readonly>
-                </button>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label for="validationDefault02">ชื่อประเภทการลา</label>
-                <input type="text" class="form-control" id="LTypeName" placeholder="ชื่อประเภทการลา"
-                  [formControl]="LTypeName" required>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label>จำนวนวันลา</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                  </div>
-                  <input type="text" class="form-control" id="Number" placeholder="จำนวนวันลา" [formControl]="Number"
-                    required>
+              <label for="validationDefault02">ชื่อประเภทการลา</label>
+              <input type="text" class="form-control" id="LTypeName" placeholder="ชื่อประเภทการลา"
+                [formControl]="LTypeName" required>
+              <label>จำนวนวันลา</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
                 </div>
+                <input type="text" class="form-control" id="Number" placeholder="จำนวนวันลา" [formControl]="Number"
+                  required>
               </div>
-              <div class="col-md-4 mb-3">
-                <label>คงเหลือ</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                  </div>
-                  <input type="text" class="form-control" id="Remain" placeholder="จำนวนวันลา" [formControl]="Remain"
-                    required>
-                </div>
-              </div>
+              <label>แจ้งล่วงหน้า</label>
+              <input type="text" class="form-control" id="AdvanceNotice" placeholder="แจ้งล่วงหน้า"
+                [formControl]="AdvanceNotice" required>
             </div>
             <div class="form-row">
-              <div class="col-md-3 mb-3">
-                <label>แจ้งล่วงหน้า</label>
-                <input type="text" class="form-control" id="AdvanceNotice" placeholder="แจ้งล่วงหน้า"
-                  [formControl]="AdvanceNotice" required>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="validationDefault04">จำนวนครั้งที่ลา</label>
-                <input type="text" class="form-control" id="LOrdinal" placeholder="จำนวนครั้งที่ลา"
-                  [formControl]="LOrdinal" required>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="validationDefault05">สถานะสิทธิการลา</label>
-                <select id="QuotaStatus" class="form-control" [formControl]="QuotaStatus">
-                  <option selected>สถานะสิทธิการลา</option>
-                  <option value="ลาได้">ลาได้</option>
-                  <option value="ลาไม่ได้">ลาไม่ได้</option>
-                </select>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="validationDefault05">สถานะบุคลากร</label>
-                <select id="Empstatus_ID" class="form-control" [formControl]="Empstatus_ID">
-                  <option selected>เลือกสถานะบุคลากร</option>
-                  <option value="203">ราชการ</option>
-                  <option value="202">พนักงานมหาวิทยาลัย</option>
-                  <option value="201">ลูกจ้างเงินรายได้</option>
-                </select>
-              </div>
+              <label>หมายเหตุ</label>
+              <input type="text" class="form-control" id="leavetype_remark" placeholder="หมายเหตุ"
+                [formControl]="leavetype_remark" required>
+              <br>
+
+              <label for="validationDefault05">สถานะสิทธิการลา</label>
+              <select id="QuotaStatus" class="form-control" [formControl]="QuotaStatus">
+                <option selected>สถานะสิทธิการลา</option>
+                <option value="ลาได้">ลาได้</option>
+                <option value="ลาไม่ได้">ลาไม่ได้</option>
+              </select>
+              <label for="validationDefault05">สถานะบุคลากร</label>
+              <select id="Empstatus_ID" class="form-control" [formControl]="Empstatus_ID">
+                <option selected>เลือกสถานะบุคลากร</option>
+                <option value="203">ราชการ</option>
+                <option value="202">พนักงานมหาวิทยาลัย</option>
+                <option value="201">ลูกจ้างเงินรายได้</option>
+              </select>
             </div>
           </form>
         </div>

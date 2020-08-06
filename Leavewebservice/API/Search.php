@@ -11,6 +11,7 @@
    LEFT JOIN position ON employee.Position_ID = position.Position_ID
    LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
    LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
+   LEFT JOIN sector ON sector.Sector_ID = employee.Sector_ID
    WHERE
    Emp_ID LIKE '%{$_GET['Emp_ID']}%' OR EmpName LIKE '%{$_GET['Emp_ID']}%' 
        OR EmpLastName LIKE '%{$_GET['Emp_ID']}%'

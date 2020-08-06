@@ -50,7 +50,7 @@ export class LeavetowaitingComponent implements OnInit {
 
           },
           (error: any) => {
-            console.log(error);
+
           }
 
         )
@@ -76,7 +76,7 @@ export class LeavetowaitingComponent implements OnInit {
 
           },
           (error: any) => {
-            console.log(error);
+
           }
 
         )
@@ -93,7 +93,7 @@ export class LeavetowaitingComponent implements OnInit {
           this.table_leaveto_waiting = data;
         },
         (error: any) => {
-          console.log(error);
+
         }
       );
     }
@@ -108,7 +108,7 @@ export class LeavetowaitingComponent implements OnInit {
           this.table_leaveto_waiting = data;
         },
         (error: any) => {
-          console.log(error);
+
         }
       );
     }
@@ -136,7 +136,7 @@ export class LeavetowaitingComponent implements OnInit {
     //         this.leave = data;
     //       },
     //       (error: any) => {
-    //         console.log(error);
+    //         
     //       }
 
     //     )
@@ -168,7 +168,7 @@ export class LeavetowaitingComponent implements OnInit {
 
           },
           (error: any) => {
-            console.log(error);
+
           }
 
         )
@@ -194,7 +194,7 @@ export class LeavetowaitingComponent implements OnInit {
 
             },
             (error: any) => {
-              console.log(error);
+              window.location.reload();
             }
 
           )
@@ -218,7 +218,7 @@ export class LeavetowaitingComponent implements OnInit {
 
           },
           (error: any) => {
-            console.log(error);
+
           }
 
         )
@@ -244,7 +244,8 @@ export class LeavetowaitingComponent implements OnInit {
 
             },
             (error: any) => {
-              console.log(error);
+              window.location.reload();
+
             }
 
           )
@@ -268,7 +269,7 @@ export class LeavetowaitingComponent implements OnInit {
 
           },
           (error: any) => {
-            console.log(error);
+
           }
 
         )
@@ -285,7 +286,8 @@ export class LeavetowaitingComponent implements OnInit {
             this.table_leaveto_waiting = data;
           },
           (error: any) => {
-            console.log(error);
+            window.location.reload();
+
           }
         );
       })
@@ -308,7 +310,7 @@ export class LeavetowaitingComponent implements OnInit {
 
           },
           (error: any) => {
-            console.log(error);
+
           }
 
         )
@@ -325,18 +327,19 @@ export class LeavetowaitingComponent implements OnInit {
             this.table_leaveto_waiting = data;
           },
           (error: any) => {
-            console.log(error);
+            window.location.reload();
+
           }
         );
       })
     }
 
   }
-  No_allow(Emp_ID,LeaveTotal) {
+  No_allow(Emp_ID, LeaveTotal) {
     this.LeaveTotal = LeaveTotal
     this.Emp_ID = Emp_ID
     const body = 'Emp_ID=' + this.Emp_ID +
-    '&LeaveTotal=' + this.LeaveTotal
+      '&LeaveTotal=' + this.LeaveTotal
 
     console.log(body);
     // const headers = new HttpHeaders({
@@ -352,7 +355,7 @@ export class LeavetowaitingComponent implements OnInit {
 
     //     },
     //     (error: any) => {
-    //       console.log(error);
+    //       
     //     }
 
     //   )

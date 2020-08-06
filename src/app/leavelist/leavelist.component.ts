@@ -48,8 +48,8 @@ export class LeavelistComponent implements OnInit {
   Local_EmpName = localStorage.getItem('EmpName');
   Local_EmpLastName = localStorage.getItem('EmpLastName');
   Local_PositionName = localStorage.getItem('PositionName');
-  // Local_DeptName = localStorage.getItem('DeptName');
-  // Local_Sector = localStorage.getItem('SectorName');
+  Local_DeptName = localStorage.getItem('DeptName');
+  Local_Sector = localStorage.getItem('SectorName');
 
   Leave_ID = new FormControl('');
   Emp_ID = new FormControl('');

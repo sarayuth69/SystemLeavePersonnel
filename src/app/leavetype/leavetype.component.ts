@@ -26,7 +26,7 @@ export class LeavetypeComponent implements OnInit {
   LType_ID = new FormControl('');
   LTypeName = new FormControl('');
   Number = new FormControl('');
-  Remain = new FormControl('');
+  leavetype_remark = new FormControl('');
   AdvanceNotice = new FormControl('');
   LOrdinal = new FormControl('');
   QuotaStatus = new FormControl('');
@@ -80,13 +80,14 @@ export class LeavetypeComponent implements OnInit {
     const body = 'LType_ID=' + this.LType_ID.value
       + '&LTypeName=' + this.LTypeName.value
       + '&Number=' + this.Number.value
-      + '&Remain=' + this.Remain.value
+      // + '&Remain=' + this.Remain.value
       + '&AdvanceNotice=' + this.AdvanceNotice.value
-      + '&LOrdinal=' + this.LOrdinal.value
+      + '&LOrdinal=' + 0
+      + '&leavetype_remark=' + this.leavetype_remark.value
       + '&QuotaStatus=' + this.QuotaStatus.value
       + '&Empstatus_ID=' + this.Empstatus_ID.value
-    if (this.LType_ID.value === "" || this.LTypeName.value === "" || this.Number.value === ""
-      || this.Remain.value === "" || this.AdvanceNotice.value === "" || this.LOrdinal.value === ""
+    if (this.LTypeName.value === "" || this.Number.value === ""
+      || this.AdvanceNotice.value === ""
       || this.QuotaStatus.value === "" || this.Empstatus_ID.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
@@ -119,7 +120,7 @@ export class LeavetypeComponent implements OnInit {
         timer: 1500
 
       }).then(() => {
-        if(this.Empstatus_ID.value == 203){
+        if (this.Empstatus_ID.value == 203) {
           this.http.get(`${this.baseUrl}getleavetype_ratcakan.php`).subscribe(
             (data: any) => {
               console.log(data);
@@ -130,7 +131,7 @@ export class LeavetypeComponent implements OnInit {
             }
           );
         }
-       else if(this.Empstatus_ID.value == 202){
+        else if (this.Empstatus_ID.value == 202) {
           this.http.get(`${this.baseUrl}getleavetype_emp_in_univercity.php`).subscribe(
             (data: any) => {
               console.log(data);
@@ -141,7 +142,7 @@ export class LeavetypeComponent implements OnInit {
             }
           );
         }
-       else if(this.Empstatus_ID.value == 201){
+        else if (this.Empstatus_ID.value == 201) {
           this.http.get(`${this.baseUrl}getleavetype_Temporary_worker.php`).subscribe(
             (data: any) => {
               console.log(data);
@@ -151,14 +152,14 @@ export class LeavetypeComponent implements OnInit {
               console.log(error);
             }
           );
-       }
+        }
       }).then(() => {
         this.LType_ID = new FormControl('');
         this.LTypeName = new FormControl('');
         this.Number = new FormControl('');
-        this.Remain = new FormControl('');
+        // this.Remain = new FormControl('');
         this.AdvanceNotice = new FormControl('');
-        this.LOrdinal = new FormControl('');
+        // this.LOrdinal = new FormControl('');
         this.QuotaStatus = new FormControl('');
         this.Empstatus_ID = new FormControl('');
       })
@@ -184,7 +185,7 @@ export class LeavetypeComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          
+
           window.location.reload();
         })
 
@@ -209,26 +210,27 @@ export class LeavetypeComponent implements OnInit {
 
 
   updateLeavetype(
-    LType_ID, LTypeName, Number, Remain, AdvanceNotice, LOrdinal, QuotaStatus, Empstatus_ID
+    LType_ID, LTypeName, Number, AdvanceNotice, leavetype_remark, QuotaStatus, Empstatus_ID
   ) {
     this.LType_ID = new FormControl(LType_ID);
     this.LTypeName = new FormControl(LTypeName);
     this.Number = new FormControl(Number);
-    this.Remain = new FormControl(Remain);
+    // this.Remain = new FormControl(Remain);
     this.AdvanceNotice = new FormControl(AdvanceNotice);
-    this.LOrdinal = new FormControl(LOrdinal);
+    this.leavetype_remark = new FormControl(leavetype_remark);
     this.QuotaStatus = new FormControl(QuotaStatus);
     this.Empstatus_ID = new FormControl(Empstatus_ID);
   }
   public updateLeaveType1() {
-  
+
     const body =
       'LType_ID=' + this.LType_ID.value
       + '&LTypeName=' + this.LTypeName.value
       + '&Number=' + this.Number.value
-      + '&Remain=' + this.Remain.value
+      // + '&Remain=' + this.Remain.value
       + '&AdvanceNotice=' + this.AdvanceNotice.value
-      + '&LOrdinal=' + this.LOrdinal.value
+      + '&LOrdinal=' + 0
+      + '&leavetype_remark=' + this.leavetype_remark.value
       + '&QuotaStatus=' + this.QuotaStatus.value
       + '&Empstatus_ID=' + this.Empstatus_ID.value
     console.log(body);
@@ -255,7 +257,7 @@ export class LeavetypeComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     }).then(() => {
-      if(this.Empstatus_ID.value == 203){
+      if (this.Empstatus_ID.value == 203) {
         this.http.get(`${this.baseUrl}getleavetype_ratcakan.php`).subscribe(
           (data: any) => {
             console.log(data);
@@ -266,7 +268,7 @@ export class LeavetypeComponent implements OnInit {
           }
         );
       }
-     else if(this.Empstatus_ID.value == 202){
+      else if (this.Empstatus_ID.value == 202) {
         this.http.get(`${this.baseUrl}getleavetype_emp_in_univercity.php`).subscribe(
           (data: any) => {
             console.log(data);
@@ -277,7 +279,7 @@ export class LeavetypeComponent implements OnInit {
           }
         );
       }
-     else if(this.Empstatus_ID.value == 201){
+      else if (this.Empstatus_ID.value == 201) {
         this.http.get(`${this.baseUrl}getleavetype_Temporary_worker.php`).subscribe(
           (data: any) => {
             console.log(data);
@@ -288,12 +290,12 @@ export class LeavetypeComponent implements OnInit {
           }
         );
       }
-     
+
     }).then(() => {
       this.LType_ID = new FormControl('');
       this.LTypeName = new FormControl('');
       this.Number = new FormControl('');
-      this.Remain = new FormControl('');
+      this.leavetype_remark = new FormControl('');
       this.AdvanceNotice = new FormControl('');
       this.LOrdinal = new FormControl('');
       this.QuotaStatus = new FormControl('');

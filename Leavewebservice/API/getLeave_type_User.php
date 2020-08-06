@@ -7,14 +7,18 @@
     employee.Emp_ID,
     employee.EmpName,
     employee.Empstatus_ID,
-    leavetype.Empstatus_ID,
     leavetype.LTypeName,
     leavetype.Number,
+    leavetype.AdvanceNotice,
+    employeestatus.EmpstatusName,
+    leavetype.LOrdinal,
+    leavetype.QuotaStatus,
     IFNULL(sum(`leave`.LeaveTotal),0) ,
-    IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number) as  num
+    IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number) as  Remain
     FROM
     employee
     LEFT JOIN leavetype ON leavetype.Empstatus_ID = employee.Empstatus_ID
+    LEFT JOIN employeestatus ON employeestatus.Empstatus_ID = employee.Empstatus_ID
     LEFT JOIN (SELECT * FROM `leave` WHERE LeaveStatus ='Y' AND LeaveStatus_ID = 5 )AS `leave` ON `leave`.Emp_ID = employee.Emp_ID 
     AND `leave`.LType_ID = leavetype.LType_ID
     WHERE 

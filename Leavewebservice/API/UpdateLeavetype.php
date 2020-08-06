@@ -4,8 +4,9 @@
  require 'connect_DB.php' ;
  
     $sql = "UPDATE `leavetype` SET `LType_ID`='".$_POST['LType_ID']."',`LTypeName`='".$_POST['LTypeName']."'
-    ,`Number`='".$_POST['Number']."',`Remain`='".$_POST['Remain']."',`AdvanceNotice`='".$_POST['AdvanceNotice']."'
-    ,`LOrdinal`='".$_POST['LOrdinal']."',`QuotaStatus`='".$_POST['QuotaStatus']."',`Empstatus_ID`='".$_POST['Empstatus_ID']."'
+    ,`Number`='".$_POST['Number']."',`AdvanceNotice`='".$_POST['AdvanceNotice']."'
+    ,`LOrdinal`='".$_POST['LOrdinal']."',`QuotaStatus`='".$_POST['QuotaStatus']."'
+    ,`leavetype_remark`='".$_POST['leavetype_remark']."',`Empstatus_ID`='".$_POST['Empstatus_ID']."'
     WHERE  `leavetype`.`LType_ID` = '".$_POST['LType_ID']."'
     
     ";
