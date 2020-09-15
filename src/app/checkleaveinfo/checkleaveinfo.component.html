@@ -1,43 +1,67 @@
 <br>
 <br>
-<br>
-<br>
-<div style="padding: 1%;">
-    <div class="table-responsive-lg">
-        <label for="exampleFormControlSelect1">เลือกบุคลากร</label>
-        <select class="form-control form-control-lg" id="exampleFormControlSelect1" #Emp_ID>
-            <option selected>เลือกบุคลากร</option>
-            <option *ngFor="let item of Dept_to_head" value="{{item.Emp_ID}}">{{item.EmpName}} {{item.EmpLastName}}
-            </option>
-        </select>
-        <button type="button" class="btn btn-primary" (click)="leaveSearch(Emp_ID.value)">ค้นหา</button>
-        <table class="table table-hover">
-            <thead>
-                <tr class="text-center">
-                    <th scope="col">ชื่อพนักงาน</th>
-                    <th scope="col">ประเภท</th>
-                    <th scope="col">วันที่ลา</th>
-                    <th scope="col">จำนวน/วัน</th>
-                    <th scope="col">ไฟล์แนบ</th>
-                    <th scope="col">สถานะ</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let item of seachleave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
-                <tr>
-                    <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
-                        <p>แผนก: {{item.DeptName}}</p>
-                    </td>
-                    <td class="text-center">{{item.LTypeName}}</td>
-                    <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
-                    <td class="text-center"> {{item.LeaveTotal}}</td>
-                    <td></td>
-                    <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
-                    <td class="text-center">
-                    </td>
 
-                </tr>
-            </tbody>
-        </table>
-        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+<div style="padding: 1%;">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    <!-- <label for="exampleFormControlSelect1">เลือกบุคลากร :</label> -->
+                  </div>
+                  <div class="col-sm">
+                    <select class="form-control form-control-lg" id="exampleFormControlSelect1" #Emp_ID>
+                        <option selected>เลือกบุคลากร</option>
+                        <option *ngFor="let item of Dept_to_head" value="{{item.Emp_ID}}">{{item.EmpName}}
+                            {{item.EmpLastName}}
+                        </option>
+                    </select>
+                  </div>
+                  <div class="col-sm">
+                    <button type="button" class="btn btn-primary" (click)="leaveSearch(Emp_ID.value)">ค้นหา</button>
+
+                  </div>
+                </div>
+              </div>
+            <div class="table-responsive-lg">
+                
+              
+            </div>
+        </div>
     </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">ชื่อพนักงาน</th>
+                        <th scope="col">ประเภท</th>
+                        <th scope="col">วันที่ลา</th>
+                        <th scope="col">จำนวน/วัน</th>
+                        <th scope="col">ไฟล์แนบ</th>
+                        <th scope="col">สถานะ</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of seachleave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                    <tr>
+                        <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
+                            <p>แผนก: {{item.DeptName}}</p>
+                        </td>
+                        <td class="text-center">{{item.LTypeName}}</td>
+                        <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
+                        <td class="text-center"> {{item.LeaveTotal}}</td>
+                        <td></td>
+                        <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
+                        <td class="text-center">
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+        </div>
+    </div>
+
 </div>
