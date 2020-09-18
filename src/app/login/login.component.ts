@@ -138,7 +138,7 @@ export class LoginComponent implements OnInit {
         timer: 1000
       }).then(() => {
         if (data[0].Role == "6") {
-          this.router.navigate(['/leavelist']);
+          this.router.navigate(['/home']);
         }
         else if (data[0].Role == "5") {
           this.router.navigate(['/leavetowaiting']);

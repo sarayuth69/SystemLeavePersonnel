@@ -68,7 +68,8 @@
                                 <td class="Role">{{item.Role}}</td>
                                 <td class="text-center">
                                     <button class="btn btn-secondary" type="button" id="Leavelistadmin"
-                                        data-toggle="modal" data-target="#exampleModal1" (click)="LeaveEmp(item.Emp_ID,item.EmpName,item.EmpLastName
+                                        data-toggle="modal" data-target="#exampleModal1"
+                                        (click)="LeaveEmp(item.Emp_ID,item.EmpName,item.EmpLastName
                                             ,item.PositionName,item.DeptName,item.SectorName,item.Role,item.Empstatus_ID)">
                                         ยื่นขอลา
                                     </button>
@@ -462,18 +463,18 @@
                                         <div class="row">
                                             <div class="col-sm">
                                                 <h6>รหัส </h6>
-                                                <input type="text" class="form-control" value="{{Local_Emp_ID}}"
+                                                <input type="text" class="form-control" 
                                                     [formControl]="Emp_ID" readonly>
                                             </div>
                                             <div class="col-sm">
                                                 <h6> ชื่อ </h6>
-                                                <input type="text" class="form-control" value="{{Local_EmpName}}"
+                                                <input type="text" class="form-control" 
                                                     [formControl]="EmpName" readonly>
                                             </div>
                                             <div class="col-sm">
                                                 <h6> นามสกุล </h6>
                                                 <input type="text" class="form-control" id="validationDefault02"
-                                                    value="{{Local_EmpLastName}}" [formControl]="EmpLastName" readonly>
+                                                     [formControl]="EmpLastName" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -482,23 +483,18 @@
                                         <div class="row">
                                             <div class="col-sm">
                                                 <h6>ตำแหน่ง </h6>
-                                                <input type="text" class="form-control" value="{{Local_PositionName}}"
+                                                <input type="text" class="form-control" 
                                                     [formControl]="PositionName" readonly>
                                             </div>
                                             <div class="col-sm">
                                                 <h6>แผนก </h6>
-                                                <input type="text" class="form-control" value="{{Local_DeptName}}"
+                                                <input type="text" class="form-control" 
                                                     [formControl]="DeptName" readonly>
                                             </div>
                                             <div class="col-sm">
                                                 <h6> ฝ่าย </h6>
-                                                <input type="text" class="form-control" value="{{Local_Sector}}"
-                                                    id="validationDefault02" [formControl]="Sector" readonly>
-
-                                                <h6 class="Role"> สิทธิ์ </h6>
-                                                <input type="text" class="Role" id="validationDefault02"
-                                                    [formControl]="Role" readonly>
-
+                                                <input type="text" class="form-control" 
+                                                    id="validationDefault02" [formControl]="SectorName" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -507,11 +503,31 @@
                                     </div>
                                     <br>
                                     ประเภทการลา
-                                    <select class="custom-select my-1 mr-sm-2" id="typeleave" [formControl]="LType_ID">
-                                        <option *ngFor="let item of leavetype; let i = index" value="{{item.LType_ID}}">
-                                            {{item.LTypeName}}</option>
-                                        <option></option>
-                                    </select>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <select class="custom-select my-1 mr-sm-2" id="typeleave"
+                                                    [formControl]="LType_ID">
+                                                    <option *ngFor="let item of leavetype; let i = index"
+                                                        value="{{item.LType_ID}}">
+                                                        {{item.LTypeName}}</option>
+                                                    <option></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="customCheck1" 
+                                                        (change)="toggleVisibility($event)">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
+                                                    <span *ngIf="marked"><input type="text"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <br>
                                         <label for="exampleFormControlTextarea1">ขอลาเนื่องจาก</label>
@@ -542,10 +558,15 @@
                                                 <input type="file" (change)="onFileChanged($event)">
                                             </div>
                                         </form>
-                                        <div class="row">
-                                        </div>
                                         <div class="form-row">
+                                            <label>สถานะการส่งใบลาฉบับจริง</label>
+                                            <select class="custom-select" [formControl]="LeaveStatus_Document">
+
+                                                <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
+                                                <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
+                                            </select>
                                         </div>
+                                        <!-- <input type="text" class="Role" [formControl]="Role"> -->
                                     </div>
                                 </form>
                             </div>
@@ -555,8 +576,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        (click)="AddLeave(LeaveTotal.value)">OK</button>
+                    <button type="button" class="btn btn-primary" (click)="AddLeave(LeaveTotal.value)">OK</button>
                 </div>
             </div>
         </div>

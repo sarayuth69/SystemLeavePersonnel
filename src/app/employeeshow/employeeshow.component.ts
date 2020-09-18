@@ -63,6 +63,9 @@ export class EmployeeshowComponent implements OnInit {
   Empstatus_ID = new FormControl('');
   Position_ID = new FormControl('');
   Dept_ID = new FormControl('');
+  employee = new FormControl('');
+  LeaveStatus_Document = new FormControl('');
+
 
   DeptName = new FormControl('');
   Sector = new FormControl('');
@@ -90,6 +93,7 @@ export class EmployeeshowComponent implements OnInit {
   Local_PositionName = localStorage.getItem('PositionName');
   Local_DeptName = localStorage.getItem('DeptName');
   Local_Sector = localStorage.getItem('SectorName');
+  marked = false;
 
   constructor(
     public router: Router,
@@ -412,7 +416,8 @@ export class EmployeeshowComponent implements OnInit {
   LeaveEmp(
     Emp_ID, EmpName, EmpLastName, PositionName, DeptName, SectorName, Role,Empstatus_ID
   ) {
-    this.Emp_ID = new FormControl(Emp_ID);
+
+        this.Emp_ID = new FormControl(Emp_ID);
     this.EmpName = new FormControl(EmpName);
     this.EmpLastName = new FormControl(EmpLastName);
     this.PositionName = new FormControl(PositionName);
@@ -420,9 +425,8 @@ export class EmployeeshowComponent implements OnInit {
     this.SectorName = new FormControl(SectorName);
     this.Role = new FormControl(Role);
     this.Empstatus_ID = new FormControl(Empstatus_ID);
-
-
-  const body = 'Empstatus_ID=' + this.Empstatus_ID.value
+     
+      const body = 'Empstatus_ID=' + this.Empstatus_ID.value
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -437,39 +441,21 @@ export class EmployeeshowComponent implements OnInit {
         (error: any) => {
           console.log(error);
         }
-
       )
-
-  
+    }
+  toggleVisibility(e) {
+    this.marked = e.target.checked;
   }
-
   AddLeave(LeaveTotal) {
-    this.LeaveTotal = new FormControl(LeaveTotal);
+    console.log(this.Role.value);
+        this.LeaveTotal = new FormControl(LeaveTotal);
     if (LeaveTotal === '0') {
       Swal.fire({
         icon: 'error',
         title: 'กรุณาเลือกวันลา',
-
       })
     }
-    // if (this.Role.value === "3") {
-    //   console.log(this.Role.value);
-
-    // }
-    // if (this.Role.value === "1") {
-    //   console.log(this.Role.value);
-
-    // }
-    // if (this.Role.value === "2") {
-    //   console.log(this.Role.value);
-
-    // }
-    // if (this.Role.value === "4") {
-    //   console.log(this.Role.value);
-
-    // }
-    else if (this.Role.value === "1") {
-      console.log(this.Role.value);
+      else if (this.Role.value === "1") {
       const body = 'Leave_ID=' + this.Leave_ID.value
         + '&Emp_ID=' + this.Emp_ID.value
         + '&Name_Leave=' + this.Name_Leave.value
@@ -478,13 +464,16 @@ export class EmployeeshowComponent implements OnInit {
         + '&LeaveDateLast=' + this.LeaveDateLast.value
         + '&LeaveData=' + this.LeaveData.value
         + '&ContactInformation=' + this.ContactInformation.value
+        + '&employee=' + this.employee.value
         + '&LeaveTotal=' + this.LeaveTotal.value
         + '&LeaveStatus_ID=' + "1"
-        + '&LeaveStatus=' + "Y"
+        + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
         + '&UploadFile=' + this.UploadFile.value
         + '&Response_Time=' + this.Response_Time.value
         + '&Person_Code_Allow=' + this.Person_Code_Allow.value
         + '&LType_ID=' + this.LType_ID.value
+
+      // + '&file_names=' +  uploadData.append('myFile', this.selectedFile, this.selectedFile.name)
 
       console.log(body);
       const headers = new HttpHeaders({
@@ -493,6 +482,7 @@ export class EmployeeshowComponent implements OnInit {
       this.http
         .post(`${this.baseUrl}Add_leave.php`, body, {
           headers: headers
+
         })
         .subscribe(
           (data: any) => {
@@ -509,24 +499,46 @@ export class EmployeeshowComponent implements OnInit {
         title: 'ส่งการลาเรียบร้อย',
         showConfirmButton: false,
         timer: 1500
+
       })
+        // ฟังชั้น จำนวนครั้งที่ลา 
+        // .then(() => {
+        //   const body = 'LType_ID=' + this.LType_ID.value
+        //     + '&LeaveTotal=' + this.LeaveTotal.value
+        //   console.log(body);
+        //   const headers = new HttpHeaders({
+        //     'Content-Type': 'application/x-www-form-urlencoded'
+        //   });
+        //   this.http
+        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
+        //       headers: headers
+        //     })
+        //     .subscribe(
+        //       (data: any) => {
+        //         this.addLeave = data;
+        //       },
+        //       (error: any) => {
+        //         console.log(error);
+        //       }
+        //     );
+        // })
         .then(() => {
-          const body = 'LType_ID=' + this.LType_ID.value
-          console.log(body);
-          const headers = new HttpHeaders({
-            'Content-Type': 'application/x-www-form-urlencoded'
-          });
-          this.http
-            .post(`${this.baseUrl}LOrdinal.php`, body, {
-              headers: headers
-            }).subscribe(
-              (data: any) => {
-                this.leave = data;
-              },
-              (error: any) => {
-                console.log(error);
-              }
-            )
+          // const body = 'LType_ID=' + this.LType_ID.value
+          // console.log(body);
+          // const headers = new HttpHeaders({
+          //   'Content-Type': 'application/x-www-form-urlencoded'
+          // });
+          // this.http
+          //   .post(`${this.baseUrl}LOrdinal.php`, body, {
+          //     headers: headers
+          //   }).subscribe(
+          //     (data: any) => {
+          //       this.leave = data;
+          //     },
+          //     (error: any) => {
+          //       console.log(error);
+          //     }
+          //   )
         })
         .then(() => {
           this.http
@@ -540,12 +552,12 @@ export class EmployeeshowComponent implements OnInit {
                 console.log(error);
               }
             )
-        }).then(()=>{
-          window.location.reload();
         })
+      // .then(() => {
+      //   this.onUpload();
+      // })
     }
     else if (this.Role.value === "2") {
-      console.log(this.Role.value);
       const body = 'Leave_ID=' + this.Leave_ID.value
         + '&Emp_ID=' + this.Emp_ID.value
         + '&Name_Leave=' + this.Name_Leave.value
@@ -554,13 +566,15 @@ export class EmployeeshowComponent implements OnInit {
         + '&LeaveDateLast=' + this.LeaveDateLast.value
         + '&LeaveData=' + this.LeaveData.value
         + '&ContactInformation=' + this.ContactInformation.value
+        + '&employee=' + this.employee.value
         + '&LeaveTotal=' + this.LeaveTotal.value
         + '&LeaveStatus_ID=' + "2"
-        + '&LeaveStatus=' + "Y"
+        + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
         + '&UploadFile=' + this.UploadFile.value
         + '&Response_Time=' + this.Response_Time.value
         + '&Person_Code_Allow=' + this.Person_Code_Allow.value
         + '&LType_ID=' + this.LType_ID.value
+
       console.log(body);
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -571,7 +585,7 @@ export class EmployeeshowComponent implements OnInit {
         })
         .subscribe(
           (data: any) => {
-            console.log(data);
+
             this.addLeave = data;
           },
           (error: any) => {
@@ -584,24 +598,46 @@ export class EmployeeshowComponent implements OnInit {
         title: 'ส่งการลาเรียบร้อย',
         showConfirmButton: false,
         timer: 1500
+
       })
+        // ฟังชั้น จำนวนครั้งที่ลา 
+        // .then(() => {
+        //   const body = 'LType_ID=' + this.LType_ID.value
+        //     + '&LeaveTotal=' + this.LeaveTotal.value
+        //   console.log(body);
+        //   const headers = new HttpHeaders({
+        //     'Content-Type': 'application/x-www-form-urlencoded'
+        //   });
+        //   this.http
+        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
+        //       headers: headers
+        //     })
+        //     .subscribe(
+        //       (data: any) => {
+        //         this.addLeave = data;
+        //       },
+        //       (error: any) => {
+        //         console.log(error);
+        //       }
+        //     );
+        // })
         .then(() => {
-          const body = 'LType_ID=' + this.LType_ID.value
-          console.log(body);
-          const headers = new HttpHeaders({
-            'Content-Type': 'application/x-www-form-urlencoded'
-          });
-          this.http
-            .post(`${this.baseUrl}LOrdinal.php`, body, {
-              headers: headers
-            }).subscribe(
-              (data: any) => {
-                this.leave = data;
-              },
-              (error: any) => {
-                console.log(error);
-              }
-            )
+          // const body = 'LType_ID=' + this.LType_ID.value
+          // console.log(body);
+          // const headers = new HttpHeaders({
+          //   'Content-Type': 'application/x-www-form-urlencoded'
+          // });
+          // this.http
+          //   .post(`${this.baseUrl}LOrdinal.php`, body, {
+          //     headers: headers
+          //   }).subscribe(
+          //     (data: any) => {
+          //       this.leave = data;
+          //     },
+          //     (error: any) => {
+          //       console.log(error);
+          //     }
+          //   )
         })
         .then(() => {
           this.http
@@ -615,12 +651,12 @@ export class EmployeeshowComponent implements OnInit {
                 console.log(error);
               }
             )
-        }).then(()=>{
-          window.location.reload();
         })
+      // .then(() => {
+      //   this.onUpload();
+      // })
     }
     else if (this.Role.value === "3") {
-      console.log(this.Role.value);
       const body = 'Leave_ID=' + this.Leave_ID.value
         + '&Emp_ID=' + this.Emp_ID.value
         + '&Name_Leave=' + this.Name_Leave.value
@@ -629,9 +665,10 @@ export class EmployeeshowComponent implements OnInit {
         + '&LeaveDateLast=' + this.LeaveDateLast.value
         + '&LeaveData=' + this.LeaveData.value
         + '&ContactInformation=' + this.ContactInformation.value
+        + '&employee=' + this.employee.value
         + '&LeaveTotal=' + this.LeaveTotal.value
         + '&LeaveStatus_ID=' + "3"
-        + '&LeaveStatus=' + "Y"
+        + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
         + '&UploadFile=' + this.UploadFile.value
         + '&Response_Time=' + this.Response_Time.value
         + '&Person_Code_Allow=' + this.Person_Code_Allow.value
@@ -647,7 +684,7 @@ export class EmployeeshowComponent implements OnInit {
         })
         .subscribe(
           (data: any) => {
-            console.log(data);
+
             this.addLeave = data;
           },
           (error: any) => {
@@ -662,23 +699,44 @@ export class EmployeeshowComponent implements OnInit {
         timer: 1500
 
       })
+        // ฟังชั้น จำนวนครั้งที่ลา 
+        // .then(() => {
+        //   const body = 'LType_ID=' + this.LType_ID.value
+        //     + '&LeaveTotal=' + this.LeaveTotal.value
+        //   console.log(body);
+        //   const headers = new HttpHeaders({
+        //     'Content-Type': 'application/x-www-form-urlencoded'
+        //   });
+        //   this.http
+        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
+        //       headers: headers
+        //     })
+        //     .subscribe(
+        //       (data: any) => {
+        //         this.addLeave = data;
+        //       },
+        //       (error: any) => {
+        //         console.log(error);
+        //       }
+        //     );
+        // })
         .then(() => {
-          const body = 'LType_ID=' + this.LType_ID.value
-          console.log(body);
-          const headers = new HttpHeaders({
-            'Content-Type': 'application/x-www-form-urlencoded'
-          });
-          this.http
-            .post(`${this.baseUrl}LOrdinal.php`, body, {
-              headers: headers
-            }).subscribe(
-              (data: any) => {
-                this.leave = data;
-              },
-              (error: any) => {
-                console.log(error);
-              }
-            )
+          // const body = 'LType_ID=' + this.LType_ID.value
+          // console.log(body);
+          // const headers = new HttpHeaders({
+          //   'Content-Type': 'application/x-www-form-urlencoded'
+          // });
+          // this.http
+          //   .post(`${this.baseUrl}LOrdinal.php`, body, {
+          //     headers: headers
+          //   }).subscribe(
+          //     (data: any) => {
+          //       this.leave = data;
+          //     },
+          //     (error: any) => {
+          //       console.log(error);
+          //     }
+          //   )
         })
         .then(() => {
           this.http
@@ -692,9 +750,10 @@ export class EmployeeshowComponent implements OnInit {
                 console.log(error);
               }
             )
-        }).then(()=>{
-          window.location.reload();
         })
+      // .then(() => {
+      //   this.onUpload();
+      // })
     }
     else if (this.Role.value === "4") {
       const body = 'Leave_ID=' + this.Leave_ID.value
@@ -705,9 +764,10 @@ export class EmployeeshowComponent implements OnInit {
         + '&LeaveDateLast=' + this.LeaveDateLast.value
         + '&LeaveData=' + this.LeaveData.value
         + '&ContactInformation=' + this.ContactInformation.value
+        + '&employee=' + this.employee.value
         + '&LeaveTotal=' + this.LeaveTotal.value
         + '&LeaveStatus_ID=' + "4"
-        + '&LeaveStatus=' + "Y"
+        + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
         + '&UploadFile=' + this.UploadFile.value
         + '&Response_Time=' + this.Response_Time.value
         + '&Person_Code_Allow=' + this.Person_Code_Allow.value
@@ -723,7 +783,7 @@ export class EmployeeshowComponent implements OnInit {
         })
         .subscribe(
           (data: any) => {
-            console.log(data);
+
             this.addLeave = data;
           },
           (error: any) => {
@@ -738,23 +798,44 @@ export class EmployeeshowComponent implements OnInit {
         timer: 1500
 
       })
+        // ฟังชั้น จำนวนครั้งที่ลา 
+        // .then(() => {
+        //   const body = 'LType_ID=' + this.LType_ID.value
+        //     + '&LeaveTotal=' + this.LeaveTotal.value
+        //   console.log(body);
+        //   const headers = new HttpHeaders({
+        //     'Content-Type': 'application/x-www-form-urlencoded'
+        //   });
+        //   this.http
+        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
+        //       headers: headers
+        //     })
+        //     .subscribe(
+        //       (data: any) => {
+        //         this.addLeave = data;
+        //       },
+        //       (error: any) => {
+        //         console.log(error);
+        //       }
+        //     );
+        // })
         .then(() => {
-          const body = 'LType_ID=' + this.LType_ID.value
-          console.log(body);
-          const headers = new HttpHeaders({
-            'Content-Type': 'application/x-www-form-urlencoded'
-          });
-          this.http
-            .post(`${this.baseUrl}LOrdinal.php`, body, {
-              headers: headers
-            }).subscribe(
-              (data: any) => {
-                this.leave = data;
-              },
-              (error: any) => {
-                console.log(error);
-              }
-            )
+          // const body = 'LType_ID=' + this.LType_ID.value
+          // console.log(body);
+          // const headers = new HttpHeaders({
+          //   'Content-Type': 'application/x-www-form-urlencoded'
+          // });
+          // this.http
+          //   .post(`${this.baseUrl}LOrdinal.php`, body, {
+          //     headers: headers
+          //   }).subscribe(
+          //     (data: any) => {
+          //       this.leave = data;
+          //     },
+          //     (error: any) => {
+          //       console.log(error);
+          //     }
+          //   )
         })
         .then(() => {
           this.http
@@ -768,9 +849,10 @@ export class EmployeeshowComponent implements OnInit {
                 console.log(error);
               }
             )
-        }).then(()=>{
-          window.location.reload();
         })
+      // .then(() => {
+      //   this.onUpload();
+      // })
     }
 
   }

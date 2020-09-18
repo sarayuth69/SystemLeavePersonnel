@@ -368,7 +368,7 @@
                                         <div class="col-sm">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                                    [(ngModel)]="theCheckbox" (change)="toggleVisibility($event)">
+                                                    (change)="toggleVisibility($event)">
                                                 <label class="custom-control-label" for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
                                                 <span *ngIf="marked"><input type="text"></span>
                                             </div>
@@ -413,7 +413,7 @@
                                     <div class="form-row">
                                         <label>สถานะการส่งใบลาฉบับจริง</label>
                                         <select class="custom-select" [formControl]="LeaveStatus_Document">
-                                            <option selected>Open this select menu</option>
+                                            <option selected>--เลือกสถานะ--</option>
                                             <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
                                             <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
                                         </select>
