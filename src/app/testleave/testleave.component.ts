@@ -8,7 +8,7 @@ import { months } from 'moment';
   styleUrls: ['./testleave.component.scss']
 })
 export class TestleaveComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   sector:any;
   a:any;
   Employee;

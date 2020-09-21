@@ -24,7 +24,7 @@ import {
   styleUrls: ['./position.component.scss']
 })
 export class PositionComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   public positionEmp;
   pageActual: any;
 

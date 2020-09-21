@@ -16,7 +16,7 @@ import * as moment from 'moment';
   styleUrls: ['./leavelist.component.scss']
 })
 export class LeavelistComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   list1: boolean
   list: boolean
   list6: boolean

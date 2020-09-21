@@ -14,7 +14,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./leavetype.component.scss']
 })
 export class LeavetypeComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'hhttps://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
 
   public leavetype;
   leavetype_ratcakan

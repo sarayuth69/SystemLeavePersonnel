@@ -8,7 +8,7 @@ import 'sweetalert2/src/sweetalert2.scss'
   styleUrls: ['./sumleave.component.scss']
 })
 export class SumleaveComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   public myYear = new Date().getFullYear();
   public myMonth = new Date().getMonth();
   public myDay = new Date().getDay();

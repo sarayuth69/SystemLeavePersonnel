@@ -10,7 +10,7 @@ import 'sweetalert2/src/sweetalert2.scss'
   styleUrls: ['./checkdaywork.component.scss']
 })
 export class CheckdayworkComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   public Employee;
   public chack;
   public Emp_IDshow;

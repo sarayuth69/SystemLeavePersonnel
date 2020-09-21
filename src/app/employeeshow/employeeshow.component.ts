@@ -16,7 +16,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrls: ['./employeeshow.component.scss']
 })
 export class EmployeeshowComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   public Employee;
   public Emp_ID_show;
   public EmpName_show;

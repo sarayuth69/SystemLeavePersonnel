@@ -10,7 +10,7 @@ import 'sweetalert2/src/sweetalert2.scss'
   styleUrls: ['./leavetowaiting.component.scss']
 })
 export class LeavetowaitingComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   table_leaveto_waiting;
   table_leaveto_waiting_3;
   setleavestatus;

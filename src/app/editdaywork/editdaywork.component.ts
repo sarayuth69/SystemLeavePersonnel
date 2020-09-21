@@ -16,7 +16,7 @@ export class EditdayworkComponent implements OnInit {
   public getdaywork;
   Day_Work: any;
   pageActual: any;
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   Emp_ID = new FormControl('');
   EmpName = new FormControl('');
   EmpLastName = new FormControl('');

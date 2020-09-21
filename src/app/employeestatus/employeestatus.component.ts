@@ -16,7 +16,7 @@ import { APIService } from '../api.service';
   styleUrls: ['./employeestatus.component.scss']
 })
 export class EmployeestatusComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   public status;
   Empstatus: any;
   public Empstatus_ID_show;

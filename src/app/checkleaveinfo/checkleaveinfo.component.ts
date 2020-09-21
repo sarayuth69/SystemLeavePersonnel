@@ -14,7 +14,7 @@ import 'sweetalert2/src/sweetalert2.scss'
   styleUrls: ['./checkleaveinfo.component.scss']
 })
 export class CheckleaveinfoComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   Dept_to_head;
   seachleave;
   pageActual: any;

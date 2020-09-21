@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./sector.component.scss']
 })
 export class SectorComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   public sector;
   public Sector_ID_show;
   public SectorName_show;

@@ -11,7 +11,7 @@ import {
   styleUrls: ['./checkleave.component.scss']
 })
 export class CheckleaveComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   public leavetype106;
   public leavetype104;
   public leavetypeUser;

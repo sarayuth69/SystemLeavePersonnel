@@ -16,7 +16,7 @@ import {
   styleUrls: ['./department.component.scss']
 })
 export class DepartmentComponent implements OnInit {
-  baseUrl = 'http://localhost/Leavewebservice/API/';
+  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
   public dep;
   public sector;
   public S;
