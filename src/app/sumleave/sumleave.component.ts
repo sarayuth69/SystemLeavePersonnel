@@ -2,13 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { GlobalVariable } from '../baseUrl';
+
+
 @Component({
   selector: 'app-sumleave',
   templateUrl: './sumleave.component.html',
   styleUrls: ['./sumleave.component.scss']
 })
 export class SumleaveComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
+
   public myYear = new Date().getFullYear();
   public myMonth = new Date().getMonth();
   public myDay = new Date().getDay();
@@ -19,7 +23,10 @@ export class SumleaveComponent implements OnInit {
   public Day_leave;
 
   constructor(
-    public http: HttpClient
+    public http: HttpClient,
+    // private baseUrl : baseUrl
+
+
 
   ) { }
 
@@ -64,7 +71,7 @@ export class SumleaveComponent implements OnInit {
         text: 'Something went wrong!'
       })
     } else {
-      this.http.get(`${this.baseUrl}searchdayleave.php?LeaveDateStart=` + Day_leave).subscribe(
+      this.http.get(`${this.baseUrl}searchdayleave.php?` + Day_leave).subscribe(
         (data: any) => {
           console.log(data);
           if (data.length === 0) {

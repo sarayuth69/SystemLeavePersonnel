@@ -33,7 +33,6 @@ import { FilelaeveprintComponent } from './filelaeveprint/filelaeveprint.compone
 import { LeavetowaitingComponent } from './leavetowaiting/leavetowaiting.component';
 import { CheckleaveinfoComponent } from './checkleaveinfo/checkleaveinfo.component';
 
-
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'filelaeveprint', component: FilelaeveprintComponent },
@@ -87,6 +86,7 @@ const appRoutes: Routes = [
     FilelaeveprintComponent,
     LeavetowaitingComponent,
     CheckleaveinfoComponent
+  
 
 
   ],
@@ -103,7 +103,7 @@ const appRoutes: Routes = [
       { enableTracing: false } // <-- debugging purposes only set true
     )
   ],
-  providers: [],
+  providers: [  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

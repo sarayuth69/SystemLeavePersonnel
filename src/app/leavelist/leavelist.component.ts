@@ -10,13 +10,17 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
+// import { baseUrl } from '../baseUrl.service';
+import { GlobalVariable } from '../baseUrl';
+
 @Component({
   selector: 'app-leavelist',
   templateUrl: './leavelist.component.html',
   styleUrls: ['./leavelist.component.scss']
 })
 export class LeavelistComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
+
   list1: boolean
   list: boolean
   list6: boolean
@@ -50,7 +54,10 @@ export class LeavelistComponent implements OnInit {
     public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
-    private http: HttpClient
+    private http: HttpClient,
+    // private baseUrl : baseUrl
+
+
   ) { }
   Local_Emp_ID = localStorage.getItem('Emp_ID');
   Local_EmpName = localStorage.getItem('EmpName');
@@ -732,18 +739,18 @@ export class LeavelistComponent implements OnInit {
       this.btn_cancel = true
       this.btn_cancel_head = false
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'ต้องการยกเลิกการลาหรือไม่?',
+        text: "Want to cancel leave?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes'
       }).then((result) => {
         if (result.value) {
           Swal.fire(
             'Deleted!',
-            'Your file has been deleted.',
+            'ยกเลิกการลาเรียบร้อย',
             'success'
           )
           const body = 'Leave_ID=' + leave_ID

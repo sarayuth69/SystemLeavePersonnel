@@ -10,13 +10,16 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from '../api.service';
+import { GlobalVariable } from '../baseUrl';
+
+
 @Component({
   selector: 'app-employeestatus',
   templateUrl: './employeestatus.component.html',
   styleUrls: ['./employeestatus.component.scss']
 })
 export class EmployeestatusComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
   public status;
   Empstatus: any;
   public Empstatus_ID_show;
@@ -28,6 +31,10 @@ export class EmployeestatusComponent implements OnInit {
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
+    // private baseUrl : baseUrl
+
+
+
   ) { }
 
   ngOnInit() {

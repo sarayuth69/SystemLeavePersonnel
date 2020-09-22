@@ -2,14 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { getLocaleDayNames } from '@angular/common';
 import { months } from 'moment';
+import { GlobalVariable } from '../baseUrl';
+
+
 @Component({
   selector: 'app-testleave',
   templateUrl: './testleave.component.html',
   styleUrls: ['./testleave.component.scss']
 })
 export class TestleaveComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
-  sector:any;
+  public baseUrl = GlobalVariable.BASE_API_URL;
+     sector:any;
   a:any;
   Employee;
   thTime;
@@ -21,7 +24,10 @@ export class TestleaveComponent implements OnInit {
   
   EmpName = localStorage.getItem('EmpName')
   constructor(
-    public http: HttpClient
+    public http: HttpClient,    
+    // private baseUrl : baseUrl
+
+
   ) { 
 
     this.getYear();

@@ -7,23 +7,28 @@ import {
   HttpClient,
   HttpHeaders
 } from '@angular/common/http';
-import { log } from 'util';
 import { environment } from 'src/environments/environment';
-import { async } from '@angular/core/testing';
+// import { baseUrl } from '../baseUrl.service';
+import { GlobalVariable } from '../baseUrl';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
+
 })
 export class LoginComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
+
   getname: any;
   test;
 
   constructor(public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
-    public http: HttpClient,) { }
+    public http: HttpClient,
+    //  private baseUrl : baseUrl
+) { }
 
   ngOnInit() {
 

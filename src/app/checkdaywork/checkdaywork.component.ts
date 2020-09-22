@@ -3,14 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-// import { setTimeout } from 'timers';
+//  import { setTimeout } from 'timers';
+// import { baseUrl } from '../baseUrl.service';
+import { GlobalVariable } from '../baseUrl';
+
 @Component({
   selector: 'app-checkdaywork',
   templateUrl: './checkdaywork.component.html',
   styleUrls: ['./checkdaywork.component.scss']
 })
 export class CheckdayworkComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
+
   public Employee;
   public chack;
   public Emp_IDshow;
@@ -21,10 +25,10 @@ export class CheckdayworkComponent implements OnInit {
   Emp_ID = new FormControl('');
   Day_Work = new FormControl('');
   textdata = new FormControl('');
-  
   constructor(
     public http: HttpClient,
-  ) { }
+    // private baseUrl: baseUrl
+     ) { }
 
   ngOnInit() {
     // setTimeout(() => {

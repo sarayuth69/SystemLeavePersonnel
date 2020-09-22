@@ -5,13 +5,17 @@ import {
   HttpClient,
   HttpHeaders
 } from '@angular/common/http';
+// import { baseUrl } from '../baseUrl.service';
+import { GlobalVariable } from '../baseUrl';
+
 @Component({
   selector: 'app-checkleave',
   templateUrl: './checkleave.component.html',
   styleUrls: ['./checkleave.component.scss']
 })
 export class CheckleaveComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
+
   public leavetype106;
   public leavetype104;
   public leavetypeUser;
@@ -21,6 +25,9 @@ export class CheckleaveComponent implements OnInit {
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
+    // private baseUrl: baseUrl
+
+
   ) { }
   ngOnInit() {
     

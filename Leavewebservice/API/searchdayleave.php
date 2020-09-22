@@ -5,11 +5,10 @@
 
  $sql = "SELECT *
         FROM `employee`
-        JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
-        JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
-        WHERE`leave`.`LeaveDateStart` LIKE '%{$_GET['Day_leave']}%'
-        -- GROUP BY`employee`.`Emp_ID`
-        ";
+       LEFT JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
+       LEFT JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
+        WHERE `leave`.LeaveDateStart LIKE '%{$_GET['Day_leave']}%'
+             ";
             $result = mysqli_query($conn,$sql); 
             $myArray = array();
             if ($result->num_rows > 0) {

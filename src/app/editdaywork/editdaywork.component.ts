@@ -5,18 +5,23 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { FormControl } from '@angular/forms';
+// import { baseUrl } from '../baseUrl.service';
+import { GlobalVariable } from '../baseUrl';
+
 @Component({
   selector: 'app-editdaywork',
   templateUrl: './editdaywork.component.html',
   styleUrls: ['./editdaywork.component.scss']
 })
 export class EditdayworkComponent implements OnInit {
+  public baseUrl = GlobalVariable.BASE_API_URL;
+
   public searchdaywork;
   public Empployee;
   public getdaywork;
   Day_Work: any;
   pageActual: any;
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+
   Emp_ID = new FormControl('');
   EmpName = new FormControl('');
   EmpLastName = new FormControl('');
@@ -30,6 +35,10 @@ export class EditdayworkComponent implements OnInit {
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
+    // private baseUrl : baseUrl
+
+
+
   ) { }
 
   ngOnInit() {
@@ -71,6 +80,11 @@ export class EditdayworkComponent implements OnInit {
         },
         (error: any) => {
           console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'ไม่พบข้อมูล',
+            text: 'Something went wrong!'
+          })
         }
       );
     }

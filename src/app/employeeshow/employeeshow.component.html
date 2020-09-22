@@ -1,10 +1,11 @@
 <br>
 <br>
+<br>
+<br>
 <div style="padding: 1%;">
     <div class="tab-pane fade show active">
         &nbsp;&nbsp;&nbsp;
-        <div class="card" *ngIf="table6">
-
+        <div *ngIf="table6">
             <div class="card">
                 <!-- <div class="container"> -->
                 <div class="row">
@@ -29,69 +30,71 @@
                 </div>
                 <!-- </div> -->
             </div>
-
-
-
+            <br>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <!-- <div class="card-body" *ngIf="table1"> -->
-                    <table class="table table-hover">
-                        <thead>
-                            <tr class="text-center">
-                                <th scope="col">ลำดับ</th>
-                                <!-- <th scope="col">รหัสบุคลากร</th> -->
-                                <th scope="col">ชื่อบุคลากร</th>
-                                <th scope="col">ตำแหน่ง/แผนก</th>
-                                <th scope="col">สถานะ</th>
-                                <th scope="col">ส่งการลางาน</th>
-                                <th scope="col">จัดการ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr
-                                *ngFor="let item of seach | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
-                                <!-- <td></td> -->
-                                <td class="text-center">
-                                    <p ng-repeat="i in range(1, 5)">
-                                        {{ i+1 }}
-                                    </p>
-                                </td>
-                                <td> {{item.EmpName}} {{item.EmpLastName}}
-                                    <p class="card-text">เพศ : {{item.Sex}} </p>
-                                    โทร : {{item.Tel}}
-                                </td>
-                                <td>
-                                    <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
-                                    <p class="card-title">แผนก : {{item.DeptName}}</p>
-                                </td>
-                                <td class="text-center">{{item.EmpstatusName}}</td>
-                                <td class="Role">{{item.Role}}</td>
-                                <td class="text-center">
-                                    <button class="btn btn-secondary" type="button" id="Leavelistadmin"
-                                        data-toggle="modal" data-target="#exampleModal1"
-                                        (click)="LeaveEmp(item.Emp_ID,item.EmpName,item.EmpLastName
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">ลำดับ</th>
+                                        <!-- <th scope="col">รหัสบุคลากร</th> -->
+                                        <th scope="col">ชื่อบุคลากร</th>
+                                        <th scope="col">ตำแหน่ง/แผนก</th>
+                                        <th scope="col">สถานะ</th>
+                                        <th scope="col">ส่งการลางาน</th>
+                                        <th scope="col">จัดการ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="let item of seach | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
+                                        <!-- <td></td> -->
+                                        <td class="text-center">
+                                            <p ng-repeat="i in range(1, 5)">
+                                                {{ i+1 }}
+                                            </p>
+                                        </td>
+                                        <td> {{item.EmpName}} {{item.EmpLastName}}
+                                            <p class="card-text">เพศ : {{item.Sex}} </p>
+                                            โทร : {{item.Tel}}
+                                        </td>
+                                        <td>
+                                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
+                                            <p class="card-title">แผนก : {{item.DeptName}}</p>
+                                        </td>
+                                        <td class="text-center">{{item.EmpstatusName}}</td>
+                                        <td class="Role">{{item.Role}}</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-secondary" type="button" id="Leavelistadmin"
+                                                data-toggle="modal" data-target="#exampleModal1"
+                                                (click)="LeaveEmp(item.Emp_ID,item.EmpName,item.EmpLastName
                                             ,item.PositionName,item.DeptName,item.SectorName,item.Role,item.Empstatus_ID)">
-                                        ยื่นขอลา
-                                    </button>
-                                </td>
+                                                ยื่นขอลา
+                                            </button>
+                                        </td>
 
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#exampleModal" (click)="updateEmp(item.Emp_ID,item.EmpName,item.EmpLastName,item.Sex,
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                                data-target="#exampleModal" (click)="updateEmp(item.Emp_ID,item.EmpName,item.EmpLastName,item.Sex,
                                         item.Birthday,item.ID_card,item.Age,item.Tel,item.Address,item.Work_day,item.Duration_work
                                         ,item.Empstatus_ID,item.Position_ID,item.Dept_ID)">
-                                        แก้ไข
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger"
-                                        (click)="deleteEmp(item.Emp_ID,item.EmpName)">ลบ</button>
+                                                แก้ไข
+                                            </button>
+                                            &nbsp;
+                                            <button type="button" class="btn btn-danger"
+                                                (click)="deleteEmp(item.Emp_ID,item.EmpName)">ลบ</button>
 
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -463,18 +466,17 @@
                                         <div class="row">
                                             <div class="col-sm">
                                                 <h6>รหัส </h6>
-                                                <input type="text" class="form-control" 
-                                                    [formControl]="Emp_ID" readonly>
+                                                <input type="text" class="form-control" [formControl]="Emp_ID" readonly>
                                             </div>
                                             <div class="col-sm">
                                                 <h6> ชื่อ </h6>
-                                                <input type="text" class="form-control" 
-                                                    [formControl]="EmpName" readonly>
+                                                <input type="text" class="form-control" [formControl]="EmpName"
+                                                    readonly>
                                             </div>
                                             <div class="col-sm">
                                                 <h6> นามสกุล </h6>
                                                 <input type="text" class="form-control" id="validationDefault02"
-                                                     [formControl]="EmpLastName" readonly>
+                                                    [formControl]="EmpLastName" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -483,18 +485,18 @@
                                         <div class="row">
                                             <div class="col-sm">
                                                 <h6>ตำแหน่ง </h6>
-                                                <input type="text" class="form-control" 
-                                                    [formControl]="PositionName" readonly>
+                                                <input type="text" class="form-control" [formControl]="PositionName"
+                                                    readonly>
                                             </div>
                                             <div class="col-sm">
                                                 <h6>แผนก </h6>
-                                                <input type="text" class="form-control" 
-                                                    [formControl]="DeptName" readonly>
+                                                <input type="text" class="form-control" [formControl]="DeptName"
+                                                    readonly>
                                             </div>
                                             <div class="col-sm">
                                                 <h6> ฝ่าย </h6>
-                                                <input type="text" class="form-control" 
-                                                    id="validationDefault02" [formControl]="SectorName" readonly>
+                                                <input type="text" class="form-control" id="validationDefault02"
+                                                    [formControl]="SectorName" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -517,8 +519,7 @@
                                             <div class="col-sm">
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input"
-                                                        id="customCheck1" 
-                                                        (change)="toggleVisibility($event)">
+                                                        id="customCheck1" (change)="toggleVisibility($event)">
                                                     <label class="custom-control-label"
                                                         for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
                                                     <span *ngIf="marked"><input type="text"></span>

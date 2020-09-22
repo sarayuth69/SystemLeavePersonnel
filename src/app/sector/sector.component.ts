@@ -3,20 +3,27 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { FormControl } from '@angular/forms';
+import { GlobalVariable } from '../baseUrl';
+
+
 @Component({
   selector: 'app-sector',
   templateUrl: './sector.component.html',
   styleUrls: ['./sector.component.scss']
 })
 export class SectorComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
+
   public sector;
   public Sector_ID_show;
   public SectorName_show;
   Sector_ID = new FormControl('');
   SectorName = new FormControl('');
   constructor(
-    public http: HttpClient
+    public http: HttpClient,
+    // private baseUrl : baseUrl
+
+
   ) { }
 
   ngOnInit() {

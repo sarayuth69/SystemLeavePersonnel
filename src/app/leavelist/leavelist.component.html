@@ -1,4 +1,6 @@
 <br>
+<br>
+<br>
 <!-- ของบุลคลากรทั้วไป -->
 <div class="tab-pane fade show active" *ngIf="list">
     &nbsp;&nbsp;&nbsp;
@@ -72,72 +74,7 @@
                                     data-target="#exampleModal">
                                     ขออนุญาตยกเลิก
                                 </button>
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="form-row">
-                                                        <div class="col-md-6 mb-3">
-                                                            <label for="validationDefault01">First name</label>
-                                                            <input type="text" class="form-control"
-                                                                id="validationDefault01" value="Mark" required>
-                                                        </div>
-                                                        <div class="col-md-6 mb-3">
-                                                            <label for="validationDefault02">Last name</label>
-                                                            <input type="text" class="form-control"
-                                                                id="validationDefault02" value="Otto" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="col-md-6 mb-3">
-                                                            <label for="validationDefault03">City</label>
-                                                            <input type="text" class="form-control"
-                                                                id="validationDefault03" required>
-                                                        </div>
-                                                        <div class="col-md-3 mb-3">
-                                                            <label for="validationDefault04">State</label>
-                                                            <select class="custom-select" id="validationDefault04"
-                                                                required>
-                                                                <option selected disabled value="">Choose...</option>
-                                                                <option>...</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-3 mb-3">
-                                                            <label for="validationDefault05">Zip</label>
-                                                            <input type="text" class="form-control"
-                                                                id="validationDefault05" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="invalidCheck2" required>
-                                                            <label class="form-check-label" for="invalidCheck2">
-                                                                Agree to terms and conditions
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <button class="btn btn-primary" type="submit">Submit form</button>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                             
                             </td>
                         </tr>
                     </tbody>
@@ -433,7 +370,157 @@
         </div>
     </div>
 </div>
+   <!-- Modal ขออนุญาตยกเลิการลา -->
+   <div class="modal fade" id="exampleModal" tabindex="-1"
+   aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-xl">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">ยกเลิกการลา</h5>
+               <button type="button" class="close" data-dismiss="modal"
+                   aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body">
+            <form>
+                <div class="card-header text-left">
+                    <b style="color: mediumblue;"> ยื่นการลา</b>
+                </div>
+                <br>
+                <div class="container">
+                    <div class="form-row">
+                        <p>เรื่อง</p>
+                        <input type="text" class="form-control" [formControl]="Name_Leave">
+                        <p>เรียน</p>
+                        <input type="text" class="form-control" [formControl]="To_Person">
 
+                    </div>
+                </div>
+                &nbsp;&nbsp;
+                <div class="card-header text-left">
+                    <b style="color: mediumblue;">ข้อมุลบุคลากร</b>
+                </div>
+                &nbsp;
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h6>รหัส </h6>
+                            <input type="text" class="form-control" value="{{Local_Emp_ID}}"
+                                [formControl]="Emp_ID" readonly>
+                        </div>
+                        <div class="col-sm">
+                            <h6> ชื่อ </h6>
+                            <input type="text" class="form-control" value="{{Local_EmpName}}"
+                                [formControl]="EmpName" readonly>
+                        </div>
+                        <div class="col-sm">
+                            <h6> นามสกุล </h6>
+                            <input type="text" class="form-control" id="validationDefault02"
+                                value="{{Local_EmpLastName}}" [formControl]="EmpLastName" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h6>ตำแหน่ง </h6>
+                            <input type="text" class="form-control" value="{{Local_PositionName}}"
+                                [formControl]="PositionName" readonly>
+                        </div>
+                        <div class="col-sm">
+                            <h6>แผนก </h6>
+                            <input type="text" class="form-control" value="{{Local_DeptName}}"
+                                [formControl]="DeptName" readonly>
+                        </div>
+                        <div class="col-sm">
+                            <h6> ฝ่าย </h6>
+                            <input type="text" class="form-control" value="{{Local_Sector}}"
+                                id="validationDefault02" [formControl]="Sector" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header text-left">
+                    <b style="color: mediumblue;"> ข้อมูลการลา</b>
+                </div>
+                <br>
+                ประเภทการลา
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <select class="custom-select my-1 mr-sm-2" id="typeleave"
+                                [formControl]="LType_ID">
+                                <option *ngFor="let item of leavetype; let i = index"
+                                    value="{{item.LType_ID}}">
+                                    {{item.LTypeName}}</option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="col-sm">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                    (change)="toggleVisibility($event)">
+                                <label class="custom-control-label" for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
+                                <span *ngIf="marked"><input type="text"></span>
+                            </div>
+
+                        </div>
+                        <div class="col-sm">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlTextarea1">ขอลาเนื่องจาก</label>
+                    <textarea class="form-control" id="dataleave" rows="3"
+                        [formControl]="LeaveData"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2 mb-2">
+                        <label for="validationDefault04">วันที่ลา</label>
+                        <input type="date" class="form-control" id="LeaveDateStart"
+                            [formControl]="LeaveDateStart" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="validationDefault05">ถึงวันที่</label>
+                        <input type="date" class="form-control" id="LeaveDateLast"
+                            (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value)"
+                            [formControl]="LeaveDateLast" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="validationDefault05">จำนวนวันลา</label>
+                        <input type="text" class="form-control" id="LeaveTotal" [value]="numberleave"
+                            #LeaveTotal readonly>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">แนปไฟล์</label>
+                            <br>
+                            <input type="file" (change)="onFileChanged($event)">
+                        </div>
+                    </form>
+                    <div class="form-row">
+                        <label>สถานะการส่งใบลาฉบับจริง</label>
+                        <select class="custom-select" [formControl]="LeaveStatus_Document">
+                            <option selected>--เลือกสถานะ--</option>
+                            <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
+                            <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-secondary"
+                   data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary">Save changes</button>
+           </div>
+       </div>
+   </div>
+</div>
 <!-- Modal อนุมัติการลาของหัวหน้าหน่วยงาน -->
 <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">

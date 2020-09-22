@@ -10,13 +10,16 @@ import 'sweetalert2/src/sweetalert2.scss'
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { GlobalVariable } from '../baseUrl';
+
+
 @Component({
   selector: 'app-employeeshow',
   templateUrl: './employeeshow.component.html',
   styleUrls: ['./employeeshow.component.scss']
 })
 export class EmployeeshowComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
   public Employee;
   public Emp_ID_show;
   public EmpName_show;
@@ -100,6 +103,10 @@ export class EmployeeshowComponent implements OnInit {
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
+    // private baseUrl : baseUrl
+
+
+
 
   ) { }
 

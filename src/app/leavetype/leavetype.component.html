@@ -3,29 +3,34 @@
 <div style="padding: 1%;">
   <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
-    <div class="card">
-      <div class="card-header">
-        <div class="container">
-          <div class="row">
-            <div class="col"> ประเภทการลา
+    <div >
+      <div style="padding-left: 2%;padding-right: 2%;">
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+              <div class="row row-cols-4">
+                <div class="col">
+                  <h2>ประเภทการลา</h2>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"> <button type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#exampleModal" onclick="
+                        document.getElementById('LTypeName').value = '',document.getElementById('Number').value = ''
+                        ,document.getElementById('AdvanceNotice').value = ''
+                        ,document.getElementById('QuotaStatus').value = ''
+                        ,document.getElementById('Empstatus_ID').value = ''
+                        ,document.getElementById('leavetype_remark').value = ''">
+                    เพิ่มประเภทการลา
+                  </button></div>
+              </div>
             </div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="
-              document.getElementById('LTypeName').value = '',document.getElementById('Number').value = ''
-              ,document.getElementById('AdvanceNotice').value = ''
-              ,document.getElementById('QuotaStatus').value = ''
-              ,document.getElementById('Empstatus_ID').value = ''
-              ,document.getElementById('leavetype_remark').value = ''">
-                เพิ่มประเภทการลา
-              </button>
-            </div>
+  
           </div>
         </div>
       </div>
-
-
+      <br>
+      <div style="padding-left: 2%;padding-right: 2%;">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
@@ -40,9 +45,11 @@
             aria-selected="false">ลูกจ้างเงินรายได้</a>
         </li>
       </ul>
+    </div>
+      <div style="padding-left: 2%;padding-right: 2%;">
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-          <div class="card-body">
+          <div class="table-responsive">
             <table class="table table-hover">
               <thead>
                 <tr class="text-center">
@@ -100,7 +107,7 @@
         </div>
 
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-          <div class="card-body">
+          <div class="table-responsive">
             <table class="table table-hover">
               <thead>
                 <tr class="text-center">
@@ -157,7 +164,7 @@
 
         </div>
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-          <div class="card-body">
+          <div class="table-responsive">
             <table class="table table-hover">
               <thead>
                 <tr class="text-center">
@@ -214,6 +221,7 @@
 
         </div>
       </div>
+    </div>
     </div>
   </div>
 

@@ -18,13 +18,17 @@ import {
 import {
   APIService
 } from '../api.service';
+import { GlobalVariable } from '../baseUrl';
+
+
 @Component({
   selector: 'app-position',
   templateUrl: './position.component.html',
   styleUrls: ['./position.component.scss']
 })
 export class PositionComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
+
   public positionEmp;
   pageActual: any;
 
@@ -39,6 +43,9 @@ export class PositionComponent implements OnInit {
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
+    // private baseUrl : baseUrl
+
+
   ) { }
 
   ngOnInit() {

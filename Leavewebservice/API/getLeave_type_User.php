@@ -19,7 +19,7 @@
     employee
     LEFT JOIN leavetype ON leavetype.Empstatus_ID = employee.Empstatus_ID
     LEFT JOIN employeestatus ON employeestatus.Empstatus_ID = employee.Empstatus_ID
-    LEFT JOIN (SELECT * FROM `leave` WHERE LeaveStatus ='Y' AND LeaveStatus_ID = 5 )AS `leave` ON `leave`.Emp_ID = employee.Emp_ID 
+    LEFT JOIN (SELECT * FROM `leave` WHERE LeaveStatus_Document ='Y' AND LeaveStatus_ID = 5 )AS `leave` ON `leave`.Emp_ID = employee.Emp_ID 
     AND `leave`.LType_ID = leavetype.LType_ID
     WHERE 
       employee.Emp_ID ='".$_POST["Emp_ID"]."' 

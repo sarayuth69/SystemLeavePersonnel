@@ -9,14 +9,17 @@ import { FormControl } from '@angular/forms';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { GlobalVariable } from '../baseUrl';
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  public baseUrl = GlobalVariable.BASE_API_URL;
   public Emp;
-
   Emp_ID = new FormControl('');
   Prefix = new FormControl('');
   EmpName = new FormControl('');
@@ -38,7 +41,10 @@ export class RegisterComponent implements OnInit {
   constructor(public router: Router  ,
     public route: ActivatedRoute,
     public api: APIService,
-    public http: HttpClient,) { }
+    public http: HttpClient,
+        
+
+    ) { }
 
   ngOnInit() {
 

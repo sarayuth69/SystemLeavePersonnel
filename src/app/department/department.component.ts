@@ -10,13 +10,17 @@ import {
   HttpClient,
   HttpHeaders
 } from '@angular/common/http';
+// import { baseUrl } from '../baseUrl.service';
+import { GlobalVariable } from '../baseUrl';
+
 @Component({
   selector: 'app-department',
   templateUrl: './department.component.html',
   styleUrls: ['./department.component.scss']
 })
 export class DepartmentComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
+
   public dep;
   public sector;
   public S;
@@ -31,6 +35,9 @@ export class DepartmentComponent implements OnInit {
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
+    // private baseUrl : baseUrl
+
+
 
   ) { }
 

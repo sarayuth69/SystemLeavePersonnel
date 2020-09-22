@@ -8,13 +8,17 @@ import {
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { FormControl } from '@angular/forms';
+// import { baseUrl } from '../baseUrl.service';
+import { GlobalVariable } from '../baseUrl';
+
 @Component({
   selector: 'app-leavetype',
   templateUrl: './leavetype.component.html',
   styleUrls: ['./leavetype.component.scss']
 })
 export class LeavetypeComponent implements OnInit {
-  baseUrl = 'hhttps://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
+
 
   public leavetype;
   leavetype_ratcakan
@@ -38,6 +42,9 @@ export class LeavetypeComponent implements OnInit {
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
+    // private baseUrl : baseUrl
+
+
   ) { }
 
   ngOnInit() {

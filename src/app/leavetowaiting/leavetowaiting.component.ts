@@ -4,13 +4,17 @@ import { ActivatedRoute } from '@angular/router';
 import { APIService } from '../api.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+// import { baseUrl } from '../baseUrl.service';
+import { GlobalVariable } from '../baseUrl';
+
 @Component({
   selector: 'app-leavetowaiting',
   templateUrl: './leavetowaiting.component.html',
   styleUrls: ['./leavetowaiting.component.scss']
 })
 export class LeavetowaitingComponent implements OnInit {
-  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  //  baseUrl = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/';
+  public baseUrl = GlobalVariable.BASE_API_URL;
   table_leaveto_waiting;
   table_leaveto_waiting_3;
   setleavestatus;
@@ -26,6 +30,9 @@ export class LeavetowaitingComponent implements OnInit {
     public http: HttpClient,
     public route: ActivatedRoute,
     public api: APIService,
+    // private baseUrl : baseUrl
+
+
   ) { }
 
   ngOnInit() {
