@@ -1,7 +1,7 @@
 <br>
 <br>
 <br>
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" /> -->
+<!-- การลาที่รอการรับรองของหัวหน้าแผนก -->
 <div class="container" *ngIf="tableleavewaiting_2">
   <div class="row">
     <div class="col-md-3">
@@ -38,8 +38,6 @@
   </div>
 </div>
 <div style="padding: 5%;" *ngIf="tableleavewaiting_2">
-
-
   <div class="table-responsive-md">
     <table class="table table-hover">
       <th class="text-center">ชื่อพนักงาน</th>
@@ -49,7 +47,6 @@
       <th class="text-center">จำนวน</th>
       <th class="text-center">ไฟล์แนบ</th>
       <th class="text-center">สถานะ</th>
-
       <th class="text-center">จัดการ</th>
       <tbody
         *ngFor="let item of table_leaveto_waiting | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
@@ -67,10 +64,11 @@
         <td class="text-center">
           &nbsp;
 
-          <button type="button" class="btn btn-info" data-toggle="modal"
-            data-target="#exampleModal">ตรวจสอบข้อมูล</button>
-            <button type="button" class="btn btn-danger" (click)="No_allow(item.Emp_ID,item.LeaveTotal)">ไม่อนุญาต</button>
-            <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal_level_2"
+            (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
+            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name )">ตรวจสอบข้อมูล</button>
+          <button type="button" class="btn btn-danger" (click)="No_allow(item.Leave_ID)">ไม่อนุญาต</button>
+          <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button>
 
           <!-- <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button> -->
         </td>
@@ -79,12 +77,13 @@
     <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
   </div>
 </div>
+<!-- ******************************************************************* -->
+
 <!-- การลาที่รอการรับรองของหัวหน้างาน -->
 
 <br>
 <br>
 <br>
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" /> -->
 <div class="container" *ngIf="tableleavewaiting_3">
   <div class="row">
     <div class="col-md-3">
@@ -153,9 +152,12 @@
         <td class="text-center">
           &nbsp;
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-info" data-toggle="modal"
-            data-target="#exampleModal">ตรวจสอบข้อมูล</button>
-            <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal_level_3"
+            (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
+            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name )">ตรวจสอบข้อมูล</button>
+          <button type="button" class="btn btn-danger" (click)="No_allow(item.Leave_ID)">ไม่อนุญาต</button>
+
+          <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button>
 
         </td>
       </tbody>
@@ -164,8 +166,9 @@
 
   </div>
 </div>
+<!-- ******************************************************************* -->
 
-<!-- การลาที่รอการรับรองของรองหัวหน้างาน -->
+<!-- การลาที่รอการรับรองของรองหัวหน้าหน่วยงาน -->
 <div class="container" *ngIf="tableleavewaiting_4">
   <div class="row">
     <div class="col-md-3">
@@ -227,9 +230,12 @@
         <td class="text-center">
           &nbsp;
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-info" data-toggle="modal"
-            data-target="#exampleModal">ตรวจสอบข้อมูล</button>
-            <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal_level_4"
+            (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
+            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name )">ตรวจสอบข้อมูล</button>
+          <button type="button" class="btn btn-danger" (click)="No_allow(item.Leave_ID)">ไม่อนุญาต</button>
+
+          <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button>
 
         </td>
       </tbody>
@@ -238,6 +244,7 @@
 
   </div>
 </div>
+<!-- ******************************************************************* -->
 
 <!-- การลาที่รอการรับรองของหัวหน้าหน่วยงาน -->
 <div class="container" *ngIf="tableleavewaiting_5">
@@ -301,9 +308,12 @@
         <td class="text-center">
           &nbsp;
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-info" data-toggle="modal"
-            data-target="#exampleModal">ตรวจสอบข้อมูล</button>
-            <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal_level_5"
+            (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
+            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name )">ตรวจสอบข้อมูล</button>
+          <button type="button" class="btn btn-danger" (click)="No_allow(item.Leave_ID)">ไม่อนุญาต</button>
+
+          <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button>
         </td>
       </tbody>
     </table>
@@ -311,24 +321,279 @@
 
   </div>
 </div>
-<!-- Modal การอนุญาต-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- ******************************************************************* -->
+<!-- Modal การอนุญาต ของหัวหน้าแผนก-->
+<div class="modal fade" id="exampleModal_level_2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">ตรวจสอบข้อมูล</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <div class="table-responsive-xl">
+          <table class="table">
+            <table class="table table-bordered hover ">
+              <thead>
+                <tr class="Leave_ID">
+                  <th width="120">รหัสการลา</th>
+                  <td>{{Leave_ID}}</td>
+                </tr>
+                <tr>
+                  <th width="120">ชื่อ-นามสกุล</th>
+                  <td>{{EmpName}} &nbsp; {{EmpLastName}}</td>
+                </tr>
+                <tr>
+                  <th>ตำแหน่ง</th>
+                  <td>{{PositionName}}</td>
+                </tr>
+                <tr>
+                  <th>แผนก</th>
+                  <td>{{DeptName}}</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>ประเภทการลา</th>
+                  <td>{{LTypeName}}</td>
+                </tr>
+                <tr>
+                  <th>วันที่</th>
+                  <td>{{LeaveDateStart}} ถึงวันที่ {{LeaveDateLast}}</td>
+                </tr>
+                <tr>
+                  <th>จำนวน</th>
+                  <td>{{LeaveTotal}}</td>
+                </tr>
+                <tr>
+                  <th>ข้อมูล</th>
+                  <td>{{LeaveData}}</td>
+                </tr>
+                <tr>
+                  <th>สถานะ</th>
+                  <td>{{LeaveStatus_Name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </table>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" >อนุญาต</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+          (click)="No_allow(Leave_ID)">ไม่อนุญาต</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="allow(Leave_ID)">อนุญาต</button>
       </div>
     </div>
   </div>
 </div>
+<!-- **************************************************************** -->
+
+
+<!-- Modal การอนุญาต ของหัวหน้างาน-->
+<div class="modal fade" id="exampleModal_level_3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ตรวจสอบข้อมูล</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive-xl">
+          <table class="table">
+            <table class="table table-bordered hover ">
+              <thead>
+                <tr class="Leave_ID">
+                  <th width="120">รหัสการลา</th>
+                  <td>{{Leave_ID}} </td>
+                </tr>
+                <tr>
+                  <th width="120">ชื่อ-นามสกุล</th>
+                  <td>{{EmpName}} &nbsp; {{EmpLastName}}</td>
+                </tr>
+                <tr>
+                  <th>ตำแหน่ง</th>
+                  <td>{{PositionName}}</td>
+                </tr>
+                <tr>
+                  <th>แผนก</th>
+                  <td>{{DeptName}}</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>ประเภทการลา</th>
+                  <td>{{LTypeName}}</td>
+                </tr>
+                <tr>
+                  <th>วันที่</th>
+                  <td>{{LeaveDateStart}} ถึงวันที่ {{LeaveDateLast}}</td>
+                </tr>
+                <tr>
+                  <th>จำนวน</th>
+                  <td>{{LeaveTotal}}</td>
+                </tr>
+                <tr>
+                  <th>ข้อมูล</th>
+                  <td>{{LeaveData}}</td>
+                </tr>
+                <tr>
+                  <th>สถานะ</th>
+                  <td>{{LeaveStatus_Name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+          (click)="No_allow(Leave_ID)">ไม่อนุญาต</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="allow(Leave_ID)">อนุญาต</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- **************************************************************** -->
+<!-- Modal การอนุญาต ของรองหัวหน้าหน่วยงาน-->
+<div class="modal fade" id="exampleModal_level_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ตรวจสอบข้อมูล</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive-xl">
+          <table class="table">
+            <table class="table table-bordered hover ">
+              <thead>
+                <tr class="Leave_ID">
+                  <th width="120">รหัสการลา</th>
+                  <td>{{Leave_ID}} </td>
+                </tr>
+                <tr>
+                  <th width="120">ชื่อ-นามสกุล</th>
+                  <td>{{EmpName}} &nbsp; {{EmpLastName}}</td>
+                </tr>
+                <tr>
+                  <th>ตำแหน่ง</th>
+                  <td>{{PositionName}}</td>
+                </tr>
+                <tr>
+                  <th>แผนก</th>
+                  <td>{{DeptName}}</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>ประเภทการลา</th>
+                  <td>{{LTypeName}}</td>
+                </tr>
+                <tr>
+                  <th>วันที่</th>
+                  <td>{{LeaveDateStart}} ถึงวันที่ {{LeaveDateLast}}</td>
+                </tr>
+                <tr>
+                  <th>จำนวน</th>
+                  <td>{{LeaveTotal}}</td>
+                </tr>
+                <tr>
+                  <th>ข้อมูล</th>
+                  <td>{{LeaveData}}</td>
+                </tr>
+                <tr>
+                  <th>สถานะ</th>
+                  <td>{{LeaveStatus_Name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+          (click)="No_allow(Leave_ID)">ไม่อนุญาต</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="allow(Leave_ID)">อนุญาต</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- **************************************************************** -->
+
+<!-- Modal การอนุญาต ของหัวหน้าหน่วยงาน-->
+<div class="modal fade" id="exampleModal_level_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ตรวจสอบข้อมูล</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive-xl">
+          <table class="table">
+            <table class="table table-bordered hover ">
+              <thead>
+                <tr class="Leave_ID">
+                  <th width="120">รหัสการลา</th>
+                  <td>{{Leave_ID}} </td>
+                </tr>
+                <tr>
+                  <th width="120">ชื่อ-นามสกุล</th>
+                  <td>{{EmpName}} &nbsp; {{EmpLastName}}</td>
+                </tr>
+                <tr>
+                  <th>ตำแหน่ง</th>
+                  <td>{{PositionName}}</td>
+                </tr>
+                <tr>
+                  <th>แผนก</th>
+                  <td>{{DeptName}}</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>ประเภทการลา</th>
+                  <td>{{LTypeName}}</td>
+                </tr>
+                <tr>
+                  <th>วันที่</th>
+                  <td>{{LeaveDateStart}} ถึงวันที่ {{LeaveDateLast}}</td>
+                </tr>
+                <tr>
+                  <th>จำนวน</th>
+                  <td>{{LeaveTotal}}</td>
+                </tr>
+                <tr>
+                  <th>ข้อมูล</th>
+                  <td>{{LeaveData}}</td>
+                </tr>
+                <tr>
+                  <th>สถานะ</th>
+                  <td>{{LeaveStatus_Name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+          (click)="No_allow(Leave_ID)">ไม่อนุญาต</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="allow(Leave_ID)">อนุญาต</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- **************************************************************** -->

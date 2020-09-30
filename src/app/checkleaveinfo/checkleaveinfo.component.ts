@@ -30,23 +30,44 @@ export class CheckleaveinfoComponent implements OnInit {
     // private baseUrl : baseUrl
   ) { }
   ngOnInit() {
-    const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
-      + '&Role=' + localStorage.getItem("Role")
-    console.log(body);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post(`${this.baseUrl}getDept_to_head.php`, body, {
-        headers: headers
-      }).subscribe(
-        (data: any) => {
-          this.Dept_to_head = data;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      )
+    if (localStorage.getItem('Role') === "5") {
+      const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+        + '&Role=' + localStorage.getItem("Role")
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getDept_to_head.php`, body, {
+          headers: headers
+        }).subscribe(
+          (data: any) => {
+            this.Dept_to_head = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        )
+    } else  {
+      const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+        + '&Role=' + localStorage.getItem("Role")
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getDept_to_head.php`, body, {
+          headers: headers
+        }).subscribe(
+          (data: any) => {
+            this.Dept_to_head = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        )
+    }
+
   }
   leaveSearch(Emp_ID) {
     console.log(Emp_ID);

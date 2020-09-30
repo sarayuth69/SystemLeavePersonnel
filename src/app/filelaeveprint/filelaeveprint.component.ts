@@ -17,11 +17,22 @@ import { APIService } from '../api.service';
 })
 export class FilelaeveprintComponent implements OnInit {
 public Employee;
+  route: any;
+  name: any;
+  Ltype_4007 : boolean;
+  Ltype : boolean;
+
   constructor(
-    public http: HttpClient
+    public http: HttpClient,
+    public router : Router
   ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.name = params['Ltype_ID'];
+     console.log(this.name);
+     
+    });
  
   }
   print() {

@@ -28,7 +28,7 @@ export class CheckdayworkComponent implements OnInit {
   constructor(
     public http: HttpClient,
     // private baseUrl: baseUrl
-     ) { }
+  ) { }
 
   ngOnInit() {
     // setTimeout(() => {
@@ -128,7 +128,7 @@ export class CheckdayworkComponent implements OnInit {
   // }
 
 
-  Add_daywork(E, S, D,T) {
+  Add_daywork(E, S, D, T) {
     this.Emp_ID = E;
     this.Status_Work = S;
     this.Day_Work = D;
@@ -173,6 +173,8 @@ export class CheckdayworkComponent implements OnInit {
         title: 'Your work has been saved',
         showConfirmButton: false,
         timer: 1500
+      }).then(() => {
+        window.location.reload();
       })
       // .then(()=>{
       //   this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
@@ -226,27 +228,27 @@ export class CheckdayworkComponent implements OnInit {
     for (let index = 0; index < this.Employee.length; index++) {
       const Emp_ID = document.getElementById(`Emp_ID${index}`) as HTMLInputElement;
       Emp_ID.value;
-    //  console.log(Emp_ID.value);
-    const textdata = document.getElementById(`textdata${index}`) as HTMLInputElement;
-    textdata.value;
-    console.log(textdata.value);
-    
+      //  console.log(Emp_ID.value);
+      const textdata = document.getElementById(`textdata${index}`) as HTMLInputElement;
+      textdata.value;
+      console.log(textdata.value);
+
 
       // var Emp_ID = document.getElementById(`Emp_ID${index}`).value;
 
       const Status_Work = document.getElementsByName(`radio${index}`)[0] as HTMLInputElement;
-     const s = Status_Work.checked ? "มาทำงาน" : "ไม่มาทำงาน";
+      const s = Status_Work.checked ? "มาทำงาน" : "ไม่มาทำงาน";
       // var Status_Work = document.getElementsByName(`radio${index}`)[0].checked ? "มาทำงาน" : "ไม่มาทำงาน";
       // console.log('s',Status_Work);
 
       // var Day_Work =  document.getElementById(`Day_Work${index}`).value;
-       this.Add_daywork(Emp_ID.value, s, Day_Work ,textdata.value);
+      this.Add_daywork(Emp_ID.value, s, Day_Work, textdata.value);
     }
 
   }
 
   checkradio(Day_Work) {
-    
+
     if (!Day_Work) {
       Swal.fire({
         icon: 'error',
@@ -256,14 +258,14 @@ export class CheckdayworkComponent implements OnInit {
     }
     else {
       var radiocheck = 0;
-   
-      
+
+
       for (let index = 0; index < this.Employee.length; index++) {
-   
+
         const comin = document.getElementById(`comin${index}`) as HTMLInputElement;
         // comin.checked ;
         // console.log(comin.checked);
-        
+
         const notcomin = document.getElementById(`notcomin${index}`) as HTMLInputElement;
         // notcomin.checked ;
         // console.log(notcomin.checked);
@@ -278,8 +280,8 @@ export class CheckdayworkComponent implements OnInit {
 
 
           if (radiocheck == 0) {
-             this.add_all(Day_Work);
-   
+            this.add_all(Day_Work);
+
           }
           else {
             Swal.fire({

@@ -2,13 +2,12 @@
  header("Access-Control-Allow-Origin: *");
  header('Control-type: application/json',true);
  require 'connect_DB.php' ;
-
+   $day = $_GET['Day_leave'];
  $sql = "SELECT *
-        FROM `employee`
+       FROM `employee`
        LEFT JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
        LEFT JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
-        WHERE `leave`.LeaveDateStart LIKE '%{$_GET['Day_leave']}%'
-             ";
+       WHERE `leave`.LeaveDateStart LIKE '%$day%' ";
             $result = mysqli_query($conn,$sql); 
             $myArray = array();
             if ($result->num_rows > 0) {

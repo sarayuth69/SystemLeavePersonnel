@@ -120,6 +120,7 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('Empstatus_ID', data[0].Empstatus_ID);
               localStorage.setItem('EmpstatusName', data[0].EmpstatusName);
               localStorage.setItem('PositionName', data[0].PositionName);
+              localStorage.setItem('Position_ID', data[0].Position_ID);
               localStorage.setItem('Role', data[0].Role);
               localStorage.setItem('Dept_ID', data[0].Dept_ID);
               localStorage.setItem('DeptName', data[0].DeptName);
@@ -130,6 +131,7 @@ export class LoginComponent implements OnInit {
               console.log(localStorage.getItem('EmpLastName'));
               console.log(localStorage.getItem('Empstatus_ID'));
               console.log(localStorage.getItem('PositionName'));
+              console.log(localStorage.getItem('Position_ID'));
               console.log(localStorage.getItem('EmpstatusName'));
               console.log(localStorage.getItem('Role'));
               console.log(localStorage.getItem('Dept_ID'));
@@ -199,6 +201,7 @@ export class LoginComponent implements OnInit {
                     localStorage.setItem('Empstatus_ID', data[0].Empstatus_ID);
                     localStorage.setItem('EmpstatusName', data[0].EmpstatusName);
                     localStorage.setItem('PositionName', data[0].PositionName);
+                    localStorage.setItem('Position_ID', data[0].Position_ID);
                     localStorage.setItem('Role', data[0].Role);
                     localStorage.setItem('Dept_ID', data[0].Dept_ID);
                     localStorage.setItem('DeptName', data[0].DeptName);
@@ -209,6 +212,7 @@ export class LoginComponent implements OnInit {
                     console.log(localStorage.getItem('EmpLastName'));
                     console.log(localStorage.getItem('Empstatus_ID'));
                     console.log(localStorage.getItem('PositionName'));
+                    console.log(localStorage.getItem('Position_ID'));
                     console.log(localStorage.getItem('EmpstatusName'));
                     console.log(localStorage.getItem('Role'));
                     console.log(localStorage.getItem('Dept_ID'));

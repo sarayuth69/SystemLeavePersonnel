@@ -82,9 +82,10 @@ export class LeavelistComponent implements OnInit {
   Person_Code_Allow = new FormControl('');
   LType_ID = new FormControl('');
   LeaveStatus_Document = new FormControl('');
+  LTypeName = new FormControl('');
   loop: any;
 
-
+  showcancel;
 
 
   EmpName = new FormControl('');
@@ -171,6 +172,25 @@ export class LeavelistComponent implements OnInit {
           }
 
         )
+        const body_cancel = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+        console.log(body_cancel);
+        const headers_cancel = new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        this.http
+          .post(`${this.baseUrl}getcancel_leave.php`, body_cancel, {
+            headers: headers_cancel
+          }).subscribe(
+            (data: any) => {
+              this.showcancel = data;
+  
+            },
+            (error: any) => {
+              console.log(error);
+            }
+  
+          )
+        
     }
     else if (localStorage.getItem('Role') === "3") {
       this.list = true;
@@ -193,6 +213,24 @@ export class LeavelistComponent implements OnInit {
           }
 
         )
+        const body_cancel = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+        console.log(body_cancel);
+        const headers_cancel = new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        this.http
+          .post(`${this.baseUrl}getcancel_leave.php`, body_cancel, {
+            headers: headers_cancel
+          }).subscribe(
+            (data: any) => {
+              this.showcancel = data;
+  
+            },
+            (error: any) => {
+              console.log(error);
+            }
+  
+          )
     }
     else if (localStorage.getItem('Role') === "2") {
       this.list = true;
@@ -215,6 +253,24 @@ export class LeavelistComponent implements OnInit {
           }
 
         )
+        const body_cancel = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+        console.log(body_cancel);
+        const headers_cancel = new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        this.http
+          .post(`${this.baseUrl}getcancel_leave.php`, body_cancel, {
+            headers: headers_cancel
+          }).subscribe(
+            (data: any) => {
+              this.showcancel = data;
+  
+            },
+            (error: any) => {
+              console.log(error);
+            }
+  
+          )
     }
     else if (localStorage.getItem('Role') === "1") {
       this.list = true;
@@ -231,17 +287,17 @@ export class LeavelistComponent implements OnInit {
         }).subscribe(
           (data: any) => {
             this.leave = data;
-            data.forEach(element =>
-              console.log(element.LeaveStatus_ID)
-            );
-            if (data.LeaveStatus_ID = 5) {
-              this.btn_cancel = false;
-              this.btn_cancel_head = true;
-            }
-            if (data.LeaveStatus_ID = 1) {
-              this.btn_cancel = true;
-              this.btn_cancel_head = false;
-            }
+            // data.forEach(element =>
+            //   console.log(element.LeaveStatus_ID)
+            // );
+            // if (data.LeaveStatus_ID = 5) {
+            //   this.btn_cancel = false;
+            //   this.btn_cancel_head = true;
+            // }
+            // if (data.LeaveStatus_ID = 1) {
+            //   this.btn_cancel = true;
+            //   this.btn_cancel_head = false;
+            // }
             // this.leave.map(function (i) {
             //   console.log(i.Leave_ID, i.LeaveStatus_ID);
             //   if (i.LeaveStatus_ID == 5) {
@@ -257,6 +313,24 @@ export class LeavelistComponent implements OnInit {
           }
 
         )
+        const body_cancel = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+        console.log(body_cancel);
+        const headers_cancel = new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        this.http
+          .post(`${this.baseUrl}getcancel_leave.php`, body_cancel, {
+            headers: headers_cancel
+          }).subscribe(
+            (data: any) => {
+              this.showcancel = data;
+  
+            },
+            (error: any) => {
+              console.log(error);
+            }
+  
+          )
     }
     else if (localStorage.getItem('Role') === "6") {
       this.list = false;
@@ -272,10 +346,7 @@ export class LeavelistComponent implements OnInit {
         }
       );
     }
-    // else if (localStorage.getItem('Empstatus_ID') === "105") {
-    //   this.leave105 = true;
-    //   this.leave106 = false;
-    // }
+ 
 
   }
   toggleVisibility(e) {
@@ -797,18 +868,49 @@ export class LeavelistComponent implements OnInit {
                     this.leave = data;
                   },
                   (error: any) => {
+                    window.location.reload()
                     console.log(error);
                   }
 
                 )
             }
+          }).then(()=>{
+            const body_cancel = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+            console.log(body_cancel);
+            const headers_cancel = new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded'
+            });
+            this.http
+              .post(`${this.baseUrl}getcancel_leave.php`, body_cancel, {
+                headers: headers_cancel
+              }).subscribe(
+                (data: any) => {
+                  this.showcancel = data;
+      
+                },
+                (error: any) => {
+                  console.log(error);
+                }
+      
+              )
           })
+
+          
         }
       })
 
     }
 
   }
+
+  cancel(LTypeName,LeaveDateStart,LeaveDateLast,LeaveTotal){
+    this.LTypeName = new FormControl(LTypeName);
+    this.LeaveDateStart = new FormControl(LeaveDateStart);
+    this.LeaveDateLast = new FormControl(LeaveDateLast);
+    this.LeaveTotal = new FormControl(LeaveTotal);
+    console.log(this.LeaveTotal);
+  }
+
   onseletday(LeaveDateStart, LeaveDateLast) {
 
     console.log(LeaveDateStart, LeaveDateLast);
@@ -829,4 +931,11 @@ export class LeavelistComponent implements OnInit {
   day() {
     moment().format('dddd');
   }
+
+  printDocument(Ltype_ID){
+        this.router.navigate(['/filelaeveprint',{Ltype_ID} ]);
+    
+  }
+
+
 }

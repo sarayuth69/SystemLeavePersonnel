@@ -23,7 +23,6 @@ import { PositionComponent } from './position/position.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckleaveComponent } from './checkleave/checkleave.component';
-import { TestleaveComponent } from './testleave/testleave.component';
 import { CheckdayworkComponent } from './checkdaywork/checkdaywork.component';
 import { SectorComponent } from './sector/sector.component';
 import { SumleaveComponent } from './sumleave/sumleave.component';
@@ -51,7 +50,6 @@ const appRoutes: Routes = [
   { path: 'position', component: PositionComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'checkleave', component: CheckleaveComponent },
-  { path: 'testleave', component: TestleaveComponent },
   { path: 'sumleave', component: SumleaveComponent },
   { path: 'editdaywork', component: EditdayworkComponent },
   { path: 'login', component: LoginComponent },
@@ -78,7 +76,6 @@ const appRoutes: Routes = [
     PositionComponent,
     RegisterComponent,
     CheckleaveComponent,
-    TestleaveComponent,
     CheckdayworkComponent,
     SectorComponent,
     SumleaveComponent,

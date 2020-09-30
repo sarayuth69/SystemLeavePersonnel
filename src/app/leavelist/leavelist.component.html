@@ -33,56 +33,132 @@
         </div>
     </div>
 </div>
+
 <div style="padding-right: 2%; padding-left: 2%;">
+
     <div class="card">
-        <div class="card-body">
-            <div class="table-responsive-lg">
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="text-center">
-                            <th scope="col">ชื่อพนักงาน</th>
-                            <th scope="col">ประเภท</th>
-                            <th scope="col">วันที่ลา</th>
-                            <th scope="col">จำนวน/วัน</th>
-                            <th scope="col">ไฟล์แนบ</th>
-                            <th scope="col">สถานะ</th>
-                            <th scope="col">ปริ้นใบลา</th>
-                            <th scope="col">จัดการ</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let item of leave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
-                        <tr>
-                            <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
-                                <p>แผนก: {{item.DeptName}}</p>
-                            </td>
-                            <td class="text-center">{{item.LTypeName}}</td>
-                            <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
-                            <td class="text-center"> {{item.LeaveTotal}}</td>
-                            <td class="text-center"> {{item.file_names}}</td>
-                            <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
-                            <td class="text-center">
-                                <button type="button" class="btn btn-success"><i class="fa fa-print"
-                                        aria-hidden="true"></i></button>
-                                <!-- <a routerLink="/FilelaeveprintComponent">ปริ้น</a> -->
-                            </td>
-                            <td class="text-center">
-                                &nbsp;
-                                <button *ngIf="item.LeaveStatus_ID < 5" type="button" class="btn btn-danger"
-                                    (click)="cancel_leave(item.Leave_ID,item.LeaveStatus_ID)">ยกเลิก</button>
-                                <!-- Button trigger modal -->
-                                <button  *ngIf="item.LeaveStatus_ID==5"  type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#exampleModal">
-                                    ขออนุญาตยกเลิก
-                                </button>
-                             
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
-            </div>
+
+  <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="pills-leave-tab" data-toggle="pill" href="#pills-leave" role="tab" aria-controls="pills-leave" aria-selected="true">รายการลา</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="pills-cancel_leave-tab" data-toggle="pill" href="#pills-cancel_leave" role="tab" aria-controls="pills-cancel_leave" aria-selected="false" >รายการยกเลิก</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-leave" role="tabpanel" aria-labelledby="pills-leave-tab">
+           
+                <div class="card-body">
+                    <div class="table-responsive-lg">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">ชื่อพนักงาน</th>
+                                    <th scope="col">ประเภท</th>
+                                    <th scope="col">วันที่ลา</th>
+                                    <th scope="col">จำนวน/วัน</th>
+                                    <th scope="col">ไฟล์แนบ</th>
+                                    <th scope="col">สถานะ</th>
+                                    <th scope="col">ปริ้นใบลา</th>
+                                    <th scope="col">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of leave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                                <tr>
+                                    <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
+                                        <p>แผนก: {{item.DeptName}}</p>
+                                    </td>
+                                    <td class="text-center">{{item.LTypeName}}</td>
+                                    <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
+                                    <td class="text-center"> {{item.LeaveTotal}}</td>
+                                    <td class="text-center"> {{item.file_names}}</td>
+                                    <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-success" (click)="printDocument(item.LType_ID)"><i
+                                                class="fa fa-print" aria-hidden="true"></i></button>
+                                        <!-- <a routerLink="/FilelaeveprintComponent">ปริ้น</a> -->
+                                    </td>
+                                    <td class="text-center">
+                                        &nbsp;
+                                        <button *ngIf="item.LeaveStatus_ID < 5" type="button" class="btn btn-danger"
+                                            (click)="cancel_leave(item.Leave_ID,item.LeaveStatus_ID)">ยกเลิก</button>
+                                        <!-- Button trigger modal -->
+                                        <button *ngIf="item.LeaveStatus_ID==5" type="button" class="btn btn-primary"
+                                            data-toggle="modal" data-target="#exampleModal_cancel" 
+                                            (click)="cancel(item.LTypeName,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal)">
+                                            ขออนุญาตยกเลิก
+                                        </button>
+        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                    </div>
+                </div>
+     
+
+
+
         </div>
+        <div class="tab-pane fade" id="pills-cancel_leave" role="tabpanel" aria-labelledby="pills-cancel_leave-tab">
+     
+                <div class="card-body">
+                    <div class="table-responsive-lg">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">ชื่อพนักงาน</th>
+                                    <th scope="col">ประเภท</th>
+                                    <th scope="col">วันที่ลา</th>
+                                    <th scope="col">จำนวน/วัน</th>
+                                    <th scope="col">ไฟล์แนบ</th>
+                                    <th scope="col">สถานะ</th>
+                                    <th scope="col">ปริ้นใบยกเลิก</th>
+                                    <th scope="col">ตรวจสอบ</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of showcancel | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                                <tr >
+                                    <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
+                                        <p>แผนก: {{item.DeptName}}</p>
+                                    </td>
+                               
+                                    <td class="text-center">{{item.LTypeName}}</td>
+                                    <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
+                                    <td class="text-center" > {{item.LeaveTotal}}</td>
+                                    <td class="text-center"> {{item.file_names}}</td>
+                                    <td class="text-center"  ><p  style="color:red;" >{{item.LeaveStatus_Name}} </p>   </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-success" (click)="printDocument(item.LType_ID)"><i
+                                                class="fa fa-print" aria-hidden="true"></i></button>
+                                       
+                                    </td>
+                                    <td class="text-center">
+                                        &nbsp;
+                                        <button  type="button" class="btn btn-primary">ตรวจสอบ</button>
+                                                                     
+        
+                                    </td>
+                                </tr>
+                          
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                    </div>
+                </div>
+   
+        </div>
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+      </div>
     </div>
+
+
+   
 </div>
 
 
@@ -306,8 +382,9 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck1"
                                                     (change)="toggleVisibility($event)">
-                                                <label class="custom-control-label" for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
-                                                <span *ngIf="marked"><input type="text"></span>
+                                                <label class="custom-control-label"
+                                                    for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
+                                                <span *ngIf="marked"><input type="text" [formControl]="employee"></span>
                                             </div>
 
                                         </div>
@@ -318,25 +395,38 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <label for="exampleFormControlTextarea1">ขอลาเนื่องจาก</label>
+                                                <textarea class="form-control" id="dataleave" rows="3"
+                                                    [formControl]="LeaveData"></textarea>
+                                            </div>
+                                            <div class="col-sm">
+                                                <label for="exampleFormControlTextarea1">ข้อมูลการติดต่อ</label>
+                                                <textarea class="form-control" id="dataleave" rows="3"
+                                                    [formControl]="ContactInformation"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <br>
-                                    <label for="exampleFormControlTextarea1">ขอลาเนื่องจาก</label>
-                                    <textarea class="form-control" id="dataleave" rows="3"
-                                        [formControl]="LeaveData"></textarea>
+
+
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-2 mb-2">
+                                    <div class="col-sm">
                                         <label for="validationDefault04">วันที่ลา</label>
                                         <input type="date" class="form-control" id="LeaveDateStart"
                                             [formControl]="LeaveDateStart" required>
                                     </div>
-                                    <div class="col-md-2 mb-2">
-                                        <label for="validationDefault05">ถึงวันที่</label>
+                                    <div class="col-sm">
+                                        <label>ถึงวันที่</label>
                                         <input type="date" class="form-control" id="LeaveDateLast"
                                             (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value)"
                                             [formControl]="LeaveDateLast" required>
                                     </div>
                                     <div class="col-md-2 mb-2">
-                                        <label for="validationDefault05">จำนวนวันลา</label>
+                                        <label>จำนวนวันลา</label>
                                         <input type="text" class="form-control" id="LeaveTotal" [value]="numberleave"
                                             #LeaveTotal readonly>
                                     </div>
@@ -370,156 +460,138 @@
         </div>
     </div>
 </div>
-   <!-- Modal ขออนุญาตยกเลิการลา -->
-   <div class="modal fade" id="exampleModal" tabindex="-1"
-   aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-xl">
-       <div class="modal-content">
-           <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">ยกเลิกการลา</h5>
-               <button type="button" class="close" data-dismiss="modal"
-                   aria-label="Close">
-                   <span aria-hidden="true">&times;</span>
-               </button>
-           </div>
-           <div class="modal-body">
-            <form>
-                <div class="card-header text-left">
-                    <b style="color: mediumblue;"> ยื่นการลา</b>
-                </div>
-                <br>
-                <div class="container">
-                    <div class="form-row">
-                        <p>เรื่อง</p>
-                        <input type="text" class="form-control" [formControl]="Name_Leave">
-                        <p>เรียน</p>
-                        <input type="text" class="form-control" [formControl]="To_Person">
+<!-- Modal ขออนุญาตยกเลิการลา -->
+<div class="modal fade" id="exampleModal_cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ยกเลิกการลา</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="card-header text-left">
+                        <b style="color: mediumblue;"> ยื่นการลา</b>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <div class="form-row">
+                            <p>เรื่อง</p>
+                            <input type="text" class="form-control" [formControl]="Name_Leave">
+                            <p>เรียน</p>
+                            <input type="text" class="form-control" [formControl]="To_Person">
 
-                    </div>
-                </div>
-                &nbsp;&nbsp;
-                <div class="card-header text-left">
-                    <b style="color: mediumblue;">ข้อมุลบุคลากร</b>
-                </div>
-                &nbsp;
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm">
-                            <h6>รหัส </h6>
-                            <input type="text" class="form-control" value="{{Local_Emp_ID}}"
-                                [formControl]="Emp_ID" readonly>
-                        </div>
-                        <div class="col-sm">
-                            <h6> ชื่อ </h6>
-                            <input type="text" class="form-control" value="{{Local_EmpName}}"
-                                [formControl]="EmpName" readonly>
-                        </div>
-                        <div class="col-sm">
-                            <h6> นามสกุล </h6>
-                            <input type="text" class="form-control" id="validationDefault02"
-                                value="{{Local_EmpLastName}}" [formControl]="EmpLastName" readonly>
                         </div>
                     </div>
-                </div>
+                    &nbsp;&nbsp;
+                    <div class="card-header text-left">
+                        <b style="color: mediumblue;">ข้อมุลบุคลากร</b>
+                    </div>
+                    &nbsp;
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h6>รหัส </h6>
+                                <input type="text" class="form-control" value="{{Local_Emp_ID}}" [formControl]="Emp_ID"
+                                    readonly>
+                            </div>
+                            <div class="col-sm">
+                                <h6> ชื่อ </h6>
+                                <input type="text" class="form-control" value="{{Local_EmpName}}"
+                                    [formControl]="EmpName" readonly>
+                            </div>
+                            <div class="col-sm">
+                                <h6> นามสกุล </h6>
+                                <input type="text" class="form-control" id="validationDefault02"
+                                    value="{{Local_EmpLastName}}" [formControl]="EmpLastName" readonly>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm">
-                            <h6>ตำแหน่ง </h6>
-                            <input type="text" class="form-control" value="{{Local_PositionName}}"
-                                [formControl]="PositionName" readonly>
-                        </div>
-                        <div class="col-sm">
-                            <h6>แผนก </h6>
-                            <input type="text" class="form-control" value="{{Local_DeptName}}"
-                                [formControl]="DeptName" readonly>
-                        </div>
-                        <div class="col-sm">
-                            <h6> ฝ่าย </h6>
-                            <input type="text" class="form-control" value="{{Local_Sector}}"
-                                id="validationDefault02" [formControl]="Sector" readonly>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h6>ตำแหน่ง </h6>
+                                <input type="text" class="form-control" value="{{Local_PositionName}}"
+                                    [formControl]="PositionName" readonly>
+                            </div>
+                            <div class="col-sm">
+                                <h6>แผนก </h6>
+                                <input type="text" class="form-control" value="{{Local_DeptName}}"
+                                    [formControl]="DeptName" readonly>
+                            </div>
+                            <div class="col-sm">
+                                <h6> ฝ่าย </h6>
+                                <input type="text" class="form-control" value="{{Local_Sector}}"
+                                    id="validationDefault02" [formControl]="Sector" readonly>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-header text-left">
-                    <b style="color: mediumblue;"> ข้อมูลการลา</b>
-                </div>
-                <br>
-                ประเภทการลา
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm">
-                            <select class="custom-select my-1 mr-sm-2" id="typeleave"
-                                [formControl]="LType_ID">
-                                <option *ngFor="let item of leavetype; let i = index"
-                                    value="{{item.LType_ID}}">
-                                    {{item.LTypeName}}</option>
-                                <option></option>
-                            </select>
+                    <div class="card-header text-left">
+                        <b style="color: mediumblue;"> ข้อมูลการยกเลิกการลา</b>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h6>ได้รับอนุญาตให้ลา </h6>
+                                <input type="text" class="form-control" [formControl]="LTypeName" readonly>
+                            </div>
+                            <div class="col-sm">
+                                <h6>ตั้งแต่วันที่ </h6>
+                                <input type="text" class="form-control" [formControl]="LeaveDateStart" readonly>
+                            </div>
+                            <div class="col-sm">
+                                <h6> ถึงวันที่ </h6>
+                                <input type="text" class="form-control" [formControl]="LeaveDateLast" readonly>
+                            </div>
+                            <div class="col-sm">
+                                <h6> รวมวันลา </h6>
+                                <input type="text" class="form-control" [formControl]="LeaveTotal" readonly>
+                            </div>
                         </div>
-                        <div class="col-sm">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                    (change)="toggleVisibility($event)">
-                                <label class="custom-control-label" for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
-                                <span *ngIf="marked"><input type="text"></span>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label>เนื่องจาก</label>
+                                <textarea class="form-control" id="dataleave" rows="3"
+                                    [formControl]=""></textarea>
+                            </div>
+                            <div class="col-sm">
+                                <label>จึงขอยกเลิกวันลา</label>
+                                <input class="form-control">
                             </div>
 
                         </div>
-                        <div class="col-sm">
+                    </div>
+                    <div class="container">
+                        <div class="row">
 
+                            <div class="col-sm">
+                                <label>ตั้งแต่วันที่</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-sm">
+                                <label>ถึงวันที่</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-sm">
+                                <label>จำนวน</label>
+                                <input class="form-control">
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <br>
-                    <label for="exampleFormControlTextarea1">ขอลาเนื่องจาก</label>
-                    <textarea class="form-control" id="dataleave" rows="3"
-                        [formControl]="LeaveData"></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-2 mb-2">
-                        <label for="validationDefault04">วันที่ลา</label>
-                        <input type="date" class="form-control" id="LeaveDateStart"
-                            [formControl]="LeaveDateStart" required>
-                    </div>
-                    <div class="col-md-2 mb-2">
-                        <label for="validationDefault05">ถึงวันที่</label>
-                        <input type="date" class="form-control" id="LeaveDateLast"
-                            (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value)"
-                            [formControl]="LeaveDateLast" required>
-                    </div>
-                    <div class="col-md-2 mb-2">
-                        <label for="validationDefault05">จำนวนวันลา</label>
-                        <input type="text" class="form-control" id="LeaveTotal" [value]="numberleave"
-                            #LeaveTotal readonly>
-                    </div>
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">แนปไฟล์</label>
-                            <br>
-                            <input type="file" (change)="onFileChanged($event)">
-                        </div>
-                    </form>
-                    <div class="form-row">
-                        <label>สถานะการส่งใบลาฉบับจริง</label>
-                        <select class="custom-select" [formControl]="LeaveStatus_Document">
-                            <option selected>--เลือกสถานะ--</option>
-                            <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
-                            <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
-                        </select>
-                    </div>
-                </div>
-            </form>
-           </div>
-           <div class="modal-footer">
-               <button type="button" class="btn btn-secondary"
-                   data-dismiss="modal">Close</button>
-               <button type="button" class="btn btn-primary">Save changes</button>
-           </div>
-       </div>
-   </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Modal อนุมัติการลาของหัวหน้าหน่วยงาน -->
 <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

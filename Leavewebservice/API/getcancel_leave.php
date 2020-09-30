@@ -12,11 +12,10 @@ JOIN `department`ON `employee`.`Dept_ID` = `department`.`Dept_ID`
 JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
 JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
 WHERE  
-leave.Emp_ID = '".$_POST["Emp_ID"]."' AND `leave`.LeaveStatus_ID < 7
+leave.Emp_ID = '".$_POST["Emp_ID"]."' AND `leave`.LeaveStatus_ID = 7
 ORDER BY `leave`.`LeaveDateStart` DESC
 
 ";
-
 $result = mysqli_query($conn,$sql); 
         $myArray = array();
         if ($result->num_rows > 0) {

@@ -1,10 +1,11 @@
 <br>
 <br>
+<div *ngIf="Ltype_4007">
 <div style="padding: 1%; margin-right:1%" >
     <div class="container" id="content">
         <button type="button" id="button" class="btn btn-outline-primary" (click)="print()">ปริ้นใบลา</button>
         <h3 align="center">
-            <b> ใบลาป่วย/ลาพักผ่อน/ลาคลอด</b>
+            <b> แบบใบลาพักผ่อน{{name}}</b>
         </h3>
         <br>
         <h5 align="right">มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน</h5>
@@ -154,3 +155,191 @@
             </div>
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<div *ngIf="Ltype">
+<div style="padding: 1%; margin-right:1%">
+    <div class="container" id="content">
+        <button type="button" id="button" class="btn btn-outline-primary" (click)="print()">ปริ้นใบลา</button>
+        <h3 align="center">
+            <b> แบบใบลาป่วย ลาคลอดบุตร ลากิจส่วนตัว</b>
+        </h3>
+        <br>
+        <h5 align="right">มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน</h5>
+        <h5 align="right"> {{thDate}} </h5>
+        <h5 align="left">เรื่อง ขอลาพักผ่อน</h5>
+        <h5 align="left">เรียน รองอธิการบดีฝ่ายบริหารและพัฒนาทรัพยากรมนุษย์</h5>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <h5 align="left">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ข้าพเจ้า {{EmpName}}
+
+                        ตำแหน่ง . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <h5 align="left">สังกัด แผนก. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                    . . . .
+                </h5>
+            </div>
+            <div class="col-sm">
+                <h5 align="left">ฝ่าย/คณะ/ภาค/ศูนย์. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                    . . .
+                    . . . .
+                </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <h5 align="left">ขอลา......................เนื่องจาก..................
+                </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <h5 align="left"> ตั้งแต่วันที่................ถึงวันที่...........มีกำหนด.....วัน</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <h5 align="left"> ข้าพเจ้าได้ลา..............ครั้งสุดท้ายวันที่.........ถึงวันที่...........มีกำหนด......วัน</h5>
+            </div>
+            <div class="col-sm">
+                <h5 align="left"> ในระหว่างลาจะติดต่อข้าพเจ้าได้ที่...............................โทรศัพท์.................</h5>
+            </div>
+        </div>
+       
+        <br>
+        <div class="container">
+
+            <div class="row">
+                <div class="col">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        สถิติการลาในปีงบประมาณนี้</h5>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">ประเภทการลา</th>
+                                <th scope="col">ลามาแล้ว<br>(วันทำการ)</th>
+                                <th scope="col">ลาครั้งนี้<br>(วันทำการ)</th>
+                                <th scope="col">รวมเป็น<br>(วันทำการ)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ป่วย</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <td>กิจส่วนตัว</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <td>คลอดบุตร</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <h5 align="center">ลงชื่อ. . . . . . . . . . . . . . . . . . . . .(ผู้ตรวจสอบ) </h5>
+                    <h5 align="center">( . . . . . . . . . . . . . . . . . . . . .. . . . . . . .)</h5>
+                    <h5 align="center">ตำแหน่ง . . . . . . . . . . . . . . . . . . . . . . . </h5>
+                    <h5 align="center">วันที่ . . . .. /. . . . . . / . . . . . .</h5>
+                    <br><br>
+                                   
+                </div>
+                <div class="col">
+                    <br><br>
+                    <h5 align="center"> ขอแสดงความนับถือ</h5>
+                    <br><br>
+                    <h5 align="center"> (ลงชื่อ) . . . . . . . . . . . . . . . . . . . . . . . .</h5>
+                    <h5 align="center"> ( . . . . . . . . . . . . . . . . . . . . . . . . . . . . ) </h5>
+                    <br>
+                    <br><br>
+
+                    <h5 align="center">ความเห็นของผู้บังคับบัญชา </h5>
+                    <br>
+                    <h5 align="center">. . . . . . . . . . . . . . . . . . . . . . . . . . . . </h5>
+                    <br>
+                    <h5 align="center">ลงชื่อ. . . . . . . . . . . . . . . . . . . . . . . . . . </h5>
+                    <h5 align="center">( . . . . . . . . . . . . . . . . . . . . .. . . . . . . .)</h5>
+                    <h5 align="center">ตำแหน่ง . . . . . . . . . . . . .. . . . . . . . . . </h5>
+                    <h5 align="center">วันที่ . . . .. /. . . . . . / . . . . . .</h5>
+                    <br>
+                    <br>
+                    <h5 align="center">ลงชื่อ. . . . . . . . . . . . . . . . . . . . . . . . . . </h5>
+                    <h5 align="center">( . . . . . . . . . . . . . . . . . . . . .. . . . . . . .)</h5>
+                    <h5 align="center">ตำแหน่ง . . . . . . . . . . . . .. . . . . . . . . . </h5>
+                    <h5 align="center">วันที่ . . . .. /. . . . . . / . . . . . .</h5>
+                    <br>
+                    <br>
+
+                    <h5 align="center">
+                        คำสั่ง
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="command1" name="customRadioInline1" class="custom-control-input">
+                            <label class="custom-control-label" for="command1">อนุญาต</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="command2" name="customRadioInline1" class="custom-control-input">
+                            <label class="custom-control-label" for="command2">ไม่อนุญาต</label>
+                        </div>
+                    </h5>
+
+                    <h5 align="center">ลงชื่อ. . . . . . . . . . . . . . . . . . . . . . . . . . </h5>
+                    <h5 align="center">( . . . . . . . . . . . . . . . . . . . . .. . . . . . . .)</h5>
+                    <h5 align="center">ตำแหน่ง . . . . . . . . . . . . .. . . . . . . . . . </h5>
+                    <h5 align="center">วันที่ . . . .. /. . . . . . / . . . . . .</h5>
+                    <br>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

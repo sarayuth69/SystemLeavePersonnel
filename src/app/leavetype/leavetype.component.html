@@ -68,7 +68,7 @@
                 </tr>
               </thead>
               <tbody *ngFor="let item of leavetype_ratcakan; let i = index">
-                <tr>
+                <tr class="text-center">
                   <td>
                     <p ng-repeat="i in range(1, 5)">
                       {{ i+1 }}
@@ -76,12 +76,12 @@
                   </td>
 
                   <!-- <td>{{item.LType_ID}}</td> -->
-                  <td>{{item.LTypeName}}</td>
-                  <td>{{item.Number}}</td>
+                  <td >{{item.LTypeName}}</td>
+                  <td >{{item.Number}}</td>
                   <!-- <td>{{item.Remain}}</td> -->
-                  <td>{{item.AdvanceNotice}}</td>
+                  <td >{{item.AdvanceNotice}}</td>
                   <!-- <td>{{item.LOrdinal}}</td> -->
-                  <td>{{item.QuotaStatus}}</td>
+                  <td >{{item.QuotaStatus}}</td>
                   <td>{{item.EmpstatusName}}</td>
                   <td>{{item.leavetype_remark}}</td>
                   <td>
@@ -126,7 +126,7 @@
                 </tr>
               </thead>
               <tbody *ngFor="let item of leavetype_emp_in_univercity; let i = index">
-                <tr>
+                <tr class="text-center">
                   <td>
                     <p ng-repeat="i in range(1, 5)">
                       {{ i+1 }}
@@ -149,14 +149,10 @@
                     ,item.Number,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
                       แก้ไข
                     </button>
-
                     &nbsp;
                     <button type="button" class="btn btn-danger"
                       (click)="deleteLeavetype(item.LType_ID,item.LTypeName)">ลบ</button>
-
-
                   </td>
-
                 </tr>
               </tbody>
             </table>
@@ -183,7 +179,7 @@
                 </tr>
               </thead>
               <tbody *ngFor="let item of leavetype_Temporary_worker; let i = index">
-                <tr>
+                <tr class="text-center">
                   <td>
                     <p ng-repeat="i in range(1, 5)">
                       {{ i+1 }}

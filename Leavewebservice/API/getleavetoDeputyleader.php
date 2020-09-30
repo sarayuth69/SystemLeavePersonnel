@@ -6,6 +6,8 @@
     $sql  = "SELECT * FROM `leave`
         JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
         JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
+    JOIN `position` ON `employee`.`Position_ID` = `position`.`Position_ID`
+
         JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
         JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
         WHERE  `leave`.`LeaveStatus_ID` = '3' 

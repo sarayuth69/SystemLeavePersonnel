@@ -14,11 +14,12 @@
                     <select class="form-control form-control-lg" id="exampleFormControlSelect1" #Emp_ID>
                         <option selected>เลือกบุคลากร</option>
                         <option *ngFor="let item of Dept_to_head" value="{{item.Emp_ID}}">{{item.EmpName}}
-                            {{item.EmpLastName}}
+                            {{item.EmpLastName}} 
                         </option>
                     </select>
                   </div>
                   <div class="col-sm">
+                      
                     <button type="button" class="btn btn-primary" (click)="leaveSearch(Emp_ID.value)">ค้นหา</button>
 
                   </div>
