@@ -1,367 +1,583 @@
-<!-- ผู้ดูแลระบบ -->
-<nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="show">
-  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
-    
-    <i class="fa fa-lg"><h5>ระ</h5></i>
-    <i class="fa fa-lg"><h5>บบ</h5></i>
-    <i class="fa fa-lg"><h5>จัด</h5></i>
-    <i class="fa fa-lg"><h5>การ</h5></i>
-    <i class="fa fa-lg"><h5>บริ</h5></i>
-    <i class="fa fa-lg"><h5>หาร</h5></i>
-    <i class="fa fa-lg"><h5>บุ</h5></i>
-    <i class="fa fa-lg"><h5>คลา</h5></i>
-    <i class="fa fa-lg"><h5>กร</h5></i>&nbsp;
-    <i class="fa fa-lg"><h5>สวส</h5></i>
+<div class="page-wrapper chiller-theme toggled" *ngIf="show">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a>ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      <!-- <div class="sidebar-search">
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="Search...">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>General</span>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              จัดการ
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employeeshow']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/department']">แผนก</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/sector']">ฝ่ายงาน</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/position']">ตำแหน่ง</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/employeestatus']">สถานะบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar">
+            <a class="sidebar-toggle" [routerLink]="['/leavetype']">
+              <i class='fa fa-book'></i>
+              ประเภทการลา
+            </a>
+          </li>
+          <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/leavelist']"><i class="fa fa-envelope"></i>
+              รายการลา
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="far fa-gem"></i>
+              จัดการวันมาทำงาน
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/checkdaywork']">บันทึกวันมาทำงาน</a>
 
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class='fa fa-cogs'></i> จัดการข้อมูล
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-          <a class="dropdown-item" [routerLink]="['/employeeshow']">บุคลากร</a>
-          <a class="dropdown-item" [routerLink]="['/department']">แผนก</a>
-          <a class="dropdown-item" [routerLink]="['/sector']">ฝ่ายงาน</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/editdaywork']">ตรวจสอบวันมาทำงาน</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="header-menu">
+            <span>Extra</span>
+          </li>
+          <li>
+            <a [routerLink]="['/sumleave']">
+              <i class='fa fa-copy'></i>
+              <span>สรุปการลา</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="clearUser()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
 
-          <a class="dropdown-item" [routerLink]="['/position']">ตำแหน่ง</a>
-          <a class="dropdown-item" [routerLink]="['/employeestatus']">สถานะบุคลากร</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/leavetype']">
-          <i class='fa fa-book'></i>
-          ประเภทการลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/leavelist']"><i class="fa fa-envelope"></i>
-          รายการลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class='fa fa-address-book'></i>
-          จัดการวันมาทำงาน
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-          <a class="dropdown-item" [routerLink]="['/checkdaywork']">บันทึกวันมาทำงาน</a>
-          <a class="dropdown-item" [routerLink]="['/editdaywork']">ตรวจสอบวันมาทำงาน</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/checkdaywork']">
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/sumleave']">
-          <i class='fa fa-copy'></i>
-          สรุปการลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false"><i class="fa fa-user"></i> {{EmpName}} {{EmpLastName}} </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item">ตำแหน่ง : {{PositionName}}</a>
-          <a class="dropdown-item" (click)="clearUser()"><i class='fa fa-sign-out-alt'></i>&nbsp;Log out</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
 
 <!-- บุคลากร -->
-<nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp1">
-  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
-     <i class="fa fa-lg"><h5>ระ</h5></i>
-    <i class="fa fa-lg"><h5>บบ</h5></i>
-    <i class="fa fa-lg"><h5>จัด</h5></i>
-    <i class="fa fa-lg"><h5>การ</h5></i>
-    <i class="fa fa-lg"><h5>บริ</h5></i>
-    <i class="fa fa-lg"><h5>หาร</h5></i>
-    <i class="fa fa-lg"><h5>บุ</h5></i>
-    <i class="fa fa-lg"><h5>คลา</h5></i>
-    <i class="fa fa-lg"><h5>กร</h5></i>&nbsp;
-    <i class="fa fa-lg"><h5>สวส</h5></i>
+<div class="page-wrapper chiller-theme toggled" *ngIf="emp1">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/leavelist']">
-          <i class='fa fa-book'></i> รายการลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/checkleave']">
-          <i class="fa fa-check-square" aria-hidden="true"></i> ตรวจสอบจำนวนวันลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false"><i class="fa fa-user"></i> {{EmpName}} {{EmpLastName}} </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item">ตำแหน่ง : {{PositionName}}</a>
-          <a class="dropdown-item">สถานะบุคลากร : {{EmpstatusName}}</a>
-          <a class="dropdown-item" (click)="clearUser()"><i class='fas fa-sign-out-alt'></i>&nbsp;Log out</a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a>ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
         </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>Menu</span>
+          </li>
+          <li>
+            <a [routerLink]="['/leavelist']">
+              <i class='fa fa-book'></i> รายการลา
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+          </li>
+          <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square"
+                aria-hidden="true"></i> ตรวจสอบจำนวนวันลา
+            </a>
+          </li>
+          <li class="header-menu">
+            <span>Logout</span>
+          </li>
+          <li>
+            <a (click)="clearUser()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
 
 <!-- หัวหน้าแผนก -->
-<nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp2">
-  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
-     <i class="fa fa-lg"><h5>ระ</h5></i>
-    <i class="fa fa-lg"><h5>บบ</h5></i>
-    <i class="fa fa-lg"><h5>จัด</h5></i>
-    <i class="fa fa-lg"><h5>การ</h5></i>
-    <i class="fa fa-lg"><h5>บริ</h5></i>
-    <i class="fa fa-lg"><h5>หาร</h5></i>
-    <i class="fa fa-lg"><h5>บุ</h5></i>
-    <i class="fa fa-lg"><h5>คลา</h5></i>
-    <i class="fa fa-lg"><h5>กร</h5></i>&nbsp;
-    <i class="fa fa-lg"><h5>สวส</h5></i>
+<div class="page-wrapper chiller-theme toggled" *ngIf="emp2">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/leavelist']">
-          <i class='fa fa-book'></i> รายการลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/checkleave']">
-          <i class="fa fa-check-square" aria-hidden="true"></i> ตรวจสอบจำนวนวันลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-id-card"></i> บุลคากร/การลา
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-          <a class="nav-link toggle" [routerLink]="['/employeeshow']">
-            บุลคากร
-          </a>
-          <a class="nav-link toggle" [routerLink]="['/checkleaveinfo']">
-            การลางานของบุคลกร
-          </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a>ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
         </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/leavetowaiting']">
-          <i class="fa fa-hourglass"></i> การลาที่รอรับรอง
-        </a>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>Menu</span>
+          </li>
+          <li>
+            <a [routerLink]="['/leavelist']">
+              <i class='fa fa-book'></i> รายการลา
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+          </li>
+          <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square"
+                aria-hidden="true"></i> ตรวจสอบจำนวนวันลา
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              บุลคากร/การลา
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employeeshow']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a [routerLink]="['/leavetowaiting']">
+              <i class="fa fa-hourglass"></i>
+              <span>การลาที่รอรับรอง</span>
+            </a>
+          </li>
+          <li class="header-menu">
+            <span>Logout</span>
+          </li>
+          <li>
+            <a (click)="clearUser()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
 
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false"><i class="fa fa-user"></i> {{EmpName}} {{EmpLastName}} </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item">ตำแหน่ง : {{PositionName}}</a>
-          <a class="dropdown-item">สถานะบุคลากร :{{EmpstatusName}}</a>
-          <a class="dropdown-item" (click)="clearUser()"><i class='fas fa-sign-out-alt'></i>&nbsp;Log out</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
 
 <!-- หัวหน้างาน -->
-<nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp3">
-  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
-     <i class="fa fa-lg"><h5>ระ</h5></i>
-    <i class="fa fa-lg"><h5>บบ</h5></i>
-    <i class="fa fa-lg"><h5>จัด</h5></i>
-    <i class="fa fa-lg"><h5>การ</h5></i>
-    <i class="fa fa-lg"><h5>บริ</h5></i>
-    <i class="fa fa-lg"><h5>หาร</h5></i>
-    <i class="fa fa-lg"><h5>บุ</h5></i>
-    <i class="fa fa-lg"><h5>คลา</h5></i>
-    <i class="fa fa-lg"><h5>กร</h5></i>&nbsp;
-    <i class="fa fa-lg"><h5>สวส</h5></i>
+<div class="page-wrapper chiller-theme toggled" *ngIf="emp3">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/leavelist']">
-          <i class='fa fa-book'></i> รายการลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/checkleave']">
-          <i class="fa fa-check-square" aria-hidden="true"></i> ตรวจสอบจำนวนวันลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-id-card"></i> บุลคากร/การลา
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-          <a class="nav-link toggle" [routerLink]="['/employeeshow']">
-            บุลคากร
-          </a>
-          <a class="nav-link toggle" [routerLink]="['/checkleaveinfo']">
-            การลางานของบุคลกร
-          </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a>ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
         </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/leavetowaiting']">
-          การลาที่รอรับรอง
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false"><i class="fa fa-user"></i> {{EmpName}} {{EmpLastName}} </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item">ตำแหน่ง : {{PositionName}}</a>
-          <a class="dropdown-item">สถานะบุคลากร : {{EmpstatusName}}</a>
-          <a class="dropdown-item" (click)="clearUser()"><i class='fas fa-sign-out-alt'></i>&nbsp;Log out</a>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
         </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>Menu</span>
+          </li>
+          <li>
+            <a [routerLink]="['/leavelist']">
+              <i class='fa fa-book'></i> รายการลา
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+          </li>
+          <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square"
+                aria-hidden="true"></i> ตรวจสอบจำนวนวันลา
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              บุลคากร/การลา
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employeeshow']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a [routerLink]="['/leavetowaiting']">
+              <i class="fa fa-hourglass"></i>
+              <span>การลาที่รอรับรอง</span>
+            </a>
+          </li>
+          <li class="header-menu">
+            <span>Logout</span>
+          </li>
+          <li>
+            <a (click)="clearUser()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
 
 <!-- รองหัวหน้าหน่วยงาน -->
-<nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp4">
-  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
-     <i class="fa fa-lg"><h5>ระ</h5></i>
-    <i class="fa fa-lg"><h5>บบ</h5></i>
-    <i class="fa fa-lg"><h5>จัด</h5></i>
-    <i class="fa fa-lg"><h5>การ</h5></i>
-    <i class="fa fa-lg"><h5>บริ</h5></i>
-    <i class="fa fa-lg"><h5>หาร</h5></i>
-    <i class="fa fa-lg"><h5>บุ</h5></i>
-    <i class="fa fa-lg"><h5>คลา</h5></i>
-    <i class="fa fa-lg"><h5>กร</h5></i>&nbsp;
-    <i class="fa fa-lg"><h5>สวส</h5></i>
+<div class="page-wrapper chiller-theme toggled" *ngIf="emp4">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/leavelist']">
-          <i class='fa fa-book'></i> รายการลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/checkleave']">
-          <i class="fa fa-check-square" aria-hidden="true"></i> ตรวจสอบจำนวนวันลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-id-card"></i> บุลคากร/การลา
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-          <a class="nav-link toggle" [routerLink]="['/employeeshow']">
-            บุลคากร
-          </a>
-          <a class="nav-link toggle" [routerLink]="['/checkleaveinfo']">
-            การลางานของบุคลกร
-          </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a>ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
         </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/leavetowaiting']">
-          การลาที่รอรับรอง
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false"><i class="fa fa-user"></i> {{EmpName}} {{EmpLastName}} </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item">ตำแหน่ง : {{PositionName}}</a>
-          <a class="dropdown-item">สถานะบุคลากร : {{EmpstatusName}}</a>
-          <a class="dropdown-item" (click)="clearUser()"><i class='fas fa-sign-out-alt'></i>&nbsp;Log out</a>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
         </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>Menu</span>
+          </li>
+          <li>
+            <a [routerLink]="['/leavelist']">
+              <i class='fa fa-book'></i> รายการลา
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+          </li>
+          <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square"
+                aria-hidden="true"></i> ตรวจสอบจำนวนวันลา
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              บุลคากร/การลา
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employeeshow']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a [routerLink]="['/leavetowaiting']">
+              <i class="fa fa-hourglass"></i>
+              <span>การลาที่รอรับรอง</span>
+            </a>
+          </li>
+          <li class="header-menu">
+            <span>Logout</span>
+          </li>
+          <li>
+            <a (click)="clearUser()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
 
 <!-- หัวหน้าหน่วยงาน -->
-<nav class="mb-4 navbar navbar-expand-lg navbar-dark cyan" *ngIf="emp5">
-  <a href="/home" class="navbar-brand faa-pulse faa-slow animated">
-     <i class="fa fa-lg"><h5>ระ</h5></i>
-    <i class="fa fa-lg"><h5>บบ</h5></i>
-    <i class="fa fa-lg"><h5>จัด</h5></i>
-    <i class="fa fa-lg"><h5>การ</h5></i>
-    <i class="fa fa-lg"><h5>บริ</h5></i>
-    <i class="fa fa-lg"><h5>หาร</h5></i>
-    <i class="fa fa-lg"><h5>บุ</h5></i>
-    <i class="fa fa-lg"><h5>คลา</h5></i>
-    <i class="fa fa-lg"><h5>กร</h5></i>&nbsp;
-    <i class="fa fa-lg"><h5>สวส</h5></i>
+<div class="page-wrapper chiller-theme toggled" *ngIf="emp5">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/leavetowaiting']">
-          <i class="fa fa-address-book"></i> รายการลาที่รออนุญาต
-        </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a>ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>Menu</span>
+          </li>
+          <li>
+            <a [routerLink]="['/leavelist']">
+              <i class='fa fa-book'></i> รายการลา
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+          </li>
+          <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square"
+                aria-hidden="true"></i> ตรวจสอบจำนวนวันลา
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              บุลคากร/การลา
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employeeshow']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a [routerLink]="['/leavetowaiting']">
+              <i class="fa fa-hourglass"></i>
+              <span>การลาที่รอรับรอง</span>
+            </a>
+          </li>
+          <li class="header-menu">
+            <span>Logout</span>
+          </li>
+          <li>
+            <a (click)="clearUser()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
 
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-id-card"></i> บุลคากร/การลา
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-          <a class="nav-link toggle" [routerLink]="['/employeeshow']">
-            บุลคากร
-          </a>
-          <a class="nav-link toggle" [routerLink]="['/checkleaveinfo']">
-            การลางานของบุคลกร
-          </a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link toggle" [routerLink]="['/sumleave']">
-          <i class="fa fa-line-chart"></i> สรุปการลา
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false"><i class="fa fa-user"></i> {{EmpName}} {{EmpLastName}} </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item">ตำแหน่ง : {{PositionName}}</a>
-          <a class="dropdown-item">สถานะบุคลากร : {{EmpstatusName}}</a>
-          <a class="dropdown-item" (click)="clearUser()"><i class='fas fa-sign-out-alt'></i>&nbsp;Log out</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
