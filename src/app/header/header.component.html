@@ -1,3 +1,5 @@
+
+<!-- แอดมิน -->
 <div class="page-wrapper chiller-theme toggled" *ngIf="show">
   <a id="show-sidebar" class="btn btn-sm btn-dark">
     <i class="fas fa-bars"></i>
@@ -441,7 +443,7 @@
           <li class="sidebar-dropdown">
             <a>
               <i class="fa fa-tachometer-alt"></i>
-              บุลคากร/การลา
+              บุคลากร/การลา
               <span class="badge badge-pill badge-warning">New</span>
             </a>
             <div class="sidebar-submenu">
@@ -523,20 +525,16 @@
             <span>Menu</span>
           </li>
           <li>
-            <a [routerLink]="['/leavelist']">
-              <i class='fa fa-book'></i> รายการลา
-              <span class="badge badge-pill badge-warning">New</span>
+            <a [routerLink]="['/leavetowaiting']">
+              <i class='fa fa-book'></i> รายการลาที่รออนุญาต
+              <span class="badge badge-pill badge-warning"></span>
             </a>
           </li>
-          <li class="sidebar">
-            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square"
-                aria-hidden="true"></i> ตรวจสอบจำนวนวันลา
-            </a>
-          </li>
+      
           <li class="sidebar-dropdown">
             <a>
               <i class="fa fa-tachometer-alt"></i>
-              บุลคากร/การลา
+              บุคลากร/การลา
               <span class="badge badge-pill badge-warning">New</span>
             </a>
             <div class="sidebar-submenu">
@@ -553,9 +551,9 @@
             </div>
           </li>
           <li>
-            <a [routerLink]="['/leavetowaiting']">
+            <a [routerLink]="['/sumleave']">
               <i class="fa fa-hourglass"></i>
-              <span>การลาที่รอรับรอง</span>
+              <span>สรุปการลา</span>
             </a>
           </li>
           <li class="header-menu">

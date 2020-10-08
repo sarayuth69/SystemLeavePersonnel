@@ -15,76 +15,95 @@ export class HeaderComponent implements OnInit {
   public baseUrl = GlobalVariable.BASE_API_URL;
   http: any;
   public seach;
-    constructor(public router: Router,
-      // private baseUrl : baseUrl
-      ) { }
-  show : boolean  
-  emp5 : boolean 
-  emp4 : boolean 
-  emp3 : boolean 
-  emp2 : boolean 
-  emp1 : boolean 
-  show1 : boolean 
-  EmpName  = localStorage.getItem('EmpName');
-  EmpLastName  = localStorage.getItem('EmpLastName');
-  PositionName  = localStorage.getItem('PositionName');
-  EmpstatusName  = localStorage.getItem('EmpstatusName');
+  constructor(public router: Router,
+    // private baseUrl : baseUrl
+  ) { }
+  show: boolean
+  emp5: boolean
+  emp4: boolean
+  emp3: boolean
+  emp2: boolean
+  emp1: boolean
+  show1: boolean
+  EmpName = localStorage.getItem('EmpName');
+  EmpLastName = localStorage.getItem('EmpLastName');
+  PositionName = localStorage.getItem('PositionName');
+  EmpstatusName = localStorage.getItem('EmpstatusName');
   Emp_ID = new FormControl('');
   ngOnInit() {
 
-    
-    if(localStorage.getItem('Role') === "6" ) {
-      this.show = true; 
+
+    if (localStorage.getItem('Role') === "6") {
+      this.show = true;
       // this.emp5 = false; 
       // this.emp3 = false; 
-      
-    } else if(localStorage.getItem('Role') === "1" ) {
-      this.emp1 = true; 
+
+    } else if (localStorage.getItem('Role') === "1") {
+      this.emp1 = true;
       // this.show = false; 
       // this.emp3 = false; 
-      
-    } else if(localStorage.getItem('Role') === "2" ) {
-      this.emp2 = true; 
+
+    } else if (localStorage.getItem('Role') === "2") {
+      this.emp2 = true;
       // this.show = false; 
       // this.emp3 = false; 
-  
-    } else if(localStorage.getItem('Role') === "3" ) {
-      this.emp3 = true; 
+
+    } else if (localStorage.getItem('Role') === "3") {
+      this.emp3 = true;
       // this.emp5 = false; 
       // this.show = false; 
       // this.emp3 = false; 
-  
-    } else if(localStorage.getItem('Role') === "4" ) {
+
+    } else if (localStorage.getItem('Role') === "4") {
       // this.emp4 = false; 
       // this.emp5 = false; 
       // this.show = false; 
-      this.emp4 = true; 
-  
-    } else if(localStorage.getItem('Role') === "5" ) {
+      this.emp4 = true;
+
+    } else if (localStorage.getItem('Role') === "5") {
       // this.emp4 = false; 
       // this.emp5 = false; 
       // this.show = false; 
-      this.emp5 = true; 
-  
-    } 
-   
+      this.emp5 = true;
+
+    }
+
   }
-  clearUser(){
-    localStorage.clear();
-      setTimeout(() => {
-      this.router.navigate(['/login']);
-      }, 2000);
+  clearUser() {
+    Swal.fire({
+      title: 'ต้องการออกจากระบบหรือไม่?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'ออกจากระบบเรียบร้อย',
+          '',
+          'success'
+        ).then(()=>{
+          localStorage.clear();
+          this.router.navigate(['/login']);
+          
+        }).then(()=>{
+          window.location.reload();
+        })
+      }
+    })
   }
   getsearch(Emp_ID) {
     console.log(Emp_ID);
-    this.seach=[];
-    if(this.Emp_ID.value.length === "0"){
+    this.seach = [];
+    if (this.Emp_ID.value.length === "0") {
       Swal.fire({
         icon: 'error',
         title: 'ไม่พบข้อมูล',
         text: 'Something went wrong!'
       })
-    }else{
+    } else {
       this.http.get(`${this.baseUrl}Search.php?Emp_ID=` + Emp_ID).subscribe(
         (data: any) => {
           console.log(data);
@@ -95,6 +114,6 @@ export class HeaderComponent implements OnInit {
         }
       );
     }
-   
+
   }
 }
