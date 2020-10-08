@@ -1,46 +1,46 @@
-
 <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
-    <div style="padding-left: 2%;padding-right: 2%;">
-        <div class="card">
+    <div style="padding-left: 15%;padding-right: 2%;">
+        <div class="card w-75 text-white bg-success">
             <div class="card-body">
-                <h5>ตรวจสอบวันลา </h5>
+                <h2 class="card-title">ตรวจสอบวันลา</h2>
             </div>
         </div>
     </div>
+
     <br>
     <div style="padding-left: 2%;padding-right: 2%;">
-       
+
         <div class="card">
             <div class="card-body">
-                <div  class="table-responsive-lg">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">ชื่อประเภท</th>
-                            <th scope="col">จำนวนวันลา/วัน</th>
-                            <th scope="col">คงเหลือ/วัน</th>
-                            <th scope="col">แจ้งล่วงหน้า/วัน</th>
-                            <th scope="col">จำนวนครั้งที่ลา/วัน</th>
-                            <th scope="col">สถานะสิทธิการลา</th>
-                            <th scope="col">สถานะบุคลากร</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let item of leavetypeUser ; let i = index">
-                        <tr>
-                            <td>{{item.LTypeName}}</td>
-                            <td>{{item.Number}}</td>
-                            <td>{{item.Remain}}</td>
-                            <td>{{item.AdvanceNotice}}</td>
-                            <td>{{item.LOrdinal}}</td>
-                            <td>{{item.QuotaStatus}}</td>
-                            <td>{{item.EmpstatusName}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive-lg">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ชื่อประเภท</th>
+                                <th scope="col">จำนวนวันลา/วัน</th>
+                                <th scope="col">คงเหลือ/วัน</th>
+                                <th scope="col">แจ้งล่วงหน้า/วัน</th>
+                                <th scope="col">จำนวนครั้งที่ลา/วัน</th>
+                                <th scope="col">สถานะสิทธิการลา</th>
+                                <th scope="col">สถานะบุคลากร</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of leavetypeUser ; let i = index">
+                            <tr>
+                                <td>{{item.LTypeName}}</td>
+                                <td>{{item.Number}}</td>
+                                <td>{{item.Remain}}</td>
+                                <td>{{item.AdvanceNotice}}</td>
+                                <td>{{item.LOrdinal}}</td>
+                                <td>{{item.QuotaStatus}}</td>
+                                <td>{{item.EmpstatusName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>

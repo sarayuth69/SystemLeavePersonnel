@@ -31,8 +31,17 @@ import { EditdayworkComponent } from './editdaywork/editdaywork.component';
 import { FilelaeveprintComponent } from './filelaeveprint/filelaeveprint.component';
 import { LeavetowaitingComponent } from './leavetowaiting/leavetowaiting.component';
 import { CheckleaveinfoComponent } from './checkleaveinfo/checkleaveinfo.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
+
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatRippleModule} from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'filelaeveprint', component: FilelaeveprintComponent },
@@ -97,10 +106,18 @@ const appRoutes: Routes = [
     HttpModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatFormFieldModule,
+    MatRippleModule,
+    MatInputModule,
+    MatDialogModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only set true
-    )
+    ),
+    BrowserAnimationsModule
   ],
   providers: [  ],
   bootstrap: [AppComponent]
