@@ -4,159 +4,173 @@
     <div class="row-md-1">
         <div style="padding-left: 15%;padding-right: 2%;">
             <div class="card w-75 text-white bg-primary">
-              <div class="card-body">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-sm">
-                      <h2 class="card-title">รายการลา</h2>
-    
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h2 class="card-title">รายการลา</h2>
+
+                            </div>
+                            <div class="col-sm">
+
+                            </div>
+                            <div class="col-sm">
+
+                            </div>
+                            <div class="col-sm">
+                                <button class="btn btn-warning" type="button" data-toggle="modal"
+                                    data-target="#exampleModalleave">
+                                    ยื่นขอลา
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm">
-                     
-                    </div>
-                    <div class="col-sm">
-                     
-                    </div>
-                    <div class="col-sm">
-                        <button class="btn btn-warning" type="button" data-toggle="modal"
-                        data-target="#exampleModalleave">
-                        ยื่นขอลา
-                    </button>
-                    </div>
-                  </div>
+
                 </div>
-           
-              </div>
             </div>
-          </div>
-     
-    
+        </div>
+
+
     </div>
 </div>
 <br>
 <div style="padding-right: 2%; ">
-
     <div class="card">
+        <div class="card-body">
+            <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="pills-leave-tab" data-toggle="pill" href="#pills-leave" role="tab"
+                        aria-controls="pills-leave" aria-selected="true">รายการลา</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="pills-cancel_leave-tab" data-toggle="pill" href="#pills-cancel_leave"
+                        role="tab" aria-controls="pills-cancel_leave" aria-selected="false">รายการยกเลิก</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+                        aria-controls="pills-contact" aria-selected="false">Contact</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-leave" role="tabpanel"
+                    aria-labelledby="pills-leave-tab">
 
-  <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="pills-leave-tab" data-toggle="pill" href="#pills-leave" role="tab" aria-controls="pills-leave" aria-selected="true">รายการลา</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-cancel_leave-tab" data-toggle="pill" href="#pills-cancel_leave" role="tab" aria-controls="pills-cancel_leave" aria-selected="false" >รายการยกเลิก</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
-        </li>
-      </ul>
-      <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-leave" role="tabpanel" aria-labelledby="pills-leave-tab">
-           
-                <div class="card-body">
-                    <div class="table-responsive-lg">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr class="text-center">
-                                    <th scope="col">ชื่อพนักงาน</th>
-                                    <th scope="col">ประเภท</th>
-                                    <th scope="col">วันที่ลา</th>
-                                    <th scope="col">จำนวน/วัน</th>
-                                    <th scope="col">ไฟล์แนบ</th>
-                                    <th scope="col">สถานะ</th>
-                                    <th scope="col">ปริ้นใบลา</th>
-                                    <th scope="col">จัดการ</th>
-                                </tr>
-                            </thead>
-                            <tbody *ngFor="let item of leave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
-                                <tr>
-                                    <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
-                                        <p>แผนก: {{item.DeptName}}</p>
-                                    </td>
-                                    <td class="text-center">{{item.LTypeName}}</td>
-                                    <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
-                                    <td class="text-center"> {{item.LeaveTotal}}</td>
-                                    <td class="text-center"> {{item.file_names}}</td>
-                                    <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-success" (click)="printDocument(item.LType_ID)"><i
-                                                class="fa fa-print" aria-hidden="true"></i></button>
-                                        <!-- <a routerLink="/FilelaeveprintComponent">ปริ้น</a> -->
-                                    </td>
-                                    <td class="text-center">
-                                        &nbsp;
-                                        <button *ngIf="item.LeaveStatus_ID < 5" type="button" class="btn btn-danger"
-                                            (click)="cancel_leave(item.Leave_ID,item.LeaveStatus_ID)">ยกเลิก</button>
-                                        <!-- Button trigger modal -->
-                                        <button *ngIf="item.LeaveStatus_ID==5" type="button" class="btn btn-primary"
-                                            data-toggle="modal" data-target="#exampleModal_cancel" 
-                                            (click)="cancel(item.LTypeName,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal)">
-                                            ขออนุญาตยกเลิก
-                                        </button>
-        
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                    <div class="card-body">
+                        <div class="table-responsive-lg">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">ชื่อพนักงาน</th>
+                                        <th scope="col">ประเภท</th>
+                                        <th scope="col">วันที่ลา</th>
+                                        <th scope="col">จำนวน/วัน</th>
+                                        <th scope="col">ไฟล์แนบ</th>
+                                        <th scope="col">สถานะ</th>
+                                        <th scope="col">ปริ้นใบลา</th>
+                                        <th scope="col">จัดการ</th>
+                                    </tr>
+                                </thead>
+                                <tbody
+                                    *ngFor="let item of leave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                                    <tr>
+                                        <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
+                                            <p>แผนก: {{item.DeptName}}</p>
+                                        </td>
+                                        <td class="text-center">{{item.LTypeName}}</td>
+                                        <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่
+                                            {{item.LeaveDateLast}}</td>
+                                        <td class="text-center"> {{item.LeaveTotal}}</td>
+                                        <td class="text-center"> {{item.file_names}}</td>
+                                        <td class="text-center" style="color:rgb(80, 80, 246);">
+                                            {{item.LeaveStatus_Name}} </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-success"
+                                                (click)="printDocument(item.LType_ID)"><i class="fa fa-print"
+                                                    aria-hidden="true"></i></button>
+                                            <!-- <a routerLink="/FilelaeveprintComponent">ปริ้น</a> -->
+                                        </td>
+                                        <td class="text-center">
+                                            &nbsp;
+                                            <button *ngIf="item.LeaveStatus_ID < 5" type="button" class="btn btn-danger"
+                                                (click)="cancel_leave(item.Leave_ID,item.LeaveStatus_ID)">ยกเลิก</button>
+                                            <!-- Button trigger modal -->
+                                            <button *ngIf="item.LeaveStatus_ID==5" type="button" class="btn btn-primary"
+                                                data-toggle="modal" data-target="#exampleModal_cancel"
+                                                (click)="cancel(item.LTypeName,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal)">
+                                                ขออนุญาตยกเลิก
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                        </div>
                     </div>
+
                 </div>
-     
-        </div>
-        <div class="tab-pane fade" id="pills-cancel_leave" role="tabpanel" aria-labelledby="pills-cancel_leave-tab">
-     
-                <div class="card-body">
-                    <div class="table-responsive-lg">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr class="text-center">
-                                    <th scope="col">ชื่อพนักงาน</th>
-                                    <th scope="col">ประเภท</th>
-                                    <th scope="col">วันที่ลา</th>
-                                    <th scope="col">จำนวน/วัน</th>
-                                    <th scope="col">ไฟล์แนบ</th>
-                                    <th scope="col">สถานะ</th>
-                                    <th scope="col">ปริ้นใบยกเลิก</th>
-                                    <th scope="col">ตรวจสอบ</th>
-                                </tr>
-                            </thead>
-                            <tbody *ngFor="let item of showcancel | paginate: { itemsPerPage: 10, currentPage: pageActual};">
-                                <tr >
-                                    <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
-                                        <p>แผนก: {{item.DeptName}}</p>
-                                    </td>
-                               
-                                    <td class="text-center">{{item.LTypeName}}</td>
-                                    <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
-                                    <td class="text-center" > {{item.LeaveTotal}}</td>
-                                    <td class="text-center"> {{item.file_names}}</td>
-                                    <td class="text-center"  ><p  style="color:red;" >{{item.LeaveStatus_Name}} </p>   </td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-success" (click)="printDocument(item.LType_ID)"><i
-                                                class="fa fa-print" aria-hidden="true"></i></button>
-                                       
-                                    </td>
-                                    <td class="text-center">
-                                        &nbsp;
-                                        <button  type="button" class="btn btn-primary">ตรวจสอบ</button>
-                                                                     
-        
-                                    </td>
-                                </tr>
-                          
-                            </tbody>
-                        </table>
-                        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                <div class="tab-pane fade" id="pills-cancel_leave" role="tabpanel"
+                    aria-labelledby="pills-cancel_leave-tab">
+
+                    <div class="card-body">
+                        <div class="table-responsive-lg">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">ชื่อพนักงาน</th>
+                                        <th scope="col">ประเภท</th>
+                                        <th scope="col">วันที่ลา</th>
+                                        <th scope="col">จำนวน/วัน</th>
+                                        <th scope="col">ไฟล์แนบ</th>
+                                        <th scope="col">สถานะ</th>
+                                        <th scope="col">ปริ้นใบยกเลิก</th>
+                                        <th scope="col">ตรวจสอบ</th>
+                                    </tr>
+                                </thead>
+                                <tbody
+                                    *ngFor="let item of showcancel | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                                    <tr>
+                                        <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
+                                            <p>แผนก: {{item.DeptName}}</p>
+                                        </td>
+
+                                        <td class="text-center">{{item.LTypeName}}</td>
+                                        <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่
+                                            {{item.LeaveDateLast}}</td>
+                                        <td class="text-center"> {{item.LeaveTotal}}</td>
+                                        <td class="text-center"> {{item.file_names}}</td>
+                                        <td class="text-center">
+                                            <p style="color:red;">{{item.LeaveStatus_Name}} </p>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-success"
+                                                (click)="printDocument(item.LType_ID)"><i class="fa fa-print"
+                                                    aria-hidden="true"></i></button>
+
+                                        </td>
+                                        <td class="text-center">
+                                            &nbsp;
+                                            <button type="button" class="btn btn-primary">ตรวจสอบ</button>
+
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                        </div>
                     </div>
+
                 </div>
-   
+                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...
+                </div>
+            </div>
         </div>
     </div>
-        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
-      </div>
-   
+    <br>
 
 
-   
 </div>
 
 
@@ -303,6 +317,7 @@
                     <div class="card">
                         <div class="card-body">
                             <form>
+
                                 <div class="card-header text-left">
                                     <b style="color: mediumblue;"> ยื่นการลา</b>
                                 </div>
@@ -364,17 +379,24 @@
                                     <b style="color: mediumblue;"> ข้อมูลการลา</b>
                                 </div>
                                 <br>
-                                ประเภทการลา
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-sm">
-                                            <select class="custom-select my-1 mr-sm-2" id="typeleave"
-                                                [formControl]="LType_ID">
-                                                <option *ngFor="let item of leavetype; let i = index"
-                                                    value="{{item.LType_ID}}">
-                                                    {{item.LTypeName}}</option>
-                                                <option></option>
+                                            <label>ประเภทการลา</label>
+                                            <select [(ngModel)]="data" [formControl]="LType_ID"
+                                                (ngModelChange)="dataChanged($event)" name="data"
+                                                class="custom-select my-1 mr-sm-2">
+                                                <option *ngFor="let currentData of leavetypeUser"
+                                                    [ngValue]="currentData">
+                                                    {{currentData.LTypeName}}
+                                                </option>
                                             </select>
+                                        </div>
+
+                                        <div class="col-sm">
+                                            <label> วันลาคงเหลือ</label><br>
+                                            <input type="text" id="check_Remain" value="{{check_Remain}}" #check_number
+                                                style="width: 50%;" readonly>
                                         </div>
                                         <div class="col-sm">
                                             <div class="custom-control custom-checkbox">
@@ -384,10 +406,6 @@
                                                     for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
                                                 <span *ngIf="marked"><input type="text" [formControl]="employee"></span>
                                             </div>
-
-                                        </div>
-                                        <div class="col-sm">
-
                                         </div>
                                     </div>
                                 </div>
@@ -452,7 +470,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal"
-                    (click)="AddLeave(LeaveTotal.value)">OK</button>
+                    (click)="AddLeave(LeaveTotal.value,check_number.value)">OK</button>
                 <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onUpload()">OK</button> -->
             </div>
         </div>
@@ -555,8 +573,7 @@
                         <div class="row">
                             <div class="col-sm">
                                 <label>เนื่องจาก</label>
-                                <textarea class="form-control" id="dataleave" rows="3"
-                                    [formControl]=""></textarea>
+                                <textarea class="form-control" id="dataleave" rows="3" [formControl]=""></textarea>
                             </div>
                             <div class="col-sm">
                                 <label>จึงขอยกเลิกวันลา</label>
