@@ -30,7 +30,7 @@ export class CheckleaveinfoComponent implements OnInit {
     // private baseUrl : baseUrl
   ) { }
   ngOnInit() {
-    if (localStorage.getItem('Role') === "5") {
+    if (localStorage.getItem('Role') === "5" || localStorage.getItem('Role') === "6" ) {
       const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
         + '&Role=' + localStorage.getItem("Role")
       console.log(body);

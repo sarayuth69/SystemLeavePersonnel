@@ -8,3 +8,4 @@ header('Control-type: application/json',true);
  $dbname = "table_leavesystem";
  
  $conn = new mysqli($servername, $username, $password, $dbname);
+ $conn -> set_charset("utf8");

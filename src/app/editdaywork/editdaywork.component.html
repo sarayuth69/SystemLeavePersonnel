@@ -4,16 +4,17 @@
     <div class="container">
       <div class="row">
         <div class="col-sm">
-          เดือน วัน ปี
-          <input type="date" class="form-control" placeholder="Search" #Day_Work>
-          <button type="button" class="btn btn-success" (click)="getsearchDay_Work(Day_Work.value)">ค้นหา</button>
+         เลือกวันที่
+         <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <input type="date" class="form-control" placeholder="Search" #Day_Work>
+            </div>
+            <div class="col-sm">
+              <button type="button" class="btn btn-success" (click)="getsearchDay_Work(Day_Work.value)">ค้นหา</button>
+            </div>
+          </div>
         </div>
-
-        <div class="col-sm">
-
-        </div>
-        <div class="col-sm">
-
         </div>
       </div>
     </div>

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { GlobalVariable } from '../baseUrl';
-
+import { Router, ActivatedRoute } from '@angular/router';
+import { APIService } from '../api.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-sumleave',
@@ -20,9 +22,11 @@ export class SumleaveComponent implements OnInit {
   public countleave;
   public sumleave;
   public searchdayleave;
-  public Day_leave;
-
+  Day_leave: any;
   constructor(
+    public router: Router,
+    public route: ActivatedRoute,
+    public api: APIService,
     public http: HttpClient,
     // private baseUrl : baseUrl
 
@@ -71,7 +75,7 @@ export class SumleaveComponent implements OnInit {
         text: 'Something went wrong!'
       })
     } else {
-      this.http.get(`${this.baseUrl}searchdayleave.php?` + Day_leave).subscribe(
+      this.http.get(`${this.baseUrl}searchdayleave.php?Day_leave=` + Day_leave).subscribe(
         (data: any) => {
           console.log(data);
           if (data.length === 0) {

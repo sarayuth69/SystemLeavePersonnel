@@ -103,6 +103,21 @@
               </ul>
             </div>
           </li>
+           <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              การลา/ใบลางาน
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+            
+                <li>
+                  <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
           <li class="header-menu">
             <span style="color:dodgerblue;">Extra</span>
           </li>
@@ -126,6 +141,7 @@
     <!-- sidebar-content  -->
 
   </nav>
+  
   <!-- sidebar-wrapper  -->
   <main class="page-content">
     <router-outlet></router-outlet>

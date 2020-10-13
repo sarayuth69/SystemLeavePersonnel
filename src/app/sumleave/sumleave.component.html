@@ -1,8 +1,7 @@
-
 <div style="padding: 1%;">
   <div class="tab-pane fade show active">
     <div class="card">
-      <div class="card-header">
+    
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="Year-tab" data-toggle="tab" href="#Year" role="tab" aria-controls="Year"
@@ -17,55 +16,55 @@
               aria-selected="false">รายงานสรุปการลาประจำวัน </a>
           </li>
         </ul>
-      </div>
+    
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="Year" role="tabpanel" aria-labelledby="Year-tab">
           <div class="table-responsive-xl">
-          <table class="table table-hover">
-            <thead class="text-success">
-              <tr>
-                <th scope="col">ชื่อ-นามสกุล</th>
-                <th scope="col">ม.ค.</th>
-                <th scope="col">ก.พ.</th>
-                <th scope="col">มี.ค.</th>
-                <th scope="col">เม.ย.</th>
-                <th scope="col">พ.ค.</th>
-                <th scope="col">มิ.ย.</th>
-                <th scope="col">ก.ค.</th>
-                <th scope="col">ส.ค.</th>
-                <th scope="col">ก.ย.</th>
-                <th scope="col">ต.ค.</th>
-                <th scope="col">พ.ย.</th>
-                <th scope="col">ธ.ค.</th>
-                <th scope="col">รวม</th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let item of sumleave; let i = index">
-              <tr>
-                <td>{{item.EmpName}} {{item.EmpLastName}}</td>
-                <td >{{item.Jan}} </td>
-                <td>{{item.Feb}} </td>
-                <td>{{item.Mar}} </td>
-                <td>{{item.Apr}} </td>
-                <td>{{item.May}} </td>
-                <td>{{item.Jun}} </td>
-                <td>{{item.Jul}} </td>
-                <td>{{item.Aug}} </td>
-                <td>{{item.Sep}} </td>
-                <td>{{item.Oct}} </td>
-                <td>{{item.Nov}} </td>
-                <td>{{item.Dec}} </td>
-                <td>{{item.Total}} </td>
-              </tr>
+            <table class="table table-hover">
+              <thead class="text-success">
+                <tr>
+                  <th scope="col">ชื่อ-นามสกุล</th>
+                  <th scope="col">ม.ค.</th>
+                  <th scope="col">ก.พ.</th>
+                  <th scope="col">มี.ค.</th>
+                  <th scope="col">เม.ย.</th>
+                  <th scope="col">พ.ค.</th>
+                  <th scope="col">มิ.ย.</th>
+                  <th scope="col">ก.ค.</th>
+                  <th scope="col">ส.ค.</th>
+                  <th scope="col">ก.ย.</th>
+                  <th scope="col">ต.ค.</th>
+                  <th scope="col">พ.ย.</th>
+                  <th scope="col">ธ.ค.</th>
+                  <th scope="col">รวม</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let item of sumleave; let i = index">
+                <tr>
+                  <td>{{item.EmpName}} {{item.EmpLastName}}</td>
+                  <td>{{item.Jan}} </td>
+                  <td>{{item.Feb}} </td>
+                  <td>{{item.Mar}} </td>
+                  <td>{{item.Apr}} </td>
+                  <td>{{item.May}} </td>
+                  <td>{{item.Jun}} </td>
+                  <td>{{item.Jul}} </td>
+                  <td>{{item.Aug}} </td>
+                  <td>{{item.Sep}} </td>
+                  <td>{{item.Oct}} </td>
+                  <td>{{item.Nov}} </td>
+                  <td>{{item.Dec}} </td>
+                  <td>{{item.Total}} </td>
+                </tr>
 
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
         <div class="tab-pane fade" id="Month" role="tabpanel" aria-labelledby="Month-tab">
 
 
-          
+
         </div>
 
 
@@ -82,17 +81,24 @@
                     <button type="button" class="btn btn-success"
                       (click)="getsearchdayleave(Day_leave.value)">ค้นหา</button>
                   </div> -->
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search" #Day_leave>
-                <button class="btn btn-outline-success my-2 my-sm-0"
-                  (click)="getsearchdayleave(Day_leave.value)">ค้นหา</button>
-              </form>
-              <div class="col-sm">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    <br>
+                    <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search" #Day_leave>
 
+                  </div>
+                  <div class="col-sm">
+                    <br>
+                    <button class="btn btn-outline-success my-2 my-sm-0"
+                      (click)="getsearchdayleave(Day_leave.value)">ค้นหา</button>
+                  </div>
+                  <div class="col-sm">
+            
+                  </div>
+                </div>
               </div>
-              <div class="col-sm">
-
-              </div>
+          
             </div>
           </div>
 

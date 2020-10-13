@@ -1,8 +1,9 @@
 
 <div style="padding: 1%;">
     <div class="tab-pane fade show active">
-        &nbsp;&nbsp;&nbsp;
+       
         <div *ngIf="table6">
+            <div style="padding-left: 2%;padding-right: 2%;">
             <div class="card">
                 <!-- <div class="container"> -->
                 <div class="row">
@@ -27,10 +28,12 @@
                 </div>
                 <!-- </div> -->
             </div>
+            </div>
             <br>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <!-- <div class="card-body" *ngIf="table1"> -->
+                        <div style="padding-left: 2%;padding-right: 2%;"> 
                     <div class="card">
                         <div class="table-responsive">
                             <table class="table table-hover">
@@ -91,6 +94,7 @@
                         </div>
                         <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
 
+                    </div>
                     </div>
                 </div>
             </div>

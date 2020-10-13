@@ -2,7 +2,7 @@
  header("Access-Control-Allow-Origin: *");
  header('Control-type: application/json',true);
  require 'connect_DB.php' ;
-if ($_POST['Role'] ==="5"){
+if ($_POST['Role'] ==="5" || $_POST['Role'] ==="6"){
     $sql  = "SELECT
     * FROM employee
 LEFT JOIN position ON employee.Position_ID = position.Position_ID

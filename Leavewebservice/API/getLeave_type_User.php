@@ -13,6 +13,7 @@
     employeestatus.EmpstatusName,
     leavetype.LOrdinal,
     leavetype.QuotaStatus,
+    leavetype.LType_ID,
     IFNULL(sum(`leave`.LeaveTotal),0) ,
     IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number) as  Remain
     FROM

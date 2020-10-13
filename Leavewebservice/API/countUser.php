@@ -1,6 +1,5 @@
 <?php
- header("Access-Control-Allow-Origin: *");
- header('Control-type: application/json',true);
+ 
  require 'connect_DB.php' ;
 
 

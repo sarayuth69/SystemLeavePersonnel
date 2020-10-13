@@ -316,7 +316,16 @@ width: 100%;
 width:60%;
 }
 
-.page-wrapper  {
-  display: none;
-  display: flex;
+.sidebar-wrapper  {
+  
+  display: none !important;
+
 }
+#sidebar{
+  display: none;
+
+}
+.nav{
+  display: none;
+}
+

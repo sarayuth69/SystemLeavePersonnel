@@ -55,7 +55,7 @@ export class EditdayworkComponent implements OnInit {
 
   getsearchDay_Work(Day_Work) {
     console.log(Day_Work);
-    this.Day_Work = [];
+
     if (!Day_Work) {
       Swal.fire({
         icon: 'error',

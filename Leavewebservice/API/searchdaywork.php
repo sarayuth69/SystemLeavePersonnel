@@ -3,15 +3,14 @@
  header('Control-type: application/json',true);
  require 'connect_DB.php' ;
 
-
+$day_work = $_GET['Day_Work'];
     $sql = "SELECT
     *
 FROM
 employee
 LEFT JOIN officiate_day ON employee.Emp_ID = officiate_day.Emp_ID
 WHERE
- Day_Work LIKE '%{$_GET['Day_Work']}%' 
- 
+ DATE(Day_Work) = DATE('$day_work') 
      ";
       $result = mysqli_query($conn,$sql); 
       $myArray = array();
@@ -24,5 +23,5 @@ WHERE
       } 
       else 
       {
-          echo "0 results";
+          echo $day_work;
       }

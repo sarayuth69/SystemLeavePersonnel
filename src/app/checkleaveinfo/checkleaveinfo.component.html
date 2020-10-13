@@ -1,31 +1,30 @@
-
 <div style="padding: 1%;">
 
     <div class="card">
         <div class="card-body">
             <div class="container">
                 <div class="row">
-                  <div class="col-sm">
-                    <!-- <label for="exampleFormControlSelect1">เลือกบุคลากร :</label> -->
-                  </div>
-                  <div class="col-sm">
-                    <select class="form-control form-control-lg" id="exampleFormControlSelect1" #Emp_ID>
-                        <option selected>เลือกบุคลากร</option>
-                        <option *ngFor="let item of Dept_to_head" value="{{item.Emp_ID}}">{{item.EmpName}}
-                            {{item.EmpLastName}} 
-                        </option>
-                    </select>
-                  </div>
-                  <div class="col-sm">
-                      
-                    <button type="button" class="btn btn-primary" (click)="leaveSearch(Emp_ID.value)">ค้นหา</button>
+                    <div class="col-sm">
+                        <!-- <label for="exampleFormControlSelect1">เลือกบุคลากร :</label> -->
+                    </div>
+                    <div class="col-sm">
+                        <select class="form-control form-control-lg" id="exampleFormControlSelect1" #Emp_ID>
+                            <option selected>เลือกบุคลากร</option>
+                            <option *ngFor="let item of Dept_to_head" value="{{item.Emp_ID}}">{{item.EmpName}}
+                                {{item.EmpLastName}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm">
 
-                  </div>
+                        <button type="button" class="btn btn-primary" (click)="leaveSearch(Emp_ID.value)">ค้นหา</button>
+
+                    </div>
                 </div>
-              </div>
+            </div>
             <div class="table-responsive-lg">
-                
-              
+
+
             </div>
         </div>
     </div>
@@ -40,7 +39,9 @@
                         <th scope="col">วันที่ลา</th>
                         <th scope="col">จำนวน/วัน</th>
                         <th scope="col">ไฟล์แนบ</th>
+                        <th scope="col">สถานะใบลา</th>
                         <th scope="col">สถานะ</th>
+                        <th scope="col">จัดการ</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of seachleave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
@@ -51,9 +52,11 @@
                         <td class="text-center">{{item.LTypeName}}</td>
                         <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
                         <td class="text-center"> {{item.LeaveTotal}}</td>
-                        <td></td>
+                        <td> </td>
+                        <td class="text-center">{{item.LeaveStatus_Document}} </td>
                         <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
                         <td class="text-center">
+                            <button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#exampleModal"><i class="fa fa-cog" aria-hidden="true"></i></button>
                         </td>
 
                     </tr>
@@ -64,3 +67,25 @@
     </div>
 
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">ลบ</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
