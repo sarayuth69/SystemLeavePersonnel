@@ -21,16 +21,38 @@ export class CheckleaveinfoComponent implements OnInit {
   Dept_to_head;
   seachleave;
   pageActual: any;
-  Emp_ID = new FormControl('');
+  // Emp_ID = new FormControl('');
+  deleteleave;
+
+
+  btn_delete: boolean;
+  Emp_ID: any;
+  Emp_ID_show: any;
+  Leave_ID: any;
+  Name_Leave: any;
+  To_Person: any;
+  EmpName: any;
+  EmpLastName: any;
+  PositionName: any;
+  DeptName: any;
+  SectorName: any;
+  LTypeName: any;
+  LeaveData: any;
+  ContactInformation: any;
+  employee: any;
+  LeaveDateStart: any;
+  LeaveDateLast: any;
+  LeaveTotal: any;
+  LeaveStatus_Document: any;
+  Role: any;
   constructor(
     public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
-    // private baseUrl : baseUrl
   ) { }
   ngOnInit() {
-    if (localStorage.getItem('Role') === "5" || localStorage.getItem('Role') === "6" ) {
+    if (localStorage.getItem('Role') === "5" || localStorage.getItem('Role') === "6") {
       const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
         + '&Role=' + localStorage.getItem("Role")
       console.log(body);
@@ -48,7 +70,7 @@ export class CheckleaveinfoComponent implements OnInit {
             console.log(error);
           }
         )
-    } else  {
+    } else {
       const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
         + '&Role=' + localStorage.getItem("Role")
       console.log(body);
@@ -69,9 +91,9 @@ export class CheckleaveinfoComponent implements OnInit {
     }
 
   }
-  leaveSearch(Emp_ID) {
-    console.log(Emp_ID);
-    this.http.get(`${this.baseUrl}Checkleaveinfo.php?Emp_ID=` + Emp_ID).subscribe(
+  leaveSearch(Emp_ID_search) {
+    console.log(Emp_ID_search);
+    this.http.get(`${this.baseUrl}Checkleaveinfo.php?Emp_ID=` + Emp_ID_search).subscribe(
       (data: any) => {
         console.log(data);
         if (data.length === 0) {
@@ -92,5 +114,74 @@ export class CheckleaveinfoComponent implements OnInit {
         })
       }
     );
+  }
+
+  show_data(Leave_ID, Name_Leave, To_Person, Emp_ID, EmpName, EmpLastName, PositionName, DeptName,
+    SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveStatus_Document) {
+    console.log(Emp_ID);
+    this.Leave_ID = Leave_ID
+    this.Name_Leave = Name_Leave
+    this.To_Person = To_Person
+    this.Emp_ID_show = Emp_ID
+    this.EmpName = EmpName
+    this.EmpLastName = EmpLastName
+    this.PositionName = PositionName
+    this.DeptName = DeptName
+    this.SectorName = SectorName
+    this.LTypeName = LTypeName
+    this.LeaveData = LeaveData
+    this.ContactInformation = ContactInformation
+    this.employee = employee
+    this.LeaveDateStart = LeaveDateStart
+    this.LeaveDateLast = LeaveDateLast
+    this.LeaveTotal = LeaveTotal
+    this.LeaveStatus_Document = LeaveStatus_Document
+    if (localStorage.getItem('Role') === "6") {
+      this.btn_delete = true
+    }
+    else{
+      this.btn_delete = false
+    }
+
+  }
+  delete_leave() {
+
+    Swal.fire({
+      title: 'คุณจะลบการลาของ' + ' ' + this.EmpName + this.EmpLastName + ' ' + 'หรือไม่',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        ).then(() => {
+
+
+          this.http
+            .get(
+              `${this.baseUrl}Delete_leave_user.php?Leave_ID=` + this.Leave_ID
+            )
+            .subscribe(
+              (data: any) => {
+                console.log(data[0]);
+                this.seachleave = data[0];
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            );
+        }).then(() => {
+          this.leaveSearch(this.Emp_ID_show);
+        })
+
+      }
+    })
+
   }
 }

@@ -8,7 +8,7 @@
                         <!-- <label for="exampleFormControlSelect1">เลือกบุคลากร :</label> -->
                     </div>
                     <div class="col-sm">
-                        <select class="form-control form-control-lg" id="exampleFormControlSelect1" #Emp_ID>
+                        <select class="form-control form-control-lg" id="exampleFormControlSelect1" #Emp_ID_search>
                             <option selected>เลือกบุคลากร</option>
                             <option *ngFor="let item of Dept_to_head" value="{{item.Emp_ID}}">{{item.EmpName}}
                                 {{item.EmpLastName}}
@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-sm">
 
-                        <button type="button" class="btn btn-primary" (click)="leaveSearch(Emp_ID.value)">ค้นหา</button>
+                        <button type="button" class="btn btn-primary" (click)="leaveSearch(Emp_ID_search.value)">ค้นหา</button>
 
                     </div>
                 </div>
@@ -56,7 +56,11 @@
                         <td class="text-center">{{item.LeaveStatus_Document}} </td>
                         <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#exampleModal"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                data-target="#exampleModal" (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+                                item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
+                                item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,
+                                item.LeaveStatus_Document)"><i class="fa fa-cog" aria-hidden="true"></i></button>
                         </td>
 
                     </tr>
@@ -70,22 +74,122 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ข้อมูลการลา</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="card-header text-left">
+                        <b style="color: mediumblue;"> ยื่นการลา</b>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <h6>เรื่อง : {{Name_Leave}}</h6>
+                        <br>
+                        <h6>เรียน : {{To_Person}}</h6>
+                    </div>
+                    &nbsp;&nbsp;
+                    <div class="card-header text-left">
+                        <b style="color: mediumblue;">ข้อมุลบุคลากร</b>
+                    </div>
+                    &nbsp;
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <p>รหัส : {{Emp_ID_show}} </p>
+                            </div>
+                            <div class="col-sm">
+                                <h6> ชื่อ : {{EmpName}}</h6>
+                            </div>
+                            <div class="col-sm">
+                                <h6> นามสกุล : {{EmpName}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h6>ตำแหน่ง : {{PositionName}} </h6>
+                            </div>
+                            <div class="col-sm">
+                                <h6>แผนก : {{DeptName}}</h6>
+                            </div>
+                            <div class="col-sm">
+                                <h6> ฝ่าย : {{SectorName}} </h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header text-left">
+                        <b style="color: mediumblue;"> ข้อมูลการลา</b>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">หัวข้อ</th>
+                                    <th scope="col">รายละเอียด</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">ประเภทการลา :</th>
+                                    <td>{{LTypeName}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">มีผู้รับผิดชอบงานแทน :</th>
+                                    <td>{{employee}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">ขอลาเนื่องจาก :</th>
+                                    <td> {{LeaveData}}</td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">ข้อมูลการติดต่อ :</th>
+                                    <td> {{ContactInformation}}</td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">วันที่ลา :</th>
+                                    <td> {{LeaveDateStart}} </td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">ถึงวันที่ :</th>
+                                    <td>  {{LeaveDateLast}} </td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">จำนวนวันลา :</th>
+                                    <td> {{LeaveTotal}}</td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">แนปไฟล์ :</th>
+                                    <td> ยังไม่ได้ทำแนปไฟล์</td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">สถานะการส่งใบลาฉบับจริง :</th>
+                                    <td> {{LeaveData}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete_leave()" *ngIf="btn_delete">ลบ</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
         </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">ลบ</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>

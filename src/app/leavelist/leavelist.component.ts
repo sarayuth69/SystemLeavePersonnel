@@ -546,13 +546,13 @@ export class LeavelistComponent implements OnInit {
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
-          + '&LeaveTotal=' + this.LeaveTotal.value
+          + '&LeaveTotal=' + LeaveTotal
           + '&LeaveStatus_ID=' + "2"
           + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
           + '&UploadFile=' + this.UploadFile.value
           + '&Response_Time=' + this.Response_Time.value
           + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-          + '&LType_ID=' + this.LType_ID.value
+          + '&LType_ID=' + this.LType_ID_check
 
         console.log(body);
         const headers = new HttpHeaders({
@@ -645,13 +645,13 @@ export class LeavelistComponent implements OnInit {
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
-          + '&LeaveTotal=' + this.LeaveTotal.value
+          + '&LeaveTotal=' + LeaveTotal
           + '&LeaveStatus_ID=' + "3"
           + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
           + '&UploadFile=' + this.UploadFile.value
           + '&Response_Time=' + this.Response_Time.value
           + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-          + '&LType_ID=' + this.LType_ID.value
+          + '&LType_ID=' + this.LType_ID_check
 
         console.log(body);
         const headers = new HttpHeaders({
@@ -744,13 +744,13 @@ export class LeavelistComponent implements OnInit {
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
-          + '&LeaveTotal=' + this.LeaveTotal.value
+          + '&LeaveTotal=' + LeaveTotal
           + '&LeaveStatus_ID=' + "4"
           + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
           + '&UploadFile=' + this.UploadFile.value
           + '&Response_Time=' + this.Response_Time.value
           + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-          + '&LType_ID=' + this.LType_ID.value
+          + '&LType_ID=' + this.LType_ID_check
 
         console.log(body);
         const headers = new HttpHeaders({

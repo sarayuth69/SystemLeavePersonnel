@@ -64,60 +64,60 @@ export class DepartmentComponent implements OnInit {
   AddDept(s) {
     this.Sector_ID = s
     console.log(this.Sector_ID);
-    // const body = 'Dept_ID=' + this.Dept_ID.value
-    //   + '&DeptName=' + this.DeptName.value
-    //   + '&Sector_ID=' + this.Sector_ID.value
-    // console.log(this.Dept_ID.value);
-    // console.log(this.DeptName.value);
-    // console.log(this.Sector_ID);
-    // console.log(body);
-    // if (this.Dept_ID.value === "" || this.DeptName.value === "" || this.Sector_ID.value === "") {
-    //   Swal.fire(
-    //     'กรุณากรอกข้อมูล',
-    //     'That thing is still around?',
-    //     'question'
-    //   )
-    // }
-    // else {
-    //   console.log(body);
-    //   const headers = new HttpHeaders({
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   });
-    //   this.http
-    //     .post('http://localhost/Leavewebservice/API/InsertDept.php', body, {
-    //       headers: headers
-    //     })
-    //     .subscribe(
-    //       (data: any) => {
-    //         console.log(data[0]);
-    //         this.department = data[0];
-    //       },
-    //       (error: any) => {
-    //         console.log(error);
-    //       }
-    //     );
-    //   Swal.fire({
-    //     position: 'top-end',
-    //     icon: 'success',
-    //     title: 'Your work has been saved',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   }).then(() => {
-    //     this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
-    //       (data: any) => {
-    //         console.log(data);
-    //         this.dep = data;
-    //       },
-    //       (error: any) => {
-    //         console.log(error);
-    //       }
-    //     );
-    //   }).then(() => {
-    //     this.Dept_ID = new FormControl('');
-    //     this.DeptName = new FormControl('');
-    //     this.Sector_ID = new FormControl('');
-    //   })
-    // }
+    const body = 'Dept_ID=' + this.Dept_ID.value
+      + '&DeptName=' + this.DeptName.value
+      + '&Sector_ID=' + this.Sector_ID.value
+    console.log(this.Dept_ID.value);
+    console.log(this.DeptName.value);
+    console.log(this.Sector_ID);
+    console.log(body);
+    if (this.Dept_ID.value === "" || this.DeptName.value === "" || this.Sector_ID.value === "") {
+      Swal.fire(
+        'กรุณากรอกข้อมูล',
+        'That thing is still around?',
+        'question'
+      )
+    }
+    else {
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post('http://localhost/Leavewebservice/API/InsertDept.php', body, {
+          headers: headers
+        })
+        .subscribe(
+          (data: any) => {
+            console.log(data[0]);
+            this.department = data[0];
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => {
+        this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
+          (data: any) => {
+            console.log(data);
+            this.dep = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }).then(() => {
+        this.Dept_ID = new FormControl('');
+        this.DeptName = new FormControl('');
+        this.Sector_ID = new FormControl('');
+      })
+    }
   }
 
   deleteDept(id, name) {
