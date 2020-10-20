@@ -20,6 +20,7 @@ export class CheckleaveComponent implements OnInit {
   public leavetype104;
   public leavetypeUser;
   pageActual: any;
+  showleave_limit;
   constructor(
     public router: Router  ,
     public route: ActivatedRoute,
@@ -30,6 +31,53 @@ export class CheckleaveComponent implements OnInit {
 
   ) { }
   ngOnInit() {
+    
+
+
+
+
+    // this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+    //   (data : any)=>{
+  
+    //     for( var i = 0 ;i <= data.length;i++){
+    //       this.showleave_limit = data;
+    //         console.log(this.showleave_limit[i] .date_stop);
+            
+    //     }
+
+    //     const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+    //    + '&LeaveDateStart='+ this.showleave_limit.date_stop
+    //    + '&limit_date='+this.showleave_limit.limit_date
+    //     console.log(tpyeUser);
+    //     const headers1 = new HttpHeaders({
+    //       'Content-Type': 'application/x-www-form-urlencoded'
+    //     });
+    //     this.http
+    //       .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
+    //         headers: headers1
+    //       }).subscribe(
+    //         (data: any) => {
+    //           this.leavetypeUser = data;
+    //           console.log(this.leavetypeUser);
+    
+    //         },
+    //         (error: any) => {
+    //           console.log(error);
+    //         }
+    
+    //       )
+        
+      
+    //   },(error : any)=>{
+    //     console.log(error);        
+    //   }
+    // )
+
+
+
+
+
+
     
     const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
     console.log(tpyeUser);

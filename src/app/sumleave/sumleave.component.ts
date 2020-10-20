@@ -91,6 +91,11 @@ export class SumleaveComponent implements OnInit {
         },
         (error: any) => {
           console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'ไม่พบข้อมูล',
+            text: 'Something went wrong!'
+          })
         }
       );
     }

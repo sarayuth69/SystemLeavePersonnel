@@ -30,7 +30,8 @@ export class LeavelistComponent implements OnInit {
   list2: boolean
   btn_cancel: boolean
   btn_cancel_head: boolean
-
+  
+  
   leave_ID_to_cancel
   test
   // LeaveStatus_ID
@@ -49,7 +50,7 @@ export class LeavelistComponent implements OnInit {
   leave105: boolean;
   leave104: boolean;
   pageActual: any;
-
+  require: any;
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -99,6 +100,7 @@ export class LeavelistComponent implements OnInit {
   check_Remain: any;
   LType_ID_check: any;
   check_number: Number;
+  LType_limit_check: Number;
   // check_number_total : Number;
   ngOnInit() {
     const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
@@ -406,23 +408,42 @@ export class LeavelistComponent implements OnInit {
 
   //   )
   dataChanged(newObj) {
-    console.log(newObj.Remain);
-    console.log(newObj.LType_ID);
+  
     this.check_Remain = newObj.Remain
     this.LType_ID_check = newObj.LType_ID
+    this.LType_limit_check = newObj.LType_limit
   }
 
-  AddLeave(LeaveTotal, check_number) {
+  AddLeave(LeaveTotal, check_number,limit_type) {
 
     console.log(+check_number);
     console.log(+LeaveTotal);
+    console.log(limit_type);
 
     if (+LeaveTotal > +check_number) {
+      // Swal.fire({
+      //   icon: 'error',
+      //   title: 'วันลาของคุณเกินกำหนด',
+      //   text: '',
+      //   footer: '<a href="../checkleave"]>เช็ควันลาของคุณ</a>'
+      // })
+
       Swal.fire({
-        icon: 'error',
-        title: 'วันลาของคุณเกินกำหนด',
-        text: '',
-        footer: '<a href="../checkleave"]>เช็ควันลาของคุณ</a>'
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
       })
 
     }
@@ -978,11 +999,15 @@ export class LeavelistComponent implements OnInit {
   }
 
   onseletday(LeaveDateStart, LeaveDateLast) {
-
-    console.log(LeaveDateStart, LeaveDateLast);
-    let dayleave = moment(LeaveDateLast).startOf('day').diff(moment(LeaveDateStart).startOf('day'), 'day')
-    if (dayleave > 0) {
+    // var dateStart = new Date(LeaveDateStart);
+    // var dateLast = new Date(LeaveDateLast);
+   console.log(LeaveDateStart,LeaveDateLast);
+  
+   var moment = require('moment-business-days');
+     var dayleave = moment(LeaveDateLast).businessDiff(moment(LeaveDateStart));
+     if (dayleave > 0) {
       this.numberleave = dayleave;
+      console.log(this.numberleave);
     } else {
       Swal.fire({
         icon: 'error',
@@ -991,7 +1016,42 @@ export class LeavelistComponent implements OnInit {
         footer: '<a href>Why do I have this issue?</a>'
       })
     }
+    
+     
+    
+  
+    // let dayleave = moment(LeaveDateLast).startOf('day').diff(moment(LeaveDateStart).startOf('day'), 'day')
+
+    // while(dayleave > 0){
+
+    // }
+
+
+    // if(dateStart.getDay() === 0 || dateLast.getDay() === 0 && dateStart.getDay() === 6 || dateLast.getDay() === 6 ){
+    //   var dayleave = moment(dateLast,'MM-DD-YYYY').businessDiff(moment(dateStart).startOf('day'), 'day')
+    //   this.numberleave = dayleave;
+
+     
+    
+     
+    // }
+    // else{
+    //   let dayleave = moment(LeaveDateLast).startOf('day').diff(moment(LeaveDateStart).startOf('day'), 'day')
+    //    if (dayleave > 0) {
+    //      this.numberleave = dayleave;
+    //    } 
+    //   //  else {
+    //   //    Swal.fire({
+    //   //      icon: 'error',
+    //   //      title: 'Oops...',
+    //   //      text: 'Something went wrong!',
+    //   //      footer: '<a href>Why do I have this issue?</a>'
+    //   //    })
+    //   //  }
+    // }
+   
   }
+ 
 
 
   day() {

@@ -21,6 +21,7 @@ export class LeavetypeComponent implements OnInit {
 
 
   public leavetype;
+    public leave_limit;
   leavetype_ratcakan
   leavetype_emp_in_univercity
   leavetype_Temporary_worker
@@ -30,24 +31,43 @@ export class LeavetypeComponent implements OnInit {
   LType_ID = new FormControl('');
   LTypeName = new FormControl('');
   Number = new FormControl('');
+  LType_limit = new FormControl('');
   leavetype_remark = new FormControl('');
   AdvanceNotice = new FormControl('');
   LOrdinal = new FormControl('');
   QuotaStatus = new FormControl('');
   Empstatus_ID = new FormControl('');
-
+  limit_date = new FormControl('');
+  Date_start = new FormControl('');
+  id= new FormControl('');
+  date = new Date().toString()
+  showleave_limit;
 
   constructor(
     public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
+   
     // private baseUrl : baseUrl
 
 
-  ) { }
+  ) {     }
 
   ngOnInit() {
+    this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+      (data : any)=>{
+  
+        for( var i = 0 ;i <= data.length;i++){
+          this.showleave_limit = data;
+            console.log(this.showleave_limit[i] .date_stop);
+            
+        }
+        //  this.showleave_limit = data;
+      },(error : any)=>{
+        console.log(error);        
+      }
+    )
     this.http.get(`${this.baseUrl}getLeavetype.php`).subscribe(
       (data: any) => {
         this.leavetype = data;
@@ -87,13 +107,14 @@ export class LeavetypeComponent implements OnInit {
     const body = 'LType_ID=' + this.LType_ID.value
       + '&LTypeName=' + this.LTypeName.value
       + '&Number=' + this.Number.value
+      + '&LType_limit=' + this.LType_limit.value
       // + '&Remain=' + this.Remain.value
       + '&AdvanceNotice=' + this.AdvanceNotice.value
       + '&LOrdinal=' + 0
       + '&leavetype_remark=' + this.leavetype_remark.value
       + '&QuotaStatus=' + this.QuotaStatus.value
       + '&Empstatus_ID=' + this.Empstatus_ID.value
-    if (this.LTypeName.value === "" || this.Number.value === ""
+    if (this.LTypeName.value === "" || this.Number.value === "" || this.LType_limit.value
       || this.AdvanceNotice.value === ""
       || this.QuotaStatus.value === "" || this.Empstatus_ID.value === "") {
       Swal.fire(
@@ -102,6 +123,11 @@ export class LeavetypeComponent implements OnInit {
         'question'
       )
     } else {
+
+
+
+
+
       console.log(body);
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -164,6 +190,7 @@ export class LeavetypeComponent implements OnInit {
         this.LType_ID = new FormControl('');
         this.LTypeName = new FormControl('');
         this.Number = new FormControl('');
+        this.LType_limit = new FormControl('');
         // this.Remain = new FormControl('');
         this.AdvanceNotice = new FormControl('');
         // this.LOrdinal = new FormControl('');
@@ -217,11 +244,12 @@ export class LeavetypeComponent implements OnInit {
 
 
   updateLeavetype(
-    LType_ID, LTypeName, Number, AdvanceNotice, leavetype_remark, QuotaStatus, Empstatus_ID
+    LType_ID, LTypeName, Number,LType_limit, AdvanceNotice, leavetype_remark, QuotaStatus, Empstatus_ID
   ) {
     this.LType_ID = new FormControl(LType_ID);
     this.LTypeName = new FormControl(LTypeName);
     this.Number = new FormControl(Number);
+    this.LType_limit = new FormControl(LType_limit);
     // this.Remain = new FormControl(Remain);
     this.AdvanceNotice = new FormControl(AdvanceNotice);
     this.leavetype_remark = new FormControl(leavetype_remark);
@@ -234,6 +262,7 @@ export class LeavetypeComponent implements OnInit {
       'LType_ID=' + this.LType_ID.value
       + '&LTypeName=' + this.LTypeName.value
       + '&Number=' + this.Number.value
+      + '&LType_limit=' + this.LType_limit.value
       // + '&Remain=' + this.Remain.value
       + '&AdvanceNotice=' + this.AdvanceNotice.value
       + '&LOrdinal=' + 0
@@ -310,4 +339,78 @@ export class LeavetypeComponent implements OnInit {
     })
   }
 
+check_limit(date_stop){
+  console.log(date_stop);
+  
+
+}
+  add_leave_limit(){
+    const body = 'id=' + this.id.value
+    + '&Date_start=' + this.Date_start.value 
+    + '&limit_date=' + this.limit_date.value
+  
+  if (this.Date_start.value === "" || this.limit_date.value === "") {
+    Swal.fire(
+      'กรุณากรอกข้อมูล',
+      'That thing is still around?',
+      'question'
+    )
+  } else {
+
+
+    this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+      (data : any)=>{
+  
+        for( var i = 0 ;i <= data.length;i++){
+          this.showleave_limit = data;
+            console.log(this.showleave_limit[i] .date_stop);
+            
+        }
+
+
+        
+      
+      },(error : any)=>{
+        console.log(error);        
+      }
+    )
+    
+
+
+
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}insert_leave_limit.php`, body, {
+        headers: headers
+      })
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.leave_limit = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'เพิ่มรอบประเมินเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+
+    }).then(()=>{
+      this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+        (data : any)=>{
+          this.showleave_limit = data;
+        },(error : any)=>{
+          console.log(error);        
+        }
+      )
+    })
+  }
+  }
 }

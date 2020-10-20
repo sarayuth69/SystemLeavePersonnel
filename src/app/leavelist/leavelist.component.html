@@ -399,6 +399,11 @@
                                                 style="width: 50%;" readonly>
                                         </div>
                                         <div class="col-sm">
+                                            <label> วันลาเกิน</label><br>
+                                            <input type="text" id="LType_limit_check" value="{{LType_limit_check}}" #limit_type
+                                                style="width: 50%;" readonly>
+                                        </div>
+                                        <div class="col-sm">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck1"
                                                     (change)="toggleVisibility($event)">
@@ -470,7 +475,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal"
-                    (click)="AddLeave(LeaveTotal.value,check_number.value)">OK</button>
+                    (click)="AddLeave(LeaveTotal.value,check_number.value,limit_type.value)">OK</button>
                 <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onUpload()">OK</button> -->
             </div>
         </div>
@@ -569,6 +574,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">

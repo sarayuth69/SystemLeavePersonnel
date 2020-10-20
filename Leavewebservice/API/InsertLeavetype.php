@@ -5,11 +5,12 @@
  require 'connect_DB.php' ;
 
     $sql  = "INSERT INTO `leavetype` (`LType_ID`,`LTypeName`,
-    `Number`,`AdvanceNotice`,`LOrdinal`, `QuotaStatus`,`leavetype_remark`,
+    `Number`,`LType_limit`,`AdvanceNotice`,`LOrdinal`, `QuotaStatus`,`leavetype_remark`,
      `Empstatus_ID` ) VALUES (
          '".$_POST['LType_ID']."',
          '".$_POST['LTypeName']."',
          '".$_POST['Number']."',
+         '".$_POST['LType_limit']."',
          '".$_POST['AdvanceNotice']."',
          '".$_POST['LOrdinal']."',
          '".$_POST['QuotaStatus']."',
