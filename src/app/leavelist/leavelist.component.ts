@@ -50,7 +50,7 @@ export class LeavelistComponent implements OnInit {
   leave105: boolean;
   leave104: boolean;
   pageActual: any;
-  require: any;
+  
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -1002,9 +1002,11 @@ export class LeavelistComponent implements OnInit {
     // var dateStart = new Date(LeaveDateStart);
     // var dateLast = new Date(LeaveDateLast);
    console.log(LeaveDateStart,LeaveDateLast);
+ 
+  var moment = require('moment-business-days');
   
-   var moment = require('moment-business-days');
      var dayleave = moment(LeaveDateLast).businessDiff(moment(LeaveDateStart));
+    
      if (dayleave > 0) {
       this.numberleave = dayleave;
       console.log(this.numberleave);
