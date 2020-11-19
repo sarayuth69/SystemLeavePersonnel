@@ -28,31 +28,60 @@ export class LoginComponent implements OnInit {
     public api: APIService,
     public http: HttpClient,
     //  private baseUrl : baseUrl
-) { }
+  ) { }
 
   ngOnInit() {
 
     // localStorage.clear();
+    this.route.queryParams.subscribe((value: any) => {
+      console.log(value);
+      this.http
+        .get(
+          `${this.baseUrl}loginsso.php?perid=` + value.perid
+        )
+        .subscribe(
+          (data: any) => {
+            console.log(data);
+            console.log(data.campus[0]);
+
+            // if (data.perid = "1309901383809") {
+            //   console.log(data.perid);
+            // localStorage.setItem('Emp_ID', data.perid);
+            // this.router.navigate(['/leavelist']);
+            // }
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        )
+    });
+
+
+
+
     // this.route.queryParams.subscribe((value: any) => {
     //   console.log(value);
-    //   this.http
-    //     .get(
-    //       `${this.baseUrl}loginsso.php?perid=` + value.perid
-    //     )
-    //     .subscribe(
-    //       (data: any) => {
-    //         console.log(data);
-    //         if (data.perid = "1309901383809") {
-    //           console.log(data.perid);
-    //           // localStorage.setItem('Emp_ID', data.perid);
-    //           // this.router.navigate(['/leavelist']);
-    //         }
-    //       },
-    //       (error: any) => {
-    //         console.log(error);
-    //       }
-    //     )
-    // });
+    //   // if (value.oldPath) this.oldPath = value.oldPath;
+    //   if (value.sso) {
+    //     this.http
+    //       .post(`/loginsso?perid=${value.perid}`)
+    //       .subscribe((value: any) => {
+    //         console.log(value);
+    // if (value.response.success) {
+    //   let a = value.response.data.userID;
+
+    //   this.onlogin(a);
+    //   // console.log(a);
+    // } else {
+    // this.http.alertLog('error', 'ไม่พบข้อมูลผู้ใช้งาน');
+    // setTimeout(function () {
+    //   window.location.replace(environment.ssoLogout);
+    // }, 3000);
+    // }
+    //         });
+    //     }
+    //   });
+
   }
   click(u: string, p: string) {
     if (!u || !p) {

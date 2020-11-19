@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : localhost
 Source Server Version : 80017
 Source Host           : localhost:3306
 Source Database       : table_leavesystem
@@ -10,10 +10,28 @@ Target Server Type    : MYSQL
 Target Server Version : 80017
 File Encoding         : 65001
 
-Date: 2020-10-20 16:14:00
+Date: 2020-11-19 16:46:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for cencel_leave
+-- ----------------------------
+DROP TABLE IF EXISTS `cencel_leave`;
+CREATE TABLE `cencel_leave` (
+  `cancel_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cancel_data` varchar(255) DEFAULT NULL,
+  `cencel_date_start` date DEFAULT NULL,
+  `cencel_date_stop` date DEFAULT NULL,
+  `cencel_total` double unsigned zerofill NOT NULL,
+  `leave_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cancel_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cencel_leave
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for department
@@ -131,7 +149,7 @@ CREATE TABLE `employeestatus` (
 -- ----------------------------
 INSERT INTO `employeestatus` VALUES ('201', 'ลูกจ้างเงินรายได้');
 INSERT INTO `employeestatus` VALUES ('202', 'พนักงานมหาวิทยาลัย');
-INSERT INTO `employeestatus` VALUES ('203', 'ราชการ');
+INSERT INTO `employeestatus` VALUES ('203', 'ข้าราชการ');
 
 -- ----------------------------
 -- Table structure for leave
@@ -155,14 +173,12 @@ CREATE TABLE `leave` (
   `LType_ID` int(10) NOT NULL COMMENT 'รหัสประเภทการลา	',
   `file_names` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`Leave_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1558899034 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leave
 -- ----------------------------
-INSERT INTO `leave` VALUES ('1558899031', '1000.27.195', '', '', '2020-07-15', '2020-07-22', 'www', 'www', '', '1', '5', 'ส่งใบลาฉบับจริงแล้ว', '0000-00-00 00:00:00', '', '4007', '');
-INSERT INTO `leave` VALUES ('1558899032', '1000.27.195', '', '', '2020-02-16', '2020-02-19', '1010', '', '', '50', '5', 'ส่งใบลาฉบับจริงแล้ว', '0000-00-00 00:00:00', '', '4005', '');
-INSERT INTO `leave` VALUES ('1558899033', '1000.27.195', '', '', '2020-02-16', '2020-02-19', '1010', '', '', '100', '5', 'ส่งใบลาฉบับจริงแล้ว', '0000-00-00 00:00:00', '', '4014', '');
+INSERT INTO `leave` VALUES ('4', '1000.27.195', 'การลาพักผ่อน', 'ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ', '2020-11-15', '2020-11-30', '', '', '', '2', '1', 'ส่งใบลาฉบับจริงแล้ว', '0000-00-00 00:00:00', '', '4007', '');
 
 -- ----------------------------
 -- Table structure for leavestatus
@@ -200,7 +216,7 @@ CREATE TABLE `leavetype` (
   `leavetype_remark` varchar(255) NOT NULL COMMENT 'หมายเหตุ',
   `Empstatus_ID` varchar(10) NOT NULL COMMENT 'สถานะบุคลากร',
   PRIMARY KEY (`LType_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4016 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4027 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leavetype
@@ -217,22 +233,27 @@ INSERT INTO `leavetype` VALUES ('4011', 'ลาอุปสมบท', '120', '0
 INSERT INTO `leavetype` VALUES ('4013', 'ลาคลอด', '90', '0', '-', '0', 'ลาได้', '', '202');
 INSERT INTO `leavetype` VALUES ('4014', 'ลาอุปสมบท', '15', '100', '60', '0', 'ลาได้', '', '202');
 INSERT INTO `leavetype` VALUES ('4015', 'ลาพักผ่อน', '10', '5', '0', '0', 'ลาได้', '-', '201');
+INSERT INTO `leavetype` VALUES ('4024', 'asd', '0', '0', '', '0', '', '', '');
+INSERT INTO `leavetype` VALUES ('4025', 'asd', '0', '0', '', '0', '', '', '');
+INSERT INTO `leavetype` VALUES ('4026', 'asdsa', '0', '0', '', '0', '', '', '');
 
 -- ----------------------------
 -- Table structure for leave_limit
 -- ----------------------------
 DROP TABLE IF EXISTS `leave_limit`;
 CREATE TABLE `leave_limit` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `limit_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name_limit` varchar(255) NOT NULL,
   `Date_start` date NOT NULL,
   `limit_date` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`limit_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leave_limit
 -- ----------------------------
-INSERT INTO `leave_limit` VALUES ('6', '2020-10-23', '5');
+INSERT INTO `leave_limit` VALUES ('27', '1', '2020-11-19', '1');
+INSERT INTO `leave_limit` VALUES ('28', 'sd', '2020-11-19', '1');
 
 -- ----------------------------
 -- Table structure for officiate_day

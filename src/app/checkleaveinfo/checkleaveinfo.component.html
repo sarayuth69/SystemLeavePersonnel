@@ -17,7 +17,8 @@
                     </div>
                     <div class="col-sm">
 
-                        <button type="button" class="btn btn-primary" (click)="leaveSearch(Emp_ID_search.value)">ค้นหา</button>
+                        <button type="button" class="btn btn-primary"
+                            (click)="leaveSearch(Emp_ID_search.value)">ค้นหา</button>
 
                     </div>
                 </div>
@@ -38,7 +39,7 @@
                         <th scope="col">ประเภท</th>
                         <th scope="col">วันที่ลา</th>
                         <th scope="col">จำนวน/วัน</th>
-                        <th scope="col">ไฟล์แนบ</th>
+                        <!-- <th scope="col">ไฟล์แนบ</th> -->
                         <th scope="col">สถานะใบลา</th>
                         <th scope="col">สถานะ</th>
                         <th scope="col">จัดการ</th>
@@ -52,15 +53,23 @@
                         <td class="text-center">{{item.LTypeName}}</td>
                         <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
                         <td class="text-center"> {{item.LeaveTotal}}</td>
-                        <td> </td>
+                        <!-- <td> </td> -->
                         <td class="text-center">{{item.LeaveStatus_Document}} </td>
-                        <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
+                        <div  *ngIf="item.LeaveStatus_ID == 6 || item.LeaveStatus_ID == 7" style="color:rgb(240, 8, 8);">
+                            <td >
+                                {{item.LeaveStatus_Name}} </td>
+                        </div>
+                        <div  *ngIf="item.LeaveStatus_ID < 6" style="color:rgb(80, 80, 246);">
+                            <td >
+                                {{item.LeaveStatus_Name}} </td>
+                        </div>
                         <td class="text-center">
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#exampleModal" (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                 item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                 item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,
-                                item.LeaveStatus_Document)"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                               item.LeaveStatus_Name, item.LeaveStatus_Document,item.LeaveStatus_ID)"><i
+                                    class="fa fa-cog" aria-hidden="true"></i></button>
                         </td>
 
                     </tr>
@@ -107,7 +116,7 @@
                                 <h6> ชื่อ : {{EmpName}}</h6>
                             </div>
                             <div class="col-sm">
-                                <h6> นามสกุล : {{EmpName}}</h6>
+                                <h6> นามสกุล : {{EmpLastName}}</h6>
                             </div>
                         </div>
                     </div>
@@ -162,7 +171,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">ถึงวันที่ :</th>
-                                    <td>  {{LeaveDateLast}} </td>
+                                    <td> {{LeaveDateLast}} </td>
 
                                 </tr>
                                 <tr>
@@ -176,8 +185,13 @@
 
                                 </tr>
                                 <tr>
+                                    <th scope="row">สถานะการลา :</th>
+                                    <td style="color: rgb(12, 48, 206);"> {{LeaveStatus_Name}}</td>
+                                </tr>
+
+                                <tr>
                                     <th scope="row">สถานะการส่งใบลาฉบับจริง :</th>
-                                    <td> {{LeaveData}}</td>
+                                    <td> {{LeaveStatus_Document}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -186,9 +200,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete_leave()" *ngIf="btn_delete">ลบ</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete_leave()"
+                    *ngIf="btn_delete">ลบ</button>
+                <button type="button" class="btn btn-primary">บันทึก</button>
             </div>
         </div>
     </div>

@@ -1,8 +1,7 @@
-
 <div style="padding: 1%;">
   <div class="tab-pane fade show active">
     &nbsp;&nbsp;&nbsp;
-    <div >
+    <div>
       <div style="padding-left: 15%;padding-right: 2%;">
         <div class="card w-75 text-white bg-primary">
           <div class="card-body">
@@ -13,260 +12,260 @@
 
                 </div>
                 <div class="col-sm">
-         
+
                 </div>
                 <div class="col-sm">
-                  <button type="button" class="btn btn-warning" data-toggle="modal"
-                  data-target="#exampleModal" onclick="
+                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" onclick="
                       document.getElementById('LTypeName').value = '',document.getElementById('Number').value = ''
                       ,document.getElementById('AdvanceNotice').value = ''
                       ,document.getElementById('QuotaStatus').value = ''
                       ,document.getElementById('Empstatus_ID').value = ''
                       ,document.getElementById('leavetype_remark').value = ''
                       ,document.getElementById('LType_limit').value = ''">
-                  เพิ่มประเภทการลา
-                </button>
+                    เพิ่มประเภทการลา
+                  </button>
                 </div>
               </div>
             </div>
-       
+
           </div>
         </div>
       </div>
       <br>
       <div style="padding-left: 2%;padding-right: 2%;">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-            aria-selected="true">ราชการ</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-            aria-selected="false">พนักงานมหาวิทยาลัย</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-            aria-selected="false">ลูกจ้างเงินรายได้</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#limit" role="tab" aria-controls="limit"
-            aria-selected="false">รอบการประเมิน</a>
-        </li>
-      </ul>
-    </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+              aria-selected="true">ข้าราชการ</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+              aria-selected="false">พนักงานมหาวิทยาลัย</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+              aria-selected="false">ลูกจ้างเงินรายได้</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#limit" role="tab" aria-controls="limit"
+              aria-selected="false">รอบการประเมิน</a>
+          </li>
+        </ul>
+      </div>
       <div style="padding-left: 2%;padding-right: 2%;">
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr class="text-center">
-                  <th scope="col">ลำดับ</th>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col">ลำดับ</th>
 
-                  <!-- <th scope="col">รหัสประเภทการลา</th> -->
-                  <th scope="col">ชื่อประเภทการลา</th>
-                  <th scope="col">จำนวนวันลา/วัน</th>
-                  <th scope="col">จำนวนที่ลาเกินได้/วัน</th>
+                    <!-- <th scope="col">รหัสประเภทการลา</th> -->
+                    <th scope="col">ชื่อประเภทการลา</th>
+                    <th scope="col">จำนวนวันลา/วัน</th>
+                    <th scope="col">จำนวนที่ลาเกินได้/วัน</th>
 
-                  <!-- <th scope="col">คงเหลือ/วัน</th> -->
-                  <th scope="col">แจ้งล่วงหน้า/วัน</th>
-                  <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
-                  <!-- <th scope="col">สถานะสิทธิการลา</th> -->
-                  <th scope="col">สถานะบุคลากร</th>
-                  <th scope="col">หมายเหตุ</th>
-                  <th scope="col">จัดการ</th>
-                </tr>
-              </thead>
-              <tbody *ngFor="let item of leavetype_ratcakan; let i = index">
-                <tr class="text-center">
-                  <td>
-                    <p ng-repeat="i in range(1, 5)">
-                      {{ i+1 }}
-                    </p>
-                  </td>
+                    <!-- <th scope="col">คงเหลือ/วัน</th> -->
+                    <th scope="col">แจ้งล่วงหน้า/วัน</th>
+                    <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
+                    <!-- <th scope="col">สถานะสิทธิการลา</th> -->
+                    <th scope="col">สถานะบุคลากร</th>
+                    <th scope="col">หมายเหตุ</th>
+                    <th scope="col">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let item of leavetype_ratcakan; let i = index">
+                  <tr class="text-center">
+                    <td>
+                      <p ng-repeat="i in range(1, 5)">
+                        {{ i+1 }}
+                      </p>
+                    </td>
 
-                  <!-- <td>{{item.LType_ID}}</td> -->
-                  <td >{{item.LTypeName}}</td>
-                  <td >{{item.Number}}</td>
-                  <td >{{item.LType_limit}}</td>
-                  <!-- <td>{{item.Remain}}</td> -->
-                  <td >{{item.AdvanceNotice}}</td>
-                  <!-- <td>{{item.LOrdinal}}</td> -->
-                  <!-- <td >{{item.QuotaStatus}}</td> -->
-                  <td>{{item.EmpstatusName}}</td>
-                  <td>{{item.leavetype_remark}}</td>
-                  <td>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
-                      (click)="updateLeavetype(item.LType_ID,item.LTypeName
+                    <!-- <td>{{item.LType_ID}}</td> -->
+                    <td>{{item.LTypeName}}</td>
+                    <td>{{item.Number}}</td>
+                    <td>{{item.LType_limit}}</td>
+                    <!-- <td>{{item.Remain}}</td> -->
+                    <td>{{item.AdvanceNotice}}</td>
+                    <!-- <td>{{item.LOrdinal}}</td> -->
+                    <!-- <td >{{item.QuotaStatus}}</td> -->
+                    <td>{{item.EmpstatusName}}</td>
+                    <td>{{item.leavetype_remark}}</td>
+                    <td>
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
+                        (click)="updateLeavetype(item.LType_ID,item.LTypeName
                     ,item.Number,item.LType_limit,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
-                      แก้ไข
-                    </button>
+                        แก้ไข
+                      </button>
 
-                    &nbsp;
-                    <button type="button" class="btn btn-danger"
-                      (click)="deleteLeavetype(item.LType_ID,item.LTypeName)">ลบ</button>
+                      &nbsp;
+                      <button type="button" class="btn btn-danger"
+                        (click)="deleteLeavetype(item.LType_ID,item.LTypeName,item.Empstatus_ID)">ลบ</button>
 
 
-                  </td>
+                    </td>
 
-                </tr>
-              </tbody>
-            </table>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
           </div>
 
-        </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col">ลำดับ</th>
 
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr class="text-center">
-                  <th scope="col">ลำดับ</th>
+                    <!-- <th scope="col">รหัสประเภทการลา</th> -->
+                    <th scope="col">ชื่อประเภทการลา</th>
+                    <th scope="col">จำนวนวันลา/วัน</th>
+                    <th scope="col">จำนวนที่ลาเกินได้/วัน</th>
 
-                  <!-- <th scope="col">รหัสประเภทการลา</th> -->
-                  <th scope="col">ชื่อประเภทการลา</th>
-                  <th scope="col">จำนวนวันลา/วัน</th>
-                  <th scope="col">จำนวนที่ลาเกินได้/วัน</th>
+                    <!-- <th scope="col">คงเหลือ/วัน</th> -->
+                    <th scope="col">แจ้งล่วงหน้า/วัน</th>
+                    <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
+                    <!-- <th scope="col">สถานะสิทธิการลา</th> -->
+                    <th scope="col">สถานะบุคลากร</th>
+                    <th scope="col">หมายเหตุ</th>
+                    <th scope="col">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let item of leavetype_emp_in_univercity; let i = index">
+                  <tr class="text-center">
+                    <td>
+                      <p ng-repeat="i in range(1, 5)">
+                        {{ i+1 }}
+                      </p>
+                    </td>
 
-                  <!-- <th scope="col">คงเหลือ/วัน</th> -->
-                  <th scope="col">แจ้งล่วงหน้า/วัน</th>
-                  <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
-                  <!-- <th scope="col">สถานะสิทธิการลา</th> -->
-                  <th scope="col">สถานะบุคลากร</th>
-                  <th scope="col">หมายเหตุ</th>
-                  <th scope="col">จัดการ</th>
-                </tr>
-              </thead>
-              <tbody *ngFor="let item of leavetype_emp_in_univercity; let i = index">
-                <tr class="text-center">
-                  <td>
-                    <p ng-repeat="i in range(1, 5)">
-                      {{ i+1 }}
-                    </p>
-                  </td>
-
-                  <!-- <td>{{item.LType_ID}}</td> -->
-                  <td>{{item.LTypeName}}</td>
-                  <td>{{item.Number}}</td>
-                  <td>{{item.LType_limit}}</td>
-                  <!-- <td>{{item.Remain}}</td> -->
-                  <td>{{item.AdvanceNotice}}</td>
-                  <!-- <td>{{item.LOrdinal}}</td> -->
-                  <!-- <td>{{item.QuotaStatus}}</td> -->
-                  <td>{{item.EmpstatusName}}</td>
-                  <td>{{item.leavetype_remark}}</td>
-                  <td>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
-                      (click)="updateLeavetype(item.LType_ID,item.LTypeName
+                    <!-- <td>{{item.LType_ID}}</td> -->
+                    <td>{{item.LTypeName}}</td>
+                    <td>{{item.Number}}</td>
+                    <td>{{item.LType_limit}}</td>
+                    <!-- <td>{{item.Remain}}</td> -->
+                    <td>{{item.AdvanceNotice}}</td>
+                    <!-- <td>{{item.LOrdinal}}</td> -->
+                    <!-- <td>{{item.QuotaStatus}}</td> -->
+                    <td>{{item.EmpstatusName}}</td>
+                    <td>{{item.leavetype_remark}}</td>
+                    <td>
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
+                        (click)="updateLeavetype(item.LType_ID,item.LTypeName
                     ,item.Number,item.LType_limit,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
-                      แก้ไข
-                    </button>
-                    &nbsp;
-                    <button type="button" class="btn btn-danger"
-                      (click)="deleteLeavetype(item.LType_ID,item.LTypeName)">ลบ</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                        แก้ไข
+                      </button>
+                      &nbsp;
+                      <button type="button" class="btn btn-danger"
+                        (click)="deleteLeavetype(item.LType_ID,item.LTypeName,item.Empstatus_ID)">ลบ</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
           </div>
 
-        </div>
+          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col">ลำดับ</th>
 
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr class="text-center">
-                  <th scope="col">ลำดับ</th>
+                    <!-- <th scope="col">รหัสประเภทการลา</th> -->
+                    <th scope="col">ชื่อประเภทการลา</th>
+                    <th scope="col">จำนวนวันลา/วัน</th>
+                    <th scope="col">จำนวนที่ลาเกินได้/วัน</th>
+                    <!-- <th scope="col">คงเหลือ/วัน</th> -->
+                    <th scope="col">แจ้งล่วงหน้า/วัน</th>
+                    <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
+                    <!-- <th scope="col">สถานะสิทธิการลา</th> -->
+                    <th scope="col">สถานะบุคลากร</th>
+                    <th scope="col">หมายเหตุ</th>
+                    <th scope="col">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let item of leavetype_Temporary_worker; let i = index">
+                  <tr class="text-center">
+                    <td>
+                      <p ng-repeat="i in range(1, 5)">
+                        {{ i+1 }}
+                      </p>
+                    </td>
 
-                  <!-- <th scope="col">รหัสประเภทการลา</th> -->
-                  <th scope="col">ชื่อประเภทการลา</th>
-                  <th scope="col">จำนวนวันลา/วัน</th>
-                  <th scope="col">จำนวนที่ลาเกินได้/วัน</th>
-                  <!-- <th scope="col">คงเหลือ/วัน</th> -->
-                  <th scope="col">แจ้งล่วงหน้า/วัน</th>
-                  <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
-                  <!-- <th scope="col">สถานะสิทธิการลา</th> -->
-                  <th scope="col">สถานะบุคลากร</th>
-                  <th scope="col">หมายเหตุ</th>
-                  <th scope="col">จัดการ</th>
-                </tr>
-              </thead>
-              <tbody *ngFor="let item of leavetype_Temporary_worker; let i = index">
-                <tr class="text-center">
-                  <td>
-                    <p ng-repeat="i in range(1, 5)">
-                      {{ i+1 }}
-                    </p>
-                  </td>
-
-                  <!-- <td>{{item.LType_ID}}</td> -->
-                  <td>{{item.LTypeName}}</td>
-                  <td>{{item.Number}}</td>
-                  <td>{{item.LType_limit}}</td>
-                  <!-- <td>{{item.Remain}}</td> -->
-                  <td>{{item.AdvanceNotice}}</td>
-                  <!-- <td>{{item.LOrdinal}}</td> -->
-                  <!-- <td>{{item.QuotaStatus}}</td> -->
-                  <td>{{item.EmpstatusName}}</td>
-                  <td>{{item.leavetype_remark}}</td>
-                  <td>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
-                      (click)="updateLeavetype(item.LType_ID,item.LTypeName
+                    <!-- <td>{{item.LType_ID}}</td> -->
+                    <td>{{item.LTypeName}}</td>
+                    <td>{{item.Number}}</td>
+                    <td>{{item.LType_limit}}</td>
+                    <!-- <td>{{item.Remain}}</td> -->
+                    <td>{{item.AdvanceNotice}}</td>
+                    <!-- <td>{{item.LOrdinal}}</td> -->
+                    <!-- <td>{{item.QuotaStatus}}</td> -->
+                    <td>{{item.EmpstatusName}}</td>
+                    <td>{{item.leavetype_remark}}</td>
+                    <td>
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
+                        (click)="updateLeavetype(item.LType_ID,item.LTypeName
                     ,item.Number,item.LType_limit,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
-                      แก้ไข
-                    </button>
+                        แก้ไข
+                      </button>
+                      &nbsp;
+                      <button type="button" class="btn btn-danger"
+                        (click)="deleteLeavetype(item.LType_ID,item.LTypeName,item.Empstatus_ID)">ลบ</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-                    &nbsp;
-                    <button type="button" class="btn btn-danger"
-                      (click)="deleteLeavetype(item.LType_ID,item.LTypeName)">ลบ</button>
-
-
-                  </td>
-
-                </tr>
-              </tbody>
-            </table>
           </div>
+          <div class="tab-pane fade" id="limit" role="tabpanel" aria-labelledby="limit-tab">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr class="text-center">
+                    {{text}}
+                    <th scope="col">ลำดับ</th>
+                    <th scope="col">ชื่อรอบการประเมิน</th>
+                    <th scope="col">วันเริ่มประเมิน</th>
+                    <th scope="col">จำนวนเดือน</th>
+                    <th scope="col">วันสิ้นสุดรอบประเมิน</th>
+                    <th scope="col">
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#exampleModal_manage" (click)="check_limit()">
+                        จัดการรอบการประเมิน
+                      </button></th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let item of showleave_limit; let i = index">
+                  <tr class="text-center">
+                    <td>
+                      <p ng-repeat="i in range(1, 5)">
+                        {{ i+1 }} 
+                      </p>
+                    </td>
+                    <td>{{item.Name_limit}} </td>
+                    <td>{{item.Date_start_format}}</td>
+                    <td>{{item.limit_date}}</td>
+                    <td>{{item.date_stop}} </td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-        </div>
-        <div class="tab-pane fade" id="limit" role="tabpanel" aria-labelledby="limit-tab">
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr class="text-center">
-                  <th scope="col">ลำดับ</th>
-                  <th scope="col">วันเริ่มประเมิน</th>
-                  <th scope="col">จำนวนเดือน</th>
-                  <th scope="col">วันสิ้นสุดรอบประเมิน</th>
-                  <th scope="col">                                   <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_manage" (click)="check_limit()">
-                      จัดการรอบการประเมิน
-                    </button></th>
-                </tr>
-              </thead>
-              <tbody *ngFor="let item of showleave_limit; let i = index">
-                <tr class="text-center">
-                  <td>
-                    <p ng-repeat="i in range(1, 5)">
-                      {{ i+1 }}
-                    </p>
-                  </td>
-                  <td>{{item.Date_start}}</td>
-                  <td>{{item.limit_date}}</td>
-                  <td>{{item.date_stop}} </td> 
-                  <td>{{date  | date:'yyyy-MM-dd'}}</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
-
         </div>
       </div>
-    </div>
     </div>
   </div>
 
@@ -301,8 +300,8 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                 </div>
-                <input type="text" class="form-control" id="LType_limit" placeholder="จำนวนวันลาเกิน" [formControl]="LType_limit"
-                  required>
+                <input type="text" class="form-control" id="LType_limit" placeholder="จำนวนวันลาเกิน"
+                  [formControl]="LType_limit" required>
               </div>
               <label>แจ้งล่วงหน้า</label>
               <input type="text" class="form-control" id="AdvanceNotice" placeholder="แจ้งล่วงหน้า"
@@ -336,7 +335,7 @@
         </div>
       </div>
     </div>
-               </div>
+  </div>
 
 
 
@@ -369,8 +368,8 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                 </div>
-                <input type="text" class="form-control" id="LType_limit" placeholder="จำนวนวันลาเกิน" [formControl]="LType_limit"
-                  required>
+                <input type="text" class="form-control" id="LType_limit" placeholder="จำนวนวันลาเกิน"
+                  [formControl]="LType_limit" required>
               </div>
               <label>แจ้งล่วงหน้า</label>
               <input type="text" class="form-control" id="AdvanceNotice" placeholder="แจ้งล่วงหน้า"
@@ -423,12 +422,17 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label >วันเริ่มประเมิน</label>
-            <input type="date" class="form-control" [formControl]="Date_start">
-            
+            <label>ชื่อรอบการประเมิน</label>
+            <input type="text" class="form-control" [formControl]="Name_limit">
+
           </div>
           <div class="form-group">
-            <label >จำนวน</label>
+            <label>วันเริ่มประเมิน</label>
+            <input type="date" class="form-control" [formControl]="Date_start">
+
+          </div>
+          <div class="form-group">
+            <label>จำนวน</label>
             <input type="text" class="form-control" [formControl]="limit_date">
           </div>
         </form>

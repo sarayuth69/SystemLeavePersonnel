@@ -43,7 +43,9 @@ export class CheckleaveinfoComponent implements OnInit {
   LeaveDateStart: any;
   LeaveDateLast: any;
   LeaveTotal: any;
+  LeaveStatus_Name: any;
   LeaveStatus_Document: any;
+  LeaveStatus_ID: any;
   Role: any;
   constructor(
     public router: Router,
@@ -117,8 +119,10 @@ export class CheckleaveinfoComponent implements OnInit {
   }
 
   show_data(Leave_ID, Name_Leave, To_Person, Emp_ID, EmpName, EmpLastName, PositionName, DeptName,
-    SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveStatus_Document) {
-    console.log(Emp_ID);
+    SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast, LeaveTotal,
+    LeaveStatus_Name, LeaveStatus_Document, LeaveStatus_ID) {
+    
+    console.log(LeaveStatus_ID);
     this.Leave_ID = Leave_ID
     this.Name_Leave = Name_Leave
     this.To_Person = To_Person
@@ -135,7 +139,9 @@ export class CheckleaveinfoComponent implements OnInit {
     this.LeaveDateStart = LeaveDateStart
     this.LeaveDateLast = LeaveDateLast
     this.LeaveTotal = LeaveTotal
+    this.LeaveStatus_Name = LeaveStatus_Name
     this.LeaveStatus_Document = LeaveStatus_Document
+    this.LeaveStatus_ID = LeaveStatus_ID
     if (localStorage.getItem('Role') === "6") {
       this.btn_delete = true
     }

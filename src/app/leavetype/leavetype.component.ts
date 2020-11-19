@@ -21,12 +21,13 @@ export class LeavetypeComponent implements OnInit {
 
 
   public leavetype;
-    public leave_limit;
+  public leave_limit;
   leavetype_ratcakan
   leavetype_emp_in_univercity
   leavetype_Temporary_worker
   public leavetype_ID_show;
   public leavetypeName_show;
+  public Empstatus_ID_show;
   leavetype1: any;
   LType_ID = new FormControl('');
   LTypeName = new FormControl('');
@@ -39,7 +40,8 @@ export class LeavetypeComponent implements OnInit {
   Empstatus_ID = new FormControl('');
   limit_date = new FormControl('');
   Date_start = new FormControl('');
-  id= new FormControl('');
+  limit_ID = new FormControl('');
+  Name_limit = new FormControl('');
   date = new Date().toString()
   showleave_limit;
 
@@ -48,24 +50,24 @@ export class LeavetypeComponent implements OnInit {
     public route: ActivatedRoute,
     public api: APIService,
     public http: HttpClient,
-   
+
     // private baseUrl : baseUrl
 
 
-  ) {     }
+  ) { }
 
   ngOnInit() {
     this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
-      (data : any)=>{
-  
-        for( var i = 0 ;i <= data.length;i++){
+      (data: any) => {
+
+        for (var i = 0; i <= data.length; i++) {
           this.showleave_limit = data;
-            console.log(this.showleave_limit[i] .date_stop);
-            
+          console.log(this.showleave_limit[i].date_stop);
+
         }
         //  this.showleave_limit = data;
-      },(error : any)=>{
-        console.log(error);        
+      }, (error: any) => {
+        console.log(error);
       }
     )
     this.http.get(`${this.baseUrl}getLeavetype.php`).subscribe(
@@ -114,7 +116,7 @@ export class LeavetypeComponent implements OnInit {
       + '&leavetype_remark=' + this.leavetype_remark.value
       + '&QuotaStatus=' + this.QuotaStatus.value
       + '&Empstatus_ID=' + this.Empstatus_ID.value
-    if (this.LTypeName.value === "" || this.Number.value === "" || this.LType_limit.value
+    if (this.LTypeName.value === "" || this.Number.value === "" || this.LType_limit.value === ""
       || this.AdvanceNotice.value === ""
       || this.QuotaStatus.value === "" || this.Empstatus_ID.value === "") {
       Swal.fire(
@@ -123,11 +125,6 @@ export class LeavetypeComponent implements OnInit {
         'question'
       )
     } else {
-
-
-
-
-
       console.log(body);
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -200,9 +197,11 @@ export class LeavetypeComponent implements OnInit {
     }
   }
 
-  deleteLeavetype(id, name) {
+  deleteLeavetype(id, name, Empstatus_ID) {
     this.leavetype_ID_show = id;
     this.leavetypeName_show = name;
+    this.Empstatus_ID_show = Empstatus_ID;
+    console.log(this.Empstatus_ID_show);
     Swal.fire({
       title: 'คุณจะลบ' + ' ' + this.leavetypeName_show + ' ' + 'หรือไม่',
       icon: 'warning',
@@ -220,7 +219,39 @@ export class LeavetypeComponent implements OnInit {
           timer: 1500
         }).then(() => {
 
-          window.location.reload();
+          if (this.Empstatus_ID_show == 203) {
+            this.http.get(`${this.baseUrl}getleavetype_ratcakan.php`).subscribe(
+              (data: any) => {
+                console.log(data);
+                this.leavetype_ratcakan = data;
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            );
+          }
+          else if (this.Empstatus_ID_show == 202) {
+            this.http.get(`${this.baseUrl}getleavetype_emp_in_univercity.php`).subscribe(
+              (data: any) => {
+                console.log(data);
+                this.leavetype_emp_in_univercity = data;
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            );
+          }
+          else if (this.Empstatus_ID_show == 201) {
+            this.http.get(`${this.baseUrl}getleavetype_Temporary_worker.php`).subscribe(
+              (data: any) => {
+                console.log(data);
+                this.leavetype_Temporary_worker = data;
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            );
+          }
         })
 
         this.http
@@ -244,7 +275,7 @@ export class LeavetypeComponent implements OnInit {
 
 
   updateLeavetype(
-    LType_ID, LTypeName, Number,LType_limit, AdvanceNotice, leavetype_remark, QuotaStatus, Empstatus_ID
+    LType_ID, LTypeName, Number, LType_limit, AdvanceNotice, leavetype_remark, QuotaStatus, Empstatus_ID
   ) {
     this.LType_ID = new FormControl(LType_ID);
     this.LTypeName = new FormControl(LTypeName);
@@ -339,78 +370,104 @@ export class LeavetypeComponent implements OnInit {
     })
   }
 
-check_limit(date_stop){
-  console.log(date_stop);
-  
-
-}
-  add_leave_limit(){
-    const body = 'id=' + this.id.value
-    + '&Date_start=' + this.Date_start.value 
-    + '&limit_date=' + this.limit_date.value
-  
-  if (this.Date_start.value === "" || this.limit_date.value === "") {
-    Swal.fire(
-      'กรุณากรอกข้อมูล',
-      'That thing is still around?',
-      'question'
-    )
-  } else {
+  check_limit(date_stop) {
+    console.log(date_stop);
 
 
-    this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
-      (data : any)=>{
-  
-        for( var i = 0 ;i <= data.length;i++){
-          this.showleave_limit = data;
-            console.log(this.showleave_limit[i] .date_stop);
-            
-        }
+  }
+  text = new Date().getDate();
+
+  add_leave_limit() {
+    const body = 'limit_ID=' + this.limit_ID.value
+      + '&Name_limit=' + this.Name_limit.value
+      + '&Date_start=' + this.Date_start.value
+      + '&limit_date=' + this.limit_date.value
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // });
+    // this.http
+    //   .post(`${this.baseUrl}Insertleave_limit.php`, body, {
+    //     headers: headers
+    //   })
+    //   .subscribe(
+    //     (data: any) => {
+    //       console.log(data);
+    //       this.leave_limit = data;
+    //     },
+    //     (error: any) => {
+    //       console.log(error);
+    //     }
+    //   );
+    if (this.Date_start.value === "" || this.limit_date.value === "") {
+      Swal.fire(
+        'กรุณากรอกข้อมูล',
+        'That thing is still around?',
+        'question'
+      )
+    } else {
 
 
-        
-      
-      },(error : any)=>{
-        console.log(error);        
-      }
-    )
-    
-
-
-
-    console.log(body);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post(`${this.baseUrl}insert_leave_limit.php`, body, {
-        headers: headers
-      })
-      .subscribe(
+      this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
         (data: any) => {
-          console.log(data);
-          this.leave_limit = data;
-        },
-        (error: any) => {
+
+          for (var i = 0; i <= data.length; i++) {
+            this.showleave_limit = data;
+            console.log(this.showleave_limit[i].Date_start);
+            this.showleave_limit.forEach(element => {
+              console.log(element.getdate())
+            });
+            // for (var j = 0; j < this.showleave_limit[i].date_stop; j++) {
+            //   this.showleave_limit[i].Date_start.getDate();
+            //   console.log(this.showleave_limit[i].Date_start);
+
+            // }
+
+          }
+
+
+
+
+        }, (error: any) => {
           console.log(error);
         }
-      );
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'เพิ่มรอบประเมินเรียบร้อย',
-      showConfirmButton: false,
-      timer: 1500
-
-    }).then(()=>{
-      this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
-        (data : any)=>{
-          this.showleave_limit = data;
-        },(error : any)=>{
-          console.log(error);        
-        }
       )
-    })
-  }
+
+
+
+
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}insert_leave_limit.php`, body, {
+          headers: headers
+        })
+        .subscribe(
+          (data: any) => {
+            console.log(data);
+            this.leave_limit = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'เพิ่มรอบประเมินเรียบร้อย',
+        showConfirmButton: false,
+        timer: 1500
+
+      }).then(() => {
+        this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+          (data: any) => {
+            this.showleave_limit = data;
+          }, (error: any) => {
+            console.log(error);
+          }
+        )
+      })
+    }
   }
 }
