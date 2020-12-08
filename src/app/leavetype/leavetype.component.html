@@ -232,7 +232,7 @@
               <table class="table table-hover">
                 <thead>
                   <tr class="text-center">
-                    {{text}}
+                    <!-- {{text}} -->
                     <th scope="col">ลำดับ</th>
                     <th scope="col">ชื่อรอบการประเมิน</th>
                     <th scope="col">วันเริ่มประเมิน</th>
@@ -250,7 +250,7 @@
                   <tr class="text-center">
                     <td>
                       <p ng-repeat="i in range(1, 5)">
-                        {{ i+1 }} 
+                        {{ i+1 }}
                       </p>
                     </td>
                     <td>{{item.Name_limit}} </td>
@@ -321,7 +321,6 @@
               </select>
               <label for="validationDefault05">สถานะบุคลากร</label>
               <select id="Empstatus_ID" class="form-control" [formControl]="Empstatus_ID">
-                <option selected>เลือกสถานะบุคลากร</option>
                 <option value="203">ราชการ</option>
                 <option value="202">พนักงานมหาวิทยาลัย</option>
                 <option value="201">ลูกจ้างเงินรายได้</option>
@@ -383,13 +382,13 @@
 
               <label for="validationDefault05">สถานะสิทธิการลา</label>
               <select id="QuotaStatus" class="form-control" [formControl]="QuotaStatus">
-                <option selected>สถานะสิทธิการลา</option>
+
                 <option value="ลาได้">ลาได้</option>
                 <option value="ลาไม่ได้">ลาไม่ได้</option>
               </select>
               <label for="validationDefault05">สถานะบุคลากร</label>
               <select id="Empstatus_ID" class="form-control" [formControl]="Empstatus_ID">
-                <option selected>เลือกสถานะบุคลากร</option>
+
                 <option value="203">ราชการ</option>
                 <option value="202">พนักงานมหาวิทยาลัย</option>
                 <option value="201">ลูกจ้างเงินรายได้</option>

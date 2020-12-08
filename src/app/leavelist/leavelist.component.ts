@@ -12,6 +12,15 @@ import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 // import { baseUrl } from '../baseUrl.service';
 import { GlobalVariable } from '../baseUrl';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
+
+
+
+import * as pdfMake from '../../../node_modules/pdfmake/build/pdfmake';
+import * as pdfFonts from '../../../node_modules/pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+
 
 @Component({
   selector: 'app-leavelist',
@@ -75,7 +84,9 @@ export class LeavelistComponent implements OnInit {
   Name_Leave = new FormControl('');
   To_Person = new FormControl('');
   LeaveDateStart = new FormControl('');
+  Leave_characteristics_dateStart = new FormControl('');
   LeaveDateLast = new FormControl('');
+  Leave_characteristics_dateLast = new FormControl('');
   LeaveData = new FormControl('');
   ContactInformation = new FormControl('');
   employee = new FormControl('');
@@ -109,9 +120,43 @@ export class LeavelistComponent implements OnInit {
   LeaveDateLast_cancel = new Date();
 
   // check_number_total : Number;
-
-
+  modal_dismiss: any;
+  leave_ID_chack = 0;
+  chack_date_show
+  date_chack
   ngOnInit() {
+    const chack_date = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+    console.log(chack_date);
+    const headers2 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}chack_date.php`, chack_date, {
+        headers: headers2
+      }).subscribe(
+        (data: any) => {
+          this.chack_date_show = data;
+          for (var i = 0; i < this.chack_date_show.length; i++) {
+
+            var date1 = new Date(this.chack_date_show[i].LeaveDateStart)
+            var date2 = new Date(this.chack_date_show[i].LeaveDateLast)
+
+            console.log("--------");
+
+            console.log(date1.getTime());
+            console.log(date2.getTime());
+            console.log();
+
+            console.log("******");
+
+          }
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      )
+
+
     const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
     console.log(tpyeUser);
     const headers1 = new HttpHeaders({
@@ -385,8 +430,12 @@ export class LeavelistComponent implements OnInit {
   }
   toggleVisibility(e) {
     this.marked = e.target.checked;
-  }
 
+
+  }
+  toggleVisibility_date(e) {
+    this.date_chack = e.target.checked;
+  }
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
     console.log(this.selectedFile);
@@ -417,6 +466,7 @@ export class LeavelistComponent implements OnInit {
 
   //   )
   maxDate: any;
+  text_chack = /(ลาป่วย)/g;
   dataChanged(newObj) {
     console.log(newObj);
 
@@ -424,7 +474,7 @@ export class LeavelistComponent implements OnInit {
     this.LType_ID_check = newObj.LType_ID
     this.LType_limit_check = newObj.LType_limit
     this.LTypeName_check = `การ${newObj.LTypeName}`
-    if (newObj.LTypeName == "ลาป่วย") {
+    if (this.text_chack.test(newObj.LTypeName)) {
       this.maxDate = moment(new Date()).format('YYYY-MM-DD')
     }
     else if (newObj.LTypeName !== "ลาป่วย") {
@@ -433,7 +483,7 @@ export class LeavelistComponent implements OnInit {
 
   }
 
-  AddLeave(LeaveTotal, check_number, limit_type, Name_Leave,To_Person) {
+  AddLeave(LeaveTotal, check_number, limit_type, Name_Leave, To_Person) {
 
     console.log(+check_number);
     console.log(+LeaveTotal);
@@ -441,7 +491,7 @@ export class LeavelistComponent implements OnInit {
     console.log(Name_Leave);
     console.log(To_Person);
 
-    
+
 
     if (+LeaveTotal > +check_number) {
       Swal.fire({
@@ -455,7 +505,7 @@ export class LeavelistComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           if (localStorage.getItem('Role') === "1") {
-            this.Add_leave_level_1(LeaveTotal, Name_Leave,To_Person)
+            this.Add_leave_level_1(LeaveTotal, Name_Leave, To_Person)
           }
           else if (localStorage.getItem('Role') === "2") {
             this.Add_leave_level_2(LeaveTotal, Name_Leave, To_Person)
@@ -470,12 +520,17 @@ export class LeavelistComponent implements OnInit {
         }
       })
     }
+
     else {
+
       if (LeaveTotal === '0') {
         Swal.fire({
           icon: 'error',
           title: 'กรุณาเลือกวันลา',
+        }).then(() => {
+          this.modal_dismiss = ""
         })
+
       }
 
       else if (localStorage.getItem('Role') === "1") {
@@ -497,14 +552,17 @@ export class LeavelistComponent implements OnInit {
 
   }
   Add_leave_level_1(LeaveTotal, Name_Leave, To_Person) {
+
     this.Name_Leave = Name_Leave
     this.To_Person = To_Person
-    const body = 'Leave_ID=' + this.Leave_ID.value
+    const body = 'Leave_ID=' + this.leave_ID_chack
       + '&Emp_ID=' + localStorage.getItem("Emp_ID")
       + '&Name_Leave=' + this.Name_Leave
       + '&To_Person=' + this.To_Person
       + '&LeaveDateStart=' + this.LeaveDateStart.value
+      + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
       + '&LeaveDateLast=' + this.LeaveDateLast.value
+      + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
       + '&LeaveData=' + this.LeaveData.value
       + '&ContactInformation=' + this.ContactInformation.value
       + '&employee=' + this.employee.value
@@ -599,14 +657,17 @@ export class LeavelistComponent implements OnInit {
     // .then(() => {
     //   this.onUpload();
     // })
+    this.modal_dismiss = "model"
   }
   Add_leave_level_2(LeaveTotal, Name_Leave, To_Person) {
-    const body = 'Leave_ID=' + this.Leave_ID.value
+    const body = 'Leave_ID=' + this.leave_ID_chack
       + '&Emp_ID=' + localStorage.getItem("Emp_ID")
       + '&Name_Leave=' + Name_Leave
       + '&To_Person=' + To_Person
       + '&LeaveDateStart=' + this.LeaveDateStart.value
+      + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
       + '&LeaveDateLast=' + this.LeaveDateLast.value
+      + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
       + '&LeaveData=' + this.LeaveData.value
       + '&ContactInformation=' + this.ContactInformation.value
       + '&employee=' + this.employee.value
@@ -698,14 +759,18 @@ export class LeavelistComponent implements OnInit {
     // .then(() => {
     //   this.onUpload();
     // })
+
+    this.modal_dismiss = "model"
   }
   Add_leave_level_3(LeaveTotal, Name_Leave, To_Person) {
-    const body = 'Leave_ID=' + this.Leave_ID.value
+    const body = 'Leave_ID=' + this.leave_ID_chack
       + '&Emp_ID=' + localStorage.getItem("Emp_ID")
       + '&Name_Leave=' + Name_Leave
       + '&To_Person=' + To_Person
       + '&LeaveDateStart=' + this.LeaveDateStart.value
+      + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
       + '&LeaveDateLast=' + this.LeaveDateLast.value
+      + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
       + '&LeaveData=' + this.LeaveData.value
       + '&ContactInformation=' + this.ContactInformation.value
       + '&employee=' + this.employee.value
@@ -797,14 +862,17 @@ export class LeavelistComponent implements OnInit {
     // .then(() => {
     //   this.onUpload();
     // })
+    this.modal_dismiss = "model"
   }
   Add_leave_level_4(LeaveTotal, Name_Leave, To_Person) {
-    const body = 'Leave_ID=' + this.Leave_ID.value
+    const body = 'Leave_ID=' + this.leave_ID_chack
       + '&Emp_ID=' + localStorage.getItem("Emp_ID")
       + '&Name_Leave=' + Name_Leave
       + '&To_Person=' + To_Person
       + '&LeaveDateStart=' + this.LeaveDateStart.value
+      + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
       + '&LeaveDateLast=' + this.LeaveDateLast.value
+      + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
       + '&LeaveData=' + this.LeaveData.value
       + '&ContactInformation=' + this.ContactInformation.value
       + '&employee=' + this.employee.value
@@ -896,6 +964,7 @@ export class LeavelistComponent implements OnInit {
     // .then(() => {
     //   this.onUpload();
     // })
+    this.modal_dismiss = "model"
   }
 
 
@@ -1037,27 +1106,49 @@ export class LeavelistComponent implements OnInit {
     this.LeaveTotal_chack = LeaveTotal
 
   }
-
-  onseletday(LeaveDateStart, LeaveDateLast) {
+  date_chack_start = /ครึ่งวัน/i
+  date_chack_Last = /ครึ่งวัน/i
+  onseletday(LeaveDateStart, LeaveDateLast, Leave_characteristics_dateStart, Leave_characteristics_dateLast) {
     // var dateStart = new Date(LeaveDateStart);
     // var dateLast = new Date(LeaveDateLast);
-    console.log(LeaveDateStart, LeaveDateLast);
+    console.log(LeaveDateStart, LeaveDateLast, Leave_characteristics_dateStart, Leave_characteristics_dateLast);
+    console.log(this.date_chack_start.test(Leave_characteristics_dateStart));
+    console.log(this.date_chack_Last.test(Leave_characteristics_dateLast));
 
     var moment = require('moment-business-days');
+    var moment_holiday = require('moment-holiday');
+    var dayleave = moment(LeaveDateLast).startOf('day').businessDiff(moment(LeaveDateStart).startOf('day'), 'day') + 1;
 
-    var dayleave = moment(LeaveDateLast).startOf('day').businessDiff(moment(LeaveDateStart).startOf('day'), 'day');
-
-    if (dayleave > 0) {
-      this.numberleave = dayleave + 1;
+    if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && Leave_characteristics_dateLast == "เต็มวัน"
+      || Leave_characteristics_dateStart == "เต็มวัน" && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+      this.numberleave = dayleave - 0.5
       console.log(this.numberleave);
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
-        text: '',
-        footer: ''
-      })
+
     }
+    if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+      //  alert("dasdasd")
+
+      this.numberleave = dayleave - 1;
+
+      console.log(this.numberleave);
+
+    }
+    if (Leave_characteristics_dateStart == "เต็มวัน" && Leave_characteristics_dateLast == "เต็มวัน") {
+      this.numberleave = dayleave;
+
+      console.log(this.numberleave);
+    }
+
+
+
+    // else {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+    //     text: '',
+    //     footer: ''
+    //   })
+    // }
 
 
 
@@ -1095,6 +1186,53 @@ export class LeavelistComponent implements OnInit {
 
   }
 
+
+
+
+
+  test_date(LeaveDateStart, LeaveDateLast) {
+    const chack_date = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+    console.log(chack_date);
+    const headers2 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}chack_date.php`, chack_date, {
+        headers: headers2
+      }).subscribe(
+        (data: any) => {
+          this.chack_date_show = data;
+          for (var i = 0; i < this.chack_date_show.length; i++) {
+            var date1 = new Date(this.chack_date_show[i].LeaveDateStart)
+            var date2 = new Date(this.chack_date_show[i].LeaveDateLast)
+            var date_inout1 = new Date(LeaveDateStart)
+            var date_inout2 = new Date(LeaveDateLast)
+
+            console.log(+date1 - +date_inout1);
+            console.log(+date2 - +date_inout2);
+
+            // console.log(date1.getTime());
+            // console.log(date2.getTime());
+            console.log();
+
+            console.log("******");
+
+            // if ( LeaveDateStart  && this.chack_date_show[i].LeaveDateLast <=  LeaveDateLast) {
+            //   alert("NO")
+            // }
+            // else {
+            //   alert("YES")
+            // }
+          }
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      )
+  }
+
+
+
   numberleave_cancal: any;
   onseletday_cancal(LeaveDateStart, LeaveDateLast) {
     // var dateStart = new Date(LeaveDateStart);
@@ -1127,13 +1265,259 @@ export class LeavelistComponent implements OnInit {
 
 
 
-  day() {
-    moment().format('dddd');
-  }
+  // day() {
+  //   moment().format('dddd');
+  // }
 
-  printDocument(Ltype_ID) {
-    this.router.navigate(['/filelaeveprint', { Ltype_ID }]);
+  // printDocument(Ltype_ID) {
+  //   this.router.navigate(['/filelaeveprint', { Ltype_ID }]);
 
+  // }
+  day = new Date().getDay()
+  month = new Date().getMonth()
+  year = new Date().getFullYear() + 543
+  public thmonth = new Array(
+    'มกราคม',
+    'กุมภาพันธ์',
+    'มีนาคม',
+    'เมษายน',
+    'พฤษภาคม',
+    'มิถุนายน',
+    'กรกฎาคม',
+    'สิงหาคม',
+    'กันยายน',
+    'ตุลาคม',
+    'พฤศจิกายน',
+    'ธันวาคม'
+  );
+  printDocument(Leave_ID, Name_Leave, To_Person, Emp_ID, Prefix, EmpName, EmpLastName, PositionName, DeptName,
+    SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveStatus_Name, LeaveStatus_Document) {
+    this.Leave_ID_show = Leave_ID
+    this.Name_Leave_show = Name_Leave
+    this.To_Person_show = To_Person
+    this.Emp_ID_show = Emp_ID
+    this.Prefix_show = Prefix
+    this.EmpName_show = EmpName
+    this.EmpLastName_show = EmpLastName
+    this.PositionName_show = PositionName
+    this.DeptName_show = DeptName
+    this.SectorName_show = SectorName
+    this.LTypeName_show = LTypeName
+    this.LeaveData_show = LeaveData
+    this.ContactInformation_show = ContactInformation
+    this.employee_show = employee
+    console.log(this.employee_show);
+    
+    this.LeaveDateStart_show = LeaveDateStart
+    this.LeaveDateLast_show = LeaveDateLast
+    this.LeaveTotal_show = LeaveTotal
+    this.LeaveStatus_Name_show = LeaveStatus_Name
+    this.LeaveStatus_Document_show = LeaveStatus_Document
+    if (this.employee_show.length > 0) {
+      pdfMake.fonts = {
+
+        Roboto: {
+          normal: "Roboto- Regular.ttf",
+          bold: "Roboto- Medium.ttf",
+          italics: "Roboto - Italic.ttf",
+          bolditalics: "Roboto - MediumItalic.ttf"
+        },
+        THSarabunNew: {
+          normal: "THSarabunNew.ttf",
+          bold: "THSarabunNew Bold.ttf",
+          italics: "THSarabunNew Italic.ttf",
+          bolditalics: "THSarabunNew BoldItalic.ttf"
+        }
+
+      };
+
+      var docDefinition = {
+        content: [
+          { text: 'แบบใบลาพักผ่อน', fontSize: 16, alignment: "center", bold: true },
+          { text: 'มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน', alignment: "right", fontSize: 16 },
+          { text: `วันที่ ${this.day} เดือน ${this.thmonth[this.month]} พ.ศ ${this.year}`, alignment: "right", fontSize: 16 },
+          { text: "เรื่อง ขอลาพักผ่อน", fontSize: 16 },
+          { text: "เรียน ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ", fontSize: 16 },
+          {
+            text: `ข้าพเจ้า.............${this.Prefix_show}  ${this.EmpName_show}   ${this.EmpLastName_show}......................ตำแหน่ง ..................${this.PositionName_show}..............................`,
+            fontSize: 16, margin: [50, 0, 0, 0]
+          },
+          { text: `สังกัด แผนก  .............................................${this.DeptName_show}...........................................................................................`, fontSize: 16 },
+          { text: "มีวันลาพักผ่อนสะสม.................วันทำการ  มีสิทธิลาพักผ่อนประจำปีนี้อีก  10  วันทำการ  รวมเป็น...................วันทำการ", fontSize: 16 },
+          { text: `ขอลาพักผ่อนตั้งแต่วันที่..................${this.LeaveDateStart_show}......................ถึงวันที่..............${this.LeaveDateLast_show}..............................................`, fontSize: 16 },
+          { text: `มีกำหนด..........${this.LeaveTotal_show}........วัน   ในระหว่างลาจะติดต่อข้าพเจ้าได้ที่................${this.ContactInformation_show}...............................................................`, fontSize: 16 },
+          {
+            columns: [
+              { text: "สถิติการลาในปีงบประมาณนี้", fontSize: 16, margin: [50, 0, 0, 0] },
+              {
+                text: ''
+              },
+              { text: "ขอแสดงความนับถือ", fontSize: 16 },
+            ]
+          },
+          {
+
+            columns: [
+              {
+                style: 'table',
+                table: {
+                  widths: [70, 70, 70],
+                  body: [
+                    [{ text: 'ลามาแล้ว\n(วันทำการ)', alignment: 'center', fontSize: 16 }, { text: 'ลาครั้งนี้\n(วันทำการ)', alignment: 'center', fontSize: 16 },
+                    { text: 'รวมเป็น\n(วันทำการ)', alignment: 'center', fontSize: 16 }
+                    ],
+                    [{ text: '10', alignment: 'center', fontSize: 16 }, { text: '5', alignment: 'center', fontSize: 16 },
+                    { text: '10', alignment: 'center', fontSize: 16 }
+                    ]
+                  ]
+                }
+              },
+              {
+                text: '\nลงชื่อ..............................................\n(.......................................................)\n'
+                  + 'ความเห็นผู้บังคับบัญชา' + '\n.......................................................', alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
+
+              },
+
+            ],
+          },
+          {
+            alignment: 'justify',
+            columns: [
+              {
+                text: "(ลงชื่อ).........................................(ผู้ตรวจสอบ)\n(........................................................)\nตำแหน่ง..........................................."
+                  + `\nหมายเหตุ ในขณะที่ข้าพเจ้าลาพักผ่อนได้มอบหมายให้\n.............${this.employee_show}...............`
+                  + "\nเป็นผู้รับผิดชอบงานแทน"
+                  + "\n\n.........................................\n(.......................................................)"
+                  + "\nผู้มอบหมายงาน"
+                  + "\n\n.........................................\n(.......................................................)"
+                  + "\nผู้รับผิดชอบงานแทน", alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
+              },
+
+              {
+                text: 'ลงชื่อ..............................................\n(.......................................................)'
+                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
+
+
+
+                  + '\n\nลงชื่อ..............................................\n(.......................................................)'
+                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
+                  + '\nคำสั่ง          \n(  ) อนุญาต        (  ) ไม่อนุญาต'
+
+
+                  + '\n\nลงชื่อ..............................................\n(.......................................................)'
+                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............', alignment: 'left', fontSize: 16, margin: [52, 0, 0, 0]
+
+              }
+            ]
+          },
+
+        ],
+        defaultStyle: {
+          font: "THSarabunNew"
+        }
+      };
+      pdfMake.createPdf(docDefinition).open()
+    }
+
+    if (this.employee_show = " ") {
+      pdfMake.fonts = {
+
+        Roboto: {
+          normal: "Roboto- Regular.ttf",
+          bold: "Roboto- Medium.ttf",
+          italics: "Roboto - Italic.ttf",
+          bolditalics: "Roboto - MediumItalic.ttf"
+        },
+        THSarabunNew: {
+          normal: "THSarabunNew.ttf",
+          bold: "THSarabunNew Bold.ttf",
+          italics: "THSarabunNew Italic.ttf",
+          bolditalics: "THSarabunNew BoldItalic.ttf"
+        }
+
+      };
+
+      var docDefinition = {
+        content: [
+          { text: 'แบบใบลาพักผ่อน', fontSize: 16, alignment: "center", bold: true },
+          { text: 'มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน', alignment: "right", fontSize: 16 },
+          { text: `วันที่ ${this.day} เดือน ${this.thmonth[this.month]} พ.ศ ${this.year}`, alignment: "right", fontSize: 16 },
+          { text: "เรื่อง ขอลาพักผ่อน", fontSize: 16 },
+          { text: "เรียน ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ", fontSize: 16 },
+          {
+            text: `ข้าพเจ้า.............${this.Prefix_show}  ${this.EmpName_show}   ${this.EmpLastName_show}......................ตำแหน่ง ..................${this.PositionName_show}..............................`,
+            fontSize: 16, margin: [50, 0, 0, 0]
+          },
+          { text: `สังกัด แผนก  .............................................${this.DeptName_show}...........................................................................................`, fontSize: 16 },
+          { text: "มีวันลาพักผ่อนสะสม.................วันทำการ  มีสิทธิลาพักผ่อนประจำปีนี้อีก  10  วันทำการ  รวมเป็น...................วันทำการ", fontSize: 16 },
+          { text: `ขอลาพักผ่อนตั้งแต่วันที่..................${this.LeaveDateStart_show}......................ถึงวันที่..............${this.LeaveDateLast_show}..............................................`, fontSize: 16 },
+          { text: `มีกำหนด..........${this.LeaveTotal_show}........วัน   ในระหว่างลาจะติดต่อข้าพเจ้าได้ที่................${this.ContactInformation_show}...............................................................`, fontSize: 16 },
+          {
+            columns: [
+              { text: "สถิติการลาในปีงบประมาณนี้", fontSize: 16, margin: [50, 0, 0, 0] },
+              {
+                text: ''
+              },
+              { text: "ขอแสดงความนับถือ", fontSize: 16 },
+            ]
+          },
+          {
+
+            columns: [
+              {
+                style: 'table',
+                table: {
+                  widths: [70, 70, 70],
+                  body: [
+                    [{ text: 'ลามาแล้ว\n(วันทำการ)', alignment: 'center', fontSize: 16 }, { text: 'ลาครั้งนี้\n(วันทำการ)', alignment: 'center', fontSize: 16 },
+                    { text: 'รวมเป็น\n(วันทำการ)', alignment: 'center', fontSize: 16 }
+                    ],
+                    [{ text: '10', alignment: 'center', fontSize: 16 }, { text: '5', alignment: 'center', fontSize: 16 },
+                    { text: '10', alignment: 'center', fontSize: 16 }
+                    ]
+                  ]
+                }
+              },
+              {
+                text: '\nลงชื่อ..............................................\n(.......................................................)\n'
+                  + 'ความเห็นผู้บังคับบัญชา' + '\n.......................................................', alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
+
+              },
+
+            ],
+          },
+          {
+            alignment: 'justify',
+            columns: [
+              {
+                text: "(ลงชื่อ).........................................(ผู้ตรวจสอบ)\n(........................................................)\nตำแหน่ง...........................................", alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
+              },
+
+              {
+                text: 'ลงชื่อ..............................................\n(.......................................................)'
+                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
+
+
+
+                  + '\n\nลงชื่อ..............................................\n(.......................................................)'
+                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
+                  + '\nคำสั่ง          \n(  ) อนุญาต        (  ) ไม่อนุญาต'
+
+
+                  + '\n\nลงชื่อ..............................................\n(.......................................................)'
+                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............', alignment: 'left', fontSize: 16, margin: [52, 0, 0, 0]
+
+              }
+            ]
+          },
+
+        ],
+        defaultStyle: {
+          font: "THSarabunNew"
+        }
+      };
+      pdfMake.createPdf(docDefinition).open()
+    }
   }
 
 
@@ -1141,6 +1525,7 @@ export class LeavelistComponent implements OnInit {
   Name_Leave_show: any;
   To_Person_show: any;
   Emp_ID_show: any;
+  Prefix_show: any;
   EmpName_show: any;
   EmpLastName_show: any;
   PositionName_show: any;

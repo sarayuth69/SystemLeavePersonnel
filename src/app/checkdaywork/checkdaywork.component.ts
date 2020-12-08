@@ -155,7 +155,7 @@ export class CheckdayworkComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/AddWorkTime.php', body, {
+        .post(`${this.baseUrl}AddWorkTime.php`, body, {
           headers: headers
         })
         .subscribe(
@@ -170,7 +170,7 @@ export class CheckdayworkComponent implements OnInit {
       Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'Your work has been saved',
+        title: 'บันทึกเรียบร้อย',
         showConfirmButton: false,
         timer: 1500
       }).then(() => {

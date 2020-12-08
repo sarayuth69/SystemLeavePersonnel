@@ -7,7 +7,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 import { FormControl } from '@angular/forms';
 // import { baseUrl } from '../baseUrl.service';
 import { GlobalVariable } from '../baseUrl';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-editdaywork',
   templateUrl: './editdaywork.component.html',
@@ -15,7 +15,7 @@ import { GlobalVariable } from '../baseUrl';
 })
 export class EditdayworkComponent implements OnInit {
   public baseUrl = GlobalVariable.BASE_API_URL;
-
+  date = moment(new Date()).format('YYYY-MM-DD')
   public searchdaywork;
   public Empployee;
   public getdaywork;
@@ -42,6 +42,7 @@ export class EditdayworkComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     // this.http.get('http://localhost/Leavewebservice/API/searchdaywork.php').subscribe(
     //   (data: any) => {
     //     console.log(data);

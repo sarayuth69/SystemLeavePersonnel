@@ -29,6 +29,7 @@ export class LeavetypeComponent implements OnInit {
   public leavetypeName_show;
   public Empstatus_ID_show;
   leavetype1: any;
+  LType_ID_check = 0;
   LType_ID = new FormControl('');
   LTypeName = new FormControl('');
   Number = new FormControl('');
@@ -106,7 +107,7 @@ export class LeavetypeComponent implements OnInit {
 
   }
   AddLeavetype() {
-    const body = 'LType_ID=' + this.LType_ID.value
+    const body = 'LType_ID=' + this.LType_ID_check
       + '&LTypeName=' + this.LTypeName.value
       + '&Number=' + this.Number.value
       + '&LType_limit=' + this.LType_limit.value
@@ -359,14 +360,7 @@ export class LeavetypeComponent implements OnInit {
       }
 
     }).then(() => {
-      this.LType_ID = new FormControl('');
-      this.LTypeName = new FormControl('');
-      this.Number = new FormControl('');
-      this.leavetype_remark = new FormControl('');
-      this.AdvanceNotice = new FormControl('');
-      this.LOrdinal = new FormControl('');
-      this.QuotaStatus = new FormControl('');
-      this.Empstatus_ID = new FormControl('');
+      window.location.reload()
     })
   }
 

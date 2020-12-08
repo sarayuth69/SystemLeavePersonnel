@@ -406,7 +406,7 @@ export class LeavetowaitingComponent implements OnInit {
 
           },
           (error: any) => {
-      
+
 
           }
 

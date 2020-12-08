@@ -1,20 +1,20 @@
-
 <div style="padding: 1%;">
   <div class="card">
     <div class="container">
       <div class="row">
         <div class="col-sm">
-         เลือกวันที่
-         <div class="container">
-          <div class="row">
-            <div class="col-sm">
-              <input type="date" class="form-control" placeholder="Search" #Day_Work>
-            </div>
-            <div class="col-sm">
-              <button type="button" class="btn btn-success" (click)="getsearchDay_Work(Day_Work.value)">ค้นหา</button>
+          เลือกวันที่
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <input type="date" class="form-control" placeholder="Search" value="{{date}}"
+                   #Day_Work>
+              </div>
+              <div class="col-sm">
+                <button type="button" class="btn btn-success" (click)="getsearchDay_Work(Day_Work.value)">ค้นหา</button>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" (click)="Updateworktime(item.Day_ID,item.EmpName,item.EmpLastName,
            item.Status_Work,item.Data)">
-            Warning
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </button>
         </td>
       </tr>

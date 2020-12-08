@@ -35,6 +35,7 @@ export class PositionComponent implements OnInit {
   Position_ID = new FormControl('');
   PositionName = new FormControl('');
   Role = new FormControl('');
+
   public Position_ID_show;
   public PositionName_show;
   Empposition: any;
@@ -53,6 +54,7 @@ export class PositionComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.positionEmp = data;
+      
       },
       (error: any) => {
         console.log(error);

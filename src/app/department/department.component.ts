@@ -66,10 +66,8 @@ export class DepartmentComponent implements OnInit {
     console.log(this.Sector_ID);
     const body = 'Dept_ID=' + this.Dept_ID.value
       + '&DeptName=' + this.DeptName.value
-      + '&Sector_ID=' + this.Sector_ID.value
-    console.log(this.Dept_ID.value);
-    console.log(this.DeptName.value);
-    console.log(this.Sector_ID);
+      + '&Sector_ID=' + this.Sector_ID
+
     console.log(body);
     if (this.Dept_ID.value === "" || this.DeptName.value === "" || this.Sector_ID.value === "") {
       Swal.fire(
@@ -84,13 +82,13 @@ export class DepartmentComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post('http://localhost/Leavewebservice/API/InsertDept.php', body, {
+        .post(`${this.baseUrl}InsertDept.php`, body, {
           headers: headers
         })
         .subscribe(
           (data: any) => {
-            console.log(data[0]);
-            this.department = data[0];
+            console.log(data);
+            this.department = data;
           },
           (error: any) => {
             console.log(error);
@@ -99,11 +97,11 @@ export class DepartmentComponent implements OnInit {
       Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'Your work has been saved',
+        title: 'เพิ่มแผนกเรียบร้อย',
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
-        this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
+        this.http.get(`${this.baseUrl}getDept.php`).subscribe(
           (data: any) => {
             console.log(data);
             this.dep = data;
