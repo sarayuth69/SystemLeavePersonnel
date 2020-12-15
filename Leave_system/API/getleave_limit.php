@@ -1,7 +1,7 @@
 <?php
  require 'connect_DB.php' ;
 
- $sql  = "SELECT *, ADDDATE(Date_start,INTERVAL limit_date MONTH)as date_stop FROM `leave_limit` ";
+ $sql  = "SELECT *, DATE_FORMAT(ADDDATE(Date_start,INTERVAL limit_date MONTH), '%d %M %Y')as  date_stop,DATE_FORMAT(Date_start, '%d %M %Y') AS Date_start_format FROM `leave_limit`  ";
 $result = mysqli_query($conn,$sql); 
         $myArray = array();
         if ($result->num_rows > 0) {

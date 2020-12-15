@@ -11,7 +11,7 @@
         JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
         JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
         WHERE  `leave`.`LeaveStatus_ID` = '3' 
-        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`";
+        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`,`leave`.`Leave_ID`";
         $result = mysqli_query($conn,$sql); 
         $myArray = array();
         if ($result->num_rows > 0) {
