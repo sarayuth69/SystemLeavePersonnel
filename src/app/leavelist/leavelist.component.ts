@@ -16,9 +16,9 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
 
-import * as pdfMake from '../../../node_modules/pdfmake/build/pdfmake';
-import * as pdfFonts from '../../../node_modules/pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// import * as pdfMake from '../../../node_modules/pdfmake/build/pdfmake';
+// import * as pdfFonts from '../../../node_modules/pdfmake/build/vfs_fonts';
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 
@@ -125,36 +125,36 @@ export class LeavelistComponent implements OnInit {
   chack_date_show
   date_chack
   ngOnInit() {
-    const chack_date = 'Emp_ID=' + localStorage.getItem("Emp_ID")
-    console.log(chack_date);
-    const headers2 = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post(`${this.baseUrl}chack_date.php`, chack_date, {
-        headers: headers2
-      }).subscribe(
-        (data: any) => {
-          this.chack_date_show = data;
-          for (var i = 0; i < this.chack_date_show.length; i++) {
+    // const chack_date = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+    // console.log(chack_date);
+    // const headers2 = new HttpHeaders({
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // });
+    // this.http
+    //   .post(`${this.baseUrl}chack_date.php`, chack_date, {
+    //     headers: headers2
+    //   }).subscribe(
+    //     (data: any) => {
+    //       this.chack_date_show = data;
+    //       for (var i = 0; i < this.chack_date_show.length; i++) {
 
-            var date1 = new Date(this.chack_date_show[i].LeaveDateStart)
-            var date2 = new Date(this.chack_date_show[i].LeaveDateLast)
+    //         var date1 = new Date(this.chack_date_show[i].LeaveDateStart)
+    //         var date2 = new Date(this.chack_date_show[i].LeaveDateLast)
 
-            console.log("--------");
+    //         console.log("--------");
 
-            console.log(date1.getTime());
-            console.log(date2.getTime());
-            console.log();
+    //         console.log(date1.getTime());
+    //         console.log(date2.getTime());
+    //         console.log();
 
-            console.log("******");
+    //         console.log("******");
 
-          }
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      )
+    //       }
+    //     },
+    //     (error: any) => {
+    //       console.log(error);
+    //     }
+    //   )
 
 
     const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
@@ -1116,7 +1116,7 @@ export class LeavelistComponent implements OnInit {
     console.log(this.date_chack_Last.test(Leave_characteristics_dateLast));
 
     var moment = require('moment-business-days');
-    var moment_holiday = require('moment-holiday');
+
     var dayleave = moment(LeaveDateLast).startOf('day').businessDiff(moment(LeaveDateStart).startOf('day'), 'day') + 1;
 
     if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && Leave_characteristics_dateLast == "เต็มวัน"
@@ -1307,218 +1307,218 @@ export class LeavelistComponent implements OnInit {
     this.ContactInformation_show = ContactInformation
     this.employee_show = employee
     console.log(this.employee_show);
-    
+
     this.LeaveDateStart_show = LeaveDateStart
     this.LeaveDateLast_show = LeaveDateLast
     this.LeaveTotal_show = LeaveTotal
     this.LeaveStatus_Name_show = LeaveStatus_Name
     this.LeaveStatus_Document_show = LeaveStatus_Document
-    if (this.employee_show.length > 0) {
-      pdfMake.fonts = {
+    // if (this.employee_show.length > 0) {
+    //   pdfMake.fonts = {
+    //     Roboto: {
+    //       normal: "Roboto-Regular.ttf",
+    //       bold: "Roboto-Medium.ttf",
+    //       italics: "Roboto-Italic.ttf",
+    //       bolditalics: "Roboto-MediumItalic.ttf"
+    //     },
+    //     THSarabunNew: {
+    //       normal: "THSarabunNew.ttf",
+    //       bold: "THSarabunNew-Bold.ttf",
+    //       italics: "THSarabunNew-Italic.ttf",
+    //       bolditalics: "THSarabunNew-BoldItalic.ttf"
+    //     }
+    //   };
+    //   var docDefinition = {
+    //     content: [
+    //       { text: 'แบบใบลาพักผ่อน', fontSize: 16, alignment: "center", bold: true },
+    //       { text: 'มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน', alignment: "right", fontSize: 16 },
+    //       { text: `วันที่ ${this.day} เดือน ${this.thmonth[this.month]} พ.ศ ${this.year}`, alignment: "right", fontSize: 16 },
+    //       { text: "เรื่อง ขอลาพักผ่อน", fontSize: 16 },
+    //       { text: "เรียน ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ", fontSize: 16 },
+    //       {
+    //         text: `ข้าพเจ้า.............${this.Prefix_show}  ${this.EmpName_show}   ${this.EmpLastName_show}......................ตำแหน่ง ..................${this.PositionName_show}..............................`,
+    //         fontSize: 16, margin: [50, 0, 0, 0]
+    //       },
+    //       { text: `สังกัด แผนก  .............................................${this.DeptName_show}...........................................................................................`, fontSize: 16 },
+    //       { text: "มีวันลาพักผ่อนสะสม.................วันทำการ  มีสิทธิลาพักผ่อนประจำปีนี้อีก  10  วันทำการ  รวมเป็น...................วันทำการ", fontSize: 16 },
+    //       { text: `ขอลาพักผ่อนตั้งแต่วันที่..................${this.LeaveDateStart_show}......................ถึงวันที่..............${this.LeaveDateLast_show}..............................................`, fontSize: 16 },
+    //       { text: `มีกำหนด..........${this.LeaveTotal_show}........วัน   ในระหว่างลาจะติดต่อข้าพเจ้าได้ที่................${this.ContactInformation_show}...............................................................`, fontSize: 16 },
+    //       {
+    //         columns: [
+    //           { text: "สถิติการลาในปีงบประมาณนี้", fontSize: 16, margin: [50, 0, 0, 0] },
+    //           {
+    //             text: ''
+    //           },
+    //           { text: "ขอแสดงความนับถือ", fontSize: 16 },
+    //         ]
+    //       },
+    //       {
 
-        Roboto: {
-          normal: "Roboto- Regular.ttf",
-          bold: "Roboto- Medium.ttf",
-          italics: "Roboto - Italic.ttf",
-          bolditalics: "Roboto - MediumItalic.ttf"
-        },
-        THSarabunNew: {
-          normal: "THSarabunNew.ttf",
-          bold: "THSarabunNew Bold.ttf",
-          italics: "THSarabunNew Italic.ttf",
-          bolditalics: "THSarabunNew BoldItalic.ttf"
-        }
+    //         columns: [
+    //           {
+    //             style: 'table',
+    //             table: {
+    //               widths: [70, 70, 70],
+    //               body: [
+    //                 [{ text: 'ลามาแล้ว\n(วันทำการ)', alignment: 'center', fontSize: 16 }, { text: 'ลาครั้งนี้\n(วันทำการ)', alignment: 'center', fontSize: 16 },
+    //                 { text: 'รวมเป็น\n(วันทำการ)', alignment: 'center', fontSize: 16 }
+    //                 ],
+    //                 [{ text: '10', alignment: 'center', fontSize: 16 }, { text: '5', alignment: 'center', fontSize: 16 },
+    //                 { text: '10', alignment: 'center', fontSize: 16 }
+    //                 ]
+    //               ]
+    //             }
+    //           },
+    //           {
+    //             text: '\nลงชื่อ..............................................\n(.......................................................)\n'
+    //               + 'ความเห็นผู้บังคับบัญชา' + '\n.......................................................', alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
 
-      };
+    //           },
 
-      var docDefinition = {
-        content: [
-          { text: 'แบบใบลาพักผ่อน', fontSize: 16, alignment: "center", bold: true },
-          { text: 'มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน', alignment: "right", fontSize: 16 },
-          { text: `วันที่ ${this.day} เดือน ${this.thmonth[this.month]} พ.ศ ${this.year}`, alignment: "right", fontSize: 16 },
-          { text: "เรื่อง ขอลาพักผ่อน", fontSize: 16 },
-          { text: "เรียน ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ", fontSize: 16 },
-          {
-            text: `ข้าพเจ้า.............${this.Prefix_show}  ${this.EmpName_show}   ${this.EmpLastName_show}......................ตำแหน่ง ..................${this.PositionName_show}..............................`,
-            fontSize: 16, margin: [50, 0, 0, 0]
-          },
-          { text: `สังกัด แผนก  .............................................${this.DeptName_show}...........................................................................................`, fontSize: 16 },
-          { text: "มีวันลาพักผ่อนสะสม.................วันทำการ  มีสิทธิลาพักผ่อนประจำปีนี้อีก  10  วันทำการ  รวมเป็น...................วันทำการ", fontSize: 16 },
-          { text: `ขอลาพักผ่อนตั้งแต่วันที่..................${this.LeaveDateStart_show}......................ถึงวันที่..............${this.LeaveDateLast_show}..............................................`, fontSize: 16 },
-          { text: `มีกำหนด..........${this.LeaveTotal_show}........วัน   ในระหว่างลาจะติดต่อข้าพเจ้าได้ที่................${this.ContactInformation_show}...............................................................`, fontSize: 16 },
-          {
-            columns: [
-              { text: "สถิติการลาในปีงบประมาณนี้", fontSize: 16, margin: [50, 0, 0, 0] },
-              {
-                text: ''
-              },
-              { text: "ขอแสดงความนับถือ", fontSize: 16 },
-            ]
-          },
-          {
+    //         ],
+    //       },
+    //       {
+    //         alignment: 'justify',
+    //         columns: [
+    //           {
+    //             text: "(ลงชื่อ).........................................(ผู้ตรวจสอบ)\n(........................................................)\nตำแหน่ง..........................................."
+    //               + `\nหมายเหตุ ในขณะที่ข้าพเจ้าลาพักผ่อนได้มอบหมายให้\n.............${this.employee_show}...............`
+    //               + "\nเป็นผู้รับผิดชอบงานแทน"
+    //               + "\n\n.........................................\n(.......................................................)"
+    //               + "\nผู้มอบหมายงาน"
+    //               + "\n\n.........................................\n(.......................................................)"
+    //               + "\nผู้รับผิดชอบงานแทน", alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
+    //           },
 
-            columns: [
-              {
-                style: 'table',
-                table: {
-                  widths: [70, 70, 70],
-                  body: [
-                    [{ text: 'ลามาแล้ว\n(วันทำการ)', alignment: 'center', fontSize: 16 }, { text: 'ลาครั้งนี้\n(วันทำการ)', alignment: 'center', fontSize: 16 },
-                    { text: 'รวมเป็น\n(วันทำการ)', alignment: 'center', fontSize: 16 }
-                    ],
-                    [{ text: '10', alignment: 'center', fontSize: 16 }, { text: '5', alignment: 'center', fontSize: 16 },
-                    { text: '10', alignment: 'center', fontSize: 16 }
-                    ]
-                  ]
-                }
-              },
-              {
-                text: '\nลงชื่อ..............................................\n(.......................................................)\n'
-                  + 'ความเห็นผู้บังคับบัญชา' + '\n.......................................................', alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
-
-              },
-
-            ],
-          },
-          {
-            alignment: 'justify',
-            columns: [
-              {
-                text: "(ลงชื่อ).........................................(ผู้ตรวจสอบ)\n(........................................................)\nตำแหน่ง..........................................."
-                  + `\nหมายเหตุ ในขณะที่ข้าพเจ้าลาพักผ่อนได้มอบหมายให้\n.............${this.employee_show}...............`
-                  + "\nเป็นผู้รับผิดชอบงานแทน"
-                  + "\n\n.........................................\n(.......................................................)"
-                  + "\nผู้มอบหมายงาน"
-                  + "\n\n.........................................\n(.......................................................)"
-                  + "\nผู้รับผิดชอบงานแทน", alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
-              },
-
-              {
-                text: 'ลงชื่อ..............................................\n(.......................................................)'
-                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
+    //           {
+    //             text: 'ลงชื่อ..............................................\n(.......................................................)'
+    //               + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
 
 
 
-                  + '\n\nลงชื่อ..............................................\n(.......................................................)'
-                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
-                  + '\nคำสั่ง          \n(  ) อนุญาต        (  ) ไม่อนุญาต'
+    //               + '\n\nลงชื่อ..............................................\n(.......................................................)'
+    //               + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
+    //               + '\nคำสั่ง          \n(  ) อนุญาต        (  ) ไม่อนุญาต'
 
 
-                  + '\n\nลงชื่อ..............................................\n(.......................................................)'
-                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............', alignment: 'left', fontSize: 16, margin: [52, 0, 0, 0]
+    //               + '\n\nลงชื่อ..............................................\n(.......................................................)'
+    //               + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............', alignment: 'left', fontSize: 16, margin: [52, 0, 0, 0]
 
-              }
-            ]
-          },
+    //           }
+    //         ]
+    //       },
 
-        ],
-        defaultStyle: {
-          font: "THSarabunNew"
-        }
-      };
-      pdfMake.createPdf(docDefinition).open()
-    }
+    //     ],
+    //     defaultStyle: {
+    //       font: "THSarabunNew"
+    //     }
+    //   };
+    //   pdfMake.createPdf(docDefinition).open()
+    // }
 
-    if (this.employee_show = " ") {
-      pdfMake.fonts = {
+    // if (this.employee_show = " ") {
+    //   pdfMake.fonts = {
 
-        Roboto: {
-          normal: "Roboto- Regular.ttf",
-          bold: "Roboto- Medium.ttf",
-          italics: "Roboto - Italic.ttf",
-          bolditalics: "Roboto - MediumItalic.ttf"
-        },
-        THSarabunNew: {
-          normal: "THSarabunNew.ttf",
-          bold: "THSarabunNew Bold.ttf",
-          italics: "THSarabunNew Italic.ttf",
-          bolditalics: "THSarabunNew BoldItalic.ttf"
-        }
+    //     Roboto: {
+    //       normal: "Roboto-Regular.ttf",
+    //       bold: "Roboto-Medium.ttf",
+    //       italics: "Roboto-Italic.ttf",
+    //       bolditalics: "Roboto-MediumItalic.ttf"
+    //     },
+    //     THSarabunNew: {
+    //       normal: "THSarabunNew.ttf",
+    //       bold: "THSarabunNew-Bold.ttf",
+    //       italics: "THSarabunNew-Italic.ttf",
+    //       bolditalics: "THSarabunNew-BoldItalic.ttf"
+    //     }
 
-      };
+    //   };
 
-      var docDefinition = {
-        content: [
-          { text: 'แบบใบลาพักผ่อน', fontSize: 16, alignment: "center", bold: true },
-          { text: 'มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน', alignment: "right", fontSize: 16 },
-          { text: `วันที่ ${this.day} เดือน ${this.thmonth[this.month]} พ.ศ ${this.year}`, alignment: "right", fontSize: 16 },
-          { text: "เรื่อง ขอลาพักผ่อน", fontSize: 16 },
-          { text: "เรียน ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ", fontSize: 16 },
-          {
-            text: `ข้าพเจ้า.............${this.Prefix_show}  ${this.EmpName_show}   ${this.EmpLastName_show}......................ตำแหน่ง ..................${this.PositionName_show}..............................`,
-            fontSize: 16, margin: [50, 0, 0, 0]
-          },
-          { text: `สังกัด แผนก  .............................................${this.DeptName_show}...........................................................................................`, fontSize: 16 },
-          { text: "มีวันลาพักผ่อนสะสม.................วันทำการ  มีสิทธิลาพักผ่อนประจำปีนี้อีก  10  วันทำการ  รวมเป็น...................วันทำการ", fontSize: 16 },
-          { text: `ขอลาพักผ่อนตั้งแต่วันที่..................${this.LeaveDateStart_show}......................ถึงวันที่..............${this.LeaveDateLast_show}..............................................`, fontSize: 16 },
-          { text: `มีกำหนด..........${this.LeaveTotal_show}........วัน   ในระหว่างลาจะติดต่อข้าพเจ้าได้ที่................${this.ContactInformation_show}...............................................................`, fontSize: 16 },
-          {
-            columns: [
-              { text: "สถิติการลาในปีงบประมาณนี้", fontSize: 16, margin: [50, 0, 0, 0] },
-              {
-                text: ''
-              },
-              { text: "ขอแสดงความนับถือ", fontSize: 16 },
-            ]
-          },
-          {
+    //   var docDefinition = {
+    //     content: [
+    //       { text: 'แบบใบลาพักผ่อน', fontSize: 16, alignment: "center", bold: true },
+    //       { text: 'มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน', alignment: "right", fontSize: 16 },
+    //       { text: `วันที่ ${this.day} เดือน ${this.thmonth[this.month]} พ.ศ ${this.year}`, alignment: "right", fontSize: 16 },
+    //       { text: "เรื่อง ขอลาพักผ่อน", fontSize: 16 },
+    //       { text: "เรียน ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ", fontSize: 16 },
+    //       {
+    //         text: `ข้าพเจ้า.............${this.Prefix_show}  ${this.EmpName_show}   ${this.EmpLastName_show}......................ตำแหน่ง ..................${this.PositionName_show}..............................`,
+    //         fontSize: 16, margin: [50, 0, 0, 0]
+    //       },
+    //       { text: `สังกัด แผนก  .............................................${this.DeptName_show}...........................................................................................`, fontSize: 16 },
+    //       { text: "มีวันลาพักผ่อนสะสม.................วันทำการ  มีสิทธิลาพักผ่อนประจำปีนี้อีก  10  วันทำการ  รวมเป็น...................วันทำการ", fontSize: 16 },
+    //       { text: `ขอลาพักผ่อนตั้งแต่วันที่..................${this.LeaveDateStart_show}......................ถึงวันที่..............${this.LeaveDateLast_show}..............................................`, fontSize: 16 },
+    //       { text: `มีกำหนด..........${this.LeaveTotal_show}........วัน   ในระหว่างลาจะติดต่อข้าพเจ้าได้ที่................${this.ContactInformation_show}...............................................................`, fontSize: 16 },
+    //       {
+    //         columns: [
+    //           { text: "สถิติการลาในปีงบประมาณนี้", fontSize: 16, margin: [50, 0, 0, 0] },
+    //           {
+    //             text: ''
+    //           },
+    //           { text: "ขอแสดงความนับถือ", fontSize: 16 },
+    //         ]
+    //       },
+    //       {
 
-            columns: [
-              {
-                style: 'table',
-                table: {
-                  widths: [70, 70, 70],
-                  body: [
-                    [{ text: 'ลามาแล้ว\n(วันทำการ)', alignment: 'center', fontSize: 16 }, { text: 'ลาครั้งนี้\n(วันทำการ)', alignment: 'center', fontSize: 16 },
-                    { text: 'รวมเป็น\n(วันทำการ)', alignment: 'center', fontSize: 16 }
-                    ],
-                    [{ text: '10', alignment: 'center', fontSize: 16 }, { text: '5', alignment: 'center', fontSize: 16 },
-                    { text: '10', alignment: 'center', fontSize: 16 }
-                    ]
-                  ]
-                }
-              },
-              {
-                text: '\nลงชื่อ..............................................\n(.......................................................)\n'
-                  + 'ความเห็นผู้บังคับบัญชา' + '\n.......................................................', alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
+    //         columns: [
+    //           {
+    //             style: 'table',
+    //             table: {
+    //               widths: [70, 70, 70],
+    //               body: [
+    //                 [{ text: 'ลามาแล้ว\n(วันทำการ)', alignment: 'center', fontSize: 16 }, { text: 'ลาครั้งนี้\n(วันทำการ)', alignment: 'center', fontSize: 16 },
+    //                 { text: 'รวมเป็น\n(วันทำการ)', alignment: 'center', fontSize: 16 }
+    //                 ],
+    //                 [{ text: '10', alignment: 'center', fontSize: 16 }, { text: '5', alignment: 'center', fontSize: 16 },
+    //                 { text: '10', alignment: 'center', fontSize: 16 }
+    //                 ]
+    //               ]
+    //             }
+    //           },
+    //           {
+    //             text: '\nลงชื่อ..............................................\n(.......................................................)\n'
+    //               + 'ความเห็นผู้บังคับบัญชา' + '\n.......................................................', alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
 
-              },
+    //           },
 
-            ],
-          },
-          {
-            alignment: 'justify',
-            columns: [
-              {
-                text: "(ลงชื่อ).........................................(ผู้ตรวจสอบ)\n(........................................................)\nตำแหน่ง...........................................", alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
-              },
+    //         ],
+    //       },
+    //       {
+    //         alignment: 'justify',
+    //         columns: [
+    //           {
+    //             text: "(ลงชื่อ).........................................(ผู้ตรวจสอบ)\n(........................................................)\nตำแหน่ง...........................................", alignment: 'center', fontSize: 16, margin: [0, 0, 0, 0]
+    //           },
 
-              {
-                text: 'ลงชื่อ..............................................\n(.......................................................)'
-                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
-
-
-
-                  + '\n\nลงชื่อ..............................................\n(.......................................................)'
-                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
-                  + '\nคำสั่ง          \n(  ) อนุญาต        (  ) ไม่อนุญาต'
+    //           {
+    //             text: 'ลงชื่อ..............................................\n(.......................................................)'
+    //               + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
 
 
-                  + '\n\nลงชื่อ..............................................\n(.......................................................)'
-                  + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............', alignment: 'left', fontSize: 16, margin: [52, 0, 0, 0]
 
-              }
-            ]
-          },
+    //               + '\n\nลงชื่อ..............................................\n(.......................................................)'
+    //               + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............'
+    //               + '\nคำสั่ง          \n(  ) อนุญาต        (  ) ไม่อนุญาต'
 
-        ],
-        defaultStyle: {
-          font: "THSarabunNew"
-        }
-      };
-      pdfMake.createPdf(docDefinition).open()
-    }
+
+    //               + '\n\nลงชื่อ..............................................\n(.......................................................)'
+    //               + '\nตำแหน่ง...........................................\nวันที่.........../......................./.............', alignment: 'left', fontSize: 16, margin: [52, 0, 0, 0]
+
+    //           }
+    //         ]
+    //       },
+
+    //     ],
+    //     defaultStyle: {
+    //       font: "THSarabunNew"
+    //     }
+    //   };
+    //   pdfMake.createPdf(docDefinition).open()
+    // }
   }
+
+
+
 
 
   Leave_ID_show: any;

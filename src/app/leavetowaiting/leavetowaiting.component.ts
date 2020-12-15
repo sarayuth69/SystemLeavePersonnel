@@ -28,7 +28,15 @@ export class LeavetowaitingComponent implements OnInit {
   tableleavewaiting_5: boolean;
   pageActual: any;
 
-
+  count_watting
+  countleave_toDepartmenthead
+  countleave_toDeputyleader
+  countleave_toSupervisor
+  countleave_toperson
+  show_count_lavel2: boolean
+  show_count_lavel3: boolean
+  show_count_lavel4: boolean
+  show_count_lavel5: boolean
 
 
 
@@ -59,6 +67,7 @@ export class LeavetowaitingComponent implements OnInit {
       this.tableleavewaiting_3 = false;
       this.tableleavewaiting_4 = false;
       this.tableleavewaiting_5 = false;
+
       const body2 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
       console.log(body2);
       const headers2 = new HttpHeaders({
@@ -85,6 +94,8 @@ export class LeavetowaitingComponent implements OnInit {
       this.tableleavewaiting_3 = true;
       this.tableleavewaiting_4 = false;
       this.tableleavewaiting_5 = false;
+
+
       const body3 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
       console.log(body3);
       const headers3 = new HttpHeaders({
@@ -111,6 +122,7 @@ export class LeavetowaitingComponent implements OnInit {
       this.tableleavewaiting_3 = false;
       this.tableleavewaiting_4 = true;
       this.tableleavewaiting_5 = false;
+
       this.http.get(`${this.baseUrl}getleavetoDeputyleader.php`).subscribe(
         (data: any) => {
           console.log(data);
@@ -192,7 +204,7 @@ export class LeavetowaitingComponent implements OnInit {
 
           },
           (error: any) => {
-            window.location.reload();
+            // window.location.reload();
 
           }
 
@@ -219,7 +231,37 @@ export class LeavetowaitingComponent implements OnInit {
 
             },
             (error: any) => {
-              window.location.reload();
+              setTimeout(() => {
+                window.location.reload();
+
+              }, 1600);
+            }
+
+          )
+      }).then(() => {
+        const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+        console.log(body);
+        const headers1 = new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        this.http
+          .post(`${this.baseUrl}count_leavetoDepartmenthead.php`, body, {
+            headers: headers1
+          }).subscribe(
+            (data: any) => {
+              this.count_watting = data
+              for (var i = 0; i <= this.count_watting.length; i++) {
+                console.log(this.count_watting[i].countleave);
+                if (this.count_watting[i].countleave >= 1) {
+                  this.show_count_lavel2 = true
+                  this.countleave_toDepartmenthead = this.count_watting[i].countleave
+                } else {
+                  this.show_count_lavel2 = false
+                }
+              }
+            },
+            (error: any) => {
+              console.log(error);
             }
 
           )
@@ -269,11 +311,42 @@ export class LeavetowaitingComponent implements OnInit {
 
             },
             (error: any) => {
-              window.location.reload();
+              setTimeout(() => {
+                window.location.reload();
+
+              }, 1600);
 
             }
 
           )
+      }).then(() => {
+        const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+        console.log(body);
+        const headers1 = new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        this.http
+          .post(`${this.baseUrl}count_leavetoSupervisor.php`, body, {
+            headers: headers1
+          }).subscribe(
+            (data: any) => {
+              this.count_watting = data
+              for (var i = 0; i <= this.count_watting.length; i++) {
+                console.log(this.count_watting[i].countleave);
+                if (this.count_watting[i].countleave >= 1) {
+                  this.show_count_lavel3 = true
+                  this.countleave_toSupervisor = this.count_watting[i].countleave
+                } else {
+                  this.show_count_lavel3 = false
+                }
+              }
+            },
+            (error: any) => {
+              console.log(error);
+            }
+
+          )
+
       })
     }
     else if (localStorage.getItem('Role') === "4") {
@@ -311,10 +384,31 @@ export class LeavetowaitingComponent implements OnInit {
             this.table_leaveto_waiting = data;
           },
           (error: any) => {
-            window.location.reload();
+            setTimeout(() => {
+              window.location.reload();
+
+            }, 1600);
 
           }
         );
+      }).then(() => {
+        this.http.get(`${this.baseUrl}count_leavetoDeputyleader.php`).subscribe(
+          (data: any) => {
+            this.count_watting = data
+            for (var i = 0; i <= this.count_watting.length; i++) {
+              console.log(this.count_watting[i].countleave);
+              if (this.count_watting[i].countleave >= 1) {
+                this.show_count_lavel4 = true
+                this.countleave_toDeputyleader = this.count_watting[i].countleave
+              } else {
+                this.show_count_lavel4 = false
+              }
+            }
+
+          }, (error: any) => {
+            console.log(error);
+          }
+        )
       })
     }
     else if (localStorage.getItem('Role') === "5") {
@@ -352,7 +446,10 @@ export class LeavetowaitingComponent implements OnInit {
             this.table_leaveto_waiting = data;
           },
           (error: any) => {
-            window.location.reload();
+            setTimeout(() => {
+              window.location.reload();
+
+            }, 1600);
 
           }
         );
@@ -433,7 +530,10 @@ export class LeavetowaitingComponent implements OnInit {
 
             },
             (error: any) => {
-              window.location.reload();
+              setTimeout(() => {
+                window.location.reload();
+
+              }, 1600);
             }
 
           )
@@ -483,7 +583,10 @@ export class LeavetowaitingComponent implements OnInit {
 
             },
             (error: any) => {
-              window.location.reload();
+              setTimeout(() => {
+                window.location.reload();
+
+              }, 1600);
 
             }
 
@@ -525,7 +628,10 @@ export class LeavetowaitingComponent implements OnInit {
             this.table_leaveto_waiting = data;
           },
           (error: any) => {
-            window.location.reload();
+            setTimeout(() => {
+              window.location.reload();
+
+            }, 1600);
 
           }
         );
@@ -566,7 +672,10 @@ export class LeavetowaitingComponent implements OnInit {
             this.table_leaveto_waiting = data;
           },
           (error: any) => {
-            window.location.reload();
+            setTimeout(() => {
+              window.location.reload();
+
+            }, 1600);
 
           }
         );

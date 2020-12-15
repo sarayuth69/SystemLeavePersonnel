@@ -29,7 +29,7 @@ export class EditdayworkComponent implements OnInit {
   Data = new FormControl('');
   Day_ID = new FormControl('');
 
-
+  message_edit
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -90,7 +90,20 @@ export class EditdayworkComponent implements OnInit {
       );
     }
   }
+  t
+  toggleVisibility(e) {
+    // this.marked = e.target.checked;
 
+    if (e.target.checked == true) {
+      this.message_edit = 1
+      console.log(this.message_edit);
+    }
+    else if (e.target.checked == false) {
+      this.message_edit = 0
+      console.log(this.message_edit);
+    }
+
+  }
   Updateworktime(
     Day_ID, EmpName, EmpLastName, Status_Work, Data
   ) {
@@ -102,13 +115,15 @@ export class EditdayworkComponent implements OnInit {
     this.Status_Work = new FormControl(Status_Work);
     this.Data = new FormControl(Data);
 
+
   }
   public updateworktime() {
-    const body = 'Day_ID=' + this.Day_ID.value
+        const body = 'Day_ID=' + this.Day_ID.value
       // + '&EmpName=' + this.EmpName.value
       // + '&EmpLastName=' + this.EmpLastName.value
       + '&Status_Work=' + this.Status_Work.value
-      + '&Data=' + this.Data.value;
+      + '&Data=' + this.Data.value
+    + '&message=' + this.message_edit
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'

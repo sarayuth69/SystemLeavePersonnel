@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { APIService } from '../api.service';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpEventType
+} from '@angular/common/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-// import { baseUrl } from '../baseUrl.service';
+import * as moment from 'moment';
 import { GlobalVariable } from '../baseUrl';
 
 @Component({
@@ -13,9 +19,13 @@ import { GlobalVariable } from '../baseUrl';
 })
 export class HeaderComponent implements OnInit {
   public baseUrl = GlobalVariable.BASE_API_URL;
-  http: any;
+
   public seach;
-  constructor(public router: Router,
+  constructor(
+    public router: Router,
+    public route: ActivatedRoute,
+    public api: APIService,
+    private http: HttpClient,
     // private baseUrl : baseUrl
   ) { }
   show: boolean
@@ -30,7 +40,80 @@ export class HeaderComponent implements OnInit {
   PositionName = localStorage.getItem('PositionName');
   EmpstatusName = localStorage.getItem('EmpstatusName');
   Emp_ID = new FormControl('');
+  test = 0
+  test_1: any;
+  test_2: boolean
+  msg
+  count_watting
+  countleave_toDepartmenthead
+  countleave_toDeputyleader
+  countleave_toSupervisor
+  countleave_toperson
+  show_count_lavel2: boolean
+  show_count_lavel3: boolean
+  show_count_lavel4: boolean
+  show_count_lavel5: boolean
   ngOnInit() {
+
+    // if (this.test > 1) {
+    //   this.test_2 = true
+    // } else {
+    //   this.test_2 = false
+    // }
+
+    const Emp_ID = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+    console.log(Emp_ID);
+    const headers1 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}messageShow.php`, Emp_ID, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.msg = data
+          for (var i = 0; i <= this.msg.length; i++) {
+            console.log(this.msg[i].count_data);
+            if (this.msg[i].count_data >= 1) {
+              this.test_2 = true
+              this.test_1 = this.msg[i].count_data
+            } else {
+              this.test_2 = false
+            }
+          }
+        },
+        (error: any) => {
+          console.log(error);
+        }
+
+      )
+
+
+
+
+
+    // this.http.get(`${this.baseUrl}message.php`).subscribe(
+    //   (data: any) => {
+    //     this.msg = data
+    //     for (var i = 0; i <= this.msg.length; i++) {
+    //       console.log(this.msg[i].count_data);
+    //       if (this.msg[i].count_data >= 1) {
+    //         this.test_2 = true
+    //         this.test_1 = this.msg[i].count_data
+    //       } else {
+    //         this.test_2 = false
+    //       }
+    //     }
+    //     // if (this.msg.count_data >= 1) {
+    //     //   this.test_2 = true
+    //     // } else {
+    //     //   this.test_2 = false
+    //     // }
+    //     // console.log(this.msg);
+    //   }, (error: any) => {
+    //     console.log(error);
+    //   }
+    // )
 
 
     if (localStorage.getItem('Role') === "6") {
@@ -45,11 +128,63 @@ export class HeaderComponent implements OnInit {
 
     } else if (localStorage.getItem('Role') === "2") {
       this.emp2 = true;
+      const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+      console.log(body);
+      const headers1 = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}count_leavetoDepartmenthead.php`, body, {
+          headers: headers1
+        }).subscribe(
+          (data: any) => {
+            this.count_watting = data
+            for (var i = 0; i <= this.count_watting.length; i++) {
+              console.log(this.count_watting[i].countleave);
+              if (this.count_watting[i].countleave >= 1) {
+                this.show_count_lavel2 = true
+                this.countleave_toDepartmenthead = this.count_watting[i].countleave
+              } else {
+                this.show_count_lavel2 = false
+              }
+            }
+          },
+          (error: any) => {
+            console.log(error);
+          }
+
+        )
       // this.show = false; 
       // this.emp3 = false; 
 
     } else if (localStorage.getItem('Role') === "3") {
       this.emp3 = true;
+      const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+      console.log(body);
+      const headers1 = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}count_leavetoSupervisor.php`, body, {
+          headers: headers1
+        }).subscribe(
+          (data: any) => {
+            this.count_watting = data
+            for (var i = 0; i <= this.count_watting.length; i++) {
+              console.log(this.count_watting[i].countleave);
+              if (this.count_watting[i].countleave >= 1) {
+                this.show_count_lavel3 = true
+                this.countleave_toSupervisor = this.count_watting[i].countleave
+              } else {
+                this.show_count_lavel3 = false
+              }
+            }
+          },
+          (error: any) => {
+            console.log(error);
+          }
+
+        )
       // this.emp5 = false; 
       // this.show = false; 
       // this.emp3 = false; 
@@ -59,6 +194,23 @@ export class HeaderComponent implements OnInit {
       // this.emp5 = false; 
       // this.show = false; 
       this.emp4 = true;
+      this.http.get(`${this.baseUrl}count_leavetoDeputyleader.php`).subscribe(
+        (data: any) => {
+          this.count_watting = data
+          for (var i = 0; i <= this.count_watting.length; i++) {
+            console.log(this.count_watting[i].countleave);
+            if (this.count_watting[i].countleave >= 1) {
+              this.show_count_lavel4 = true
+              this.countleave_toDeputyleader = this.count_watting[i].countleave
+            } else {
+              this.show_count_lavel4 = false
+            }
+          }
+
+        }, (error: any) => {
+          console.log(error);
+        }
+      )
 
     } else if (localStorage.getItem('Role') === "5") {
       // this.emp4 = false; 
@@ -69,6 +221,26 @@ export class HeaderComponent implements OnInit {
     }
 
   }
+
+  // click() {
+  //   this.test += 1
+  //   console.log(this.test);
+  //   if (this.test >= 1) {
+  //     this.test_2 = true
+  //   } else {
+  //     this.test_2 = false
+  //   }
+  // }
+  // click_2() {
+  //   this.test -= 1
+  //   console.log(this.test);
+  //   if (this.test >= 1) {
+  //     this.test_2 = true
+  //   } else {
+  //     this.test_2 = false
+  //   }
+  // }
+
   clearUser() {
     Swal.fire({
       title: 'ต้องการออกจากระบบหรือไม่?',
@@ -84,11 +256,11 @@ export class HeaderComponent implements OnInit {
           'ออกจากระบบเรียบร้อย',
           '',
           'success'
-        ).then(()=>{
+        ).then(() => {
           localStorage.clear();
           this.router.navigate(['/login']);
-          
-        }).then(()=>{
+
+        }).then(() => {
           window.location.reload();
         })
       }

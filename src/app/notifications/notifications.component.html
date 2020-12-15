@@ -1,0 +1,12 @@
+<div class="card border-primary  mb-3" style="max-width: 100rem;"
+    *ngFor="let item of notifications_show; let i = index">
+    <div class="card-header">การแจ้งเตือนใหม่</div>
+    <div class="card-body text-primary ">
+        <h5 class="card-title">เนื่องจากคุณ ไม่มาทำงาน</h5>
+
+        <p class="card-text">วันที่ {{item.Day_Work}} โปรดแจ้งกลับไปที่ผู้ดูแลระบบเพื่อทำการแก้ไข
+            <i class="fa fa-check fa-2x" style="color:rgba(35, 231, 17, 0.863);"   *ngIf="item.message == 1"></i>
+        </p>
+
+    </div>
+</div>

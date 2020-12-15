@@ -7,8 +7,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm">
-                <input type="date" class="form-control" placeholder="Search" value="{{date}}"
-                   #Day_Work>
+                <input type="date" class="form-control" placeholder="Search" value="{{date}}" #Day_Work>
               </div>
               <div class="col-sm">
                 <button type="button" class="btn btn-success" (click)="getsearchDay_Work(Day_Work.value)">ค้นหา</button>
@@ -38,7 +37,9 @@
         </td>
 
         <td> {{item.EmpName}} {{item.EmpLastName}} </td>
-        <td> {{item.Status_Work}} </td>
+        <td *ngIf="item.Status_Work == 'ไม่มาทำงาน'" style="color: red;" > {{item.Status_Work}} </td>
+        <td *ngIf="item.Status_Work == 'มาทำงาน'" style="color: rgb(11, 194, 11);"> {{item.Status_Work}} </td>
+
         <td> {{item.Data}} </td>
         <td>
           <!-- Button trigger modal -->
@@ -84,7 +85,7 @@
           </div>
           <div class="form-group ">
             <label for="inputState">สถานะ</label>
-            <select id="inputState" class="form-control" [formControl]="Status_Work">
+            <select id="inputState" class="form-control form-control-lg" [formControl]="Status_Work">
               <option value="มาทำงาน">มาทำงาน</option>
               <option value="ไม่มาทำงาน">ไม่มาทำงาน</option>
             </select>
@@ -94,13 +95,20 @@
             <label for="formGroupExampleInput">สาเหตุ</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" [formControl]="Data" rows="3"></textarea>
           </div>
-
+          <div class="form-group ">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" [(ngModel)]="theCheckbox" data-md-icheck
+                (change)="toggleVisibility($event)" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                ตรวจสอบแล้ว
+              </label>
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateworktime()">Save
-          changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateworktime()">บันทึก</button>
       </div>
     </div>
   </div>

@@ -27,6 +27,7 @@ import { CheckdayworkComponent } from './checkdaywork/checkdaywork.component';
 import { SectorComponent } from './sector/sector.component';
 import { SumleaveComponent } from './sumleave/sumleave.component';
 import { EditdayworkComponent } from './editdaywork/editdaywork.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 import { FilelaeveprintComponent } from './filelaeveprint/filelaeveprint.component';
 import { LeavetowaitingComponent } from './leavetowaiting/leavetowaiting.component';
@@ -62,6 +63,7 @@ const appRoutes: Routes = [
   { path: 'checkleave', component: CheckleaveComponent },
   { path: 'sumleave', component: SumleaveComponent },
   { path: 'editdaywork', component: EditdayworkComponent },
+  { path: 'Notifications', component: NotificationsComponent },
   { path: 'login', component: LoginComponent },
   {
     path: '',
@@ -92,7 +94,8 @@ const appRoutes: Routes = [
     EditdayworkComponent,
     FilelaeveprintComponent,
     LeavetowaitingComponent,
-    CheckleaveinfoComponent
+    CheckleaveinfoComponent,
+    NotificationsComponent
     
   
 

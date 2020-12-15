@@ -6,6 +6,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 //  import { setTimeout } from 'timers';
 // import { baseUrl } from '../baseUrl.service';
 import { GlobalVariable } from '../baseUrl';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-checkdaywork',
@@ -25,6 +26,8 @@ export class CheckdayworkComponent implements OnInit {
   Emp_ID = new FormControl('');
   Day_Work = new FormControl('');
   textdata = new FormControl('');
+  message
+  maxDate
   constructor(
     public http: HttpClient,
     // private baseUrl: baseUrl
@@ -42,7 +45,7 @@ export class CheckdayworkComponent implements OnInit {
 
     //   }
     // }, 2000);
-
+    this.maxDate = moment(new Date()).format('YYYY-MM-DD')
     this.http.get(`${this.baseUrl}getEmployee_daywork.php`).subscribe(
       (data: any) => {
         console.log(data);
@@ -131,6 +134,12 @@ export class CheckdayworkComponent implements OnInit {
   Add_daywork(E, S, D, T) {
     this.Emp_ID = E;
     this.Status_Work = S;
+    if (S === "มาทำงาน") {
+      this.message = 1
+    }
+    else if (S === "ไม่มาทำงาน") {
+      this.message = 0
+    }
     this.Day_Work = D;
     this.textdata = T;
     console.log(this.Emp_ID);
@@ -145,10 +154,12 @@ export class CheckdayworkComponent implements OnInit {
       })
     }
     else {
+
       const body = 'Emp_ID=' + this.Emp_ID
         + '&Status_Work=' + this.Status_Work
         + '&Day_Work=' + this.Day_Work
         + '&Data=' + this.textdata
+        + '&message=' + this.message
 
       console.log(body);
       const headers = new HttpHeaders({
@@ -174,7 +185,7 @@ export class CheckdayworkComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
-        window.location.reload();
+        // window.location.reload();
       })
       // .then(()=>{
       //   this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(

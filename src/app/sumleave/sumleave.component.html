@@ -1,22 +1,22 @@
 <div style="padding: 1%;">
   <div class="tab-pane fade show active">
     <div class="card">
-    
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="Year-tab" data-toggle="tab" href="#Year" role="tab" aria-controls="Year"
-              aria-selected="true">รายงานสรุปการลาประจำปี {{myYear}}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="Month-tab" data-toggle="tab" href="#Month" role="tab" aria-controls="Month"
-              aria-selected="false">รายงานสรุปการลาประจำเดือน </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="Day-tab" data-toggle="tab" href="#Day" role="tab" aria-controls="Day"
-              aria-selected="false">รายงานสรุปการลาประจำวัน </a>
-          </li>
-        </ul>
-    
+
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="Year-tab" data-toggle="tab" href="#Year" role="tab" aria-controls="Year"
+            aria-selected="true">รายงานสรุปการลาประจำปี {{myYear}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Month-tab" data-toggle="tab" href="#Month" role="tab" aria-controls="Month"
+            aria-selected="false">รายงานสรุปการลาประจำเดือน </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Day-tab" data-toggle="tab" href="#Day" role="tab" aria-controls="Day"
+            aria-selected="false">รายงานสรุปการลาประจำวัน </a>
+        </li>
+      </ul>
+
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="Year" role="tabpanel" aria-labelledby="Year-tab">
           <div class="table-responsive-xl">
@@ -62,9 +62,25 @@
           </div>
         </div>
         <div class="tab-pane fade" id="Month" role="tabpanel" aria-labelledby="Month-tab">
+          <div id='calendar'></div>
 
+          <script>
+            $(function () {
 
+              $('#calendar').fullCalendar({
+                themeSystem: 'bootstrap4',
+                header: {
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'month,agendaWeek,agendaDay,listMonth'
+                },
+                weekNumbers: true,
+                eventLimit: true, // allow "more" link when too many events
+                events: 'https://fullcalendar.io/demo-events.json'
+              });
 
+            });
+          </script>
         </div>
 
 
@@ -94,11 +110,11 @@
                       (click)="getsearchdayleave(Day_leave.value)">ค้นหา</button>
                   </div>
                   <div class="col-sm">
-            
+
                   </div>
                 </div>
               </div>
-          
+
             </div>
           </div>
 

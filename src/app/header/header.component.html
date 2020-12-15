@@ -51,7 +51,7 @@
             <a>
               <i class="fa fa-tachometer-alt"></i>
               จัดการ
-              <span class="badge badge-pill badge-warning">New</span>
+
             </a>
             <div class="sidebar-submenu">
               <ul>
@@ -103,15 +103,15 @@
               </ul>
             </div>
           </li>
-           <li class="sidebar-dropdown">
+          <li class="sidebar-dropdown">
             <a>
               <i class="fa fa-tachometer-alt"></i>
               การลา/ใบลางาน
-              <span class="badge badge-pill badge-warning">New</span>
+
             </a>
             <div class="sidebar-submenu">
               <ul>
-            
+
                 <li>
                   <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
                 </li>
@@ -141,7 +141,7 @@
     <!-- sidebar-content  -->
 
   </nav>
-  
+
   <!-- sidebar-wrapper  -->
   <main class="page-content">
     <router-outlet></router-outlet>
@@ -185,9 +185,15 @@
             <span style="color:dodgerblue;">Menu</span>
           </li>
           <li>
+            <a [routerLink]="['/Notifications']">
+              <i class="fa fa-bell" aria-hidden="true"></i> แจ้งเตือน
+              <span class="badge badge-pill badge-warning" *ngIf="test_2">{{test_1}}</span>
+            </a>
+          </li>
+          <li>
             <a [routerLink]="['/leavelist']">
               <i class='fa fa-book'></i> รายการลา
-              <span class="badge badge-pill badge-warning">New</span>
+
             </a>
           </li>
           <li class="sidebar">
@@ -255,9 +261,15 @@
             <span style="color:dodgerblue;">Menu</span>
           </li>
           <li>
+            <a [routerLink]="['/Notifications']">
+              <i class="fa fa-bell" aria-hidden="true"></i> แจ้งเตือน
+              <span class="badge badge-pill badge-warning" *ngIf="test_2">{{test_1}}</span>
+            </a>
+          </li>
+          <li>
             <a [routerLink]="['/leavelist']">
               <i class='fa fa-book'></i> รายการลา
-              <span class="badge badge-pill badge-warning">New</span>
+
             </a>
           </li>
           <li class="sidebar">
@@ -269,7 +281,7 @@
             <a>
               <i class="fa fa-tachometer-alt"></i>
               บุลคากร/การลา
-              <span class="badge badge-pill badge-warning">New</span>
+
             </a>
             <div class="sidebar-submenu">
               <ul>
@@ -287,7 +299,9 @@
           <li>
             <a [routerLink]="['/leavetowaiting']">
               <i class="fa fa-hourglass"></i>
-              <span>การลาที่รอรับรอง</span>
+              การลาที่รอรับรอง
+              <span class="badge badge-pill badge-warning"
+                *ngIf="show_count_lavel2">{{countleave_toDepartmenthead}}</span>
             </a>
           </li>
           <li class="header-menu">
@@ -350,9 +364,15 @@
             <span style="color:dodgerblue;"> Menu</span>
           </li>
           <li>
+            <a [routerLink]="['/Notifications']">
+              <i class="fa fa-bell" aria-hidden="true"></i> แจ้งเตือน
+              <span class="badge badge-pill badge-warning" *ngIf="test_2">{{test_1}}</span>
+            </a>
+          </li>
+          <li>
             <a [routerLink]="['/leavelist']">
               <i class='fa fa-book'></i> รายการลา
-              <span class="badge badge-pill badge-warning">New</span>
+
             </a>
           </li>
           <li class="sidebar">
@@ -364,7 +384,7 @@
             <a>
               <i class="fa fa-tachometer-alt"></i>
               บุลคากร/การลา
-              <span class="badge badge-pill badge-warning">New</span>
+
             </a>
             <div class="sidebar-submenu">
               <ul>
@@ -382,7 +402,8 @@
           <li>
             <a [routerLink]="['/leavetowaiting']">
               <i class="fa fa-hourglass"></i>
-              <span>การลาที่รอรับรอง</span>
+              การลาที่รอรับรอง
+              <span class="badge badge-pill badge-warning" *ngIf="show_count_lavel3">{{countleave_toSupervisor}}</span>
             </a>
           </li>
           <li class="header-menu">
@@ -445,9 +466,15 @@
             <span style="color:dodgerblue;">Menu</span>
           </li>
           <li>
+            <a [routerLink]="['/Notifications']">
+              <i class="fa fa-bell" aria-hidden="true"></i> แจ้งเตือน
+              <span class="badge badge-pill badge-warning" *ngIf="test_2">{{test_1}}</span>
+            </a>
+          </li>
+          <li>
             <a [routerLink]="['/leavelist']">
               <i class='fa fa-book'></i> รายการลา
-              <span class="badge badge-pill badge-warning">New</span>
+
             </a>
           </li>
           <li class="sidebar">
@@ -459,7 +486,7 @@
             <a>
               <i class="fa fa-tachometer-alt"></i>
               บุคลากร/การลา
-              <span class="badge badge-pill badge-warning">New</span>
+
             </a>
             <div class="sidebar-submenu">
               <ul>
@@ -477,7 +504,9 @@
           <li>
             <a [routerLink]="['/leavetowaiting']">
               <i class="fa fa-hourglass"></i>
-              <span >การลาที่รอรับรอง</span>
+              การลาที่รอรับรอง
+              <span class="badge badge-pill badge-warning"
+                *ngIf="show_count_lavel4">{{countleave_toDeputyleader}}</span>
             </a>
           </li>
           <li class="header-menu">
@@ -550,7 +579,7 @@
             <a>
               <i class="fa fa-tachometer-alt"></i>
               บุคลากร/การลา
-              <span class="badge badge-pill badge-warning">New</span>
+
             </a>
             <div class="sidebar-submenu">
               <ul>
