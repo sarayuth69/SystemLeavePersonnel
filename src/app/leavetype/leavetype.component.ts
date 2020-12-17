@@ -43,9 +43,37 @@ export class LeavetypeComponent implements OnInit {
   Date_start = new FormControl('');
   limit_ID = new FormControl('');
   Name_limit = new FormControl('');
+
+
+
+
+  holiday_ID = new FormControl('');
+  holiday_date = new FormControl('');
+  holiday_data = new FormControl('');
   date = new Date().toString()
   showleave_limit;
+  show_holiday;
+  Insert_holiday;
+  holiday_month_show;
+  edit_holiday;
+  holiday_ID_show;
+  holiday_date_show;
+  holiday_data_show;
 
+  public thmonth = new Array(
+    'มกราคม',
+    'กุมภาพันธ์',
+    'มีนาคม',
+    'เมษายน',
+    'พฤษภาคม',
+    'มิถุนายน',
+    'กรกฎาคม',
+    'สิงหาคม',
+    'กันยายน',
+    'ตุลาคม',
+    'พฤศจิกายน',
+    'ธันวาคม'
+  );
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -58,6 +86,18 @@ export class LeavetypeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+
+    this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
+      (data: any) => {
+        this.show_holiday = data
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+
+
     this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
       (data: any) => {
 
@@ -463,5 +503,145 @@ export class LeavetypeComponent implements OnInit {
         )
       })
     }
+  }
+
+
+  add_holiday() {
+    const body = 'holiday_ID=' + 0
+      + '&holiday_date=' + this.holiday_date.value
+      + '&holiday_data=' + this.holiday_data.value
+
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}insert_holiday.php`, body, {
+        headers: headers
+      })
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.Insert_holiday = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'เพิ่มข้อมูลเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+
+    }).then(() => {
+      this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
+        (data: any) => {
+          this.show_holiday = data
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      )
+    })
+  }
+
+  update_holiday(
+    holiday_ID, holiday_date, holiday_data
+  ) {
+    this.holiday_ID = new FormControl(holiday_ID);
+    this.holiday_date = new FormControl(holiday_date);
+    this.holiday_data = new FormControl(holiday_data);
+
+  }
+  public update_holiday_true() {
+    const body =
+      'holiday_ID=' + this.holiday_ID.value
+      + '&holiday_date=' + this.holiday_date.value
+      + '&holiday_data=' + this.holiday_data.value
+
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}Update_holiday.php`, body, {
+        headers: headers
+      })
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.edit_holiday = data[0];
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'แก้ไขเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
+        (data: any) => {
+          this.show_holiday = data
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      )
+    })
+  }
+
+  delete_holiday(holiday_ID, holiday_date, holiday_data) {
+    this.holiday_ID_show = holiday_ID;
+    this.holiday_date_show = holiday_date;
+    this.holiday_data_show = holiday_data;
+    console.log(this.Empstatus_ID_show);
+    Swal.fire({
+      title: 'คุณจะลบ' + ' ' + this.holiday_date_show + ' ' + 'ซึ่งเป็นวัน' + ' ' + this.holiday_data_show + ' ' + 'หรือไม่',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#00FF33',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'ลบเรียบร้อย',
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          this.http
+            .get(
+              `${this.baseUrl}Delete_holiday.php?holiday_ID=` + this.holiday_ID_show
+            )
+            .subscribe(
+              (data: any) => {
+                console.log(data[0]);
+                this.leavetype1 = data[0];
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            );
+        }).then(() => {
+          this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
+            (data: any) => {
+              this.show_holiday = data
+            },
+            (error: any) => {
+              console.log(error);
+            }
+          )
+        })
+      }
+
+    })
   }
 }

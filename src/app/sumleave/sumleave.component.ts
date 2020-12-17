@@ -6,6 +6,7 @@ import { GlobalVariable } from '../baseUrl';
 import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from '../api.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-sumleave',
@@ -22,12 +23,17 @@ export class SumleaveComponent implements OnInit {
   public countleave;
   public sumleave;
   public searchdayleave;
-  Day_leave: any;
+  Day_leave_start: any;
+  Day_leave_last: any;
+  Day_leave_start_chack: any;
+  Day_leave_last_chack: any;
+  Progress_with: any;
+  Emp_ID_show;
   constructor(
     public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
-    public http: HttpClient,
+    protected http: HttpClient
     // private baseUrl : baseUrl
 
 
@@ -52,32 +58,64 @@ export class SumleaveComponent implements OnInit {
         console.log(error);
       }
     );
-    this.http.get(`${this.baseUrl}getSumleave.php`).subscribe(
+
+
+  }
+  filterChanged(selectedValue: string) {
+    console.log('value is ', selectedValue);
+
+  }
+  sumleave_show(Emp_ID) {
+    this.Emp_ID_show = Emp_ID
+    console.log(Emp_ID);
+
+    this.http.get(`${this.baseUrl}getSumleave.php?Emp_ID=${this.Emp_ID_show}`).subscribe(
       (data: any) => {
         console.log(data);
         this.sumleave = data;
-        for (var i = 0; i < this.sumleave.length; i++) {
-          console.log(this.sumleave[i].jen);
-        }
+        // for (var i = 0; i < this.sumleave.length; i++) {
+        //   console.log(this.width);
+        // }
       },
       (error: any) => {
         console.log(error);
       }
     );
   }
+  getsearchdayleave(Day_leave_start, Day_leave_last) {
+    this.Day_leave_start_chack = Day_leave_start
+    this.Day_leave_last_chack = Day_leave_last
+    // const body ='Day_leave_start=' + this.Day_leave_start_chack
+    //   + '&Day_leave_last=' + this.Day_leave_last_chack
+    // console.log(body);
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // });
+    // this.http
+    //   .post(`${this.baseUrl}searchdayleave.php`, body, {
+    //     headers: headers
+    //   })
+    //   .subscribe(
+    //     (data: any) => {
+    //       console.log(data);
+    //       this.searchdayleave = data;
+    //     },
+    //     (error: any) => {
+    //       console.log(error);
+    //     }
+    //   );
 
-  getsearchdayleave(Day_leave) {
-    console.log(Day_leave);
-    if (!Day_leave) {
+    if (!Day_leave_start) {
       Swal.fire({
         icon: 'error',
         title: 'กรุณาเลือกวันที่',
         text: 'Something went wrong!'
       })
     } else {
-      this.http.get(`${this.baseUrl}searchdayleave.php?Day_leave=` + Day_leave).subscribe(
+      this.http.get(`${this.baseUrl}searchdayleave.php?Day_leave_start=${this.Day_leave_start_chack}&Day_leave_last=${this.Day_leave_last_chack}`).subscribe(
         (data: any) => {
           console.log(data);
+
           if (data.length === 0) {
             Swal.fire({
               icon: 'error',

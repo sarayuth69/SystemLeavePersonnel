@@ -50,6 +50,10 @@
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#limit" role="tab" aria-controls="limit"
               aria-selected="false">รอบการประเมิน</a>
           </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#holiday" role="tab" aria-controls="holiday"
+              aria-selected="false">จัดการวันหยุดนักขัตฤกษ์</a>
+          </li>
         </ul>
       </div>
       <div style="padding-left: 2%;padding-right: 2%;">
@@ -95,15 +99,17 @@
                     <td>{{item.leavetype_remark}}</td>
                     <td>
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
+                      <button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
+                        data-target="#exampleModal2"
                         (click)="updateLeavetype(item.LType_ID,item.LTypeName
                     ,item.Number,item.LType_limit,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
-                        แก้ไข
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                       </button>
 
                       &nbsp;
-                      <button type="button" class="btn btn-danger"
-                        (click)="deleteLeavetype(item.LType_ID,item.LTypeName,item.Empstatus_ID)">ลบ</button>
+                      <button type="button" class="btn btn-danger btn-circle btn-xl"
+                        (click)="deleteLeavetype(item.LType_ID,item.LTypeName,item.Empstatus_ID)"><i class="fa fa-trash"
+                          aria-hidden="true"></i></button>
 
 
                     </td>
@@ -156,14 +162,16 @@
                     <td>{{item.leavetype_remark}}</td>
                     <td>
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
+                      <button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
+                        data-target="#exampleModal2"
                         (click)="updateLeavetype(item.LType_ID,item.LTypeName
                     ,item.Number,item.LType_limit,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
-                        แก้ไข
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                       </button>
                       &nbsp;
-                      <button type="button" class="btn btn-danger"
-                        (click)="deleteLeavetype(item.LType_ID,item.LTypeName,item.Empstatus_ID)">ลบ</button>
+                      <button type="button" class="btn btn-danger btn-circle btn-xl"
+                        (click)="deleteLeavetype(item.LType_ID,item.LTypeName,item.Empstatus_ID)"><i class="fa fa-trash"
+                          aria-hidden="true"></i></button>
                     </td>
                   </tr>
                 </tbody>
@@ -212,14 +220,16 @@
                     <td>{{item.leavetype_remark}}</td>
                     <td>
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2"
+                      <button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
+                        data-target="#exampleModal2"
                         (click)="updateLeavetype(item.LType_ID,item.LTypeName
                     ,item.Number,item.LType_limit,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
-                        แก้ไข
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                       </button>
                       &nbsp;
-                      <button type="button" class="btn btn-danger"
-                        (click)="deleteLeavetype(item.LType_ID,item.LTypeName,item.Empstatus_ID)">ลบ</button>
+                      <button type="button" class="btn btn-danger btn-circle btn-xl"
+                        (click)="deleteLeavetype(item.LType_ID,item.LTypeName,item.Empstatus_ID)"><i class="fa fa-trash"
+                          aria-hidden="true"></i></button>
                     </td>
                   </tr>
                 </tbody>
@@ -243,7 +253,8 @@
                       <button type="button" class="btn btn-primary" data-toggle="modal"
                         data-target="#exampleModal_manage" (click)="check_limit()">
                         จัดการรอบการประเมิน
-                      </button></th>
+                      </button>
+                    </th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let item of showleave_limit; let i = index">
@@ -258,6 +269,52 @@
                     <td>{{item.limit_date}}</td>
                     <td>{{item.date_stop}} </td>
                     <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+
+          <div class="tab-pane fade" id="holiday" role="tabpanel" aria-labelledby="holiday-tab">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr class="text-center">
+                    <!-- {{text}} -->
+                    <th scope="col">ลำดับ</th>
+                    <th scope="col">วันที่</th>
+                    <th scope="col">ข้อมูล</th>
+                    <th scope="col">จัดการ</th>
+                    <th scope="col">
+                      <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#exampleModal_holiday">
+                        เพิ่มวันหยุดนักขัตฤกษ์
+                      </button>
+                    </th>
+
+                  </tr>
+                </thead>
+                <tbody *ngFor="let item of show_holiday; let i = index">
+                  <tr class="text-center">
+                    <td>
+                      <p ng-repeat="i in range(1, 5)">
+                        {{ i+1 }}
+                      </p>
+                    </td>
+                    <td>{{item.holiday_show_date}} </td>
+                    <td>{{item.holiday_data}}</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-circle btn-xl" data-toggle="modal"
+                        data-target="#exampleModal_edit_holiday"
+                        (click)="update_holiday(item.holiday_ID,item.holiday_date,item.holiday_data)"><i
+                          class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                      <button type="button" class="btn btn-danger btn-circle btn-xl"
+                        (click)="delete_holiday(item.holiday_ID,item.holiday_show_date,item.holiday_data)"><i
+                          class="fa fa-trash" aria-hidden="true"></i></button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -439,6 +496,68 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="add_leave_limit()">บันทึก</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Model เพิ่มวันนักขัตฤกษ์ -->
+<div class="modal fade" id="exampleModal_holiday" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">เพิ่มวันหยุดนักขัตฤกษ์</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>วันที่</label>
+            <input type="date" class="form-control" [formControl]="holiday_date">
+          </div>
+          <div class="form-group">
+            <label>ข้อมูล</label>
+            <input type="text" class="form-control" [formControl]="holiday_data">
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="add_holiday()">บันทึก</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal แก้ไขวันนักขัตฤกษ์ -->
+<div class="modal fade" id="exampleModal_edit_holiday" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>วันที่</label>
+          <input type="date" class="form-control" [formControl]="holiday_date">
+        </div>
+        <div class="form-group">
+          <label>ข้อมูล</label>
+          <input type="text" class="form-control" [formControl]="holiday_data">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"
+          (click)="update_holiday_true()">บันทึก</button>
       </div>
     </div>
   </div>

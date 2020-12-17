@@ -10,6 +10,7 @@ import {
 import { environment } from 'src/environments/environment';
 // import { baseUrl } from '../baseUrl.service';
 import { GlobalVariable } from '../baseUrl';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
@@ -28,10 +29,12 @@ export class LoginComponent implements OnInit {
     public api: APIService,
     public http: HttpClient,
     //  private baseUrl : baseUrl
-  ) { }
+  ) {
+    
+   }
 
   ngOnInit() {
-
+    
     // localStorage.clear();
     this.route.queryParams.subscribe((value: any) => {
       console.log(value);

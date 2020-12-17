@@ -103,15 +103,15 @@
                                             <td class="text-center">
                                                 {{item.LeaveStatus_Name}} </td>
                                         </div> -->
-                                       
-                                            <td class="text-center" style="color:rgb(80, 80, 246);">
-                                                {{item.LeaveStatus_Name}} </td>
-                                    
+
+                                        <td class="text-center" style="color:rgb(80, 80, 246);">
+                                            {{item.LeaveStatus_Name}} </td>
+
 
 
 
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-success" (click)="printDocument(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+                                            <button type="button" class="btn btn-success btn-circle btn-xl" (click)="printDocument(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                item.Prefix, item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                 item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,
                               item.LeaveStatus_Name, item.LeaveStatus_Document)"><i class="fa fa-print"
@@ -120,8 +120,12 @@
                                         </td>
                                         <td class="text-center">
                                             &nbsp;
-                                            <button *ngIf="item.LeaveStatus_ID < 5" type="button" class="btn btn-danger"
-                                                (click)="cancel_leave(item.Leave_ID,item.LeaveStatus_ID)">ยกเลิก</button>
+                                            <button *ngIf="item.LeaveStatus_ID < 5" type="button" data-toggle="tooltip"
+                                                data-placement="top" title="ยกเลิกการลา"
+                                                class="btn btn-danger btn-circle btn-xl"
+                                                (click)="cancel_leave(item.Leave_ID,item.LeaveStatus_ID)"><i
+                                                    class="fa fa-calendar-times-o" aria-hidden="true"></i> </button>
+
                                             <!-- Button trigger modal -->
                                             <button *ngIf="item.LeaveStatus_ID==5" type="button" class="btn btn-primary"
                                                 data-toggle="modal" data-target="#exampleModal_cancel"
@@ -152,7 +156,7 @@
                                         <th scope="col">จำนวน/วัน</th>
                                         <!-- <th scope="col">ไฟล์แนบ</th> -->
                                         <th scope="col">สถานะ</th>
-                                        <th scope="col">ปริ้นใบยกเลิก</th>
+                                        <!-- <th scope="col">ปริ้นใบยกเลิก</th> -->
                                         <th scope="col">ตรวจสอบ</th>
                                     </tr>
                                 </thead>
@@ -171,12 +175,12 @@
                                         <td class="text-center">
                                             <p style="color:red;">{{item.LeaveStatus_Name}} </p>
                                         </td>
-                                        <td class="text-center">
+                                        <!-- <td class="text-center">
                                             <button type="button" class="btn btn-success"
                                                 (click)="printDocument(item.LType_ID)"><i class="fa fa-print"
                                                     aria-hidden="true"></i></button>
 
-                                        </td>
+                                        </td> -->
                                         <td class="text-center">
                                             &nbsp;
                                             <button type="button" class="btn btn-primary">ตรวจสอบ</button>
@@ -628,6 +632,7 @@
                                     <label class="custom-control-label" for="inlineCheckbox2">ลามากกว่า 1 วัน</label>
                                 </div>
 
+
                                 <div class="form-row">
 
                                     <div class="col-sm">
@@ -686,8 +691,8 @@
 
                                     <div class="col-md-2 mb-2">
                                         <label>จำนวนวันลา</label>
-                                        <input type="text" class="form-control" id="LeaveTotal" [value]="numberleave"
-                                            #LeaveTotal readonly>
+                                        <input type="text" class="form-control" id="LeaveTotal"
+                                            value="{{numberleave}}" #LeaveTotal readonly>
                                     </div>
                                     <form>
                                         <div class="form-group">

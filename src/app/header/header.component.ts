@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
   test = 0
   test_1: any;
   test_2: boolean
-  msg
+  msg: any;
   count_watting
   countleave_toDepartmenthead
   countleave_toDeputyleader
@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit {
         (data: any) => {
           this.msg = data
           for (var i = 0; i <= this.msg.length; i++) {
-            console.log(this.msg[i].count_data);
+           
             if (this.msg[i].count_data >= 1) {
               this.test_2 = true
               this.test_1 = this.msg[i].count_data

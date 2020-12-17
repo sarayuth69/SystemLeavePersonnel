@@ -1,4 +1,18 @@
 #Angular
+
+
+
+
+
+npm run build --base-href http://cpe.rmuti.ac.th/project/Leave_system/
+
+
+
+
+
+
+
+
 ________________________________________
 #โปรแกรม
 -Nodejs #เฉพาะเวอร์ชั่นที่เป็นLTS
