@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, OnDestroy, HostListener} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from '../api.service';
 import {
@@ -45,7 +45,7 @@ export class LeavetypeComponent implements OnInit {
   Name_limit = new FormControl('');
 
 
-
+  
 
   holiday_ID = new FormControl('');
   holiday_date = new FormControl('');
@@ -59,7 +59,8 @@ export class LeavetypeComponent implements OnInit {
   holiday_ID_show;
   holiday_date_show;
   holiday_data_show;
-
+  select_year
+  show_year
   public thmonth = new Array(
     'มกราคม',
     'กุมภาพันธ์',
@@ -74,6 +75,7 @@ export class LeavetypeComponent implements OnInit {
     'พฤศจิกายน',
     'ธันวาคม'
   );
+  
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -84,18 +86,19 @@ export class LeavetypeComponent implements OnInit {
 
 
   ) { }
+  @Input('sortable-column')
+  columnName: string;
 
+  @Input('sort-direction')
+  sortDirection: string = '';
+
+  @HostListener('click')
+  sort() {
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+  }
   ngOnInit() {
 
 
-    this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
-      (data: any) => {
-        this.show_holiday = data
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    )
 
 
     this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
@@ -143,6 +146,45 @@ export class LeavetypeComponent implements OnInit {
         console.log(error);
       }
     )
+
+    this.http.get(`${this.baseUrl}show_year.php`).subscribe(
+      (data: any) => {
+        this.show_year = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+  }
+
+
+
+  serch_year(select_year) {
+    console.log(select_year);
+    this.select_year = select_year
+    if (select_year === undefined) {
+      this.select_year = " "
+      this.http.get(`${this.baseUrl}show_holiday.php?select_year=${this.select_year}`).subscribe(
+        (data: any) => {
+          this.show_holiday = data
+        },
+        (error: any) => {
+          console.log(error);
+
+        }
+      )
+    }
+    else {
+      this.http.get(`${this.baseUrl}show_holiday.php?select_year=${this.select_year}`).subscribe(
+        (data: any) => {
+          this.show_holiday = data
+        },
+        (error: any) => {
+          console.log(error);
+
+        }
+      )
+    }
 
 
   }

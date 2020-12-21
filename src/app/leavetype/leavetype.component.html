@@ -52,7 +52,7 @@
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#holiday" role="tab" aria-controls="holiday"
-              aria-selected="false">จัดการวันหยุดนักขัตฤกษ์</a>
+              aria-selected="false" (click)="serch_year()" #select_year>จัดการวันหยุดนักขัตฤกษ์</a>
           </li>
         </ul>
       </div>
@@ -280,34 +280,36 @@
 
           <div class="tab-pane fade" id="holiday" role="tabpanel" aria-labelledby="holiday-tab">
             <div class="table-responsive">
-              <table class="table table-hover">
+
+              <table id="example" class="table table-hover">
                 <thead>
                   <tr class="text-center">
-                    <!-- {{text}} -->
+                    <th scope="col" class="text-center"><select id="inputState"
+                        class="custom-select mr-sm-2 form-control-lg" (change)="serch_year($event.target.value)">
+                        <option *ngFor="let item of show_year; let i = index" value="{{item.year_show}}">
+                          พ.ศ. {{item.year_show}}</option>
+
+                      </select></th>
                     <th scope="col">ลำดับ</th>
                     <th scope="col">วันที่</th>
                     <th scope="col">ข้อมูล</th>
-                    <th scope="col">จัดการ</th>
+                    <!-- <th scope="col">จัดการ</th> -->
+
+
                     <th scope="col">
-                      <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#exampleModal_holiday">
-                        เพิ่มวันหยุดนักขัตฤกษ์
+
+                      <button type="button" class="btn btn-primary btn-circle btn-xl" title="เพิ่มวันหยุดนักขัตฤกษ์"
+                        data-toggle="modal" data-target="#exampleModal_holiday">
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
                       </button>
                     </th>
 
                   </tr>
                 </thead>
-                <tbody *ngFor="let item of show_holiday; let i = index">
+                <tbody
+                  *ngFor="let item of show_holiday| paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
                   <tr class="text-center">
-                    <td>
-                      <p ng-repeat="i in range(1, 5)">
-                        {{ i+1 }}
-                      </p>
-                    </td>
-                    <td>{{item.holiday_show_date}} </td>
-                    <td>{{item.holiday_data}}</td>
-                    <td>
-                      <button type="button" class="btn btn-primary btn-circle btn-xl" data-toggle="modal"
+                    <td><button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
                         data-target="#exampleModal_edit_holiday"
                         (click)="update_holiday(item.holiday_ID,item.holiday_date,item.holiday_data)"><i
                           class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
@@ -315,9 +317,26 @@
                         (click)="delete_holiday(item.holiday_ID,item.holiday_show_date,item.holiday_data)"><i
                           class="fa fa-trash" aria-hidden="true"></i></button>
                     </td>
+                    <td>
+                      <p ng-repeat="i in range(1, 5)">
+                        {{ i+1 }}
+                      </p>
+                    </td>
+                    <td>{{item.holiday_show_date}} </td>
+                    <td>
+                      <div class="card text-center bg-light " style="width: 18rem;">
+                        <div class="card-body">
+                          {{item.holiday_data}}
+                        </div>
+                      </div>
+
+                    </td>
+
                   </tr>
                 </tbody>
               </table>
+              <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+
             </div>
 
           </div>

@@ -16,11 +16,73 @@
 
 
   <!-- <link rel="stylesheet" type="text/css" href="assets/styles/custom-style.css" /> -->
-
+  <link rel="stylesheet" href="assets/vendor/fullcalendar/dist/fullcalendar.min.css">
+  <link rel="stylesheet" href="assets/vendor/sweetalert2/dist/sweetalert2.min.css">
 
 </head>
 
 <body>
+
+
+
+
+  <app-root>
+    <style>
+      app-root {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+
+        color: pink;
+        text-transform: uppercase;
+
+        font-size: 2.5em;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      }
+
+
+      @keyframes dots {
+        50% {
+          transform: translateY(-.4rem);
+        }
+
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      .d {
+        animation: dots 1.5s ease-out infinite;
+      }
+
+      .d-2 {
+        animation-delay: .5s;
+      }
+
+      .d-3 {
+        animation-delay: 1s;
+      }
+    </style>
+    <span class="d"><img src="./assets/images/25702a69321565.5b7d0cbe75e1a.gif"></span>
+
+  </app-root>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+  <script src="assets/vendor/moment/min/moment.min.js"></script>
+  <script src="assets/vendor/fullcalendar/dist/fullcalendar.min.js"></script>
+  <script src="assets/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+
+
+
+
+
+
   <script src="../node_modules/pdfmake/build/pdfmake.min.js"></script>
   <script src="../node_modules/pdfmake/build/vfs_fonts.js"></script>
 
@@ -29,7 +91,7 @@
 
 
 
-  
+
 
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

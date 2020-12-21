@@ -37,6 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
+
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'filelaeveprint', component: FilelaeveprintComponent },
@@ -90,8 +91,8 @@ const appRoutes: Routes = [
     LeavetowaitingComponent,
     CheckleaveinfoComponent,
     NotificationsComponent
-    
-  
+
+
 
 
   ],
@@ -103,14 +104,13 @@ const appRoutes: Routes = [
     HttpModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only set true
     ),
     BrowserAnimationsModule
   ],
-  providers: [  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -86,15 +86,15 @@
                                         <td>ชื่อ: <a style="color:rgb(80, 80, 246);" data-toggle="modal"
                                                 data-target="#exampleModal" (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                 item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
-                                item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,
+                                item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
                               item.LeaveStatus_Name, item.LeaveStatus_Document)">
                                                 <u> {{item.EmpName}}
                                                     {{item.EmpLastName}}</u></a>
                                             <p>แผนก: {{item.DeptName}}</p>
                                         </td>
                                         <td class="text-center">{{item.LTypeName}}</td>
-                                        <td class="text-center"> {{item.LeaveDateStart}} ถึง
-                                            {{item.LeaveDateLast}}</td>
+                                        <td class="text-center"> {{item.LeaveDateStart_month}} ถึง
+                                            {{item.LeaveDateLast_month}}</td>
                                         <td class="text-center"> {{item.LeaveTotal}}</td>
                                         <!-- <td class="text-center"> {{item.file_names}}</td> -->
 
@@ -129,7 +129,7 @@
                                             <!-- Button trigger modal -->
                                             <button *ngIf="item.LeaveStatus_ID==5" type="button" class="btn btn-primary"
                                                 data-toggle="modal" data-target="#exampleModal_cancel"
-                                                (click)="cancel(item.LTypeName,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal)">
+                                                (click)="cancel(item.LTypeName,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,item.LeaveDateStart,item.LeaveDateLast)">
                                                 ขออนุญาตยกเลิก
                                             </button>
 
@@ -626,11 +626,11 @@
 
 
 
-                                <div class="custom-control custom-checkbox">
+                                <!-- <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" id="inlineCheckbox2"
                                         (change)="toggleVisibility_date($event)">
                                     <label class="custom-control-label" for="inlineCheckbox2">ลามากกว่า 1 วัน</label>
-                                </div>
+                                </div> -->
 
 
                                 <div class="form-row">
@@ -663,7 +663,7 @@
                                     </div>
 
                                     <div class="col-sm">
-                                        <div class="card text-white  mb-3" style="max-width: 18rem;" *ngIf="date_chack">
+                                        <div class="card text-white  mb-3" style="max-width: 18rem;">
                                             <div class="card-header bg-danger ">ถึงวันที่</div>
                                             <div class="card-body text-primary">
                                                 <input type="date" class="form-control" id="LeaveDateLast"
@@ -691,9 +691,18 @@
 
                                     <div class="col-md-2 mb-2">
                                         <label>จำนวนวันลา</label>
-                                        <input type="text" class="form-control" id="LeaveTotal"
-                                            value="{{numberleave}}" #LeaveTotal readonly>
+                                        <input type="text" class="form-control" id="LeaveTotal" value="{{numberleave}}"
+                                            #LeaveTotal readonly>
+
+
+                                        <label>สถานะการส่งใบลาฉบับจริง</label>
+                                        <select class="custom-select" [formControl]="LeaveStatus_Document">
+                                            <option selected>--เลือกสถานะ--</option>
+                                            <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
+                                            <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
+                                        </select>
                                     </div>
+
                                     <form>
                                         <div class="form-group">
                                             <label for="exampleFormControlFile1">แนปไฟล์</label>
@@ -702,12 +711,12 @@
                                         </div>
                                     </form>
                                     <div class="form-row">
-                                        <label>สถานะการส่งใบลาฉบับจริง</label>
+                                        <!-- <label>สถานะการส่งใบลาฉบับจริง</label>
                                         <select class="custom-select" [formControl]="LeaveStatus_Document">
                                             <option selected>--เลือกสถานะ--</option>
                                             <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
                                             <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
-                                        </select>
+                                        </select> -->
                                     </div>
                                 </div>
                             </form>
@@ -743,7 +752,7 @@
                     <div class="container">
                         <div class="form-row">
                             <p>เรื่อง</p>
-                            <input type="text" class="form-control" [formControl]="Name_Leave">
+                            <input type="text" class="form-control" value="{{LTypeName_namleave}}">
                             <p>เรียน</p>
                             <input type="text" class="form-control" [formControl]="To_Person">
 
@@ -805,11 +814,12 @@
                             </div>
                             <div class="col-sm">
                                 <h6>ตั้งแต่วันที่ </h6>
-                                <input type="date" class="form-control" value="{{LeaveDateStart_cancel}}" readonly>
+                                <input type="text" class="form-control" value="{{LeaveDateStart_cancel_month}}"
+                                    readonly>
                             </div>
                             <div class="col-sm">
                                 <h6> ถึงวันที่ </h6>
-                                <input type="date" class="form-control" value="{{LeaveDateLast_cancel}}" readonly>
+                                <input type="text" class="form-control" value="{{LeaveDateLast_cancel_month}}" readonly>
                             </div>
                             <div class="col-sm">
                                 <h6> รวมวันลา </h6>

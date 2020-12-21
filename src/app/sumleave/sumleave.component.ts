@@ -8,6 +8,8 @@ import { APIService } from '../api.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { style } from '@angular/animations';
 
+import * as Chart from 'chart.js'
+
 @Component({
   selector: 'app-sumleave',
   templateUrl: './sumleave.component.html',
@@ -29,6 +31,8 @@ export class SumleaveComponent implements OnInit {
   Day_leave_last_chack: any;
   Progress_with: any;
   Emp_ID_show;
+
+
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -61,11 +65,68 @@ export class SumleaveComponent implements OnInit {
 
 
   }
+  canvas: any;
+
+  test1 = []
+  test2 = []
+
+  ngAfterViewInit(sumleave) {
+    // this.chart_show = chart
+
+    sumleave.forEach(element => {
+      console.log(element);
+      this.test1.push(element.LTypeName)
+      this.test2.push(element.sum_total)
+    });
+    this.canvas = document.getElementById('myChart');
+    // this.ctx = this.canvas.getContext(this.chart_show);
+    var myChart = new Chart(this.canvas, {
+      type: 'pie',
+      data: {
+        labels: this.test1,
+
+        datasets: [{
+
+          data: this.test2,
+          backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+
+          borderWidth: 1
+        }]
+      },
+      options: {
+        legend: {
+          responsive: false,
+          display: true,
+          showLines: false
+        }
+      },
+    }
+      
+    );
+ 
+    this.test1 =[]
+    this.test2 =[]
+  
+
+
+  }
+
+
   filterChanged(selectedValue: string) {
     console.log('value is ', selectedValue);
 
   }
+  chart: any;
+  chart_show: any;
   sumleave_show(Emp_ID) {
+
     this.Emp_ID_show = Emp_ID
     console.log(Emp_ID);
 
@@ -73,9 +134,8 @@ export class SumleaveComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.sumleave = data;
-        // for (var i = 0; i < this.sumleave.length; i++) {
-        //   console.log(this.width);
-        // }
+        // this.chart = "2d"
+        this.ngAfterViewInit(this.sumleave)
       },
       (error: any) => {
         console.log(error);

@@ -1,69 +1,4 @@
-// .navbar-expand-lg {
-//     background-color:#76EE00;
-// }
 
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
-@import url(https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.3/css/mdb.min.css);
-
-.hm-gradient {
-  background-image: linear-gradient(
-    to top,
-    #f3e7e9 0%,
-    #e3eeff 80%,
-    #e3eeff 100%
-  );
-}
-.darken-grey-text {
-  color: #2e2e2e;
-}
-
-.navbar .dropdown-menu a:hover {
-  color: #616161 !important;
-}
-.darken-grey-text {
-  color: #2e2e2e;
-}
-
-.navbar-expand-lg {
-  position: fixed;
-  z-index: 1;
-  width: 100%;
-  top: 0;
-}
-
-@media (min-width: 768px) {
-  .modal-xl {
-    width: 90%;
-    max-width: 1200px;
-  }
-}
-
-.none {
-  display: none;
-}
-
-///////////////////////////////////////////////
-.dropdown-menu > li > a,
-.navbar-default .navbar-nav > li > a,
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-header > a,
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav .open .dropdown-menu > li > a {
-  color: #2c3e50;
-  transition: all 1s;
-  -o-transition: all 1s;
-  -moz-transition: all 1s;
-  -webkit-transition: all 1s;
-}
-.dropdown-menu > li > a:hover,
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-header > a:hover,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
-  color: #ffffff;
-  background: #2c3e50;
-}
 button {
   cursor: pointer;
 }
@@ -126,62 +61,18 @@ button:hover .fa {
   }
 }
 
-html {
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-}
 
-* {
-  box-sizing: inherit;
-  &:before,
-  &:after {
-    box-sizing: inherit;
-  }
-}
 
 // Center & dribbble
-body {
-  min-height: 100vh;
-  display: flex;
-  font-family: "Inter", Arial;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: #f6f8ff;
-  .underline {
-    width: 140px;
-    margin: 16px 0;
-  }
-  .dribbble {
-    position: fixed;
-    display: block;
-    right: 20px;
-    bottom: 20px;
-    img {
-      display: block;
-      height: 28px;
-    }
-  }
-  .twitter {
-    position: fixed;
-    display: block;
-    right: 64px;
-    bottom: 14px;
-    svg {
-      width: 32px;
-      height: 32px;
-      fill: #1da1f2;
-    }
-  }
-}
+
 
 .btn-circle.btn-xl {
   width: 50px;
   height: 50px;
- 
+
   border-radius: 35px;
   font-size: 24px;
-  line-height: 1.00;
+  line-height: 1;
 }
 
 .btn-circle {
@@ -192,4 +83,94 @@ body {
   text-align: center;
   font-size: 12px;
   line-height: 1.42857;
+}
+
+.dataTables_length,
+.dataTables_wrapper {
+  font-size: 1.6rem;
+  select,
+  input {
+    background-color: #f9f9f9;
+    border: 1px solid #999;
+    border-radius: 4px;
+    height: 3rem;
+    line-height: 2;
+    font-size: 1.8rem;
+    color: #333;
+  }
+
+  .dataTables_length,
+  .dataTables_filter {
+    margin-top: 30px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    display: inline-flex;
+  }
+}
+
+// paginate
+
+.paginate_button {
+  min-width: 4rem;
+  display: inline-block;
+  text-align: center;
+  padding: 1rem 1.6rem;
+  margin-top: -1rem;
+  border: 2px solid lightblue;
+  &:not(.previous) {
+    border-left: none;
+  }
+  &.previous {
+    border-radius: 8px 0 0 8px;
+    min-width: 7rem;
+  }
+  &.next {
+    border-radius: 0 8px 8px 0;
+    min-width: 7rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: #eee;
+    text-decoration: none;
+  }
+}
+
+
+
+
+
+
+.hm-gradient {
+    background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+}
+.darken-grey-text {
+    color: #2E2E2E;
+}
+.input-group.md-form.form-sm.form-2 input {
+    border: 1px solid #bdbdbd;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+.input-group.md-form.form-sm.form-2 input.purple-border {
+    border: 1px solid #9e9e9e;
+}
+.input-group.md-form.form-sm.form-2 input[type=text]:focus:not([readonly]).purple-border {
+    border: 1px solid #ba68c8;
+    box-shadow: none;
+}
+.form-2 .input-group-addon {
+    border: 1px solid #ba68c8;
+}
+.danger-text {
+    color: #ff3547; 
+}  
+.success-text {
+    color: #00C851; 
+}
+.table-bordered.red-border, .table-bordered.red-border th, .table-bordered.red-border td {
+    border: 1px solid #ff3547!important;
+}        
+.table.table-bordered th {
+    text-align: center;
 }
