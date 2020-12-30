@@ -24,7 +24,7 @@ export class CheckleaveinfoComponent implements OnInit {
   // Emp_ID = new FormControl('');
   deleteleave;
 
-
+  leavetypeUser
   btn_delete: boolean;
   Emp_ID: any;
   Emp_ID_show: any;
@@ -116,12 +116,31 @@ export class CheckleaveinfoComponent implements OnInit {
         })
       }
     );
+    const tpyeUser = 'Emp_ID=' + Emp_ID_search
+    console.log(tpyeUser);
+    const headers1 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.leavetypeUser = data;
+          console.log(this.leavetypeUser);
+
+        },
+        (error: any) => {
+          console.log(error);
+        }
+
+      )
   }
 
   show_data(Leave_ID, Name_Leave, To_Person, Emp_ID, EmpName, EmpLastName, PositionName, DeptName,
     SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast, LeaveTotal,
     LeaveStatus_Name, LeaveStatus_Document, LeaveStatus_ID) {
-    
+
     console.log(LeaveStatus_ID);
     this.Leave_ID = Leave_ID
     this.Name_Leave = Name_Leave
@@ -145,7 +164,7 @@ export class CheckleaveinfoComponent implements OnInit {
     if (localStorage.getItem('Role') === "6") {
       this.btn_delete = true
     }
-    else{
+    else {
       this.btn_delete = false
     }
 
@@ -167,8 +186,6 @@ export class CheckleaveinfoComponent implements OnInit {
           'Your file has been deleted.',
           'success'
         ).then(() => {
-
-
           this.http
             .get(
               `${this.baseUrl}Delete_leave_user.php?Leave_ID=` + this.Leave_ID

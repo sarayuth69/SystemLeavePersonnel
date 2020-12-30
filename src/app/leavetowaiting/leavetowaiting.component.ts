@@ -40,7 +40,7 @@ export class LeavetowaitingComponent implements OnInit {
 
 
 
-
+  table_leaveto_waiting_cancel: any;
 
   EmpName: any;
   EmpLastName: any;
@@ -147,7 +147,18 @@ export class LeavetowaitingComponent implements OnInit {
 
         }
       );
+      this.http.get(`${this.baseUrl}getLeaveToperson_cancel.php`).subscribe(
+        (data: any) => {
+          console.log(data);
+          this.table_leaveto_waiting_cancel = data;
+        },
+        (error: any) => {
+
+        }
+      );
     }
+
+
     // else if (localStorage.getItem('Role') === "3") {
     //   this.list = true;
     //   this.list1 = false;
@@ -426,12 +437,9 @@ export class LeavetowaitingComponent implements OnInit {
           (data: any) => {
             this.setleavestatus = data;
             console.log(data);
-
           },
           (error: any) => {
-
           }
-
         )
       Swal.fire({
         position: 'center',
@@ -458,6 +466,27 @@ export class LeavetowaitingComponent implements OnInit {
 
   }
   showdata(Leave_ID, EmpName, EmpLastName, PositionName, DeptName, LTypeName,
+    LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveData, LeaveStatus_Name) {
+    console.log(EmpName);
+    console.log(Leave_ID);
+
+    this.Leave_ID = Leave_ID
+    this.EmpName = EmpName
+    this.EmpLastName = EmpLastName
+    this.PositionName = PositionName
+    this.DeptName = DeptName
+    this.LTypeName = LTypeName
+    this.LeaveDateStart = LeaveDateStart
+    this.LeaveDateLast = LeaveDateLast
+    this.LeaveTotal = LeaveTotal
+    this.LeaveData = LeaveData
+    this.LeaveStatus_Name = LeaveStatus_Name
+
+
+  }
+
+
+  showdata_cancel(Leave_ID, EmpName, EmpLastName, PositionName, DeptName, LTypeName,
     LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveData, LeaveStatus_Name) {
     console.log(EmpName);
     console.log(Leave_ID);
@@ -682,5 +711,109 @@ export class LeavetowaitingComponent implements OnInit {
       })
     }
   }
+  cancel_id: any;
+  NO_allow_cancel(cancel_id) {
+    this.cancel_id = cancel_id;
+    const body = 'cancel_id=' + this.cancel_id
+      + '&cancel_status=' + 9
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}setcancel_status.php`, body, {
+        headers: headers
+      }).subscribe(
+        (data: any) => {
+        },
+        (error: any) => {
+        }
 
+      )
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'บันทึกเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      this.http.get(`${this.baseUrl}getLeaveToperson_cancel.php`).subscribe(
+        (data: any) => {
+          console.log(data);
+          this.table_leaveto_waiting_cancel = data;
+        },
+        (error: any) => {
+          setTimeout(() => {
+            window.location.reload();
+
+          }, 1600);
+        }
+      );
+    }).then(() => {
+
+    })
+
+
+  }
+  cancel_total: any;
+  leave_ID: any;
+  allow_cancel(cancel_id, cancel_total, leave_ID) {
+    this.cancel_id = cancel_id;
+    this.cancel_total = cancel_total;
+    this.leave_ID = leave_ID;
+
+    const body = 'cancel_id=' + this.cancel_id
+      + '&cancel_status=' + 8
+      + '&cancel_total=' + this.cancel_total
+      + '&leave_ID=' + this.leave_ID
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}setcancel_status.php`, body, {
+        headers: headers
+      }).subscribe(
+        (data: any) => {
+        },
+        (error: any) => {
+        }
+      )
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'อนุญาตเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      const body = '&cancel_total=' + this.cancel_total
+        + '&leave_ID=' + this.leave_ID
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}update_cancel_status.php`, body, {
+          headers: headers
+        }).subscribe(
+          (data: any) => {
+          },
+          (error: any) => {
+          }
+        )
+    }).then(() => {
+      this.http.get(`${this.baseUrl}getLeaveToperson_cancel.php`).subscribe(
+        (data: any) => {
+          console.log(data);
+          this.table_leaveto_waiting_cancel = data;
+        },
+        (error: any) => {
+          setTimeout(() => {
+            window.location.reload();
+
+          }, 1600);
+        }
+      );
+    })
+  }
 }

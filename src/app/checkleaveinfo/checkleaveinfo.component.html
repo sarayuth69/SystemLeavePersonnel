@@ -3,22 +3,37 @@
     <div class="card">
         <div class="card-body">
             <div class="container">
+
                 <div class="row">
-                    <div class="col-sm">
-                        <!-- <label for="exampleFormControlSelect1">เลือกบุคลากร :</label> -->
-                    </div>
-                    <div class="col-sm">
+                    <div class="col">
+                        <label>เลือกบุคลากร</label>
                         <select class="form-control form-control-lg" id="exampleFormControlSelect1" #Emp_ID_search>
-                            <option selected>เลือกบุคลากร</option>
                             <option *ngFor="let item of Dept_to_head" value="{{item.Emp_ID}}">{{item.EmpName}}
                                 {{item.EmpLastName}}
                             </option>
                         </select>
                     </div>
-                    <div class="col-sm">
-
+                    <div class="col-5">
+                       <br>
                         <button type="button" class="btn btn-primary"
                             (click)="leaveSearch(Emp_ID_search.value)">ค้นหา</button>
+                    </div>
+                    <div class="col">
+
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <!-- <label for="exampleFormControlSelect1">เลือกบุคลากร :</label> -->
+                    </div>
+                    <div class="col-sm">
+
+                    </div>
+                    <div class="col-sm">
+
+
 
                     </div>
                 </div>
@@ -30,54 +45,124 @@
         </div>
     </div>
     <br>
-    <div class="card">
-        <div class="card-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr class="text-center">
-                        <th scope="col">ชื่อพนักงาน</th>
-                        <th scope="col">ประเภท</th>
-                        <th scope="col">วันที่ลา</th>
-                        <th scope="col">จำนวน/วัน</th>
-                        <!-- <th scope="col">ไฟล์แนบ</th> -->
-                        <th scope="col">สถานะใบลา</th>
-                        <th scope="col">สถานะ</th>
-                        <th scope="col">จัดการ</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let item of seachleave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
-                    <tr>
-                        <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
-                            <p>แผนก: {{item.DeptName}}</p>
-                        </td>
-                        <td class="text-center">{{item.LTypeName}}</td>
-                        <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
-                        <td class="text-center"> {{item.LeaveTotal}}</td>
-                        <!-- <td> </td> -->
-                        <td class="text-center">{{item.LeaveStatus_Document}} </td>
-                        <div  *ngIf="item.LeaveStatus_ID == 6 || item.LeaveStatus_ID == 7" style="color:rgb(240, 8, 8);">
-                            <td >
-                                {{item.LeaveStatus_Name}} </td>
-                        </div>
-                        <div  *ngIf="item.LeaveStatus_ID < 6" style="color:rgb(80, 80, 246);">
-                            <td >
-                                {{item.LeaveStatus_Name}} </td>
-                        </div>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                data-target="#exampleModal" (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+
+
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                aria-selected="true">การลา</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                aria-selected="false">สรุป</a>
+        </li>
+
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">ชื่อพนักงาน</th>
+                                <th scope="col">ประเภท</th>
+                                <th scope="col">วันที่ลา</th>
+                                <th scope="col">จำนวน/วัน</th>
+                                <!-- <th scope="col">ไฟล์แนบ</th> -->
+                                <th scope="col">สถานะใบลา</th>
+                                <th scope="col">สถานะ</th>
+                                <th scope="col">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody
+                            *ngFor="let item of seachleave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                            <tr>
+                                <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
+                                    <p>แผนก: {{item.DeptName}}</p>
+                                </td>
+                                <td class="text-center">{{item.LTypeName}}</td>
+                                <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
+                                <td class="text-center"> {{item.LeaveTotal}}</td>
+                                <!-- <td> </td> -->
+                                <td class="text-center">{{item.LeaveStatus_Document}} </td>
+                                <div *ngIf="item.LeaveStatus_ID == 6 || item.LeaveStatus_ID == 7"
+                                    style="color:rgb(240, 8, 8);">
+                                    <td>
+                                        {{item.LeaveStatus_Name}} </td>
+                                </div>
+                                <div *ngIf="item.LeaveStatus_ID < 6" style="color:rgb(80, 80, 246);">
+                                    <td>
+                                        {{item.LeaveStatus_Name}} </td>
+                                </div>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                        data-target="#exampleModal" (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                 item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                 item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,
                                item.LeaveStatus_Name, item.LeaveStatus_Document,item.LeaveStatus_ID)"><i
-                                    class="fa fa-cog" aria-hidden="true"></i></button>
-                        </td>
+                                            class="fa fa-cog" aria-hidden="true"></i></button>
+                                </td>
 
-                    </tr>
-                </tbody>
-            </table>
-            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                </div>
+            </div>
+
         </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive-lg">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ชื่อประเภท</th>
+                                    <th scope="col">เกณฑ์วันลา</th>
+                                    <th scope="col">คงเหลือ</th>
+                                    <th scope="col">ลาเกิน</th>
+                                    <th scope="col">สามารถลาเกินได้</th>
+                                    <th scope="col">แจ้งล่วงหน้า</th>
+                                    <th scope="col">จำนวนครั้งที่ลา</th>
+                                    <!-- <th scope="col">สถานะสิทธิการลา</th> -->
+                                    <th scope="col">สถานะบุคลากร</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of leavetypeUser ; let i = index">
+                                <tr>
+                                    <td>{{item.LTypeName}}</td>
+                                    <td>{{item.Number}} /วัน</td>
+                                    <td>{{item.Remain}} /วัน</td>
+                                    <div *ngIf="item.Remain_over > 0 " style="color: red;">
+                                        <td>{{item.Remain_over}} /วัน</td>
+                                    </div>
+                                    <div *ngIf="item.Remain_over == 0 " style="color: black;">
+                                        <td>{{item.Remain_over}} /วัน</td>
+                                    </div>
+
+
+                                    <td>{{item.Remain_limit}} /วัน</td>
+                                    <td>{{item.AdvanceNotice}} /วัน</td>
+                                    <td>{{item.number_leave_show}}</td>
+                                    <!-- <td>{{item.QuotaStatus}}</td> -->
+                                    <td>{{item.EmpstatusName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
     </div>
+
 
 </div>
 
@@ -110,7 +195,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">
-                                <p>รหัส : {{Emp_ID_show}} </p>
+                                <h6>รหัส : {{Emp_ID_show}} </h6>
                             </div>
                             <div class="col-sm">
                                 <h6> ชื่อ : {{EmpName}}</h6>

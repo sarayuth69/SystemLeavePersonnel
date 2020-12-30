@@ -66,8 +66,12 @@ export class EmployeeshowComponent implements OnInit {
   Empstatus_ID = new FormControl('');
   Position_ID = new FormControl('');
   Dept_ID = new FormControl('');
+  Sector_ID = new FormControl('');
   employee = new FormControl('');
   LeaveStatus_Document = new FormControl('');
+  Leave_characteristics_dateLast = new FormControl('');
+  Leave_characteristics_dateStart = new FormControl('');
+  status_data = new FormControl('');
 
 
   DeptName = new FormControl('');
@@ -75,8 +79,8 @@ export class EmployeeshowComponent implements OnInit {
   PositionName = new FormControl('');
 
   LType_ID = new FormControl('');
-
-
+  modal_dismiss: any;
+  limit_ID = new FormControl('');
   Leave_ID = new FormControl('');
   Name_Leave = new FormControl('');
   To_Person = new FormControl('');
@@ -96,8 +100,17 @@ export class EmployeeshowComponent implements OnInit {
   Local_PositionName = localStorage.getItem('PositionName');
   Local_DeptName = localStorage.getItem('DeptName');
   Local_Sector = localStorage.getItem('SectorName');
+  Local_Role = localStorage.getItem('Role');
   marked = false;
-
+  check_Remain: any;
+  LType_ID_check: any;
+  check_number: Number;
+  LType_limit_check: Number;
+  leavetypeUser
+  LeaveTotal_chack: any;
+  LTypeName_check: any;
+  sector;
+  showleave_limit
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -111,6 +124,7 @@ export class EmployeeshowComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
       + '&Role=' + localStorage.getItem("Role")
     console.log(body1);
@@ -167,7 +181,14 @@ export class EmployeeshowComponent implements OnInit {
         console.log(error);
       }
     );
-
+    this.http.get(`${this.baseUrl}getsector.php`).subscribe(
+      (data: any) => {
+        this.sector = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
     this.http.get(`${this.baseUrl}Search.php`).subscribe(
       (data: any) => {
         this.seach = data;
@@ -186,7 +207,19 @@ export class EmployeeshowComponent implements OnInit {
       }
     );
 
+    this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+      (data: any) => {
 
+        for (var i = 0; i <= data.length; i++) {
+          this.showleave_limit = data;
+          console.log(this.showleave_limit[i].date_stop);
+
+        }
+
+      }, (error: any) => {
+        console.log(error);
+      }
+    )
     const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
     console.log(body);
     const headers = new HttpHeaders({
@@ -208,16 +241,6 @@ export class EmployeeshowComponent implements OnInit {
 
 
 
-
-    // ฟังชันนี้อาจจะไม่ได้ใช้ ไห้ทำเป็น localStorage แบบ ประเภทการลา
-    // this.http.get('http://localhost/Leavewebservice/API/getDept1001.php').subscribe(
-    //   (data: any) => {
-    //     this.Empployee1 = data;
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // );
 
 
     if (localStorage.getItem('Role') === "6") {
@@ -270,9 +293,12 @@ export class EmployeeshowComponent implements OnInit {
     }
 
   }
+  click_leave_type(Emp_ID) {
+
+  }
   updateEmp(
     Emp_ID, EmpName, EmpLastName, Sex, Birthday, ID_card, Age, Tel, Address, Work_day, Duration_work, Empstatus_ID, Position_ID
-    , Dept_ID
+    , Dept_ID, Sector_ID, status_data
   ) {
     this.Emp_ID = new FormControl(Emp_ID);
     console.log(this.Emp_ID);
@@ -293,6 +319,8 @@ export class EmployeeshowComponent implements OnInit {
     this.Empstatus_ID = new FormControl(Empstatus_ID);
     this.Position_ID = new FormControl(Position_ID);
     this.Dept_ID = new FormControl(Dept_ID);
+    this.Sector_ID = new FormControl(Sector_ID);
+    this.status_data = new FormControl(status_data);
   }
   public updateEmployee() {
     const body = 'Emp_ID=' + this.Emp_ID.value
@@ -307,9 +335,11 @@ export class EmployeeshowComponent implements OnInit {
       + '&Tel=' + this.Tel.value
       + '&Work_day=' + this.Work_day.value
       + '&Duration_work=' + this.Duration_work.value
+      + '&status_data=' + this.status_data.value
       + '&Empstatus_ID=' + this.Empstatus_ID.value
       + '&Position_ID=' + this.Position_ID.value
-      + '&Dept_ID=' + this.Dept_ID.value;
+      + '&Dept_ID=' + this.Dept_ID.value
+      + '&Sector_ID=' + this.Sector_ID.value
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -329,20 +359,21 @@ export class EmployeeshowComponent implements OnInit {
     Swal.fire({
       position: 'top-end',
       icon: 'success',
-      title: 'Your work has been saved',
+      title: 'แก้ไขเรียบร้อย',
       showConfirmButton: false,
       timer: 1500
     })
       .then(() => {
         window.location.reload();
-        //   this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
-        //     (data: any) => {
-        //       this.Employee = data;
-        //     },
-        //     (error: any) => {
-        //       console.log(error);
-        //     }
-        //   );
+        // this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
+        //   (data: any) => {
+        //     this.Employee = data;
+        //   },
+        //   (error: any) => {
+        //     console.log(error);
+        //   }
+        // );
+
       })
 
   }
@@ -421,10 +452,10 @@ export class EmployeeshowComponent implements OnInit {
 
   }
   LeaveEmp(
-    Emp_ID, EmpName, EmpLastName, PositionName, DeptName, SectorName, Role,Empstatus_ID
+    Emp_ID, EmpName, EmpLastName, PositionName, DeptName, SectorName, Role, Empstatus_ID
   ) {
 
-        this.Emp_ID = new FormControl(Emp_ID);
+    this.Emp_ID = new FormControl(Emp_ID);
     this.EmpName = new FormControl(EmpName);
     this.EmpLastName = new FormControl(EmpLastName);
     this.PositionName = new FormControl(PositionName);
@@ -432,8 +463,8 @@ export class EmployeeshowComponent implements OnInit {
     this.SectorName = new FormControl(SectorName);
     this.Role = new FormControl(Role);
     this.Empstatus_ID = new FormControl(Empstatus_ID);
-     
-      const body = 'Empstatus_ID=' + this.Empstatus_ID.value
+
+    const body = 'Empstatus_ID=' + this.Empstatus_ID.value
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -449,433 +480,680 @@ export class EmployeeshowComponent implements OnInit {
           console.log(error);
         }
       )
-    }
+    const tpyeUser = 'Emp_ID=' + Emp_ID
+    console.log(tpyeUser);
+    const headers3 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
+        headers: headers3
+      }).subscribe(
+        (data: any) => {
+          this.leavetypeUser = data;
+          console.log(this.leavetypeUser);
+
+        },
+        (error: any) => {
+          console.log(error);
+        }
+
+      )
+  }
   toggleVisibility(e) {
     this.marked = e.target.checked;
   }
-  AddLeave(LeaveTotal) {
-    console.log(this.Role.value);
-        this.LeaveTotal = new FormControl(LeaveTotal);
-    if (LeaveTotal === '0') {
-      Swal.fire({
-        icon: 'error',
-        title: 'กรุณาเลือกวันลา',
-      })
+  maxDate: any;
+  text_chack = /(ลาป่วย)/g;
+  dataChanged(newObj) {
+    console.log(newObj);
+
+    this.check_Remain = newObj.Remain
+    this.LType_ID_check = newObj.LType_ID
+    this.LType_limit_check = newObj.LType_limit
+    this.LTypeName_check = `การ${newObj.LTypeName}`
+    if (this.text_chack.test(newObj.LTypeName)) {
+      this.maxDate = moment(new Date()).format('YYYY-MM-DD')
     }
-      else if (this.Role.value === "1") {
-      const body = 'Leave_ID=' + this.Leave_ID.value
-        + '&Emp_ID=' + this.Emp_ID.value
-        + '&Name_Leave=' + this.Name_Leave.value
-        + '&To_Person=' + this.To_Person.value
-        + '&LeaveDateStart=' + this.LeaveDateStart.value
-        + '&LeaveDateLast=' + this.LeaveDateLast.value
-        + '&LeaveData=' + this.LeaveData.value
-        + '&ContactInformation=' + this.ContactInformation.value
-        + '&employee=' + this.employee.value
-        + '&LeaveTotal=' + this.LeaveTotal.value
-        + '&LeaveStatus_ID=' + "1"
-        + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
-        + '&UploadFile=' + this.UploadFile.value
-        + '&Response_Time=' + this.Response_Time.value
-        + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-        + '&LType_ID=' + this.LType_ID.value
-
-      // + '&file_names=' +  uploadData.append('myFile', this.selectedFile, this.selectedFile.name)
-
-      console.log(body);
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      });
-      this.http
-        .post(`${this.baseUrl}Add_leave.php`, body, {
-          headers: headers
-
-        })
-        .subscribe(
-          (data: any) => {
-            console.log(data);
-            this.addLeave = data;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'ส่งการลาเรียบร้อย',
-        showConfirmButton: false,
-        timer: 1500
-
-      })
-        // ฟังชั้น จำนวนครั้งที่ลา 
-        // .then(() => {
-        //   const body = 'LType_ID=' + this.LType_ID.value
-        //     + '&LeaveTotal=' + this.LeaveTotal.value
-        //   console.log(body);
-        //   const headers = new HttpHeaders({
-        //     'Content-Type': 'application/x-www-form-urlencoded'
-        //   });
-        //   this.http
-        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
-        //       headers: headers
-        //     })
-        //     .subscribe(
-        //       (data: any) => {
-        //         this.addLeave = data;
-        //       },
-        //       (error: any) => {
-        //         console.log(error);
-        //       }
-        //     );
-        // })
-        .then(() => {
-          // const body = 'LType_ID=' + this.LType_ID.value
-          // console.log(body);
-          // const headers = new HttpHeaders({
-          //   'Content-Type': 'application/x-www-form-urlencoded'
-          // });
-          // this.http
-          //   .post(`${this.baseUrl}LOrdinal.php`, body, {
-          //     headers: headers
-          //   }).subscribe(
-          //     (data: any) => {
-          //       this.leave = data;
-          //     },
-          //     (error: any) => {
-          //       console.log(error);
-          //     }
-          //   )
-        })
-        .then(() => {
-          this.http
-            .post(`${this.baseUrl}getLeave.php`, body, {
-              headers: headers
-            }).subscribe(
-              (data: any) => {
-                this.leave = data;
-              },
-              (error: any) => {
-                console.log(error);
-              }
-            )
-        })
-      // .then(() => {
-      //   this.onUpload();
-      // })
-    }
-    else if (this.Role.value === "2") {
-      const body = 'Leave_ID=' + this.Leave_ID.value
-        + '&Emp_ID=' + this.Emp_ID.value
-        + '&Name_Leave=' + this.Name_Leave.value
-        + '&To_Person=' + this.To_Person.value
-        + '&LeaveDateStart=' + this.LeaveDateStart.value
-        + '&LeaveDateLast=' + this.LeaveDateLast.value
-        + '&LeaveData=' + this.LeaveData.value
-        + '&ContactInformation=' + this.ContactInformation.value
-        + '&employee=' + this.employee.value
-        + '&LeaveTotal=' + this.LeaveTotal.value
-        + '&LeaveStatus_ID=' + "2"
-        + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
-        + '&UploadFile=' + this.UploadFile.value
-        + '&Response_Time=' + this.Response_Time.value
-        + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-        + '&LType_ID=' + this.LType_ID.value
-
-      console.log(body);
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      });
-      this.http
-        .post(`${this.baseUrl}Add_leave.php`, body, {
-          headers: headers
-        })
-        .subscribe(
-          (data: any) => {
-
-            this.addLeave = data;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'ส่งการลาเรียบร้อย',
-        showConfirmButton: false,
-        timer: 1500
-
-      })
-        // ฟังชั้น จำนวนครั้งที่ลา 
-        // .then(() => {
-        //   const body = 'LType_ID=' + this.LType_ID.value
-        //     + '&LeaveTotal=' + this.LeaveTotal.value
-        //   console.log(body);
-        //   const headers = new HttpHeaders({
-        //     'Content-Type': 'application/x-www-form-urlencoded'
-        //   });
-        //   this.http
-        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
-        //       headers: headers
-        //     })
-        //     .subscribe(
-        //       (data: any) => {
-        //         this.addLeave = data;
-        //       },
-        //       (error: any) => {
-        //         console.log(error);
-        //       }
-        //     );
-        // })
-        .then(() => {
-          // const body = 'LType_ID=' + this.LType_ID.value
-          // console.log(body);
-          // const headers = new HttpHeaders({
-          //   'Content-Type': 'application/x-www-form-urlencoded'
-          // });
-          // this.http
-          //   .post(`${this.baseUrl}LOrdinal.php`, body, {
-          //     headers: headers
-          //   }).subscribe(
-          //     (data: any) => {
-          //       this.leave = data;
-          //     },
-          //     (error: any) => {
-          //       console.log(error);
-          //     }
-          //   )
-        })
-        .then(() => {
-          this.http
-            .post(`${this.baseUrl}getLeave.php`, body, {
-              headers: headers
-            }).subscribe(
-              (data: any) => {
-                this.leave = data;
-              },
-              (error: any) => {
-                console.log(error);
-              }
-            )
-        })
-      // .then(() => {
-      //   this.onUpload();
-      // })
-    }
-    else if (this.Role.value === "3") {
-      const body = 'Leave_ID=' + this.Leave_ID.value
-        + '&Emp_ID=' + this.Emp_ID.value
-        + '&Name_Leave=' + this.Name_Leave.value
-        + '&To_Person=' + this.To_Person.value
-        + '&LeaveDateStart=' + this.LeaveDateStart.value
-        + '&LeaveDateLast=' + this.LeaveDateLast.value
-        + '&LeaveData=' + this.LeaveData.value
-        + '&ContactInformation=' + this.ContactInformation.value
-        + '&employee=' + this.employee.value
-        + '&LeaveTotal=' + this.LeaveTotal.value
-        + '&LeaveStatus_ID=' + "3"
-        + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
-        + '&UploadFile=' + this.UploadFile.value
-        + '&Response_Time=' + this.Response_Time.value
-        + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-        + '&LType_ID=' + this.LType_ID.value
-
-      console.log(body);
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      });
-      this.http
-        .post(`${this.baseUrl}Add_leave.php`, body, {
-          headers: headers
-        })
-        .subscribe(
-          (data: any) => {
-
-            this.addLeave = data;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'ส่งการลาเรียบร้อย',
-        showConfirmButton: false,
-        timer: 1500
-
-      })
-        // ฟังชั้น จำนวนครั้งที่ลา 
-        // .then(() => {
-        //   const body = 'LType_ID=' + this.LType_ID.value
-        //     + '&LeaveTotal=' + this.LeaveTotal.value
-        //   console.log(body);
-        //   const headers = new HttpHeaders({
-        //     'Content-Type': 'application/x-www-form-urlencoded'
-        //   });
-        //   this.http
-        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
-        //       headers: headers
-        //     })
-        //     .subscribe(
-        //       (data: any) => {
-        //         this.addLeave = data;
-        //       },
-        //       (error: any) => {
-        //         console.log(error);
-        //       }
-        //     );
-        // })
-        .then(() => {
-          // const body = 'LType_ID=' + this.LType_ID.value
-          // console.log(body);
-          // const headers = new HttpHeaders({
-          //   'Content-Type': 'application/x-www-form-urlencoded'
-          // });
-          // this.http
-          //   .post(`${this.baseUrl}LOrdinal.php`, body, {
-          //     headers: headers
-          //   }).subscribe(
-          //     (data: any) => {
-          //       this.leave = data;
-          //     },
-          //     (error: any) => {
-          //       console.log(error);
-          //     }
-          //   )
-        })
-        .then(() => {
-          this.http
-            .post(`${this.baseUrl}getLeave.php`, body, {
-              headers: headers
-            }).subscribe(
-              (data: any) => {
-                this.leave = data;
-              },
-              (error: any) => {
-                console.log(error);
-              }
-            )
-        })
-      // .then(() => {
-      //   this.onUpload();
-      // })
-    }
-    else if (this.Role.value === "4") {
-      const body = 'Leave_ID=' + this.Leave_ID.value
-        + '&Emp_ID=' + this.Emp_ID.value
-        + '&Name_Leave=' + this.Name_Leave.value
-        + '&To_Person=' + this.To_Person.value
-        + '&LeaveDateStart=' + this.LeaveDateStart.value
-        + '&LeaveDateLast=' + this.LeaveDateLast.value
-        + '&LeaveData=' + this.LeaveData.value
-        + '&ContactInformation=' + this.ContactInformation.value
-        + '&employee=' + this.employee.value
-        + '&LeaveTotal=' + this.LeaveTotal.value
-        + '&LeaveStatus_ID=' + "4"
-        + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
-        + '&UploadFile=' + this.UploadFile.value
-        + '&Response_Time=' + this.Response_Time.value
-        + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-        + '&LType_ID=' + this.LType_ID.value
-
-      console.log(body);
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      });
-      this.http
-        .post(`${this.baseUrl}Add_leave.php`, body, {
-          headers: headers
-        })
-        .subscribe(
-          (data: any) => {
-
-            this.addLeave = data;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'ส่งการลาเรียบร้อย',
-        showConfirmButton: false,
-        timer: 1500
-
-      })
-        // ฟังชั้น จำนวนครั้งที่ลา 
-        // .then(() => {
-        //   const body = 'LType_ID=' + this.LType_ID.value
-        //     + '&LeaveTotal=' + this.LeaveTotal.value
-        //   console.log(body);
-        //   const headers = new HttpHeaders({
-        //     'Content-Type': 'application/x-www-form-urlencoded'
-        //   });
-        //   this.http
-        //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
-        //       headers: headers
-        //     })
-        //     .subscribe(
-        //       (data: any) => {
-        //         this.addLeave = data;
-        //       },
-        //       (error: any) => {
-        //         console.log(error);
-        //       }
-        //     );
-        // })
-        .then(() => {
-          // const body = 'LType_ID=' + this.LType_ID.value
-          // console.log(body);
-          // const headers = new HttpHeaders({
-          //   'Content-Type': 'application/x-www-form-urlencoded'
-          // });
-          // this.http
-          //   .post(`${this.baseUrl}LOrdinal.php`, body, {
-          //     headers: headers
-          //   }).subscribe(
-          //     (data: any) => {
-          //       this.leave = data;
-          //     },
-          //     (error: any) => {
-          //       console.log(error);
-          //     }
-          //   )
-        })
-        .then(() => {
-          this.http
-            .post(`${this.baseUrl}getLeave.php`, body, {
-              headers: headers
-            }).subscribe(
-              (data: any) => {
-                this.leave = data;
-              },
-              (error: any) => {
-                console.log(error);
-              }
-            )
-        })
-      // .then(() => {
-      //   this.onUpload();
-      // })
+    else if (newObj.LTypeName !== "ลาป่วย") {
+      this.maxDate = ""
     }
 
   }
+  selectedFile: File;
+  myFile: string[] = [];
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
 
-  onseletday(LeaveDateStart, LeaveDateLast) {
+  }
+
+  data = new FormControl('');
+
+  upload_test: any
+
+  AddLeave(LeaveTotal, check_number, limit_type, Name_Leave, To_Person, Role_chack) {
+
+    console.log(+check_number);
+    console.log(+LeaveTotal);
+    console.log(limit_type);
+    console.log(Name_Leave);
+    console.log(To_Person);
+    console.log(Role_chack);
+
+    if (+LeaveTotal > +check_number) {
+      Swal.fire({
+        title: 'คุณลาเกินกำหนดแล้ว ยินยอมให้หักเงินเดือนหรือไม่',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, '
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (Role_chack === "1") {
+            this.Add_leave_level_1(LeaveTotal, Name_Leave, To_Person)
+
+          }
+          else if (Role_chack === "2") {
+            this.Add_leave_level_2(LeaveTotal, Name_Leave, To_Person)
+          }
+          else if (Role_chack === "3") {
+            this.Add_leave_level_3(LeaveTotal, Name_Leave, To_Person)
+          }
+          else if (Role_chack === "4") {
+            this.Add_leave_level_4(LeaveTotal, Name_Leave, To_Person)
+          }
+
+        }
+      })
+    }
+
+    else {
+      if (LeaveTotal === '0') {
+        Swal.fire({
+          icon: 'error',
+          title: 'กรุณาเลือกวันลา',
+        }).then(() => {
+          this.modal_dismiss = ""
+        })
+
+      }
+
+      else if (Role_chack === "1") {
+        this.Add_leave_level_1(LeaveTotal, Name_Leave, To_Person)
+     
+      }
+      else if (Role_chack === "2") {
+        this.Add_leave_level_2(LeaveTotal, Name_Leave, To_Person)
+      }
+      else if (Role_chack === "3") {
+        this.Add_leave_level_3(LeaveTotal, Name_Leave, To_Person)
+      }
+      else if (Role_chack === "4") {
+        this.Add_leave_level_4(LeaveTotal, Name_Leave, To_Person)
+      }
+
+    }
+
+
+
+  }
+
+  Add_leave_level_1(LeaveTotal, Name_Leave, To_Person) {
+    const uploadData = new FormData();
+    uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+    uploadData.append('Leave_ID', "0");
+    uploadData.append('Emp_ID', this.Emp_ID.value)
+    uploadData.append('Name_Leave', Name_Leave)
+    uploadData.append('To_Person', To_Person)
+    uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
+    uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+    uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
+    uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+    uploadData.append('LeaveData', this.LeaveData.value)
+    uploadData.append('ContactInformation', this.ContactInformation.value)
+    uploadData.append('employee', this.employee.value)
+    uploadData.append('LeaveTotal', LeaveTotal)
+    uploadData.append('number_leave', "1")
+    uploadData.append('LeaveStatus_ID', "1")
+    uploadData.append('LeaveStatus_Document', this.LeaveStatus_Document.value)
+    uploadData.append('Response_Time', this.Response_Time.value)
+    uploadData.append('limit_ID', this.limit_ID.value)
+    uploadData.append('LType_ID', this.LType_ID_check)
+    uploadData.append('file_name', this.selectedFile.name)
+
+    // const body = 'Leave_ID=' + this.leave_ID_chack
+    //   + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+    //   + '&Name_Leave=' + this.Name_Leave
+    //   + '&To_Person=' + this.To_Person
+    //   + '&LeaveDateStart=' + this.LeaveDateStart.value
+    //   + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+    //   + '&LeaveDateLast=' + this.LeaveDateLast.value
+    //   + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+    //   + '&LeaveData=' + this.LeaveData.value
+    //   + '&ContactInformation=' + this.ContactInformation.value
+    //   + '&employee=' + this.employee.value
+    //   + '&LeaveTotal=' + LeaveTotal
+    //   + '&number_leave=' + 1
+    //   + '&LeaveStatus_ID=' + "1"
+    //   + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
+
+    //   + '&Response_Time=' + this.Response_Time.value
+    //   + '&limit_ID=' + this.limit_ID.value
+    //   + '&LType_ID=' + this.LType_ID_check
+    //   // + '&file_name=' + this.selectedFile.name
+
+
+    // console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}Add_leave.php`, uploadData)
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.addLeave = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'ส่งการลาเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+
+    })
+      // ฟังชั้น จำนวนครั้งที่ลา 
+      // .then(() => {
+      //   const body = 'LType_ID=' + this.LType_ID.value
+      //     + '&LeaveTotal=' + this.LeaveTotal.value
+      //   console.log(body);
+      //   const headers = new HttpHeaders({
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   });
+      //   this.http
+      //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
+      //       headers: headers
+      //     })
+      //     .subscribe(
+      //       (data: any) => {
+      //         this.addLeave = data;
+      //       },
+      //       (error: any) => {
+      //         console.log(error);
+      //       }
+      //     );
+      // })
+      .then(() => {
+        // const body = 'LType_ID=' + this.LType_ID.value
+        // console.log(body);
+        // const headers = new HttpHeaders({
+        //   'Content-Type': 'application/x-www-form-urlencoded'
+        // });
+        // this.http
+        //   .post(`${this.baseUrl}LOrdinal.php`, body, {
+        //     headers: headers
+        //   }).subscribe(
+        //     (data: any) => {
+        //       this.leave = data;
+        //     },
+        //     (error: any) => {
+        //       console.log(error);
+        //     }
+        //   )
+      })
+      .then(() => {
+        window.location.reload()
+      })
+    // .then(() => {
+    //   this.onUpload();
+    // })
+    this.modal_dismiss = "model"
+  }
+  Add_leave_level_2(LeaveTotal, Name_Leave, To_Person) {
+
+    const uploadData = new FormData();
+    uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+    uploadData.append('Leave_ID', "0");
+    uploadData.append('Emp_ID', localStorage.getItem("Emp_ID"))
+    uploadData.append('Name_Leave', Name_Leave)
+    uploadData.append('To_Person', To_Person)
+    uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
+    uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+    uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
+    uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+    uploadData.append('LeaveData', this.LeaveData.value)
+    uploadData.append('ContactInformation', this.ContactInformation.value)
+    uploadData.append('employee', this.employee.value)
+    uploadData.append('LeaveTotal', LeaveTotal)
+    uploadData.append('number_leave', "1")
+    uploadData.append('LeaveStatus_ID', "2")
+    uploadData.append('LeaveStatus_Document', this.LeaveStatus_Document.value)
+    uploadData.append('Response_Time', this.Response_Time.value)
+    uploadData.append('limit_ID', this.limit_ID.value)
+    uploadData.append('LType_ID', this.LType_ID_check)
+    uploadData.append('file_name', this.selectedFile.name)
+    // const body = 'Leave_ID=' + this.leave_ID_chack
+    //   + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+    //   + '&Name_Leave=' + Name_Leave
+    //   + '&To_Person=' + To_Person
+    //   + '&LeaveDateStart=' + this.LeaveDateStart.value
+    //   + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+    //   + '&LeaveDateLast=' + this.LeaveDateLast.value
+    //   + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+    //   + '&LeaveData=' + this.LeaveData.value
+    //   + '&ContactInformation=' + this.ContactInformation.value
+    //   + '&employee=' + this.employee.value
+    //   + '&LeaveTotal=' + LeaveTotal
+    //   + '&number_leave=' + 1
+    //   + '&LeaveStatus_ID=' + "2"
+    //   + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
+    //   + '&UploadFile=' + this.UploadFile.value
+    //   + '&Response_Time=' + this.Response_Time.value
+    //   + '&limit_ID=' + this.limit_ID.value
+    //   + '&LType_ID=' + this.LType_ID_check
+
+    // console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}Add_leave.php`, uploadData)
+      .subscribe(
+        (data: any) => {
+
+          this.addLeave = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'ส่งการลาเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+
+    })
+      // ฟังชั้น จำนวนครั้งที่ลา 
+      // .then(() => {
+      //   const body = 'LType_ID=' + this.LType_ID.value
+      //     + '&LeaveTotal=' + this.LeaveTotal.value
+      //   console.log(body);
+      //   const headers = new HttpHeaders({
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   });
+      //   this.http
+      //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
+      //       headers: headers
+      //     })
+      //     .subscribe(
+      //       (data: any) => {
+      //         this.addLeave = data;
+      //       },
+      //       (error: any) => {
+      //         console.log(error);
+      //       }
+      //     );
+      // })
+      .then(() => {
+        // const body = 'LType_ID=' + this.LType_ID.value
+        // console.log(body);
+        // const headers = new HttpHeaders({
+        //   'Content-Type': 'application/x-www-form-urlencoded'
+        // });
+        // this.http
+        //   .post(`${this.baseUrl}LOrdinal.php`, body, {
+        //     headers: headers
+        //   }).subscribe(
+        //     (data: any) => {
+        //       this.leave = data;
+        //     },
+        //     (error: any) => {
+        //       console.log(error);
+        //     }
+        //   )
+      })
+      .then(() => {
+        window.location.reload()
+      })
+    // .then(() => {
+    //   this.onUpload();
+    // })
+
+    this.modal_dismiss = "model"
+  }
+  Add_leave_level_3(LeaveTotal, Name_Leave, To_Person) {
+
+    const uploadData = new FormData();
+    uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+    uploadData.append('Leave_ID', "0");
+    uploadData.append('Emp_ID', localStorage.getItem("Emp_ID"))
+    uploadData.append('Name_Leave', Name_Leave)
+    uploadData.append('To_Person', To_Person)
+    uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
+    uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+    uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
+    uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+    uploadData.append('LeaveData', this.LeaveData.value)
+    uploadData.append('ContactInformation', this.ContactInformation.value)
+    uploadData.append('employee', this.employee.value)
+    uploadData.append('LeaveTotal', LeaveTotal)
+    uploadData.append('number_leave', "1")
+    uploadData.append('LeaveStatus_ID', "3")
+    uploadData.append('LeaveStatus_Document', this.LeaveStatus_Document.value)
+    uploadData.append('Response_Time', this.Response_Time.value)
+    uploadData.append('limit_ID', this.limit_ID.value)
+    uploadData.append('LType_ID', this.LType_ID_check)
+    uploadData.append('file_name', this.selectedFile.name)
+    //   + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+    //   + '&Name_Leave=' + Name_Leave
+    //   + '&To_Person=' + To_Person
+    //   + '&LeaveDateStart=' + this.LeaveDateStart.value
+    //   + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+    //   + '&LeaveDateLast=' + this.LeaveDateLast.value
+    //   + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+    //   + '&LeaveData=' + this.LeaveData.value
+    //   + '&ContactInformation=' + this.ContactInformation.value
+    //   + '&employee=' + this.employee.value
+    //   + '&LeaveTotal=' + LeaveTotal
+    //   + '&number_leave=' + 1
+    //   + '&LeaveStatus_ID=' + "3"
+    //   + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
+    //   + '&UploadFile=' + this.UploadFile.value
+    //   + '&Response_Time=' + this.Response_Time.value
+    //   + '&limit_ID=' + this.limit_ID.value
+    //   + '&LType_ID=' + this.LType_ID_check
+
+    // console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}Add_leave.php`, uploadData)
+      .subscribe(
+        (data: any) => {
+
+          this.addLeave = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'ส่งการลาเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+
+    })
+      // ฟังชั้น จำนวนครั้งที่ลา 
+      // .then(() => {
+      //   const body = 'LType_ID=' + this.LType_ID.value
+      //     + '&LeaveTotal=' + this.LeaveTotal.value
+      //   console.log(body);
+      //   const headers = new HttpHeaders({
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   });
+      //   this.http
+      //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
+      //       headers: headers
+      //     })
+      //     .subscribe(
+      //       (data: any) => {
+      //         this.addLeave = data;
+      //       },
+      //       (error: any) => {
+      //         console.log(error);
+      //       }
+      //     );
+      // })
+      .then(() => {
+        // const body = 'LType_ID=' + this.LType_ID.value
+        // console.log(body);
+        // const headers = new HttpHeaders({
+        //   'Content-Type': 'application/x-www-form-urlencoded'
+        // });
+        // this.http
+        //   .post(`${this.baseUrl}LOrdinal.php`, body, {
+        //     headers: headers
+        //   }).subscribe(
+        //     (data: any) => {
+        //       this.leave = data;
+        //     },
+        //     (error: any) => {
+        //       console.log(error);
+        //     }
+        //   )
+      })
+      .then(() => {
+        window.location.reload()
+      })
+    // .then(() => {
+    //   this.onUpload();
+    // })
+    this.modal_dismiss = "model"
+  }
+  Add_leave_level_4(LeaveTotal, Name_Leave, To_Person) {
+
+    const uploadData = new FormData();
+    uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+    uploadData.append('Leave_ID', "0");
+    uploadData.append('Emp_ID', localStorage.getItem("Emp_ID"))
+    uploadData.append('Name_Leave', Name_Leave)
+    uploadData.append('To_Person', To_Person)
+    uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
+    uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+    uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
+    uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+    uploadData.append('LeaveData', this.LeaveData.value)
+    uploadData.append('ContactInformation', this.ContactInformation.value)
+    uploadData.append('employee', this.employee.value)
+    uploadData.append('LeaveTotal', LeaveTotal)
+    uploadData.append('number_leave', "1")
+    uploadData.append('LeaveStatus_ID', "4")
+    uploadData.append('LeaveStatus_Document', this.LeaveStatus_Document.value)
+    uploadData.append('Response_Time', this.Response_Time.value)
+    uploadData.append('limit_ID', this.limit_ID.value)
+    uploadData.append('LType_ID', this.LType_ID_check)
+    uploadData.append('file_name', this.selectedFile.name)
+    // const body = 'Leave_ID=' + this.leave_ID_chack
+    //   + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+    //   + '&Name_Leave=' + Name_Leave
+    //   + '&To_Person=' + To_Person
+    //   + '&LeaveDateStart=' + this.LeaveDateStart.value
+    //   + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+    //   + '&LeaveDateLast=' + this.LeaveDateLast.value
+    //   + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+    //   + '&LeaveData=' + this.LeaveData.value
+    //   + '&ContactInformation=' + this.ContactInformation.value
+    //   + '&employee=' + this.employee.value
+    //   + '&LeaveTotal=' + LeaveTotal
+    //   + '&number_leave=' + 1
+    //   + '&LeaveStatus_ID=' + "4"
+    //   + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
+    //   + '&UploadFile=' + this.UploadFile.value
+    //   + '&Response_Time=' + this.Response_Time.value
+    //   + '&limit_ID=' + this.limit_ID.value
+    //   + '&LType_ID=' + this.LType_ID_check
+
+    // console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}Add_leave.php`, uploadData, {
+        headers: headers
+      })
+      .subscribe(
+        (data: any) => {
+
+          this.addLeave = data;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'ส่งการลาเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+
+    })
+      // ฟังชั้น จำนวนครั้งที่ลา 
+      // .then(() => {
+      //   const body = 'LType_ID=' + this.LType_ID.value
+      //     + '&LeaveTotal=' + this.LeaveTotal.value
+      //   console.log(body);
+      //   const headers = new HttpHeaders({
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   });
+      //   this.http
+      //     .post(`${this.baseUrl}UpdateLtypeUser.php`, body, {
+      //       headers: headers
+      //     })
+      //     .subscribe(
+      //       (data: any) => {
+      //         this.addLeave = data;
+      //       },
+      //       (error: any) => {
+      //         console.log(error);
+      //       }
+      //     );
+      // })
+      .then(() => {
+        // const body = 'LType_ID=' + this.LType_ID.value
+        // console.log(body);
+        // const headers = new HttpHeaders({
+        //   'Content-Type': 'application/x-www-form-urlencoded'
+        // });
+        // this.http
+        //   .post(`${this.baseUrl}LOrdinal.php`, body, {
+        //     headers: headers
+        //   }).subscribe(
+        //     (data: any) => {
+        //       this.leave = data;
+        //     },
+        //     (error: any) => {
+        //       console.log(error);
+        //     }
+        //   )
+      })
+      .then(() => {
+        window.location.reload()
+      })
+    // .then(() => {
+    //   this.onUpload();
+    // })
+    this.modal_dismiss = "model"
+  }
+
+  date_chack_start = /ครึ่งวัน/i
+  date_chack_Last = /ครึ่งวัน/i
+  a
+  b
+  num = 10;
+  show_holiday
+  show_numberleave
+  numberleave1
+  numberleave2
+  show_1 = []
+  show_2: boolean
+  test_arrar = 0
+  onseletday(LeaveDateStart, LeaveDateLast, Leave_characteristics_dateStart, Leave_characteristics_dateLast) {
     console.log(LeaveDateStart, LeaveDateLast);
-    let dayleave = moment(LeaveDateLast).startOf('day').diff(moment(LeaveDateStart).startOf('day'), 'day')
-    if (dayleave > 0) {
-      this.numberleave = dayleave;
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href>Why do I have this issue?</a>'
-      })
-    }
+
+    this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
+      (data: any) => {
+        this.show_holiday = data
+        console.log(this.show_holiday);
+
+
+
+        var moment = require('moment-business-days');
+        var dayleave = moment(LeaveDateLast).startOf('day').businessDiff(moment(LeaveDateStart).startOf('day'), 'day') + 1;
+        if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && Leave_characteristics_dateLast == "เต็มวัน"
+          || Leave_characteristics_dateStart == "เต็มวัน" && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+
+          for (var i = 0; i < this.show_holiday.length; i++) {
+            if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+              this.numberleave = dayleave -= 1
+            }
+            if (LeaveDateStart != this.show_holiday[i].holiday_date) {
+              this.numberleave = dayleave - 0.5
+            }
+          }
+          if (this.numberleave == 0 || this.numberleave < 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+              text: '',
+              footer: ''
+            }).then(() => {
+
+            })
+          }
+        }
+
+
+        if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+          for (var i = 0; i < this.show_holiday.length; i++) {
+            if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+              this.numberleave = dayleave -= 1
+            }
+            if (LeaveDateStart != this.show_holiday[i].holiday_date) {
+              this.numberleave = dayleave - 1
+            }
+          }
+          if (LeaveDateStart = LeaveDateLast) {
+            this.numberleave = dayleave -= 0.5
+
+          }
+          if (this.numberleave == 0 || this.numberleave < 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+              text: '',
+              footer: ''
+            })
+          }
+        }
+
+        if (Leave_characteristics_dateStart == "เต็มวัน" && Leave_characteristics_dateLast == "เต็มวัน") {
+          for (var i = 0; i < this.show_holiday.length; i++) {
+            if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+              this.numberleave = dayleave -= 1
+            }
+            if (LeaveDateStart != this.show_holiday[i].holiday_date) {
+              this.numberleave = dayleave
+            }
+          }
+          if (this.numberleave == 0 || this.numberleave < 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+              text: '',
+              footer: ''
+            })
+          }
+        }
+      },
+      (error: any) => {
+        console.log(error);
+
+      }
+    )
+
   }
+
+
 }

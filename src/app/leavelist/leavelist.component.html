@@ -58,7 +58,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-                        aria-controls="pills-contact" aria-selected="false">Contact</a>
+                        aria-controls="pills-contact" aria-selected="false">ขออนุญาตยกเลิก</a>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
@@ -83,19 +83,20 @@
                                 <tbody
                                     *ngFor="let item of leave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
                                     <tr>
-                                        <td>ชื่อ: <a style="color:rgb(80, 80, 246);" data-toggle="modal"
-                                                data-target="#exampleModal" (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+                                        <td class="text"> <a style="color:rgb(80, 80, 246);" data-toggle="modal"
+                                                data-target="#exampleModal"
+                                                (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                 item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                 item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
-                              item.LeaveStatus_Name, item.LeaveStatus_Document)">
+                              item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names)">
                                                 <u> {{item.EmpName}}
                                                     {{item.EmpLastName}}</u></a>
-                                            <p>แผนก: {{item.DeptName}}</p>
+                                            <p> {{item.DeptName}}</p>
                                         </td>
                                         <td class="text-center">{{item.LTypeName}}</td>
                                         <td class="text-center"> {{item.LeaveDateStart_month}} ถึง
                                             {{item.LeaveDateLast_month}}</td>
-                                        <td class="text-center"> {{item.LeaveTotal}}</td>
+                                        <td class="text-center"> {{item.LeaveTotal}} </td>
                                         <!-- <td class="text-center"> {{item.file_names}}</td> -->
 
 
@@ -110,10 +111,10 @@
 
 
 
-                                        <td class="text-center">
+                                        <td class="text">
                                             <button type="button" class="btn btn-success btn-circle btn-xl" (click)="printDocument(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                item.Prefix, item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
-                                item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,
+                                item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
                               item.LeaveStatus_Name, item.LeaveStatus_Document)"><i class="fa fa-print"
                                                     aria-hidden="true"></i></button>
                                             <!-- <a routerLink="/FilelaeveprintComponent">ปริ้น</a>  -->
@@ -127,10 +128,11 @@
                                                     class="fa fa-calendar-times-o" aria-hidden="true"></i> </button>
 
                                             <!-- Button trigger modal -->
-                                            <button *ngIf="item.LeaveStatus_ID==5" type="button" class="btn btn-primary"
-                                                data-toggle="modal" data-target="#exampleModal_cancel"
-                                                (click)="cancel(item.LTypeName,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,item.LeaveDateStart,item.LeaveDateLast)">
-                                                ขออนุญาตยกเลิก
+                                            <button *ngIf="item.LeaveStatus_ID==5" type="button"
+                                                class="btn btn-primary btn-circle btn-xl" data-toggle="modal"
+                                                data-target="#exampleModal_cancel" title="ขออนุญาติยกเลิกการลา"
+                                                (click)="cancel(item.Leave_ID,item.LTypeName,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,item.LeaveDateStart,item.LeaveDateLast)">
+                                                <i class="fa fa-question-circle" aria-hidden="true"></i>
                                             </button>
 
                                         </td>
@@ -163,13 +165,20 @@
                                 <tbody
                                     *ngFor="let item of showcancel | paginate: { itemsPerPage: 10, currentPage: pageActual};">
                                     <tr>
-                                        <td>ชื่อ: <a>{{item.EmpName}} {{item.EmpLastName}}</a>
-                                            <p>แผนก: {{item.DeptName}}</p>
+                                        <td class="text"> <a style="color:rgb(80, 80, 246);" data-toggle="modal"
+                                                data-target="#exampleModal" (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+                                                                        item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
+                                                                        item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
+                                                                      item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,
+                                                                      item.file_names)">
+                                                <u> {{item.EmpName}}
+                                                    {{item.EmpLastName}}</u></a>
+                                            <p>{{item.DeptName}}</p>
                                         </td>
 
                                         <td class="text-center">{{item.LTypeName}}</td>
-                                        <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่
-                                            {{item.LeaveDateLast}}</td>
+                                        <td class="text-center"> {{item.LeaveDateStart_month}} ถึงวันที่
+                                            {{item.LeaveDateLast_month}}</td>
                                         <td class="text-center"> {{item.LeaveTotal}}</td>
                                         <!-- <td class="text-center"> {{item.file_names}}</td> -->
                                         <td class="text-center">
@@ -196,7 +205,76 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...
+                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+
+                    <div class="card-body">
+                        <div class="table-responsive-lg">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">ชื่อพนักงาน</th>
+                                        <th scope="col">ประเภท</th>
+                                        <th scope="col">วันที่ลา</th>
+                                        <th scope="col">จำนวน/วัน</th>
+                                        <!-- <th scope="col">ไฟล์แนบ</th> -->
+                                        <th scope="col">สถานะ</th>
+                                        <!-- <th scope="col">ปริ้นใบยกเลิก</th> -->
+                                        <th scope="col">ตรวจสอบ</th>
+                                    </tr>
+                                </thead>
+                                <tbody
+                                    *ngFor="let item of showcancel_allow | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                                    <tr>
+                                        <td class="text"> <a  style="color:rgb(80, 80, 246);" data-toggle="modal"
+                                                data-target="#exampleModal"
+                                                (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+                                                                        item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
+                                                                        item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
+                                                                      item.LeaveStatus_Name, item.LeaveStatus_Document)">
+                                                <u > {{item.EmpName}}
+                                                    {{item.EmpLastName}}</u></a>
+                                            <p >{{item.DeptName}}</p>
+                                        </td>
+
+                                        <td class="text-center">{{item.LTypeName}}</td>
+                                        <td class="text-center"> {{item.cancel_date_start}} ถึงวันที่
+                                            {{item.cancel_date_stop}}</td>
+                                        <td class="text-center"> {{item.cancel_total}}</td>
+                                        <!-- <td class="text-center"> {{item.file_names}}</td> -->
+                                        <td class="text-center" *ngIf="item.cancel_status == 9 ">
+                                            <p style="color:red;">ไม่อนุญาตให้ยกเลิกการลา </p>
+                                        </td>
+                                        <td class="text-center" *ngIf="item.cancel_status == 10 ">
+                                            <p style="color:rgb(204, 201, 18);">รออนุญาตให้ยกเลิกการลา </p>
+                                        </td>
+                                        <td class="text-center" *ngIf="item.cancel_status == 8 ">
+                                            <p style="color:rgb(39, 196, 19);">อนุญาตให้ยกเลิกการลา </p>
+                                        </td>
+                                        <!-- <td class="text-center">
+                                                                <button type="button" class="btn btn-success"
+                                                                    (click)="printDocument(item.LType_ID)"><i class="fa fa-print"
+                                                                        aria-hidden="true"></i></button>
+                    
+                                                            </td> -->
+                                        <td class="text-center">
+                                            &nbsp;
+                                            <button *ngIf="item.cancel_status == 10" type="button" data-toggle="tooltip"
+                                                data-placement="top" title="ยกเลิกการอนุญาตการลา"
+                                                class="btn btn-danger btn-circle btn-xl"><i
+                                                    class="fa fa-calendar-times-o" aria-hidden="true"></i> </button>
+
+
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -235,7 +313,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">
-                                <p>รหัส : {{Emp_ID_show}} </p>
+                                <h6>รหัส : {{Emp_ID_show}} </h6>
                             </div>
                             <div class="col-sm">
                                 <h6> ชื่อ : {{EmpName_show}}</h6>
@@ -294,12 +372,12 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">วันที่ลา :</th>
-                                    <td> {{LeaveDateStart_show}} </td>
+                                    <td> {{LeaveDateStart_show}} / {{Leave_characteristics_dateStart_show}}</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">ถึงวันที่ :</th>
-                                    <td> {{LeaveDateLast_show}} </td>
+                                    <td> {{LeaveDateLast_show}} / {{Leave_characteristics_dateLast_show}} </td>
 
                                 </tr>
                                 <tr>
@@ -309,7 +387,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">แนปไฟล์ :</th>
-                                    <td> ยังไม่ได้ทำแนปไฟล์</td>
+                                    <td>{{file_names_show}}</td>
 
                                 </tr>
                                 <tr>
@@ -328,7 +406,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ปืด</button>
-                <button type="button" class="btn btn-primary">บันทึก</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">บันทึก</button>
             </div>
         </div>
     </div>
@@ -697,7 +775,7 @@
 
                                         <label>สถานะการส่งใบลาฉบับจริง</label>
                                         <select class="custom-select" [formControl]="LeaveStatus_Document">
-                                            <option selected>--เลือกสถานะ--</option>
+
                                             <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
                                             <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
                                         </select>
@@ -708,7 +786,14 @@
                                             <label for="exampleFormControlFile1">แนปไฟล์</label>
                                             <br>
                                             <input type="file" (change)="onFileChanged($event)">
+
                                         </div>
+                                        <br>
+                                        <label>เลือกรอบการประเมิน</label>
+                                        <select class="form-control" [formControl]="limit_ID">
+                                            <option *ngFor="let item of showleave_limit " value="{{item.limit_ID}}">
+                                                {{item.Name_limit}}</option>
+                                        </select>
                                     </form>
                                     <div class="form-row">
                                         <!-- <label>สถานะการส่งใบลาฉบับจริง</label>
@@ -726,9 +811,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="AddLeave()">save</button> -->
+
                 <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}`
                     (click)="AddLeave(LeaveTotal.value,check_number.value,limit_type.value,Name_Leave.value,To_Person.value)">OK</button>
-                <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onUpload()">OK</button> -->
+
             </div>
         </div>
     </div>
@@ -832,7 +919,8 @@
                         <div class="row">
                             <div class="col-sm">
                                 <label>เนื่องจาก</label>
-                                <textarea class="form-control" id="dataleave" rows="3" [formControl]=""></textarea>
+                                <textarea class="form-control" id="dataleave" rows="3"
+                                    [formControl]="cancel_data"></textarea>
                             </div>
                             <div class="col-sm">
                                 <label>จึงขอยกเลิกวันลา</label>
@@ -846,30 +934,32 @@
 
                             <div class="col-sm">
                                 <label>ตั้งแต่วันที่</label>
-                                <input type="date" class="form-control" [formControl]="LeaveDateStart"
-                                    id="LeaveDateStart_cancel" min="{{LeaveDateStart_cancel}}"
+                                <input type="date" class="form-control" [formControl]="cancel_date_start"
+                                    id="cancel_date_start" min="{{LeaveDateStart_cancel}}"
                                     max="{{LeaveDateLast_cancel}}">
                             </div>
 
                             <div class="col-sm">
                                 <label>ถึงวันที่</label>
-                                <input type="date" class="form-control" [formControl]="LeaveDateLast"
-                                    id="LeaveDateStart_cancel" min="{{LeaveDateStart_cancel}}"
-                                    max="{{LeaveDateLast_cancel}}"
-                                    (change)="onseletday_cancal(LeaveDateStart.value,LeaveDateLast.value)">
+                                <input type="date" class="form-control" [formControl]="cancel_date_stop"
+                                    id="cancel_date_stop" min="{{LeaveDateStart_cancel}}" max="{{LeaveDateLast_cancel}}"
+                                    (change)="onseletday_cancal(cancel_date_start.value,cancel_date_stop.value)">
                             </div>
                             <div class="col-sm">
                                 <label>จำนวน</label>
-                                <input type="number" class="form-control" id="LeaveTotal_cancel"
+                                <input type="text" class="form-control" id="cancel_total" #cancel_total
                                     [value]="numberleave_cancal" readonly>
+                                <input type="text" class="form-control" id="Leave_ID_cancel" value="{{Leave_ID_cancel}}"
+                                    style="display: none;" #Leave_ID_cancel_text readonly>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                <button type="button" class="btn btn-primary"
+                    (click)="allow_cancel_leave(cancel_total.value,Leave_ID_cancel_text.value)">บันทึก</button>
             </div>
         </div>
     </div>

@@ -8,11 +8,11 @@ import {
 } from '@angular/common/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-import { FormControl } from '@angular/forms';
+import { FormControl, FormControlName } from '@angular/forms';
 import * as moment from 'moment';
 // import { baseUrl } from '../baseUrl.service';
 import { GlobalVariable } from '../baseUrl';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { analyzeAndValidateNgModules, compileBaseDefFromMetadata } from '@angular/compiler';
 
 
 
@@ -94,7 +94,7 @@ export class LeavelistComponent implements OnInit {
   LeaveStatus = new FormControl('');
   UploadFile = new FormControl('');
   Response_Time = new FormControl('');
-  Person_Code_Allow = new FormControl('');
+  limit_ID = new FormControl('');
   LType_ID = new FormControl('');
   LeaveStatus_Document = new FormControl('');
   LTypeName = new FormControl('');
@@ -108,7 +108,6 @@ export class LeavelistComponent implements OnInit {
   PositionName = new FormControl('');
   DeptName = new FormControl('');
   Sector = new FormControl('');
-  selectedFile: File;
   marked = false;
   check_Remain: any;
   LType_ID_check: any;
@@ -125,6 +124,8 @@ export class LeavelistComponent implements OnInit {
   leave_ID_chack = 0;
   chack_date_show
   date_chack
+  showleave_limit
+  showcancel_allow
   ngOnInit() {
     // const chack_date = 'Emp_ID=' + localStorage.getItem("Emp_ID")
     // console.log(chack_date);
@@ -157,7 +158,19 @@ export class LeavelistComponent implements OnInit {
     //     }
     //   )
 
+    this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+      (data: any) => {
 
+        for (var i = 0; i <= data.length; i++) {
+          this.showleave_limit = data;
+          console.log(this.showleave_limit[i].date_stop);
+
+        }
+
+      }, (error: any) => {
+        console.log(error);
+      }
+    )
     const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
     console.log(tpyeUser);
     const headers1 = new HttpHeaders({
@@ -270,6 +283,24 @@ export class LeavelistComponent implements OnInit {
           }
 
         )
+      const body_cancel_allow = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+      console.log(body_cancel_allow);
+      const headers_cancel_allow = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getallow_cancel_leave.php`, body_cancel_allow, {
+          headers: headers_cancel_allow
+        }).subscribe(
+          (data: any) => {
+            this.showcancel_allow = data;
+
+          },
+          (error: any) => {
+            console.log(error);
+          }
+
+        )
 
     }
     else if (localStorage.getItem('Role') === "3") {
@@ -304,6 +335,24 @@ export class LeavelistComponent implements OnInit {
         }).subscribe(
           (data: any) => {
             this.showcancel = data;
+
+          },
+          (error: any) => {
+            console.log(error);
+          }
+
+        )
+      const body_cancel_allow = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+      console.log(body_cancel_allow);
+      const headers_cancel_allow = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getallow_cancel_leave.php`, body_cancel_allow, {
+          headers: headers_cancel_allow
+        }).subscribe(
+          (data: any) => {
+            this.showcancel_allow = data;
 
           },
           (error: any) => {
@@ -351,6 +400,24 @@ export class LeavelistComponent implements OnInit {
           }
 
         )
+      const body_cancel_allow = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+      console.log(body_cancel_allow);
+      const headers_cancel_allow = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getallow_cancel_leave.php`, body_cancel_allow, {
+          headers: headers_cancel_allow
+        }).subscribe(
+          (data: any) => {
+            this.showcancel_allow = data;
+
+          },
+          (error: any) => {
+            console.log(error);
+          }
+
+        )
     }
     else if (localStorage.getItem('Role') === "1") {
       this.list = true;
@@ -367,24 +434,7 @@ export class LeavelistComponent implements OnInit {
         }).subscribe(
           (data: any) => {
             this.leave = data;
-            // data.forEach(element =>
-            //   console.log(element.LeaveStatus_ID)
-            // );
-            // if (data.LeaveStatus_ID = 5) {
-            //   this.btn_cancel = false;
-            //   this.btn_cancel_head = true;
-            // }
-            // if (data.LeaveStatus_ID = 1) {
-            //   this.btn_cancel = true;
-            //   this.btn_cancel_head = false;
-            // }
-            // this.leave.map(function (i) {
-            //   console.log(i.Leave_ID, i.LeaveStatus_ID);
-            //   if (i.LeaveStatus_ID == 5) {
-            //     this.btn_cancel = false;
-            //     this.btn_cancel_head = true;
-            //   }
-            // })
+            console.log(this.leave);
 
           }
           ,
@@ -404,6 +454,27 @@ export class LeavelistComponent implements OnInit {
         }).subscribe(
           (data: any) => {
             this.showcancel = data;
+            console.log(this.showcancel);
+
+
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        )
+
+
+      const body_cancel_allow = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+      console.log(body_cancel_allow);
+      const headers_cancel_allow = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getallow_cancel_leave.php`, body_cancel_allow, {
+          headers: headers_cancel_allow
+        }).subscribe(
+          (data: any) => {
+            this.showcancel_allow = data;
 
           },
           (error: any) => {
@@ -437,10 +508,7 @@ export class LeavelistComponent implements OnInit {
   toggleVisibility_date(e) {
     this.date_chack = e.target.checked;
   }
-  onFileChanged(event) {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
-  }
+
   changed(e) {
     console.log(e.LType_ID);
   }
@@ -483,6 +551,28 @@ export class LeavelistComponent implements OnInit {
     }
 
   }
+  selectedFile: File;
+  myFile: string[] = [];
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+
+  }
+
+  data = new FormControl('');
+
+  upload_test: any
+
+
+  // upload() { 
+  //   const formdata = new FormData();
+  //   for (let i = 0; i < this.myFile.length; i++) {
+  //    formdata.append('myFile[]',this.myFile[i])
+
+  //   }
+  //   this.http.post(`${this.baseUrl}Uploadfile.php`, formdata).subscribe(event => {
+  //     console.log(event);
+  //   })
+  // }
 
   AddLeave(LeaveTotal, check_number, limit_type, Name_Leave, To_Person) {
 
@@ -491,8 +581,6 @@ export class LeavelistComponent implements OnInit {
     console.log(limit_type);
     console.log(Name_Leave);
     console.log(To_Person);
-
-
 
     if (+LeaveTotal > +check_number) {
       Swal.fire({
@@ -552,40 +640,60 @@ export class LeavelistComponent implements OnInit {
 
 
   }
+
   Add_leave_level_1(LeaveTotal, Name_Leave, To_Person) {
 
-    this.Name_Leave = Name_Leave
-    this.To_Person = To_Person
-    const body = 'Leave_ID=' + this.leave_ID_chack
-      + '&Emp_ID=' + localStorage.getItem("Emp_ID")
-      + '&Name_Leave=' + this.Name_Leave
-      + '&To_Person=' + this.To_Person
-      + '&LeaveDateStart=' + this.LeaveDateStart.value
-      + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
-      + '&LeaveDateLast=' + this.LeaveDateLast.value
-      + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
-      + '&LeaveData=' + this.LeaveData.value
-      + '&ContactInformation=' + this.ContactInformation.value
-      + '&employee=' + this.employee.value
-      + '&LeaveTotal=' + LeaveTotal
-      + '&LeaveStatus_ID=' + "1"
-      + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
-      + '&UploadFile=' + this.UploadFile.value
-      + '&Response_Time=' + this.Response_Time.value
-      + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-      + '&LType_ID=' + this.LType_ID_check
 
-    // + '&file_names=' +  uploadData.append('myFile', this.selectedFile, this.selectedFile.name)
+    const uploadData = new FormData();
+    uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+    uploadData.append('Leave_ID', "0");
+    uploadData.append('Emp_ID', localStorage.getItem("Emp_ID"))
+    uploadData.append('Name_Leave', Name_Leave)
+    uploadData.append('To_Person', To_Person)
+    uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
+    uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+    uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
+    uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+    uploadData.append('LeaveData', this.LeaveData.value)
+    uploadData.append('ContactInformation', this.ContactInformation.value)
+    uploadData.append('employee', this.employee.value)
+    uploadData.append('LeaveTotal', LeaveTotal)
+    uploadData.append('number_leave', "1")
+    uploadData.append('LeaveStatus_ID', "1")
+    uploadData.append('LeaveStatus_Document', this.LeaveStatus_Document.value)
+    uploadData.append('Response_Time', this.Response_Time.value)
+    uploadData.append('limit_ID', this.limit_ID.value)
+    uploadData.append('LType_ID', this.LType_ID_check)
+    uploadData.append('file_name', this.selectedFile.name)
 
-    console.log(body);
+    // const body = 'Leave_ID=' + this.leave_ID_chack
+    //   + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+    //   + '&Name_Leave=' + this.Name_Leave
+    //   + '&To_Person=' + this.To_Person
+    //   + '&LeaveDateStart=' + this.LeaveDateStart.value
+    //   + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+    //   + '&LeaveDateLast=' + this.LeaveDateLast.value
+    //   + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+    //   + '&LeaveData=' + this.LeaveData.value
+    //   + '&ContactInformation=' + this.ContactInformation.value
+    //   + '&employee=' + this.employee.value
+    //   + '&LeaveTotal=' + LeaveTotal
+    //   + '&number_leave=' + 1
+    //   + '&LeaveStatus_ID=' + "1"
+    //   + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
+
+    //   + '&Response_Time=' + this.Response_Time.value
+    //   + '&limit_ID=' + this.limit_ID.value
+    //   + '&LType_ID=' + this.LType_ID_check
+    //   // + '&file_name=' + this.selectedFile.name
+
+
+    // console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post(`${this.baseUrl}Add_leave.php`, body, {
-        headers: headers
-
-      })
+      .post(`${this.baseUrl}Add_leave.php`, uploadData)
       .subscribe(
         (data: any) => {
           console.log(data);
@@ -643,17 +751,7 @@ export class LeavelistComponent implements OnInit {
         //   )
       })
       .then(() => {
-        this.http
-          .post(`${this.baseUrl}getLeave.php`, body, {
-            headers: headers
-          }).subscribe(
-            (data: any) => {
-              this.leave = data;
-            },
-            (error: any) => {
-              console.log(error);
-            }
-          )
+        window.location.reload()
       })
     // .then(() => {
     //   this.onUpload();
@@ -661,33 +759,54 @@ export class LeavelistComponent implements OnInit {
     this.modal_dismiss = "model"
   }
   Add_leave_level_2(LeaveTotal, Name_Leave, To_Person) {
-    const body = 'Leave_ID=' + this.leave_ID_chack
-      + '&Emp_ID=' + localStorage.getItem("Emp_ID")
-      + '&Name_Leave=' + Name_Leave
-      + '&To_Person=' + To_Person
-      + '&LeaveDateStart=' + this.LeaveDateStart.value
-      + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
-      + '&LeaveDateLast=' + this.LeaveDateLast.value
-      + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
-      + '&LeaveData=' + this.LeaveData.value
-      + '&ContactInformation=' + this.ContactInformation.value
-      + '&employee=' + this.employee.value
-      + '&LeaveTotal=' + LeaveTotal
-      + '&LeaveStatus_ID=' + "2"
-      + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
-      + '&UploadFile=' + this.UploadFile.value
-      + '&Response_Time=' + this.Response_Time.value
-      + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-      + '&LType_ID=' + this.LType_ID_check
 
-    console.log(body);
+    const uploadData = new FormData();
+    uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+    uploadData.append('Leave_ID', "0");
+    uploadData.append('Emp_ID', localStorage.getItem("Emp_ID"))
+    uploadData.append('Name_Leave', Name_Leave)
+    uploadData.append('To_Person', To_Person)
+    uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
+    uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+    uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
+    uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+    uploadData.append('LeaveData', this.LeaveData.value)
+    uploadData.append('ContactInformation', this.ContactInformation.value)
+    uploadData.append('employee', this.employee.value)
+    uploadData.append('LeaveTotal', LeaveTotal)
+    uploadData.append('number_leave', "1")
+    uploadData.append('LeaveStatus_ID', "2")
+    uploadData.append('LeaveStatus_Document', this.LeaveStatus_Document.value)
+    uploadData.append('Response_Time', this.Response_Time.value)
+    uploadData.append('limit_ID', this.limit_ID.value)
+    uploadData.append('LType_ID', this.LType_ID_check)
+    uploadData.append('file_name', this.selectedFile.name)
+    // const body = 'Leave_ID=' + this.leave_ID_chack
+    //   + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+    //   + '&Name_Leave=' + Name_Leave
+    //   + '&To_Person=' + To_Person
+    //   + '&LeaveDateStart=' + this.LeaveDateStart.value
+    //   + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+    //   + '&LeaveDateLast=' + this.LeaveDateLast.value
+    //   + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+    //   + '&LeaveData=' + this.LeaveData.value
+    //   + '&ContactInformation=' + this.ContactInformation.value
+    //   + '&employee=' + this.employee.value
+    //   + '&LeaveTotal=' + LeaveTotal
+    //   + '&number_leave=' + 1
+    //   + '&LeaveStatus_ID=' + "2"
+    //   + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
+    //   + '&UploadFile=' + this.UploadFile.value
+    //   + '&Response_Time=' + this.Response_Time.value
+    //   + '&limit_ID=' + this.limit_ID.value
+    //   + '&LType_ID=' + this.LType_ID_check
+
+    // console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post(`${this.baseUrl}Add_leave.php`, body, {
-        headers: headers
-      })
+      .post(`${this.baseUrl}Add_leave.php`, uploadData)
       .subscribe(
         (data: any) => {
 
@@ -745,17 +864,7 @@ export class LeavelistComponent implements OnInit {
         //   )
       })
       .then(() => {
-        this.http
-          .post(`${this.baseUrl}getLeave.php`, body, {
-            headers: headers
-          }).subscribe(
-            (data: any) => {
-              this.leave = data;
-            },
-            (error: any) => {
-              console.log(error);
-            }
-          )
+        window.location.reload()
       })
     // .then(() => {
     //   this.onUpload();
@@ -764,33 +873,53 @@ export class LeavelistComponent implements OnInit {
     this.modal_dismiss = "model"
   }
   Add_leave_level_3(LeaveTotal, Name_Leave, To_Person) {
-    const body = 'Leave_ID=' + this.leave_ID_chack
-      + '&Emp_ID=' + localStorage.getItem("Emp_ID")
-      + '&Name_Leave=' + Name_Leave
-      + '&To_Person=' + To_Person
-      + '&LeaveDateStart=' + this.LeaveDateStart.value
-      + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
-      + '&LeaveDateLast=' + this.LeaveDateLast.value
-      + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
-      + '&LeaveData=' + this.LeaveData.value
-      + '&ContactInformation=' + this.ContactInformation.value
-      + '&employee=' + this.employee.value
-      + '&LeaveTotal=' + LeaveTotal
-      + '&LeaveStatus_ID=' + "3"
-      + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
-      + '&UploadFile=' + this.UploadFile.value
-      + '&Response_Time=' + this.Response_Time.value
-      + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-      + '&LType_ID=' + this.LType_ID_check
 
-    console.log(body);
+    const uploadData = new FormData();
+    uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+    uploadData.append('Leave_ID', "0");
+    uploadData.append('Emp_ID', localStorage.getItem("Emp_ID"))
+    uploadData.append('Name_Leave', Name_Leave)
+    uploadData.append('To_Person', To_Person)
+    uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
+    uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+    uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
+    uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+    uploadData.append('LeaveData', this.LeaveData.value)
+    uploadData.append('ContactInformation', this.ContactInformation.value)
+    uploadData.append('employee', this.employee.value)
+    uploadData.append('LeaveTotal', LeaveTotal)
+    uploadData.append('number_leave', "1")
+    uploadData.append('LeaveStatus_ID', "3")
+    uploadData.append('LeaveStatus_Document', this.LeaveStatus_Document.value)
+    uploadData.append('Response_Time', this.Response_Time.value)
+    uploadData.append('limit_ID', this.limit_ID.value)
+    uploadData.append('LType_ID', this.LType_ID_check)
+    uploadData.append('file_name', this.selectedFile.name)
+    //   + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+    //   + '&Name_Leave=' + Name_Leave
+    //   + '&To_Person=' + To_Person
+    //   + '&LeaveDateStart=' + this.LeaveDateStart.value
+    //   + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+    //   + '&LeaveDateLast=' + this.LeaveDateLast.value
+    //   + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+    //   + '&LeaveData=' + this.LeaveData.value
+    //   + '&ContactInformation=' + this.ContactInformation.value
+    //   + '&employee=' + this.employee.value
+    //   + '&LeaveTotal=' + LeaveTotal
+    //   + '&number_leave=' + 1
+    //   + '&LeaveStatus_ID=' + "3"
+    //   + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
+    //   + '&UploadFile=' + this.UploadFile.value
+    //   + '&Response_Time=' + this.Response_Time.value
+    //   + '&limit_ID=' + this.limit_ID.value
+    //   + '&LType_ID=' + this.LType_ID_check
+
+    // console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post(`${this.baseUrl}Add_leave.php`, body, {
-        headers: headers
-      })
+      .post(`${this.baseUrl}Add_leave.php`, uploadData)
       .subscribe(
         (data: any) => {
 
@@ -848,17 +977,7 @@ export class LeavelistComponent implements OnInit {
         //   )
       })
       .then(() => {
-        this.http
-          .post(`${this.baseUrl}getLeave.php`, body, {
-            headers: headers
-          }).subscribe(
-            (data: any) => {
-              this.leave = data;
-            },
-            (error: any) => {
-              console.log(error);
-            }
-          )
+        window.location.reload()
       })
     // .then(() => {
     //   this.onUpload();
@@ -866,31 +985,54 @@ export class LeavelistComponent implements OnInit {
     this.modal_dismiss = "model"
   }
   Add_leave_level_4(LeaveTotal, Name_Leave, To_Person) {
-    const body = 'Leave_ID=' + this.leave_ID_chack
-      + '&Emp_ID=' + localStorage.getItem("Emp_ID")
-      + '&Name_Leave=' + Name_Leave
-      + '&To_Person=' + To_Person
-      + '&LeaveDateStart=' + this.LeaveDateStart.value
-      + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
-      + '&LeaveDateLast=' + this.LeaveDateLast.value
-      + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
-      + '&LeaveData=' + this.LeaveData.value
-      + '&ContactInformation=' + this.ContactInformation.value
-      + '&employee=' + this.employee.value
-      + '&LeaveTotal=' + LeaveTotal
-      + '&LeaveStatus_ID=' + "4"
-      + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
-      + '&UploadFile=' + this.UploadFile.value
-      + '&Response_Time=' + this.Response_Time.value
-      + '&Person_Code_Allow=' + this.Person_Code_Allow.value
-      + '&LType_ID=' + this.LType_ID_check
 
-    console.log(body);
+    const uploadData = new FormData();
+    uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+    uploadData.append('Leave_ID', "0");
+    uploadData.append('Emp_ID', localStorage.getItem("Emp_ID"))
+    uploadData.append('Name_Leave', Name_Leave)
+    uploadData.append('To_Person', To_Person)
+    uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
+    uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+    uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
+    uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+    uploadData.append('LeaveData', this.LeaveData.value)
+    uploadData.append('ContactInformation', this.ContactInformation.value)
+    uploadData.append('employee', this.employee.value)
+    uploadData.append('LeaveTotal', LeaveTotal)
+    uploadData.append('number_leave', "1")
+    uploadData.append('LeaveStatus_ID', "4")
+    uploadData.append('LeaveStatus_Document', this.LeaveStatus_Document.value)
+    uploadData.append('Response_Time', this.Response_Time.value)
+    uploadData.append('limit_ID', this.limit_ID.value)
+    uploadData.append('LType_ID', this.LType_ID_check)
+    uploadData.append('file_name', this.selectedFile.name)
+    // const body = 'Leave_ID=' + this.leave_ID_chack
+    //   + '&Emp_ID=' + localStorage.getItem("Emp_ID")
+    //   + '&Name_Leave=' + Name_Leave
+    //   + '&To_Person=' + To_Person
+    //   + '&LeaveDateStart=' + this.LeaveDateStart.value
+    //   + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+    //   + '&LeaveDateLast=' + this.LeaveDateLast.value
+    //   + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+    //   + '&LeaveData=' + this.LeaveData.value
+    //   + '&ContactInformation=' + this.ContactInformation.value
+    //   + '&employee=' + this.employee.value
+    //   + '&LeaveTotal=' + LeaveTotal
+    //   + '&number_leave=' + 1
+    //   + '&LeaveStatus_ID=' + "4"
+    //   + '&LeaveStatus_Document=' + this.LeaveStatus_Document.value
+    //   + '&UploadFile=' + this.UploadFile.value
+    //   + '&Response_Time=' + this.Response_Time.value
+    //   + '&limit_ID=' + this.limit_ID.value
+    //   + '&LType_ID=' + this.LType_ID_check
+
+    // console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post(`${this.baseUrl}Add_leave.php`, body, {
+      .post(`${this.baseUrl}Add_leave.php`, uploadData, {
         headers: headers
       })
       .subscribe(
@@ -950,17 +1092,7 @@ export class LeavelistComponent implements OnInit {
         //   )
       })
       .then(() => {
-        this.http
-          .post(`${this.baseUrl}getLeave.php`, body, {
-            headers: headers
-          }).subscribe(
-            (data: any) => {
-              this.leave = data;
-            },
-            (error: any) => {
-              console.log(error);
-            }
-          )
+        window.location.reload()
       })
     // .then(() => {
     //   this.onUpload();
@@ -1097,11 +1229,15 @@ export class LeavelistComponent implements OnInit {
 
   }
   LTypeName_namleave;
-  cancel(LTypeName, DateStart, DateLast, LeaveTotal, LeaveDateStart, LeaveDateLast) {
+  Leave_ID_cancel;
+  cancel(Leave_ID, LTypeName, DateStart, DateLast, LeaveTotal, LeaveDateStart, LeaveDateLast) {
 
     console.log(DateStart);
     this.LTypeName = new FormControl(LTypeName);
     this.LeaveDateStart_cancel_month = DateStart
+    this.Leave_ID_cancel = Leave_ID
+    console.log(this.Leave_ID_cancel);
+
     this.LeaveDateLast_cancel_month = DateLast
     this.LeaveDateStart_cancel = LeaveDateStart
     this.LeaveDateLast_cancel = LeaveDateLast
@@ -1110,8 +1246,55 @@ export class LeavelistComponent implements OnInit {
   }
 
 
+  cancel_id = new FormControl('');
+  cancel_data = new FormControl('');
+  cancel_date_start = new FormControl('');
+  cancel_date_stop = new FormControl('');
+  cancel_total;
+  cancel_status = new FormControl('');
+  leave_ID = new FormControl('');
+  Leave_ID_cancel_show
 
 
+
+
+  allow_cancel_leave(cencel_total, Leave_ID_cancel) {
+    this.cancel_total = cencel_total
+    this.Leave_ID_cancel_show = Leave_ID_cancel
+    const body = "cancel_id=" + 0
+      + "&cancel_data=" + this.cancel_data.value
+      + "&cancel_date_start=" + this.cancel_date_start.value
+      + "&cancel_date_stop=" + this.cancel_date_stop.value
+      + "&cancel_total=" + this.cancel_total
+      + "&cancel_status=" + "10"
+      + "&leave_ID=" + this.Leave_ID_cancel_show
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}allow_cancel_leave.php`, body, {
+        headers: headers
+      })
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'เพิ่มประเภทการลาเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      window.location.reload()
+    })
+  }
 
 
 
@@ -1262,28 +1445,42 @@ export class LeavelistComponent implements OnInit {
 
 
   numberleave_cancal: any;
-  onseletday_cancal(LeaveDateStart, LeaveDateLast) {
-    console.log(LeaveDateStart, LeaveDateLast);
-    var moment = require('moment-business-days');
-    var dayleave = moment(LeaveDateLast).startOf('day').businessDiff(moment(LeaveDateStart).startOf('day'), 'day');
-    if (dayleave > 0) {
-      if (dayleave.Date() === 0 || dayleave.Date() === 6) {
-        this.numberleave_cancal = dayleave + 1;
-        console.log(this.numberleave);
+  onseletday_cancal(cancel_date_start, cancel_date_stop) {
+    console.log(cancel_date_start, cancel_date_stop);
+    this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
+      (data: any) => {
+        this.show_holiday = data
+        console.log(this.show_holiday);
+        var moment = require('moment-business-days');
+        var dayleave = moment(cancel_date_stop).startOf('day').businessDiff(moment(cancel_date_start).startOf('day'), 'day') + 1;
+        // if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && Leave_characteristics_dateLast == "เต็มวัน"
+        //   || Leave_characteristics_dateStart == "เต็มวัน" && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+        for (var i = 0; i < this.show_holiday.length; i++) {
+          if (cancel_date_start <= this.show_holiday[i].holiday_date && cancel_date_stop >= this.show_holiday[i].holiday_date) {
+            this.numberleave_cancal = dayleave -= 1
+          }
+          if (cancel_date_start != this.show_holiday[i].holiday_date) {
+            this.numberleave_cancal = dayleave
+          }
+        }
+        if (this.numberleave_cancal == 0 || this.numberleave_cancal < 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+            text: '',
+            footer: ''
+          }).then(() => {
+
+          })
+        }
+        // }
+
+      },
+      (error: any) => {
+        console.log(error);
+
       }
-      this.numberleave_cancal = dayleave;
-      console.log(this.numberleave);
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
-        text: '',
-        footer: ''
-      })
-    }
-
-
-
+    )
   }
 
 
@@ -1296,7 +1493,9 @@ export class LeavelistComponent implements OnInit {
   //   this.router.navigate(['/filelaeveprint', { Ltype_ID }]);
 
   // }
-  day = new Date().getDay()
+  day = new Date().getDate()
+
+
   month = new Date().getMonth()
   year = new Date().getFullYear() + 543
   public thmonth = new Array(
@@ -1314,7 +1513,7 @@ export class LeavelistComponent implements OnInit {
     'ธันวาคม'
   );
   printDocument(Leave_ID, Name_Leave, To_Person, Emp_ID, Prefix, EmpName, EmpLastName, PositionName, DeptName,
-    SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveStatus_Name, LeaveStatus_Document) {
+    SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart_month, LeaveDateLast_month, LeaveTotal, LeaveStatus_Name, LeaveStatus_Document) {
     this.Leave_ID_show = Leave_ID
     this.Name_Leave_show = Name_Leave
     this.To_Person_show = To_Person
@@ -1331,8 +1530,8 @@ export class LeavelistComponent implements OnInit {
     this.employee_show = employee
     console.log(this.employee_show);
 
-    this.LeaveDateStart_show = LeaveDateStart
-    this.LeaveDateLast_show = LeaveDateLast
+    this.LeaveDateStart_show = LeaveDateStart_month
+    this.LeaveDateLast_show = LeaveDateLast_month
     this.LeaveTotal_show = LeaveTotal
     this.LeaveStatus_Name_show = LeaveStatus_Name
     this.LeaveStatus_Document_show = LeaveStatus_Document
@@ -1563,8 +1762,12 @@ export class LeavelistComponent implements OnInit {
   LeaveTotal_show: any;
   LeaveStatus_Name_show: any;
   LeaveStatus_Document_show: any;
+  Leave_characteristics_dateStart_show: any;
+  Leave_characteristics_dateLast_show: any;
+  file_names_show: any;
   show_data(Leave_ID, Name_Leave, To_Person, Emp_ID, EmpName, EmpLastName, PositionName, DeptName,
-    SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveStatus_Name, LeaveStatus_Document) {
+    SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveStatus_Name, LeaveStatus_Document,
+    Leave_characteristics_dateStart, Leave_characteristics_dateLast, file_names) {
     console.log(LeaveTotal);
     this.Leave_ID_show = Leave_ID
     this.Name_Leave_show = Name_Leave
@@ -1584,6 +1787,9 @@ export class LeavelistComponent implements OnInit {
     this.LeaveTotal_show = LeaveTotal
     this.LeaveStatus_Name_show = LeaveStatus_Name
     this.LeaveStatus_Document_show = LeaveStatus_Document
+    this.Leave_characteristics_dateStart_show = Leave_characteristics_dateStart
+    this.Leave_characteristics_dateLast_show = Leave_characteristics_dateLast
+    this.file_names_show = file_names
 
 
   }

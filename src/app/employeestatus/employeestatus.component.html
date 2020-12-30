@@ -1,119 +1,120 @@
-
 <div style="padding: 1%;">
-<div class="tab-pane fade show active">
-    &nbsp;&nbsp;&nbsp;
-<div class="card">
-    <div class="card-header">
-        <div class="container">
-            <div class="row">
-              <div class="col">        สถานะบุคลากร
-            </div>
-              <div class="col"></div>
-              <div class="col"></div>
-              <div class="col">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Empstatus">
-                    เพิ่มสถานะบุคลากร
-                </button>
-              </div>
-            </div>
-            </div>
+    <div class="tab-pane fade show active">
         &nbsp;&nbsp;&nbsp;
-      
-        <!-- Modal -->
-        <div class="modal fade" id="Empstatus" tabindex="-1" role="dialog" aria-labelledby="EmployeeStatus "
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title" id="EmployeeStatus ">เพิ่มสถานะบุคลากร</h2>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        <div class="card">
+            <div class="card-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col"> สถานะบุคลากร
+                        </div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Empstatus">
+                                เพิ่มสถานะบุคลากร
+                            </button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="EmployeeStatusInput">รหัสสถานะบุคลากร</label>
-                                <input type="text" class="form-control" id="EmployeeStatusInput"
-                                    [formControl]="Empstatus_ID" placeholder="รหัสสถานะบุคลากร">
+                </div>
+                &nbsp;&nbsp;&nbsp;
+
+                <!-- Modal -->
+                <div class="modal fade" id="Empstatus" tabindex="-1" role="dialog" aria-labelledby="EmployeeStatus "
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title" id="EmployeeStatus ">เพิ่มสถานะบุคลากร</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="EmployeeStatusInput1">ชื่อสถานะบุคลากร</label>
-                                <input type="text" class="form-control" id="EmployeeStatusInput1"
-                                    [formControl]="EmpstatusName" placeholder="ชื่อสถานะบุคลากร">
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="EmployeeStatusInput">รหัสสถานะบุคลากร</label>
+                                        <input type="text" class="form-control" id="EmployeeStatusInput"
+                                            [formControl]="Empstatus_ID" placeholder="รหัสสถานะบุคลากร">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="EmployeeStatusInput1">ชื่อสถานะบุคลากร</label>
+                                        <input type="text" class="form-control" id="EmployeeStatusInput1"
+                                            [formControl]="EmpstatusName" placeholder="ชื่อสถานะบุคลากร">
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                    (click)="AddStatus()">บันทึก</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddStatus()">บันทึก</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">รหัสสถานะบุคลากร</th>
+                            <th scope="col">ชื่อสถานะบุคลากร</th>
+                            <th scope="col">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of status; let i = index">
+                        <tr>
+                            <td class="text-center">{{item.Empstatus_ID}}</td>
+                            <td>{{item.EmpstatusName}}</td>
+                            <td class="text-center">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
+                                    title="แก้ไข้ข้อมูล" data-target="#exampleModalEditstatus"
+                                    (click)="updateStatus(item.Empstatus_ID,item.EmpstatusName)">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </button>
+                                &nbsp; &nbsp;
+                                <button type="button" class="btn btn-danger btn-circle btn-xl" title="ลบข้อมูล"
+                                    (click)="deletestatus(item.Empstatus_ID,item.EmpstatusName)"><i class="fa fa-trash"
+                                        aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Modalแก้ไข -->
+                <div class="modal fade" id="exampleModalEditstatus" tabindex="-1" role="dialog"
+                    aria-labelledby="Empstatus1" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="Empstatus1">แก้ไขสถานะบุคลากร</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="EmployeeStatusInput2">รหัสสถานะบุคลากร</label>
+                                        <input type="text" class="form-control" id="EmployeeStatusInput2"
+                                            [formControl]="Empstatus_ID" placeholder="รหัสสถานะบุคลากร"
+                                            style="background-color: rgb(226, 223, 223);">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="EmployeeStatusInput3">ชื่อสถานะบุคลากร</label>
+                                        <input type="text" class="form-control " id="EmployeeStatusInput3"
+                                            [formControl]="EmpstatusName" placeholder="ชื่อสถานะบุคลากร">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                    (click)="updateEmpStatus()">บันทึก</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card-body">
-        <table class="table table-hover">
-            <thead >
-                <tr class="text-center">
-                    <th scope="col">รหัสแผนก</th>
-                    <th scope="col">ชื่อแผนก</th>
-                    <th scope="col">จัดการ</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let item of status; let i = index">
-                <tr>
-                    <td class="text-center">{{item.Empstatus_ID}}</td>
-                    <td>{{item.EmpstatusName}}</td>
-                    <td class="text-center">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-toggle="modal"
-                            data-target="#exampleModalEditstatus"
-                            (click)="updateStatus(item.Empstatus_ID,item.EmpstatusName)">
-                            แก้ไข
-                        </button>
-                        &nbsp; &nbsp;
-                        <button type="button" class="btn btn-danger"
-                            (click)="deletestatus(item.Empstatus_ID,item.EmpstatusName)">ลบ</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-                        <!-- Modalแก้ไข -->
-        <div class="modal fade" id="exampleModalEditstatus" tabindex="-1" role="dialog"
-        aria-labelledby="Empstatus1" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="Empstatus1">แก้ไขสถานะบุคลากร</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="EmployeeStatusInput2">รหัสสถานะบุคลากร</label>
-                            <input type="text" class="form-control" id="EmployeeStatusInput2"
-                                [formControl]="Empstatus_ID" placeholder="รหัสสถานะบุคลากร" style="background-color: rgb(226, 223, 223);">
-                        </div>
-                        <div class="form-group">
-                            <label for="EmployeeStatusInput3">ชื่อสถานะบุคลากร</label>
-                            <input type="text" class="form-control " id="EmployeeStatusInput3"
-                                [formControl]="EmpstatusName" placeholder="ชื่อสถานะบุคลากร">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger"
-                        data-dismiss="modal"  >ยกเลิก</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        (click)="updateEmpStatus()">บันทึก</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-</div>
-</div>
 </div>

@@ -12,11 +12,11 @@ export class APIService {
 
   }
 
-  getConfig(): Observable<any> {
+  // getConfig(): Observable<any> {
 
-    const url = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/getMyData.php';
+  //   // const url = 'https://www.rmuti.ac.th/student/sarayuth.kr/Leavewebservice/API/getMyData.php';
 
-    return this.http.get<any>(url);
-  }
+  //   // return this.http.get<any>(url);
+  // }
 
 }

@@ -1,29 +1,30 @@
-
 <div style="padding: 1%;">
     <div class="tab-pane fade show active">
-    
-        <div >
+
+        <div>
             <div style="padding-left: 2%;padding-right: 2%;">
-            <div class="card">
-                <div class="card-body">
-                    <div class="container">
-                        <div class="row row-cols-4">
-                          <div class="col"><h2>แผนก</h2></div>
-                          <div class="col"></div>
-                          <div class="col"></div>
-                          <div class="col"> <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#departmentEmp">
-                            เพิ่มแผนก
-                        </button></div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row row-cols-4">
+                                <div class="col">
+                                    <h2>แผนก</h2>
+                                </div>
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col"> <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#departmentEmp">
+                                        เพิ่มแผนก
+                                    </button></div>
+                            </div>
                         </div>
-                      </div>
-                    
+
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
 
- <br>
+        <br>
         <!-- Button trigger modal -->
 
         <div class="modal fade" id="departmentEmp" tabindex="-1" role="dialog" aria-labelledby="Department "
@@ -48,22 +49,13 @@
                                 <input type="text" class="form-control" id="DepartmentInput1" [formControl]="DeptName"
                                     placeholder="ชื่อแผนก">
                             </div>
-                            <div class="form-group">
-                                <label>ฝ่ายงาน</label>
-                                <!-- <input type="text" class="form-control" [formControl]="SectorName"
-                                            placeholder="ชื่อฝ่ายงาน"> -->
-                                <select class="form-control" id="DepartmentInput2" #Sector_ID>
-                                    <option *ngFor="let item of sector;" value="{{item.Sector_ID}}">{{item.SectorName}}
-                                    </option>
 
-                                </select>
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
-                            (click)="AddDept(Sector_ID.value)">บันทึก</button>
+                            (click)="AddDept()">บันทึก</button>
                     </div>
                 </div>
             </div>
@@ -71,85 +63,85 @@
         <div style="padding-left: 2%;padding-right: 2%;">
             <div class="card">
                 <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="text-center">
-                            <th scope="col">รหัสแผนก</th>
-                            <th scope="col">ชื่อแผนก</th>
-                            <th scope="col">ฝ่ายงาน</th>
-                            <th scope="col">จัดการ </th>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">รหัสแผนก</th>
+                                <th scope="col">ชื่อแผนก</th>
+                                <!-- <th scope="col">ฝ่ายงาน</th>
+                            <th scope="col">จัดการ </th> -->
 
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let item of dep; let i = index">
-                        <tr>
-                            <td class="text-center">{{item.Dept_ID}}</td>
-                            <td>{{item.DeptName}}</td>
-                            <td>{{item.SectorName}}</td>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of dep; let i = index">
+                            <tr>
+                                <td class="text-center">{{item.Dept_ID}}</td>
+                                <td>{{item.DeptName}}</td>
+                                <!-- <td>{{item.SectorName}}</td> -->
 
-                            <td class="text-center">
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#exampleModalEditDept"
-                                    (click)="updatedept(item.Dept_ID,item.DeptName,Sector_ID.value)">
-                                    แก้ไข
-                                </button>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
+                                        data-target="#exampleModalEditDept"
+                                        (click)="updatedept(item.Dept_ID,item.DeptName)" title="แก้ไข้ข้อมูล">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </button>
 
 
-                                &nbsp; &nbsp;
-                                <button type="button" class="btn btn-danger"
-                                    (click)="deleteDept(item.Dept_ID,item.DeptName)">ลบ</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                    &nbsp; &nbsp;
+                                    <button type="button" class="btn btn-danger btn-circle btn-xl" title="ลบข้อมูล"
+                                        (click)="deleteDept(item.Dept_ID,item.DeptName)"><i class="fa fa-trash"
+                                            aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
         </div>
 
         <br>
-                <div class="modal fade" id="exampleModalEditDept" tabindex="-1" role="dialog"
-                    aria-labelledby="PositionEdit" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="PositionEdit">แก้ไขแผนก</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+        <div class="modal fade" id="exampleModalEditDept" tabindex="-1" role="dialog" aria-labelledby="PositionEdit"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="PositionEdit">แก้ไขแผนก</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="DepartmentInput2">รหัสแผนก</label>
+                                <input type="text" class="form-control" id="DepartmentInput2"
+                                    style="background-color: rgb(226, 223, 223);" [formControl]="Dept_ID">
                             </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label for="DepartmentInput2">รหัสแผนก</label>
-                                        <input type="text" class="form-control" id="DepartmentInput2"
-                                            style="background-color: rgb(226, 223, 223);" [formControl]="Dept_ID">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="DepartmentInput3">ชื่อแผนก</label>
-                                        <input type="text" class="form-control" id="DepartmentInput3"
-                                            [formControl]="DeptName">
-                                    </div>
-
+                            <div class="form-group">
+                                <label for="DepartmentInput3">ชื่อแผนก</label>
+                                <input type="text" class="form-control" id="DepartmentInput3" [formControl]="DeptName">
+                            </div>
+                            <!-- 
                                     <div class="form-group">
                                         <label for="DepartmentInput2">ฝ่ายงาน</label>
                                         <select class="form-control" id="DepartmentInput4" #Sector_ID>
                                             <option *ngFor="let item of sector; let i = index"
                                                 value="{{item.Sector_ID}}">{{item.SectorName}}</option>
                                         </select>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                    (click)="updateDepartmant(Sector_ID.value)">บันทึก</button>
-                            </div>
-                        </div>
+                                    </div> -->
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            (click)="updateDepartmant()">บันทึก</button>
                     </div>
                 </div>
-          
-         
- 
+            </div>
+        </div>
+
+
+
     </div>
 
 </div>

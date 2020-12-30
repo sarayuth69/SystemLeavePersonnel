@@ -5,7 +5,7 @@
     $sql  = "DELETE FROM `department` WHERE `department`.`Dept_ID` = '".$_GET["Dept_ID"]."'
     ";
      if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        echo "successfully";
       } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
       }

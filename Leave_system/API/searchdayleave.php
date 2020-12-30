@@ -2,12 +2,44 @@
  header("Access-Control-Allow-Origin: *");
  header('Control-type: application/json',true);
  require 'connect_DB.php' ;
- $day_leave = $_GET['Day_leave'];
- $sql = "SELECT *
+ $day_leave_start = $_GET['Day_leave_start'];
+ $day_leave_last = $_GET['Day_leave_last'];
+ $sql = "SELECT *,concat(day(LeaveDateStart),'/',
+ case when(Month(LeaveDateStart))='1' then 'ม.ค.'
+    when(Month(LeaveDateStart))='2' then 'ก.พ.'
+    when(Month(LeaveDateStart))='3' then 'มี.ค'
+    when(Month(LeaveDateStart))='4' then 'เม.ย.'
+    when(Month(LeaveDateStart))='5' then 'พ.ค'
+    when(Month(LeaveDateStart))='6' then 'มิ.ย.'
+    when(Month(LeaveDateStart))='7' then 'ก.ค.'
+    when(Month(LeaveDateStart))='8' then 'ส.ค.'
+    when(Month(LeaveDateStart))='9' then 'ก.ย.'
+    when(Month(LeaveDateStart))='10' then 'ต.ค.'
+    when(Month(LeaveDateStart))='11' then 'พ.ย.'
+    when(Month(LeaveDateStart))='12' then 'ธ.ค.'
+    else cast(LeaveDateStart as date)
+    end,'/',year(LeaveDateStart)+543) AS LeaveDateStart,
+    concat(day(LeaveDateLast),'/',
+    case when(Month(LeaveDateLast))='1' then 'ม.ค.'
+    when(Month(LeaveDateLast))='2' then 'ก.พ.'
+    when(Month(LeaveDateLast))='3' then 'มี.ค'
+    when(Month(LeaveDateLast))='4' then 'เม.ย.'
+    when(Month(LeaveDateLast))='5' then 'พ.ค'
+    when(Month(LeaveDateLast))='6' then 'มิ.ย.'
+    when(Month(LeaveDateLast))='7' then 'ก.ค.'
+    when(Month(LeaveDateLast))='8' then 'ส.ค.'
+    when(Month(LeaveDateLast))='9' then 'ก.ย.'
+    when(Month(LeaveDateLast))='10' then 'ต.ค.'
+    when(Month(LeaveDateLast))='11' then 'พ.ย.'
+    when(Month(LeaveDateLast))='12' then 'ธ.ค.'
+    else cast(LeaveDateLast as date)
+    end,'/',year(LeaveDateLast)+543) AS LeaveDateLast
        FROM `employee`
-       LEFT JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
-       LEFT JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
-       WHERE DATE(`leave`.`LeaveDateStart`) = DATE('$day_leave')";
+        JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
+        JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
+       WHERE  `leave`.`LeaveDateStart`  BETWEEN '$day_leave_start' AND '$day_leave_last' 
+         OR `leave`.`LeaveDateLast`  BETWEEN '$day_leave_start' AND '$day_leave_last'
+         ORDER BY `leave`.`LeaveDateStart` DESC";
             $result = mysqli_query($conn,$sql); 
             $myArray = array();
             if ($result->num_rows > 0) {
@@ -16,6 +48,7 @@
                     $myArray[] = $row;
                 }
                 print json_encode($myArray);
+                
             } 
             else 
             {

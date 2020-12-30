@@ -66,10 +66,10 @@ export class DepartmentComponent implements OnInit {
     console.log(this.Sector_ID);
     const body = 'Dept_ID=' + this.Dept_ID.value
       + '&DeptName=' + this.DeptName.value
-      + '&Sector_ID=' + this.Sector_ID
+      // + '&Sector_ID=' + this.Sector_ID
 
     console.log(body);
-    if (this.Dept_ID.value === "" || this.DeptName.value === "" || this.Sector_ID.value === "") {
+    if (this.Dept_ID.value === "" || this.DeptName.value === "" ) {
       Swal.fire(
         'กรุณากรอกข้อมูล',
         'That thing is still around?',
@@ -113,7 +113,6 @@ export class DepartmentComponent implements OnInit {
       }).then(() => {
         this.Dept_ID = new FormControl('');
         this.DeptName = new FormControl('');
-        this.Sector_ID = new FormControl('');
       })
     }
   }

@@ -24,7 +24,7 @@
                                 <th scope="col">สามารถลาเกินได้</th>
                                 <th scope="col">แจ้งล่วงหน้า</th>
                                 <th scope="col">จำนวนครั้งที่ลา</th>
-                                <th scope="col">สถานะสิทธิการลา</th>
+                                <!-- <th scope="col">สถานะสิทธิการลา</th> -->
                                 <th scope="col">สถานะบุคลากร</th>
                             </tr>
                         </thead>
@@ -33,18 +33,18 @@
                                 <td>{{item.LTypeName}}</td>
                                 <td>{{item.Number}} /วัน</td>
                                 <td>{{item.Remain}} /วัน</td>
-                                <div *ngIf="item.Remain_over > 0 " style="color: red;" > 
+                                <div *ngIf="item.Remain_over > 0 " style="color: red;">
                                     <td>{{item.Remain_over}} /วัน</td>
                                 </div>
-                                <div *ngIf="item.Remain_over == 0 " style="color: black;" > 
+                                <div *ngIf="item.Remain_over == 0 " style="color: black;">
                                     <td>{{item.Remain_over}} /วัน</td>
                                 </div>
-                              
-                               
-                                <td>{{item.Remain_limit}}  /วัน</td>
+
+
+                                <td>{{item.Remain_limit}} /วัน</td>
                                 <td>{{item.AdvanceNotice}} /วัน</td>
-                                <td>{{item.LOrdinal}}</td>
-                                <td>{{item.QuotaStatus}}</td>
+                                <td>{{item.number_leave_show}}</td>
+                                <!-- <td>{{item.QuotaStatus}}</td> -->
                                 <td>{{item.EmpstatusName}}</td>
                             </tr>
                         </tbody>
@@ -52,8 +52,8 @@
                 </div>
             </div>
         </div>
-<br>
-      
+        <br>
+
     </div>
 
 </div>

@@ -33,7 +33,7 @@
             <!-- <button type="button" class="btn btn-info" >ตรวจสอบ</button> -->
             <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="No_allow(item.Leave_ID)"><i
                 class="fa fa-window-close" aria-hidden="true"></i></button>
-            
+
             <button type="button" class="btn btn-info btn-circle btn-xl" (click)="allow(item.Leave_ID)"><i
                 class="fa fa-check-square" aria-hidden="true"></i></button>
 
@@ -158,47 +158,120 @@
 
 
 <div style="padding-left: 1%;padding-right: 2%;" *ngIf="tableleavewaiting_5">
-  <div class="card">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+        aria-selected="true">รออนุญาตให้ลา</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+        aria-selected="false">รออนุญาตให้ยกเลิกการลา</a>
+    </li>
 
-    <div class="table-responsive-md">
-      <table class="table table-hover">
-        <th class="text-center">ชื่อพนักงาน</th>
-        <th class="text-center">ประเภท</th>
-        <th class="text-center">วันที่ลา</th>
-        <th class="text-center">ถึงวันที่</th>
-        <th class="text-center">จำนวน</th>
-        <th class="text-center">ไฟล์แนบ</th>
-        <th class="text-center">สถานะ</th>
-        <th class="text-center">จัดการ</th>
-        <tbody
-          *ngFor="let item of table_leaveto_waiting | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
-          <td> <a style="color:rgb(80, 80, 246);" data-toggle="modal" data-target="#exampleModal_level_5" (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
-            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name )">
-              <u>{{item.EmpName}} {{item.EmpLastName}}</u> </a>
-            <p> {{item.DeptName}}</p>
-          </td>
-          <td class="text-center">{{item.LTypeName}}</td>
-          <td class="text-center"> {{item.LeaveDateStart}}</td>
-          <td class="text-center"> {{item.LeaveDateLast}} </td>
-          <td class="text-center"> {{item.LeaveTotal}} </td>
-          <td class="text-center"> </td>
-          <td class="text-center"> {{item.LeaveStatus_Name}} </td>
-          <td class="text-center">
-            &nbsp;
-            <!-- Button trigger modal -->
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-            <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="No_allow(item.Leave_ID)"><i
-                class="fa fa-window-close" aria-hidden="true"></i></button>
 
-            <button type="button" class="btn btn-info btn-circle btn-xl" (click)="allow(item.Leave_ID)"><i
-                class="fa fa-check-square" aria-hidden="true"></i></button>
-          </td>
-        </tbody>
-      </table>
-      <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+      <div class="card">
+        <div class="table-responsive-md">
+          <table class="table table-hover">
+            <th class="text-center">ชื่อพนักงาน</th>
+            <th class="text-center">ประเภท</th>
+            <th class="text-center">วันที่ลา</th>
+            <th class="text-center">ถึงวันที่</th>
+            <th class="text-center">จำนวน</th>
+            <th class="text-center">ไฟล์แนบ</th>
+            <th class="text-center">สถานะ</th>
+            <th class="text-center">จัดการ</th>
+            <tbody
+              *ngFor="let item of table_leaveto_waiting | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
+              <td> <a style="color:rgb(80, 80, 246);" data-toggle="modal" data-target="#exampleModal_level_5" (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
+                  item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name )">
+                  <u>{{item.EmpName}} {{item.EmpLastName}}</u> </a>
+                <p> {{item.DeptName}}</p>
+              </td>
+              <td class="text-center">{{item.LTypeName}}</td>
+              <td class="text-center"> {{item.LeaveDateStart}}</td>
+              <td class="text-center"> {{item.LeaveDateLast}} </td>
+              <td class="text-center"> {{item.LeaveTotal}} </td>
+              <td class="text-center"> </td>
+              <td class="text-center"> {{item.LeaveStatus_Name}} </td>
+              <td class="text-center">
+                &nbsp;
+                <!-- Button trigger modal -->
+
+                <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="No_allow(item.Leave_ID)"><i
+                    class="fa fa-window-close" aria-hidden="true"></i></button>
+
+                <button type="button" class="btn btn-info btn-circle btn-xl" (click)="allow(item.Leave_ID)"><i
+                    class="fa fa-check-square" aria-hidden="true"></i></button>
+              </td>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+
+        </div>
+      </div>
+
 
     </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="card">
+        <div class="table-responsive-md">
+          <table class="table table-hover">
+            <th class="text-center">ชื่อพนักงาน</th>
+            <th class="text-center">ประเภท</th>
+            <th class="text-center">วันที่ลา</th>
+            <th class="text-center">ถึงวันที่</th>
+            <th class="text-center">จำนวน</th>
+            <th class="text-center">ไฟล์แนบ</th>
+            <th class="text-center">สถานะ</th>
+            <th class="text-center">จัดการ</th>
+            <tbody
+              *ngFor="let item of table_leaveto_waiting_cancel | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
+              <td> <a style="color:rgb(80, 80, 246);" data-toggle="modal" data-target="#exampleModalcancel_level_5"
+                  (click)="showdata_cancel(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
+                          item.cancel_date_start,item.cancel_date_stop,item.cancel_total,item.cancel_data,item.cancel_status )">
+                  <u>{{item.EmpName}} {{item.EmpLastName}}</u> </a>
+                <p> {{item.DeptName}}</p>
+              </td>
+              <td class="text-center">{{item.LTypeName}}</td>
+              <td class="text-center"> {{item.cancel_date_start}}</td>
+              <td class="text-center"> {{item.cancel_date_stop}} </td>
+              <td class="text-center"> {{item.cancel_total}} </td>
+              <td class="text-center"> </td>
+              <td class="text-center" *ngIf="item.cancel_status == 9 ">
+                <p style="color:red;">ไม่อนุญาตให้ยกเลิกการลา </p>
+              </td>
+              <td class="text-center" *ngIf="item.cancel_status == 10 ">
+                <p style="color:rgb(204, 201, 18);">รออนุญาตให้ยกเลิกการลา </p>
+              </td>
+              <td class="text-center" *ngIf="item.cancel_status == 8 ">
+                <p style="color:rgb(39, 196, 19);">อนุญาตให้ยกเลิกการลา </p>
+              </td>
+              <td class="text-center">
+                &nbsp;
+                <!-- Button trigger modal -->
+
+                <button type="button" class="btn btn-danger btn-circle btn-xl"
+                  (click)="NO_allow_cancel(item.cancel_id)"><i class="fa fa-window-close"
+                    aria-hidden="true"></i></button>
+
+                <button type="button" class="btn btn-info btn-circle btn-xl"
+                  (click)="allow_cancel(item.cancel_id,item.cancel_total,item.leave_ID)"><i class="fa fa-check-square"
+                    aria-hidden="true"></i></button>
+              </td>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+
+        </div>
+      </div>
+    </div>
+
   </div>
+
   <br>
 </div>
 <!-- ******************************************************************* -->
@@ -478,6 +551,7 @@
                 <tr>
                   <th>สถานะ</th>
                   <td>{{LeaveStatus_Name}}</td>
+
                 </tr>
               </tbody>
             </table>
@@ -492,4 +566,90 @@
     </div>
   </div>
 </div>
+
+
+<!-- Modal การอนุญาตไห้ยกเลิก ของหัวหน้าหน่วยงาน-->
+<div class="modal fade" id="exampleModalcancel_level_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ตรวจสอบข้อมูล</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive-xl">
+          <table class="table">
+            <table class="table table-bordered hover ">
+              <thead>
+                <tr class="Leave_ID">
+                  <th width="120">รหัสการลา</th>
+                  <td>{{Leave_ID}} </td>
+                </tr>
+                <tr>
+                  <th width="120">ชื่อ-นามสกุล</th>
+                  <td>{{EmpName}} &nbsp; {{EmpLastName}}</td>
+                </tr>
+                <tr>
+                  <th>ตำแหน่ง</th>
+                  <td>{{PositionName}}</td>
+                </tr>
+                <tr>
+                  <th>แผนก</th>
+                  <td>{{DeptName}}</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>ประเภทการลา</th>
+                  <td>{{LTypeName}}</td>
+                </tr>
+                <tr>
+                  <th>วันที่</th>
+                  <td>{{LeaveDateStart}} ถึงวันที่ {{LeaveDateLast}}</td>
+                </tr>
+                <tr>
+                  <th>จำนวน</th>
+                  <td>{{LeaveTotal}}</td>
+                </tr>
+                <tr>
+                  <th>ผู้รับผิดชอบงานแทน </th>
+                  <td>{{employee}}</td>
+                </tr>
+                <tr>
+                  <th>ข้อมูล</th>
+                  <td>{{LeaveData}}</td>
+                </tr>
+                <tr>
+                  <th>สถานะ</th>
+                  <td *ngIf="LeaveStatus_Name == 9 ">
+                    <p style="color:red;">ไม่อนุญาตให้ยกเลิกการลา </p>
+                  </td>
+                  <td *ngIf="LeaveStatus_Name== 10 ">
+                    <p style="color:rgb(204, 201, 18);">รออนุญาตให้ยกเลิกการลา </p>
+                  </td>
+                  <td *ngIf="LeaveStatus_Name == 8 ">
+                    <p style="color:rgb(39, 196, 19);">อนุญาตให้ยกเลิกการลา </p>
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+          (click)="NO_allow_cancel(item.cancel_id)">ไม่อนุญาต</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="allow(Leave_ID)">อนุญาต</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <!-- **************************************************************** -->

@@ -11,6 +11,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { GlobalVariable } from '../baseUrl';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -73,7 +74,7 @@ export class HeaderComponent implements OnInit {
         (data: any) => {
           this.msg = data
           for (var i = 0; i <= this.msg.length; i++) {
-           
+
             if (this.msg[i].count_data >= 1) {
               this.test_2 = true
               this.test_1 = this.msg[i].count_data
@@ -83,7 +84,7 @@ export class HeaderComponent implements OnInit {
           }
         },
         (error: any) => {
-          console.log(error);
+          console.log("");
         }
 
       )
@@ -111,7 +112,7 @@ export class HeaderComponent implements OnInit {
     //     // }
     //     // console.log(this.msg);
     //   }, (error: any) => {
-    //     console.log(error);
+    //     console.log("");
     //   }
     // )
 
@@ -150,7 +151,7 @@ export class HeaderComponent implements OnInit {
             }
           },
           (error: any) => {
-            console.log(error);
+            console.log("");
           }
 
         )
@@ -181,7 +182,7 @@ export class HeaderComponent implements OnInit {
             }
           },
           (error: any) => {
-            console.log(error);
+            console.log("");
           }
 
         )
@@ -208,7 +209,7 @@ export class HeaderComponent implements OnInit {
           }
 
         }, (error: any) => {
-          console.log(error);
+          console.log("");
         }
       )
 
@@ -217,7 +218,23 @@ export class HeaderComponent implements OnInit {
       // this.emp5 = false; 
       // this.show = false; 
       this.emp5 = true;
+      this.http.get(`${this.baseUrl}count_LeaveToperson.php`).subscribe(
+        (data: any) => {
+          this.count_watting = data
+          for (var i = 0; i <= this.count_watting.length; i++) {
+            console.log(this.count_watting[i].countleave);
+            if (this.count_watting[i].countleave >= 1) {
+              this.show_count_lavel5 = true
+              this.countleave_toperson = this.count_watting[i].countleave
+            } else {
+              this.show_count_lavel5 = false
+            }
+          }
 
+        }, (error: any) => {
+          console.log("");
+        }
+      )
     }
 
   }
@@ -240,7 +257,28 @@ export class HeaderComponent implements OnInit {
   //     this.test_2 = false
   //   }
   // }
-
+  public logoutsso = async () => {
+    Swal.fire({
+      title: 'ต้องการออกจากระบบหรือไม่?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'ออกจากระบบเรียบร้อย',
+          '',
+          'success'
+        ).then(() => {
+          window.location.replace(environment.ssoLogout);
+ 
+        })
+      }
+    })
+  }
   clearUser() {
     Swal.fire({
       title: 'ต้องการออกจากระบบหรือไม่?',
@@ -282,7 +320,7 @@ export class HeaderComponent implements OnInit {
           // this.seach = data;
         },
         (error: any) => {
-          console.log(error);
+          console.log("");
         }
       );
     }

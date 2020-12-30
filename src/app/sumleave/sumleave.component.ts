@@ -71,13 +71,23 @@ export class SumleaveComponent implements OnInit {
   test2 = []
 
   ngAfterViewInit(sumleave) {
-    // this.chart_show = chart
+    console.log(sumleave);
 
+    // this.chart_show = chart
+    this.test1.forEach(element => {
+      this.test1.splice(element.LTypeName)
+    });
+    this.test2.forEach(element => {
+      this.test2.splice(element.sum_total)
+    });
+    
     sumleave.forEach(element => {
       console.log(element);
       this.test1.push(element.LTypeName)
       this.test2.push(element.sum_total)
     });
+
+
     this.canvas = document.getElementById('myChart');
     // this.ctx = this.canvas.getContext(this.chart_show);
     var myChart = new Chart(this.canvas, {
@@ -94,7 +104,15 @@ export class SumleaveComponent implements OnInit {
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)',
             'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            'rgba(255, 159, 64, 1)',
+            'rgba(100, 180, 50, 1)',
+            'rgba(97, 106, 107, 1)',
+            'rgba(72, 140, 19, 1)',
+            'rgba(231, 76, 60, 1)',
+            'rgba(178, 186, 187, 1)',
+            'rgba(23, 32, 42, 1)',
+            'rgba(125, 102, 8, 1)',
+            'rgba(54, 70, 90, 1)',
           ],
 
           borderWidth: 1
@@ -103,17 +121,15 @@ export class SumleaveComponent implements OnInit {
       options: {
         legend: {
           responsive: false,
-          display: true,
-          showLines: false
+          display: true
+
         }
       },
+
     }
-      
+
     );
- 
-    this.test1 =[]
-    this.test2 =[]
-  
+
 
 
   }

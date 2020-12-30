@@ -40,6 +40,8 @@
         leavetype.QuotaStatus,
         leavetype.LType_ID,
         leavetype.LType_limit,
+        IFNULL(SUM(cancel_leave.cancel_total),0) AS cancel_total_show,
+        IFNULL(sum(`leave`.number_leave),0) AS number_leave_show,
         IFNULL(sum(`leave`.LeaveTotal),0) AS sum_total ,
         -- ค่าคงเหลือ
             IF(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)  
@@ -55,10 +57,12 @@
         LEFT JOIN leavetype ON leavetype.Empstatus_ID = employee.Empstatus_ID
         LEFT JOIN employeestatus ON employeestatus.Empstatus_ID = employee.Empstatus_ID
         LEFT JOIN (SELECT * FROM `leave` WHERE  LeaveStatus_ID = 5 )AS `leave` ON `leave`.Emp_ID = employee.Emp_ID 
-        -- AND `leave`.LeaveDateStart BETWEEN '2020-01-01' AND ADDDATE('2020-01-01',INTERVAL 2  MONTH)
+        LEFT JOIN  (SELECT * FROM `cancel_leave` WHERE  cancel_status = 8 )AS cancel_leave ON  cancel_leave.leave_ID = `leave`.leave_ID
+        -- LEFT JOIN leave_limit ON `leave`.limit_ID = leave_limit.limit_ID
+        -- AND `leave`.LeaveDateStart BETWEEN `leave_limit`.Date_start AND ADDDATE(`leave_limit`.Date_start,INTERVAL limit_date  MONTH)
         AND `leave`.LType_ID = leavetype.LType_ID
     WHERE 
-      employee.Emp_ID ='".$_POST["Emp_ID"]."' 
+      employee.Emp_ID ='".$_POST["Emp_ID"]."'
     GROUP BY
     employee.Emp_ID,
     leavetype.LType_ID
