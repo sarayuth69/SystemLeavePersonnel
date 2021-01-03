@@ -27,7 +27,7 @@ export class LeavetowaitingComponent implements OnInit {
   tableleavewaiting_4: boolean;
   tableleavewaiting_5: boolean;
   pageActual: any;
-
+  employee_show
   count_watting
   countleave_toDepartmenthead
   countleave_toDeputyleader
@@ -466,7 +466,7 @@ export class LeavetowaitingComponent implements OnInit {
 
   }
   showdata(Leave_ID, EmpName, EmpLastName, PositionName, DeptName, LTypeName,
-    LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveData, LeaveStatus_Name) {
+    LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveData, LeaveStatus_Name, employee) {
     console.log(EmpName);
     console.log(Leave_ID);
 
@@ -481,13 +481,14 @@ export class LeavetowaitingComponent implements OnInit {
     this.LeaveTotal = LeaveTotal
     this.LeaveData = LeaveData
     this.LeaveStatus_Name = LeaveStatus_Name
+    this.employee_show = employee
 
 
   }
 
 
   showdata_cancel(Leave_ID, EmpName, EmpLastName, PositionName, DeptName, LTypeName,
-    LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveData, LeaveStatus_Name) {
+    LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveData, LeaveStatus_Name, cancel_id) {
     console.log(EmpName);
     console.log(Leave_ID);
 
@@ -502,6 +503,8 @@ export class LeavetowaitingComponent implements OnInit {
     this.LeaveTotal = LeaveTotal
     this.LeaveData = LeaveData
     this.LeaveStatus_Name = LeaveStatus_Name
+    this.cancel_id = cancel_id
+   
 
 
   }
@@ -713,8 +716,7 @@ export class LeavetowaitingComponent implements OnInit {
   }
   cancel_id: any;
   NO_allow_cancel(cancel_id) {
-    this.cancel_id = cancel_id;
-    const body = 'cancel_id=' + this.cancel_id
+    const body = 'cancel_id=' + cancel_id
       + '&cancel_status=' + 9
     console.log(body);
     const headers = new HttpHeaders({

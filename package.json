@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build",
+    "start": "ng serve ",
+    "build": "ng build --prod --build-optimizer --base-href=/project/Leave_system/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -45,6 +45,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^14.14.13",
     "codelyzer": "^5.2.2",
+    "https-proxy-agent": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",

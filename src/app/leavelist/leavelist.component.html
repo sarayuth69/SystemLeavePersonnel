@@ -225,15 +225,15 @@
                                 <tbody
                                     *ngFor="let item of showcancel_allow | paginate: { itemsPerPage: 10, currentPage: pageActual};">
                                     <tr>
-                                        <td class="text"> <a  style="color:rgb(80, 80, 246);" data-toggle="modal"
+                                        <td class="text"> <a style="color:rgb(80, 80, 246);" data-toggle="modal"
                                                 data-target="#exampleModal"
                                                 (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                                                         item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                                                         item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
-                                                                      item.LeaveStatus_Name, item.LeaveStatus_Document)">
-                                                <u > {{item.EmpName}}
+                                                                      item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names)">
+                                                <u> {{item.EmpName}}
                                                     {{item.EmpLastName}}</u></a>
-                                            <p >{{item.DeptName}}</p>
+                                            <p>{{item.DeptName}}</p>
                                         </td>
 
                                         <td class="text-center">{{item.LTypeName}}</td>

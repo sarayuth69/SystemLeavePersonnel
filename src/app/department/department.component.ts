@@ -61,9 +61,9 @@ export class DepartmentComponent implements OnInit {
       }
     )
   }
-  AddDept(s) {
-    this.Sector_ID = s
-    console.log(this.Sector_ID);
+  AddDept() {
+   
+
     const body = 'Dept_ID=' + this.Dept_ID.value
       + '&DeptName=' + this.DeptName.value
       // + '&Sector_ID=' + this.Sector_ID
@@ -164,21 +164,20 @@ export class DepartmentComponent implements OnInit {
   }
 
   updatedept(
-    Dept_ID, DeptName, S
+    Dept_ID, DeptName
   ) {
 
     this.Dept_ID = new FormControl(Dept_ID);
     this.DeptName = new FormControl(DeptName);
-    this.Sector_ID = S
+  
   }
-  public updateDepartmant(S) {
-    this.Sector_ID = S
-    console.log(this.Sector_ID);
+  public updateDepartmant() {
+  
 
     const body =
       'Dept_ID=' + this.Dept_ID.value
       + '&DeptName=' + this.DeptName.value
-      + '&Sector_ID=' + this.Sector_ID
+    
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'

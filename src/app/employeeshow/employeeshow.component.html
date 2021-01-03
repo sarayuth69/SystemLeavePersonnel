@@ -67,7 +67,7 @@
                                             </td>
                                             <td class="text-center">{{item.EmpstatusName}}</td>
                                             <td class="Role">{{item.Role}}</td>
-                                            <td class="text-center">
+                                            <td class="text-center" *ngIf="">
                                                 <button class="btn btn-secondary" type="button" id="Leavelistadmin"
                                                     data-toggle="modal" data-target="#exampleModal1"
                                                     (click)="LeaveEmp(item.Emp_ID,item.EmpName,item.EmpLastName

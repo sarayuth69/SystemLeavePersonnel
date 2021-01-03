@@ -52,7 +52,7 @@
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#holiday" role="tab" aria-controls="holiday"
-              aria-selected="false" (click)="serch_year()" #select_year>จัดการวันหยุดนักขัตฤกษ์</a>
+              aria-selected="false" (click)="serch_year(select_year.value)" #select_year>จัดการวันหยุดนักขัตฤกษ์</a>
           </li>
         </ul>
       </div>
@@ -251,7 +251,7 @@
                     <th scope="col">
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#exampleModal_manage" (click)="check_limit()">
+                        data-target="#exampleModal_manage">
                         จัดการรอบการประเมิน
                       </button>
                     </th>
@@ -306,8 +306,7 @@
 
                   </tr>
                 </thead>
-                <tbody
-                  *ngFor="let item of show_holiday| paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
+                <tbody *ngFor="let item of show_holiday | paginate: { itemsPerPage: 10, currentPage: pageActual}">
                   <tr class="text-center">
                     <td><button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
                         data-target="#exampleModal_edit_holiday"
@@ -318,9 +317,9 @@
                           class="fa fa-trash" aria-hidden="true"></i></button>
                     </td>
                     <td>
-                      <p ng-repeat="i in range(1, 5)">
+                      <!-- <p ng-repeat="i in range(1, 5)">
                         {{ i+1 }}
-                      </p>
+                      </p> -->
                     </td>
                     <td>{{item.holiday_show_date}} </td>
                     <td>
@@ -335,9 +334,8 @@
                   </tr>
                 </tbody>
               </table>
-              <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
-
             </div>
+            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
 
           </div>
         </div>

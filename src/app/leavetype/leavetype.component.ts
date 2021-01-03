@@ -44,6 +44,7 @@ export class LeavetypeComponent implements OnInit {
   limit_ID = new FormControl('');
   Name_limit = new FormControl('');
 
+  pageActual: any;
 
   
 
@@ -446,11 +447,11 @@ export class LeavetypeComponent implements OnInit {
     })
   }
 
-  check_limit(date_stop) {
-    console.log(date_stop);
+  // check_limit() {
+   
 
 
-  }
+  // }
   text = new Date().getDate();
 
   add_leave_limit() {

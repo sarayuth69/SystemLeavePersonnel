@@ -16,7 +16,7 @@
           *ngFor="let item of table_leaveto_waiting | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
           <td> <a style="color:rgb(80, 80, 246);" data-toggle="modal" data-target="#exampleModal_level_2"
               (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
-            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name )"><u>{{item.EmpName}} {{item.EmpLastName}}</u></a>
+            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name,item.employee )"><u>{{item.EmpName}} {{item.EmpLastName}}</u></a>
             <p> {{item.DeptName}}</p>
           </td>
 
@@ -67,7 +67,7 @@
           *ngFor="let item of table_leaveto_waiting | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
           <td> <a style="color:rgb(80, 80, 246);" data-toggle="modal" data-target="#exampleModal_level_3"
               (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
-            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name )"><u>{{item.EmpName}} {{item.EmpLastName}}</u></a>
+            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name,item.employee )"><u>{{item.EmpName}} {{item.EmpLastName}}</u></a>
             <p> {{item.DeptName}}</p>
           </td>
 
@@ -122,8 +122,9 @@
         <th class="text-center">จัดการ</th>
         <tbody
           *ngFor="let item of table_leaveto_waiting | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
-          <td> <a style="color:rgb(80, 80, 246);" data-toggle="modal" data-target="#exampleModal_level_4" (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
-            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name )"><u>
+          <td> <a style="color:rgb(80, 80, 246);" data-toggle="modal" data-target="#exampleModal_level_4"
+              (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
+            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name,item.employee )"><u>
                 {{item.EmpName}} {{item.EmpLastName}}</u></a>
             <p> {{item.DeptName}}</p>
           </td>
@@ -186,8 +187,9 @@
             <th class="text-center">จัดการ</th>
             <tbody
               *ngFor="let item of table_leaveto_waiting | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
-              <td> <a style="color:rgb(80, 80, 246);" data-toggle="modal" data-target="#exampleModal_level_5" (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
-                  item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name )">
+              <td> <a style="color:rgb(80, 80, 246);" data-toggle="modal" data-target="#exampleModal_level_5"
+                  (click)="showdata(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
+            item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,item.LeaveData,item.LeaveStatus_Name,item.employee )">
                   <u>{{item.EmpName}} {{item.EmpLastName}}</u> </a>
                 <p> {{item.DeptName}}</p>
               </td>
@@ -232,7 +234,7 @@
               *ngFor="let item of table_leaveto_waiting_cancel | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
               <td> <a style="color:rgb(80, 80, 246);" data-toggle="modal" data-target="#exampleModalcancel_level_5"
                   (click)="showdata_cancel(item.Leave_ID,item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.LTypeName,
-                          item.cancel_date_start,item.cancel_date_stop,item.cancel_total,item.cancel_data,item.cancel_status )">
+                          item.cancel_date_start,item.cancel_date_stop,item.cancel_total,item.cancel_data,item.cancel_status,item.cancel_id )">
                   <u>{{item.EmpName}} {{item.EmpLastName}}</u> </a>
                 <p> {{item.DeptName}}</p>
               </td>
@@ -264,9 +266,10 @@
               </td>
             </tbody>
           </table>
-          <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
 
         </div>
+        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+
       </div>
     </div>
 
@@ -323,7 +326,7 @@
                 </tr>
                 <tr>
                   <th>ผู้รับผิดชอบงานแทน</th>
-                  <td>{{employee}}</td>
+                  <td>{{employee_show}}</td>
                 </tr>
                 <tr>
                   <th>ข้อมูล</th>
@@ -397,7 +400,7 @@
                 </tr>
                 <tr>
                   <th>ผู้รับผิดชอบงานแทน</th>
-                  <td>{{employee}}</td>
+                  <td>{{employee_show}}</td>
                 </tr>
                 <tr>
                   <th>ข้อมูล</th>
@@ -469,7 +472,7 @@
                 </tr>
                 <tr>
                   <th>ผู้รับผิดชอบงานแทน</th>
-                  <td>{{employee}}</td>
+                  <td>{{employee_show}}</td>
                 </tr>
                 <tr>
                   <th>ข้อมูล</th>
@@ -542,7 +545,7 @@
                 </tr>
                 <tr>
                   <th>ผู้รับผิดชอบงานแทน </th>
-                  <td>{{employee}}</td>
+                  <td>{{employee_show}}</td>
                 </tr>
                 <tr>
                   <th>ข้อมูล</th>
@@ -616,11 +619,13 @@
                 </tr>
                 <tr>
                   <th>ผู้รับผิดชอบงานแทน </th>
-                  <td>{{employee}}</td>
+                  <td>{{employee_show}}</td>
                 </tr>
                 <tr>
                   <th>ข้อมูล</th>
                   <td>{{LeaveData}}</td>
+                
+                  <input type="text" style="display: none;" value="{{cancel_id}}">
                 </tr>
                 <tr>
                   <th>สถานะ</th>
@@ -642,7 +647,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal"
-          (click)="NO_allow_cancel(item.cancel_id)">ไม่อนุญาต</button>
+          (click)="NO_allow_cancel(cancel_id)">ไม่อนุญาต</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="allow(Leave_ID)">อนุญาต</button>
       </div>
     </div>

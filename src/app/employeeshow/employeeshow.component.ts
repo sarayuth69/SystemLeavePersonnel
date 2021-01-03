@@ -124,25 +124,49 @@ export class EmployeeshowComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (localStorage.getItem('Role') === "4") {
+      const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+        + '&Role=' + localStorage.getItem("Role")
+        + '&Sector_ID=' + localStorage.getItem("Sector_ID")
+      console.log(body1);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getDept_to_head.php`, body1, {
+          headers: headers
+        }).subscribe(
+          (data: any) => {
+            this.Dept_to_head = data;
+            console.log(this.Dept_to_head);
 
-    const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
-      + '&Role=' + localStorage.getItem("Role")
-    console.log(body1);
-    const headers1 = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post(`${this.baseUrl}getDept_to_head.php`, body1, {
-        headers: headers1
-      }).subscribe(
-        (data: any) => {
-          this.Dept_to_head = data;
-        },
-        (error: any) => {
-          console.log(error);
-        }
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        )
+    }
+    else {
+      const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+        + '&Role=' + localStorage.getItem("Role")
+      console.log(body1);
+      const headers1 = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getDept_to_head.php`, body1, {
+          headers: headers1
+        }).subscribe(
+          (data: any) => {
+            this.Dept_to_head = data;
+          },
+          (error: any) => {
+            console.log(error);
+          }
 
-      )
+        )
+
+    }
 
     this.http.get(`${this.baseUrl}getEmployee.php`).subscribe(
       (data: any) => {
@@ -582,7 +606,7 @@ export class EmployeeshowComponent implements OnInit {
 
       else if (Role_chack === "1") {
         this.Add_leave_level_1(LeaveTotal, Name_Leave, To_Person)
-     
+
       }
       else if (Role_chack === "2") {
         this.Add_leave_level_2(LeaveTotal, Name_Leave, To_Person)

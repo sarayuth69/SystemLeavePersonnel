@@ -1,6 +1,0 @@
-{
-  "/api": {
-    "target": "http://cpe.rmuti.ac.th/project/Leave_system/",
-    "secure": false
-  }
-}
