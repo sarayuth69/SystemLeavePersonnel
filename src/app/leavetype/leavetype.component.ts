@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, OnDestroy, HostListener} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from '../api.service';
 import {
@@ -46,7 +46,7 @@ export class LeavetypeComponent implements OnInit {
 
   pageActual: any;
 
-  
+
 
   holiday_ID = new FormControl('');
   holiday_date = new FormControl('');
@@ -76,7 +76,7 @@ export class LeavetypeComponent implements OnInit {
     'พฤศจิกายน',
     'ธันวาคม'
   );
-  
+
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -448,22 +448,20 @@ export class LeavetypeComponent implements OnInit {
   }
 
   // check_limit() {
-   
+
 
 
   // }
   text = new Date().getDate();
 
   add_leave_limit() {
-    const body = 'limit_ID=' + this.limit_ID.value
-      + '&Name_limit=' + this.Name_limit.value
-      + '&Date_start=' + this.Date_start.value
-      + '&limit_date=' + this.limit_date.value
+
+    // console.log(body);
     // const headers = new HttpHeaders({
     //   'Content-Type': 'application/x-www-form-urlencoded'
     // });
     // this.http
-    //   .post(`${this.baseUrl}Insertleave_limit.php`, body, {
+    //   .post(`${this.baseUrl}insert_leave_limit.php`, body, {
     //     headers: headers
     //   })
     //   .subscribe(
@@ -484,34 +482,28 @@ export class LeavetypeComponent implements OnInit {
     } else {
 
 
-      this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
-        (data: any) => {
+      // this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+      //   (data: any) => {
 
-          for (var i = 0; i <= data.length; i++) {
-            this.showleave_limit = data;
-            console.log(this.showleave_limit[i].Date_start);
-            this.showleave_limit.forEach(element => {
-              console.log(element.getdate())
-            });
-            // for (var j = 0; j < this.showleave_limit[i].date_stop; j++) {
-            //   this.showleave_limit[i].Date_start.getDate();
-            //   console.log(this.showleave_limit[i].Date_start);
-
-            // }
-
-          }
+      //     for (var i = 0; i <= data.length; i++) {
+      //       this.showleave_limit = data;
+      //       console.log(this.showleave_limit[i].Date_start);
+      //       this.showleave_limit.forEach(element => {
+      //         console.log(element.getdate())
+      //       });
+      //     }
 
 
 
 
-        }, (error: any) => {
-          console.log(error);
-        }
-      )
-
-
-
-
+      //   }, (error: any) => {
+      //     console.log(error);
+      //   }
+      // )
+      const body = 'limit_ID=' + 0
+        + '&Name_limit=' + this.Name_limit.value
+        + '&Date_start=' + this.Date_start.value
+        + '&limit_date=' + this.limit_date.value
       console.log(body);
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -547,7 +539,54 @@ export class LeavetypeComponent implements OnInit {
       })
     }
   }
+  limit_ID_show
+  Name_limit_show
+  delete_leave_limit(limit_ID, Name_limit) {
+    this.limit_ID_show = limit_ID;
+    this.Name_limit_show = Name_limit;
 
+
+    Swal.fire({
+      title: 'คุณจะลบ' + ' ' + this.Name_limit_show + ' ' + 'หรือไม่',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#00FF33',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'ลบเรียบร้อย',
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          this.http
+            .get(
+              `${this.baseUrl}Delete_leave_limit.php?limit_ID=` + this.limit_ID_show
+            )
+            .subscribe(
+              (data: any) => {
+                
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            );
+        }).then(() => {
+          this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+            (data: any) => {
+              this.showleave_limit = data;
+            }, (error: any) => {
+              console.log(error);
+            }
+          )
+        })
+      }
+
+    })
+  }
 
   add_holiday() {
     const body = 'holiday_ID=' + 0

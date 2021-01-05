@@ -88,7 +88,13 @@
                     </td>
 
                     <!-- <td>{{item.LType_ID}}</td> -->
-                    <td>{{item.LTypeName}}</td>
+                    <td>
+                      <div class="card text-center bg-light " style="width: 11rem;">
+                        <div class="card-body">
+                          {{item.LTypeName}}
+                        </div>
+                      </div>
+                    </td>
                     <td>{{item.Number}}</td>
                     <td>{{item.LType_limit}}</td>
                     <!-- <td>{{item.Remain}}</td> -->
@@ -151,7 +157,13 @@
                     </td>
 
                     <!-- <td>{{item.LType_ID}}</td> -->
-                    <td>{{item.LTypeName}}</td>
+                    <td>
+                      <div class="card text-center bg-light " style="width: 11rem;">
+                        <div class="card-body">
+                          {{item.LTypeName}}
+                        </div>
+                      </div>
+                    </td>
                     <td>{{item.Number}}</td>
                     <td>{{item.LType_limit}}</td>
                     <!-- <td>{{item.Remain}}</td> -->
@@ -209,7 +221,13 @@
                     </td>
 
                     <!-- <td>{{item.LType_ID}}</td> -->
-                    <td>{{item.LTypeName}}</td>
+                    <td>
+                      <div class="card text-center bg-light " style="width: 11rem;">
+                        <div class="card-body">
+                          {{item.LTypeName}}
+                        </div>
+                      </div>
+                    </td>
                     <td>{{item.Number}}</td>
                     <td>{{item.LType_limit}}</td>
                     <!-- <td>{{item.Remain}}</td> -->
@@ -252,7 +270,7 @@
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-primary" data-toggle="modal"
                         data-target="#exampleModal_manage">
-                        จัดการรอบการประเมิน
+                        เพิ่มรอบการประเมิน
                       </button>
                     </th>
                   </tr>
@@ -268,7 +286,12 @@
                     <td>{{item.Date_start_format}}</td>
                     <td>{{item.limit_date}}</td>
                     <td>{{item.date_stop}} </td>
-                    <td></td>
+                    <td>
+                      <!-- <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-pencil-square-o"
+                          aria-hidden="true"></i></button> -->
+                      <button type="button" (click)="delete_leave_limit(item.limit_ID,item.Name_limit)"
+                        class="btn btn-danger btn-circle btn-xl"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    </td>
                   </tr>
                 </tbody>
               </table>

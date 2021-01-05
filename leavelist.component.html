@@ -19,10 +19,19 @@
                             </div>
                             <div class="col-sm">
                                 <button class="btn btn-warning" type="button" data-toggle="modal"
-                                    data-target="#exampleModalleave" >
+                                    data-target="#exampleModalleave" onclick="document.getElementById('nameleave').value = '',
+                                    document.getElementById('type_leave').value = '',
+                                    document.getElementById('customCheck1').value = '',
+                                    document.getElementById('check_Remain').value = '',
+                                    document.getElementById('LType_limit_check').value = '',
+                                    document.getElementById('employee_work').value = '',
+                                    document.getElementById('dataleave').value = '',
+                                    document.getElementById('datacontact').value = '',
+                                    document.getElementById('LeaveDateStart').value = '',
+                                    document.getElementById('LeaveDateLast').value = '',
+                                    document.getElementById('LeaveTotal').value = ''">
                                     ยื่นขอลา
                                 </button>
-                               
                             </div>
                         </div>
                     </div>
@@ -817,7 +826,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                 <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}`
-                    (click)="AddLeave(LeaveTotal.value,check_number.value,limit_type.value,Name_Leave.value,To_Person.value)">OK</button>
+                    (click)="AddLeave(LeaveTotal.value,check_number.value,limit_type.value,Name_Leave.value,To_Person.value,fileInput.value)">OK</button>
 
             </div>
         </div>

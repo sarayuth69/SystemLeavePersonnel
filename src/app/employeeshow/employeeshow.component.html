@@ -67,13 +67,17 @@
                                             </td>
                                             <td class="text-center">{{item.EmpstatusName}}</td>
                                             <td class="Role">{{item.Role}}</td>
-                                            <td class="text-center" *ngIf="">
-                                                <button class="btn btn-secondary" type="button" id="Leavelistadmin"
-                                                    data-toggle="modal" data-target="#exampleModal1"
+                                            <td class="text-center" *ngIf="item.status_data == 'Y'">
+                                                <button class="btn btn-secondary btn-circle btn-xl" type="button"
+                                                    id="Leavelistadmin" title="ยื่นขอลา" data-toggle="modal"
+                                                    data-target="#exampleModal1"
                                                     (click)="LeaveEmp(item.Emp_ID,item.EmpName,item.EmpLastName
                                             ,item.PositionName,item.DeptName,item.SectorName,item.Role,item.Empstatus_ID)">
-                                                    ยื่นขอลา
+                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
                                                 </button>
+                                            </td>
+                                            <td class="text-center" *ngIf="item.status_data == 'N'">
+                                                <p>รออนุญาตให้ใช้งาน</p>
                                             </td>
 
                                             <td class="text-center">
@@ -518,18 +522,18 @@
                                             <div class="row">
                                                 <div class="col-sm">
                                                     <h6>รหัส </h6>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control" value="{{Local_Emp_ID}}"
                                                         [formControl]="Emp_ID" readonly>
                                                 </div>
                                                 <div class="col-sm">
                                                     <h6> ชื่อ </h6>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control" value="{{Local_EmpName}}"
                                                         [formControl]="EmpName" readonly>
                                                 </div>
                                                 <div class="col-sm">
                                                     <h6> นามสกุล </h6>
                                                     <input type="text" class="form-control" id="validationDefault02"
-                                                        [formControl]="EmpLastName"
+                                                        value="{{Local_EmpLastName}}" [formControl]="EmpLastName"
                                                         readonly>
                                                 </div>
                                             </div>
@@ -540,20 +544,19 @@
                                                 <div class="col-sm">
                                                     <h6>ตำแหน่ง </h6>
                                                     <input type="text" class="form-control"
-                                                        [formControl]="PositionName"
+                                                        value="{{Local_PositionName}}" [formControl]="PositionName"
                                                         readonly>
                                                 </div>
                                                 <div class="col-sm">
                                                     <h6>แผนก </h6>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control" value="{{Local_DeptName}}"
                                                         [formControl]="DeptName" readonly>
                                                 </div>
                                                 <div class="col-sm">
                                                     <h6> ฝ่าย </h6>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control" value="{{Local_Sector}}"
                                                         id="validationDefault02" [formControl]="Sector" readonly>
-                                                    <input type="text" class="form-control" #Role_chack id="Role_value"
-                                                        [formControl]="Role" readonly>
+                                                        <input type="text" class="form-control" #Role_chack id="Role_value" [formControl]="Role" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -586,13 +589,13 @@
 
                                                 </div>
                                                 <!-- <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                                    (change)="toggleVisibility($event)">
-                                                <label class="custom-control-label"
-                                                    for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
-                                                <span *ngIf="marked"><input type="text" id="employee_work"
-                                                        [formControl]="employee"></span>
-                                            </div> -->
+                                                                            <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                                                                (change)="toggleVisibility($event)">
+                                                                            <label class="custom-control-label"
+                                                                                for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
+                                                                            <span *ngIf="marked"><input type="text" id="employee_work"
+                                                                                    [formControl]="employee"></span>
+                                                                        </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -617,32 +620,32 @@
 
                                     </div>
                                     <!-- <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="dateCheck1"
-                                        (change)="toggleVisibility_date($date)">
-                                    <label class="custom-control-label" for="customCheck1">ลามากกว่า 1 วัน</label>
-
-                                </div> -->
+                                                                <input type="checkbox" class="custom-control-input" id="dateCheck1"
+                                                                    (change)="toggleVisibility_date($date)">
+                                                                <label class="custom-control-label" for="customCheck1">ลามากกว่า 1 วัน</label>
+                            
+                                                            </div> -->
 
 
 
                                     <!-- <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="inlineCheckbox2"
-                                        (change)="toggleVisibility_date($event)">
-                                    <label class="custom-control-label" for="inlineCheckbox2">ลามากกว่า 1 วัน</label>
-                                </div> -->
+                                                                <input class="custom-control-input" type="checkbox" id="inlineCheckbox2"
+                                                                    (change)="toggleVisibility_date($event)">
+                                                                <label class="custom-control-label" for="inlineCheckbox2">ลามากกว่า 1 วัน</label>
+                                                            </div> -->
 
 
                                     <div class="form-row">
-
                                         <div class="col-sm">
                                             <div class="card text-white  mb-3" style="max-width: 18rem;">
                                                 <div class="card-header bg-primary">วันที่ลา</div>
                                                 <div class="card-body text-primary">
                                                     <input type="date" class="form-control" id="LeaveDateStart"
                                                         [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
-                                                        data-date-format="DD MMMM YYYY"
                                                         (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
                                                         required>
+                                                    <h6>ประเภทวันลา</h6>
+
                                                     <select class="form-control" id="Leave_characteristics_dateStart"
                                                         [formControl]="Leave_characteristics_dateStart"
                                                         (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">
@@ -653,12 +656,12 @@
                                                 </div>
                                             </div>
                                             <!-- <label for="validationDefault04">วันที่ลา</label>
-                                        <input type="date" class="form-control" id="LeaveDateStart"
-                                            [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
-                                            data-date-format="DD MMMM YYYY" required>
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                        </select> -->
+                                                                    <input type="date" class="form-control" id="LeaveDateStart"
+                                                                        [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
+                                                                        data-date-format="DD MMMM YYYY" required>
+                                                                    <select class="form-control">
+                                                                        <option>Default select</option>
+                                                                    </select> -->
                                         </div>
 
                                         <div class="col-sm">
@@ -667,8 +670,9 @@
                                                 <div class="card-body text-primary">
                                                     <input type="date" class="form-control" id="LeaveDateLast"
                                                         (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
-                                                        [formControl]="LeaveDateLast" [max]="maxDate" data-date=""
+                                                        [formControl]="LeaveDateLast" [max]="maxDate"
                                                         data-date-format="DD MMMM YYYY" required>
+                                                    <h6>ประเภทวันลา</h6>
                                                     <select class="form-control" id="Leave_characteristics_dateLast"
                                                         [formControl]="Leave_characteristics_dateLast"
                                                         (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">
@@ -680,12 +684,12 @@
                                             </div>
                                             <!-- <label>ถึงวันที่</label> -->
                                             <!-- <input type="date" class="form-control" id="LeaveDateLast"
-                                            (change)="test_date(LeaveDateStart.value,LeaveDateLast.value)"
-                                            [formControl]="LeaveDateLast" [max]="maxDate" data-date=""
-                                            data-date-format="DD MMMM YYYY" required>
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                        </select> -->
+                                                                        (change)="test_date(LeaveDateStart.value,LeaveDateLast.value)"
+                                                                        [formControl]="LeaveDateLast" [max]="maxDate" data-date=""
+                                                                        data-date-format="DD MMMM YYYY" required>
+                                                                    <select class="form-control">
+                                                                        <option>Default select</option>
+                                                                    </select> -->
                                         </div>
 
                                         <div class="col-md-2 mb-2">
@@ -700,30 +704,42 @@
                                                 <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
                                                 <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
                                             </select>
-                                        </div>
-
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="exampleFormControlFile1">แนปไฟล์</label>
-                                                <br>
-                                                <input type="file" (change)="onFileChanged($event)">
-
-                                            </div>
-                                            <br>
-
                                             <label>เลือกรอบการประเมิน</label>
                                             <select class="form-control" [formControl]="limit_ID">
                                                 <option *ngFor="let item of showleave_limit " value="{{item.limit_ID}}">
                                                     {{item.Name_limit}}</option>
                                             </select>
+                                        </div>
+
+                                        <form>
+                                            <br>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlFile1">แนปไฟล์</label>
+                                                <br>
+                                                <input type="file" #fileInput (change)="onFileChanged($event)">
+                                                <button type="button" (click)="file_remove(fileInput)"
+                                                    class="btn btn-danger btn-circle "><i class="fa fa-trash"
+                                                        aria-hidden="true"></i></button>
+                                                <br>
+                                                <br>
+                                                <!-- <div class="progress" *ngIf="progress">
+
+                                                    <div class="progress-bar" [style.width]="progress + '%'">
+                                                        {{progress}}%
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            <br>
+
+
                                         </form>
                                         <div class="form-row">
                                             <!-- <label>สถานะการส่งใบลาฉบับจริง</label>
-                                        <select class="custom-select" [formControl]="LeaveStatus_Document">
-                                            <option selected>--เลือกสถานะ--</option>
-                                            <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
-                                            <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
-                                        </select> -->
+                                                                    <select class="custom-select" [formControl]="LeaveStatus_Document">
+                                                                        <option selected>--เลือกสถานะ--</option>
+                                                                        <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
+                                                                        <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
+                                                                    </select> -->
                                         </div>
                                     </div>
                                 </form>

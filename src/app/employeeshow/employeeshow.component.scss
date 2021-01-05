@@ -92,3 +92,7 @@
   font-size: 12px;
   line-height: 1.42857;
 }
+button:hover .fa {
+  -webkit-animation: fa-spin 1s;
+  animation: fa-spin 1s;
+}

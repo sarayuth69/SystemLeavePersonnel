@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
     private http: HttpClient,
     // private baseUrl : baseUrl
   ) { }
-  show: boolean
+  show: boolean = false
   emp5: boolean
   emp4: boolean
   emp3: boolean
@@ -273,8 +273,9 @@ export class HeaderComponent implements OnInit {
           '',
           'success'
         ).then(() => {
+          localStorage.clear();
           window.location.replace(environment.ssoLogout);
- 
+
         })
       }
     })
