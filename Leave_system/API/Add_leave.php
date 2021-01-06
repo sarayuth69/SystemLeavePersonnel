@@ -9,7 +9,6 @@
    // echo $target_file = $target_dir . basename($_FILES["myFile"]["name"]);
   move_uploaded_file($_FILES["myFile"]["tmp_name"],$target_file);
   }
-  
     $sql  = "INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`,
     `To_Person`,`LeaveDateStart`,`Leave_characteristics_dateStart`,
      `LeaveDateLast`,`Leave_characteristics_dateLast`, `LeaveData`,
@@ -37,7 +36,6 @@
     '".$_POST['limit_ID']."',
     '".$_POST['LType_ID']."',
     '".$target_file."'
-  
     )"; 
 
   if ($conn->query($sql) === TRUE) {

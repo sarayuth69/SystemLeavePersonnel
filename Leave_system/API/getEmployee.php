@@ -8,7 +8,7 @@
 LEFT JOIN position ON employee.Position_ID = position.Position_ID
 LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
 LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
-WHERE 1
+WHERE employee.status_data = 'Y'
 GROUP BY `employee`.`Emp_ID`
 ORDER BY ABS(`employee`.`Emp_ID`) ASC
 ";

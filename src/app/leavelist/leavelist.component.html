@@ -19,10 +19,10 @@
                             </div>
                             <div class="col-sm">
                                 <button class="btn btn-warning" type="button" data-toggle="modal"
-                                    data-target="#exampleModalleave" >
+                                    data-target="#exampleModalleave">
                                     ยื่นขอลา
                                 </button>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -713,8 +713,8 @@
                                                     required>
                                                 <h6>ประเภทวันลา</h6>
 
-                                                <select class="form-control" id="Leave_characteristics_dateStart"
-                                                    [formControl]="Leave_characteristics_dateStart"
+                                                <select class="custom-select" id="Leave_characteristics_dateStart"
+                                                    [disabled]="btnDisable_start" #Leave_characteristics_dateStart
                                                     (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">
                                                     <option value="เต็มวัน">เต็มวัน</option>
                                                     <option value="ครึ่งวันเช้า">ครึ่งวันเช้า</option>
@@ -740,8 +740,8 @@
                                                     [formControl]="LeaveDateLast" [max]="maxDate"
                                                     data-date-format="DD MMMM YYYY" required>
                                                 <h6>ประเภทวันลา</h6>
-                                                <select class="form-control" id="Leave_characteristics_dateLast"
-                                                    [formControl]="Leave_characteristics_dateLast"
+                                                <select class="custom-select" id="Leave_characteristics_dateLast"
+                                                    [disabled]="btnDisable_last" #Leave_characteristics_dateLast
                                                     (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">
                                                     <option value="เต็มวัน">เต็มวัน</option>
                                                     <option value="ครึ่งวันเช้า">ครึ่งวันเช้า</option>
@@ -766,13 +766,15 @@
 
 
                                         <label>สถานะการส่งใบลาฉบับจริง</label>
-                                        <select class="custom-select" [formControl]="LeaveStatus_Document">
+                                        <select class="custom-select {{invalid_doc}}" (change)="change_doc($event)"
+                                            [formControl]="LeaveStatus_Document">
 
                                             <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
                                             <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
                                         </select>
                                         <label>เลือกรอบการประเมิน</label>
-                                        <select class="form-control" [formControl]="limit_ID">
+                                        <select class="custom-select {{invalid_limit}}" [formControl]="limit_ID"
+                                            (change)="change_limit($event)">
                                             <option *ngFor="let item of showleave_limit " value="{{item.limit_ID}}">
                                                 {{item.Name_limit}}</option>
                                         </select>
@@ -815,9 +817,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
                 <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}`
-                    (click)="AddLeave(LeaveTotal.value,check_number.value,limit_type.value,Name_Leave.value,To_Person.value)">OK</button>
+                    (click)="AddLeave(LeaveTotal.value,check_number.value,limit_type.value,Name_Leave.value,To_Person.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">OK</button>
 
             </div>
         </div>

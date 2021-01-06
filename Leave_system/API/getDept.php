@@ -3,9 +3,7 @@
  header('Control-type: application/json',true);
  require 'connect_DB.php' ;
 
-    $sql  = 'SELECT * FROM `department` JOIN `sector` 
-    ON `department`.`Sector_ID` = `sector`.`Sector_ID`
-    WHERE 1';
+    $sql  = 'SELECT * FROM `department`WHERE 1';
      $result = mysqli_query($conn,$sql); 
      $myArray = array();
      if ($result->num_rows > 0) {

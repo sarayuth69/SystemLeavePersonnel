@@ -27,7 +27,6 @@ export class CheckleaveinfoComponent implements OnInit {
   leavetypeUser
   btn_delete: boolean;
   Emp_ID: any;
-  Emp_ID_show: any;
   Leave_ID: any;
   Name_Leave: any;
   To_Person: any;
@@ -46,6 +45,8 @@ export class CheckleaveinfoComponent implements OnInit {
   LeaveStatus_Name: any;
   LeaveStatus_Document: any;
   LeaveStatus_ID: any;
+  Day_leave_start_show: any;
+  Day_leave_last_show: any;
   Role: any;
   constructor(
     public router: Router,
@@ -77,7 +78,7 @@ export class CheckleaveinfoComponent implements OnInit {
         )
     }
 
-   else if (localStorage.getItem('Role') === "4") {
+    else if (localStorage.getItem('Role') === "4") {
       const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
         + '&Role=' + localStorage.getItem("Role")
         + '&Sector_ID=' + localStorage.getItem("Sector_ID")
@@ -118,74 +119,112 @@ export class CheckleaveinfoComponent implements OnInit {
     }
 
   }
-  leaveSearch(Emp_ID_search) {
+  leaveSearch(Emp_ID_search, Day_leave_start, Day_leave_last) {
     console.log(Emp_ID_search);
-    this.http.get(`${this.baseUrl}Checkleaveinfo.php?Emp_ID=` + Emp_ID_search).subscribe(
-      (data: any) => {
-        console.log(data);
-        if (data.length === 0) {
+    this.Emp_ID_show = Emp_ID_search
+    this.Day_leave_start_show = Day_leave_start
+    this.Day_leave_last_show = Day_leave_last
+    console.log(Day_leave_start.length, Day_leave_last.length);
+
+    if (this.Day_leave_start_show.length < 1 || this.Day_leave_last_show.length < 1) {
+      Swal.fire(
+        'เลือกวันที่ไห้ครบ?',
+        'Choose the correct valid date.?',
+        'question'
+      )
+    } else {
+      this.http.get(`${this.baseUrl}Checkleaveinfo.php?Emp_ID=${this.Emp_ID_show}&Day_leave_start=${this.Day_leave_start_show}&Day_leave_last=${this.Day_leave_last_show}`).subscribe(
+        (data: any) => {
+          console.log(data);
+          if (data.length === 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'ไม่พบข้อมูล',
+              text: 'Something went wrong!'
+            })
+          } else {
+            this.seachleave = data;
+          }
+        },
+        (error: any) => {
           Swal.fire({
             icon: 'error',
             title: 'ไม่พบข้อมูล',
             text: 'Something went wrong!'
           })
-        } else {
-          this.seachleave = data;
         }
-      },
-      (error: any) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'ไม่พบข้อมูล',
-          text: 'Something went wrong!'
-        })
-      }
-    );
-    const tpyeUser = 'Emp_ID=' + Emp_ID_search
-    console.log(tpyeUser);
-    const headers1 = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
-        headers: headers1
-      }).subscribe(
-        (data: any) => {
-          this.leavetypeUser = data;
-          console.log(this.leavetypeUser);
+      );
+      const tpyeUser = 'Emp_ID=' + Emp_ID_search
+      console.log(tpyeUser);
+      const headers1 = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
+          headers: headers1
+        }).subscribe(
+          (data: any) => {
+            this.leavetypeUser = data;
+            console.log(this.leavetypeUser);
 
-        },
-        (error: any) => {
-          console.log(error);
-        }
+          },
+          (error: any) => {
+            console.log(error);
+          }
 
-      )
+        )
+    }
+
   }
-
+  Leave_ID_show: any;
+  Name_Leave_show: any;
+  To_Person_show: any;
+  Emp_ID_show: any;
+  Prefix_show: any;
+  EmpName_show: any;
+  EmpLastName_show: any;
+  PositionName_show: any;
+  DeptName_show: any;
+  SectorName_show: any;
+  LTypeName_show: any;
+  LeaveData_show: any;
+  ContactInformation_show: any;
+  employee_show: any;
+  LeaveDateStart_show: any;
+  LeaveDateLast_show: any;
+  LeaveTotal_show: any;
+  LeaveStatus_Name_show: any;
+  LeaveStatus_Document_show: any;
+  Leave_characteristics_dateStart_show: any;
+  Leave_characteristics_dateLast_show: any;
+  file_names_show: any;
   show_data(Leave_ID, Name_Leave, To_Person, Emp_ID, EmpName, EmpLastName, PositionName, DeptName,
-    SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast, LeaveTotal,
-    LeaveStatus_Name, LeaveStatus_Document, LeaveStatus_ID) {
-
-    console.log(LeaveStatus_ID);
-    this.Leave_ID = Leave_ID
-    this.Name_Leave = Name_Leave
-    this.To_Person = To_Person
+    SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart_month, LeaveDateLast_month,
+    LeaveTotal,
+    LeaveStatus_Name, LeaveStatus_Document,
+    Leave_characteristics_dateStart, Leave_characteristics_dateLast, file_names) {
+    console.log(LeaveTotal);
+    this.Leave_ID_show = Leave_ID
+    this.Name_Leave_show = Name_Leave
+    this.To_Person_show = To_Person
     this.Emp_ID_show = Emp_ID
-    this.EmpName = EmpName
-    this.EmpLastName = EmpLastName
-    this.PositionName = PositionName
-    this.DeptName = DeptName
-    this.SectorName = SectorName
-    this.LTypeName = LTypeName
-    this.LeaveData = LeaveData
-    this.ContactInformation = ContactInformation
-    this.employee = employee
-    this.LeaveDateStart = LeaveDateStart
-    this.LeaveDateLast = LeaveDateLast
-    this.LeaveTotal = LeaveTotal
-    this.LeaveStatus_Name = LeaveStatus_Name
-    this.LeaveStatus_Document = LeaveStatus_Document
-    this.LeaveStatus_ID = LeaveStatus_ID
+    this.EmpName_show = EmpName
+    this.EmpLastName_show = EmpLastName
+    this.PositionName_show = PositionName
+    this.DeptName_show = DeptName
+    this.SectorName_show = SectorName
+    this.LTypeName_show = LTypeName
+    this.LeaveData_show = LeaveData
+    this.ContactInformation_show = ContactInformation
+    this.employee_show = employee
+    this.LeaveDateStart_show = LeaveDateStart_month
+    this.LeaveDateLast_show = LeaveDateLast_month
+    this.LeaveTotal_show = LeaveTotal
+    this.LeaveStatus_Name_show = LeaveStatus_Name
+    this.LeaveStatus_Document_show = LeaveStatus_Document
+    this.Leave_characteristics_dateStart_show = Leave_characteristics_dateStart
+    this.Leave_characteristics_dateLast_show = Leave_characteristics_dateLast
+    this.file_names_show = file_names
     if (localStorage.getItem('Role') === "6") {
       this.btn_delete = true
     }
@@ -225,11 +264,12 @@ export class CheckleaveinfoComponent implements OnInit {
               }
             );
         }).then(() => {
-          this.leaveSearch(this.Emp_ID_show);
+          this.leaveSearch(this.Emp_ID_show, this.Day_leave_start_show, this.Day_leave_last_show);
         })
 
       }
     })
 
   }
+
 }

@@ -15,7 +15,7 @@ ON
 `employee`.`Empstatus_ID` = `employeestatus`.`Empstatus_ID`
 
 WHERE
- employee.Username = '".$_POST['Username']."' AND employee.Password = '".$_POST['Password']."'
+employee.Emp_ID = '".$_POST['Emp_ID']."' AND status_data = 'Y'
  ";
  $result = mysqli_query($conn,$sql); 
  $myArray = array();

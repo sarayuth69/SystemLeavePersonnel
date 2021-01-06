@@ -1,4 +1,6 @@
 <?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
  require 'connect_DB.php' ;
     $sql  = "DELETE FROM `leave` WHERE (`Leave_ID`='".$_GET["Leave_ID"]."')";
      if ($conn->query($sql) === TRUE) {

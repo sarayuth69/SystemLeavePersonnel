@@ -13,13 +13,20 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-5">
-                       <br>
-                        <button type="button" class="btn btn-primary"
-                            (click)="leaveSearch(Emp_ID_search.value)">ค้นหา</button>
+                    <div class="col">
+                        <p>ตั้งแต่วันที่</p>
+                        <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search"
+                            #Day_leave_start>
                     </div>
                     <div class="col">
-
+                        <p>ถึงวันที่</p>
+                        <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search"
+                            #Day_leave_last>
+                    </div>
+                    <div class="col">
+                        <br>
+                        <button type="button" class="btn btn-primary"
+                            (click)="leaveSearch(Emp_ID_search.value,Day_leave_start.value,Day_leave_last.value)">ค้นหา</button>
                     </div>
                 </div>
             </div>
@@ -84,7 +91,8 @@
                                     <p>แผนก: {{item.DeptName}}</p>
                                 </td>
                                 <td class="text-center">{{item.LTypeName}}</td>
-                                <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
+                                <td class="text-center"> {{item.LeaveDateStart_month}} ถึงวันที่
+                                    {{item.LeaveDateLast_month}}</td>
                                 <td class="text-center"> {{item.LeaveTotal}}</td>
                                 <!-- <td> </td> -->
                                 <td class="text-center">{{item.LeaveStatus_Document}} </td>
@@ -99,10 +107,11 @@
                                 </div>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                        data-target="#exampleModal" (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+                                        data-target="#exampleModal"
+                                        (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                 item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
-                                item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,
-                               item.LeaveStatus_Name, item.LeaveStatus_Document,item.LeaveStatus_ID)"><i
+                                item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
+                              item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names)"><i
                                             class="fa fa-cog" aria-hidden="true"></i></button>
                                 </td>
 
@@ -183,9 +192,9 @@
                     </div>
                     <br>
                     <div class="container">
-                        <h6>เรื่อง : {{Name_Leave}}</h6>
+                        <h6>เรื่อง : {{Name_Leave_show}}</h6>
                         <br>
-                        <h6>เรียน : {{To_Person}}</h6>
+                        <h6>เรียน : {{To_Person_show}}</h6>
                     </div>
                     &nbsp;&nbsp;
                     <div class="card-header text-left">
@@ -198,23 +207,23 @@
                                 <h6>รหัส : {{Emp_ID_show}} </h6>
                             </div>
                             <div class="col-sm">
-                                <h6> ชื่อ : {{EmpName}}</h6>
+                                <h6> ชื่อ : {{EmpName_show}}</h6>
                             </div>
                             <div class="col-sm">
-                                <h6> นามสกุล : {{EmpLastName}}</h6>
+                                <h6> นามสกุล : {{EmpLastName_show}}</h6>
                             </div>
                         </div>
                     </div>
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">
-                                <h6>ตำแหน่ง : {{PositionName}} </h6>
+                                <h6>ตำแหน่ง : {{PositionName_show}} </h6>
                             </div>
                             <div class="col-sm">
-                                <h6>แผนก : {{DeptName}}</h6>
+                                <h6>แผนก : {{DeptName_show}}</h6>
                             </div>
                             <div class="col-sm">
-                                <h6> ฝ่าย : {{SectorName}} </h6>
+                                <h6> ฝ่าย : {{SectorName_show}} </h6>
                             </div>
                         </div>
                     </div>
@@ -233,50 +242,52 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">ประเภทการลา :</th>
-                                    <td>{{LTypeName}}</td>
+                                    <td>{{LTypeName_show}}</td>
                                 </tr>
+
                                 <tr>
                                     <th scope="row">มีผู้รับผิดชอบงานแทน :</th>
-                                    <td>{{employee}}</td>
+                                    <td>{{employee_show}}</td>
                                 </tr>
+
+
                                 <tr>
                                     <th scope="row">ขอลาเนื่องจาก :</th>
-                                    <td> {{LeaveData}}</td>
+                                    <td> {{LeaveData_show}}</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">ข้อมูลการติดต่อ :</th>
-                                    <td> {{ContactInformation}}</td>
+                                    <td> {{ContactInformation_show}}</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">วันที่ลา :</th>
-                                    <td> {{LeaveDateStart}} </td>
+                                    <td> {{LeaveDateStart_show}} / {{Leave_characteristics_dateStart_show}}</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">ถึงวันที่ :</th>
-                                    <td> {{LeaveDateLast}} </td>
+                                    <td> {{LeaveDateLast_show}} / {{Leave_characteristics_dateLast_show}} </td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">จำนวนวันลา :</th>
-                                    <td> {{LeaveTotal}}</td>
+                                    <td> {{LeaveTotal_show}}</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">แนปไฟล์ :</th>
-                                    <td> ยังไม่ได้ทำแนปไฟล์</td>
+                                    <td>{{file_names_show}}</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">สถานะการลา :</th>
-                                    <td style="color: rgb(12, 48, 206);"> {{LeaveStatus_Name}}</td>
+                                    <td style="color: rgb(12, 48, 206);"> {{LeaveStatus_Name_show}}</td>
                                 </tr>
-
                                 <tr>
                                     <th scope="row">สถานะการส่งใบลาฉบับจริง :</th>
-                                    <td> {{LeaveStatus_Document}}</td>
+                                    <td> {{LeaveStatus_Document_show}}</td>
                                 </tr>
                             </tbody>
                         </table>

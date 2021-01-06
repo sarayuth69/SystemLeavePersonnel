@@ -1,5 +1,6 @@
 <?php
-
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
  require 'connect_DB.php' ;
 
     $sql  = "INSERT INTO `leave_limit` (`limit_ID`,`Name_limit`, `Date_start`, `limit_date`) VALUES 

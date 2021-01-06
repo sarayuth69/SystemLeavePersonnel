@@ -1,5 +1,6 @@
 <?php
-
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
 require 'connect_DB.php' ;
 
     $sql = "SELECT COUNT(*)AS count_data FROM officiate_day WHERE Emp_ID = '".$_POST['Emp_ID']."'  AND Status_Work = 'ไม่มาทำงาน' AND message = 0";

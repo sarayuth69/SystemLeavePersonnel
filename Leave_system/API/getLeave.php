@@ -39,7 +39,7 @@
     JOIN `leavestatus` ON `leavestatus`.`LeaveStatus_ID` = `leave`.`LeaveStatus_ID`
     JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
     JOIN `position` ON `employee`.`Position_ID` = `position`.`Position_ID`
-    JOIN `sector` ON `department`.`Sector_ID` = `sector`.`Sector_ID`
+    JOIN `sector` ON `employee`.`Sector_ID` = `sector`.`Sector_ID`
 WHERE  
 leave.Emp_ID = '".$_POST["Emp_ID"]."' AND `leave`.LeaveStatus_ID < 7
 ORDER BY `leave`.`Leave_ID` DESC

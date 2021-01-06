@@ -1,7 +1,9 @@
 <?php
-
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
  require 'connect_DB.php' ;
-
+ $day_leave_start = $_GET['Day_leave_start'];
+ $day_leave_last = $_GET['Day_leave_last'];
     $sql = "SELECT *,concat(day(LeaveDateStart),'/',
     case when(Month(LeaveDateStart))='1' then 'ม.ค.'
        when(Month(LeaveDateStart))='2' then 'ก.พ.'
@@ -16,7 +18,7 @@
        when(Month(LeaveDateStart))='11' then 'พ.ย.'
        when(Month(LeaveDateStart))='12' then 'ธ.ค.'
        else cast(LeaveDateStart as date)
-       end,'/',year(LeaveDateStart)+543) AS LeaveDateStart,
+       end,'/',year(LeaveDateStart)+543) AS LeaveDateStart_month,
        concat(day(LeaveDateLast),'/',
        case when(Month(LeaveDateLast))='1' then 'ม.ค.'
        when(Month(LeaveDateLast))='2' then 'ก.พ.'
@@ -31,15 +33,16 @@
        when(Month(LeaveDateLast))='11' then 'พ.ย.'
        when(Month(LeaveDateLast))='12' then 'ธ.ค.'
        else cast(LeaveDateLast as date)
-       end,'/',year(LeaveDateLast)+543) AS LeaveDateLast
+       end,'/',year(LeaveDateLast)+543) AS LeaveDateLast_month
     FROM `employee`
     JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
     JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
     JOIN `leavestatus` ON `leavestatus`.`LeaveStatus_ID` = `leave`.`LeaveStatus_ID`
     JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
     JOIN `position` ON `employee`.`Position_ID` = `position`.`Position_ID`
-    JOIN `sector` ON `department`.`Sector_ID` = `sector`.`Sector_ID`
-    WHERE`employee`.`Emp_ID` LIKE '%{$_GET['Emp_ID']}%' 
+    JOIN `sector` ON `employee`.`Sector_ID` = `sector`.`Sector_ID`
+    WHERE`employee`.`Emp_ID` LIKE '%{$_GET['Emp_ID']}%' AND `leave`.`LeaveDateStart`  BETWEEN '$day_leave_start' AND '$day_leave_last' 
+         OR `leave`.`LeaveDateLast`  BETWEEN '$day_leave_start' AND '$day_leave_last' 
     ";
           $result = mysqli_query($conn,$sql); 
           $myArray = array();

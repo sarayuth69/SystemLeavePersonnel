@@ -28,6 +28,47 @@
     // employee.Emp_ID,
     // leavetype.LType_ID
     // ";
+
+
+    // $sql  = "SELECT
+    // employee.Emp_ID,
+    //     employee.EmpName,
+    //     employee.Empstatus_ID,
+    //     leavetype.LTypeName,
+    //     leavetype.Number,
+    //     leavetype.AdvanceNotice,
+    //     employeestatus.EmpstatusName,
+    //     leavetype.LOrdinal,
+    //     leavetype.QuotaStatus,
+    //     leavetype.LType_ID,
+    //     leavetype.LType_limit,
+    //     IFNULL(SUM(cancel_leave.cancel_total),0) AS cancel_total_show,
+    //     IFNULL(sum(`leave`.number_leave),0) AS number_leave_show,
+    //     IFNULL(sum(`leave`.LeaveTotal),0) AS sum_total ,
+    //     -- ค่าคงเหลือ
+    //         IF(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)  
+    //       <0,0,IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number) ) AS Remain, 
+    //     --   ค่าที่ลาเกิน
+    //       IF(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)  
+    //       <0,ABS(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)),0) AS Remain_over,
+    //     --   ค่าที่สามารถลาเกินได้
+    //         IF(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)
+    //         <0,IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)+LType_limit,0) AS Remain_limit
+    //     FROM
+    //     employee
+    //     LEFT JOIN leavetype ON leavetype.Empstatus_ID = employee.Empstatus_ID
+    //     LEFT JOIN employeestatus ON employeestatus.Empstatus_ID = employee.Empstatus_ID
+    //     LEFT JOIN (SELECT * FROM `leave` WHERE  LeaveStatus_ID = 5 )AS `leave` ON `leave`.Emp_ID = employee.Emp_ID 
+    //     LEFT JOIN  (SELECT * FROM `cancel_leave` WHERE  cancel_status = 8 )AS cancel_leave ON  cancel_leave.leave_ID = `leave`.leave_ID
+    //     -- LEFT JOIN leave_limit ON `leave`.limit_ID = leave_limit.limit_ID
+    //     -- AND `leave`.LeaveDateStart BETWEEN `leave_limit`.Date_start AND ADDDATE(`leave_limit`.Date_start,INTERVAL limit_date  MONTH)
+    //     AND `leave`.LType_ID = leavetype.LType_ID
+    // WHERE 
+    //   employee.Emp_ID ='".$_POST["Emp_ID"]."'
+    // GROUP BY
+    // employee.Emp_ID,
+    // leavetype.LType_ID
+    // ";
     $sql  = "SELECT
     employee.Emp_ID,
         employee.EmpName,
@@ -36,35 +77,42 @@
         leavetype.Number,
         leavetype.AdvanceNotice,
         employeestatus.EmpstatusName,
-        leavetype.LOrdinal,
         leavetype.QuotaStatus,
         leavetype.LType_ID,
         leavetype.LType_limit,
-        IFNULL(SUM(cancel_leave.cancel_total),0) AS cancel_total_show,
-        IFNULL(sum(`leave`.number_leave),0) AS number_leave_show,
+
+       
+
+#IFNULL((SELECT sum(`leave`.number_leave)  FROM leave WHERE  `leave`.LType_ID = leavetype.LType_ID AND `leave`.Emp_ID =employee.Emp_ID and year(now()) = year(Response_Time)  GROUP BY `leave`.LType_ID ),0) AS number_leave_show,
+#IFNULL((SELECT sum(`leave`.LeaveTotal) FROM leave WHERE  `leave`.LType_ID = leavetype.LType_ID AND `leave`.Emp_ID =employee.Emp_ID  and year(now()) = year(Response_Time)   GROUP BY `leave`.LType_ID ),0) AS sum_total,
+
+
+-- 	การลาแต่ละครั้ง
+ IFNULL(sum(`leave`.number_leave),0) AS number_leave_show,
+			-- การลารวม
         IFNULL(sum(`leave`.LeaveTotal),0) AS sum_total ,
         -- ค่าคงเหลือ
             IF(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)  
           <0,0,IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number) ) AS Remain, 
         --   ค่าที่ลาเกิน
           IF(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)  
-          <0,ABS(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)),0) AS Remain_over,
+          <0,ABS(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)),0) AS Remain_over
         --   ค่าที่สามารถลาเกินได้
-            IF(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)
-            <0,IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)+LType_limit,0) AS Remain_limit
+            -- IF(IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)
+            -- <0,IFNULL(leavetype.Number -  sum(`leave`.LeaveTotal),leavetype.Number)+LType_limit,0) AS Remain_limit
         FROM
         employee
         LEFT JOIN leavetype ON leavetype.Empstatus_ID = employee.Empstatus_ID
         LEFT JOIN employeestatus ON employeestatus.Empstatus_ID = employee.Empstatus_ID
-        LEFT JOIN (SELECT * FROM `leave` WHERE  LeaveStatus_ID = 5 )AS `leave` ON `leave`.Emp_ID = employee.Emp_ID 
-        LEFT JOIN  (SELECT * FROM `cancel_leave` WHERE  cancel_status = 8 )AS cancel_leave ON  cancel_leave.leave_ID = `leave`.leave_ID
-        -- LEFT JOIN leave_limit ON `leave`.limit_ID = leave_limit.limit_ID
-        -- AND `leave`.LeaveDateStart BETWEEN `leave_limit`.Date_start AND ADDDATE(`leave_limit`.Date_start,INTERVAL limit_date  MONTH)
-        AND `leave`.LType_ID = leavetype.LType_ID
+        LEFT JOIN (SELECT * FROM `leave` WHERE  LeaveStatus_ID = 5  and year(now()) = year(LeaveDateStart))AS `leave` ON  `leave`.LType_ID = leavetype.LType_ID
+     LEFT JOIN leave_limit ON `leave`.limit_ID = leave_limit.limit_ID
+        AND `leave`.LeaveDateStart BETWEEN `leave_limit`.Date_start AND ADDDATE(`leave_limit`.Date_start,INTERVAL limit_date  MONTH)
+        AND `leave`.LType_ID = leavetype.LType_ID 
     WHERE 
-      employee.Emp_ID ='".$_POST["Emp_ID"]."'
+      employee.Emp_ID ='".$_POST["Emp_ID"]."' 
     GROUP BY
     employee.Emp_ID,
+    `leave`.limit_ID,
     leavetype.LType_ID
     ";
    $result = mysqli_query($conn,$sql); 

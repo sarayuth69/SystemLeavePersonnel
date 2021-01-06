@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
-    // localStorage.clear();
+    localStorage.clear();
     this.route.queryParams.subscribe((value: any) => {
       console.log(value);
       this.http

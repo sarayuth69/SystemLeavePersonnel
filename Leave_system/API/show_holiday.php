@@ -1,4 +1,6 @@
 <?php
+ header("Access-Control-Allow-Origin: *");
+ header('Control-type: application/json',true);
  require 'connect_DB.php' ;
 
     $sql  = "SELECT *,year(holiday_date)+543 AS year_show,concat(day(holiday_date),'/'

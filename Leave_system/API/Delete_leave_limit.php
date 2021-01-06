@@ -3,12 +3,7 @@
  header('Control-type: application/json',true);
  require 'connect_DB.php' ;
 
-
-    $sql = "UPDATE `department` SET `Dept_ID`='".$_POST['Dept_ID']."',`DeptName`='".$_POST['DeptName']."'
-    WHERE  `department`.`Dept_ID` = '".$_POST['Dept_ID']."'
-    
-    ";
-    
+    $sql  = "DELETE FROM `leave_limit` WHERE `leave_limit`.`limit_ID` = '".$_GET["limit_ID"]."'";
     if ($conn->query($sql) === TRUE) {
         echo "successfully";
       } else {

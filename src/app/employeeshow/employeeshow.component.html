@@ -637,24 +637,24 @@
 
                                     <div class="form-row">
                                         <div class="col-sm">
-                                            <div class="card text-white  mb-3" style="max-width: 18rem;">
-                                                <div class="card-header bg-primary">วันที่ลา</div>
-                                                <div class="card-body text-primary">
-                                                    <input type="date" class="form-control" id="LeaveDateStart"
-                                                        [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
-                                                        (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
-                                                        required>
-                                                    <h6>ประเภทวันลา</h6>
-
-                                                    <select class="form-control" id="Leave_characteristics_dateStart"
-                                                        [formControl]="Leave_characteristics_dateStart"
-                                                        (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">
-                                                        <option value="เต็มวัน">เต็มวัน</option>
-                                                        <option value="ครึ่งวันเช้า">ครึ่งวันเช้า</option>
-                                                        <option value="ครึ่งวันบ่าย">ครึ่งวันบ่าย</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                                        <div class="card text-white  mb-3" style="max-width: 18rem;">
+                                                            <div class="card-header bg-primary">วันที่ลา</div>
+                                                            <div class="card-body text-primary">
+                                                                <input type="date" class="form-control" id="LeaveDateStart" [formControl]="LeaveDateStart" [max]="maxDate"
+                                                                    data-date=""
+                                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
+                                                                    required>
+                                                                <h6>ประเภทวันลา</h6>
+                                                        
+                                                                <select class="custom-select" id="Leave_characteristics_dateStart" [disabled]="btnDisable_start"
+                                                                    #Leave_characteristics_dateStart
+                                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">
+                                                                    <option value="เต็มวัน">เต็มวัน</option>
+                                                                    <option value="ครึ่งวันเช้า">ครึ่งวันเช้า</option>
+                                                                    <option value="ครึ่งวันบ่าย">ครึ่งวันบ่าย</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                             <!-- <label for="validationDefault04">วันที่ลา</label>
                                                                     <input type="date" class="form-control" id="LeaveDateStart"
                                                                         [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
@@ -670,11 +670,10 @@
                                                 <div class="card-body text-primary">
                                                     <input type="date" class="form-control" id="LeaveDateLast"
                                                         (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
-                                                        [formControl]="LeaveDateLast" [max]="maxDate"
-                                                        data-date-format="DD MMMM YYYY" required>
+                                                        [formControl]="LeaveDateLast" [max]="maxDate" data-date-format="DD MMMM YYYY" required>
                                                     <h6>ประเภทวันลา</h6>
-                                                    <select class="form-control" id="Leave_characteristics_dateLast"
-                                                        [formControl]="Leave_characteristics_dateLast"
+                                                    <select class="custom-select" id="Leave_characteristics_dateLast" [disabled]="btnDisable_last"
+                                                        #Leave_characteristics_dateLast
                                                         (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">
                                                         <option value="เต็มวัน">เต็มวัน</option>
                                                         <option value="ครึ่งวันเช้า">ครึ่งวันเช้า</option>
@@ -699,13 +698,13 @@
 
 
                                             <label>สถานะการส่งใบลาฉบับจริง</label>
-                                            <select class="custom-select" [formControl]="LeaveStatus_Document">
-
+                                            <select class="custom-select {{invalid_doc}}" (change)="change_doc($event)" [formControl]="LeaveStatus_Document">
+                                            
                                                 <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
                                                 <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
                                             </select>
                                             <label>เลือกรอบการประเมิน</label>
-                                            <select class="form-control" [formControl]="limit_ID">
+                                            <select class="custom-select {{invalid_limit}}" [formControl]="limit_ID" (change)="change_limit($event)">
                                                 <option *ngFor="let item of showleave_limit " value="{{item.limit_ID}}">
                                                     {{item.Name_limit}}</option>
                                             </select>
@@ -751,8 +750,8 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="AddLeave()">save</button> -->
 
-                    <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}`
-                        (click)="AddLeave(LeaveTotal.value,check_number.value,limit_type.value,Name_Leave.value,To_Person.value,Role_chack.value)">OK</button>
+                    <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}` 
+                        (click)="AddLeave(LeaveTotal.value,check_number.value,limit_type.value,Name_Leave.value,To_Person.value,Role_chack.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">OK</button>
 
                 </div>
             </div>
