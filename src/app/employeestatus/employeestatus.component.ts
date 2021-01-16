@@ -56,7 +56,7 @@ export class EmployeestatusComponent implements OnInit {
     if (this.Empstatus_ID.value === "" || this.EmpstatusName.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
-        'That thing is still around?',
+        '',
         'question'
       )
     } else {
@@ -155,10 +155,11 @@ export class EmployeestatusComponent implements OnInit {
     Swal.fire({
       title: 'คุณจะลบ' + ' ' + this.EmpstatusName_show + ' ' + 'หรือไม่',
       type: 'warning',
+      confirmButtonText: 'บันทึก',
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'ยกเลิก',
       showCancelButton: true,
-      confirmButtonColor: '#00FF33',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
         Swal.fire({

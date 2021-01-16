@@ -61,7 +61,7 @@ export class EditdayworkComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'กรุณาเลือกวันที่',
-        text: 'Something went wrong!'
+        text: ''
       })
     } else {
 
@@ -72,7 +72,7 @@ export class EditdayworkComponent implements OnInit {
             Swal.fire({
               icon: 'error',
               title: 'ไม่พบข้อมูล',
-              text: 'Something went wrong!'
+              text: ''
             })
           }
           else {
@@ -80,11 +80,11 @@ export class EditdayworkComponent implements OnInit {
           }
         },
         (error: any) => {
-          console.log(error);
+        
           Swal.fire({
             icon: 'error',
             title: 'ไม่พบข้อมูล',
-            text: 'Something went wrong!'
+            text: ''
           })
         }
       );

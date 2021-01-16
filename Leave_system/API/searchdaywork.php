@@ -9,8 +9,7 @@ $day_work = $_GET['Day_Work'];
 FROM
 employee
 LEFT JOIN officiate_day ON employee.Emp_ID = officiate_day.Emp_ID
-WHERE
- DATE(Day_Work) = DATE('$day_work') 
+WHERE employee.status_data = 'Y' AND DATE(Day_Work) = DATE('$day_work') 
      ";
       $result = mysqli_query($conn,$sql); 
       $myArray = array();

@@ -12,13 +12,22 @@
     <div style="padding-left: 1%;padding-right: 2%;">
 
         <div class="card">
+
             <div class="card-body">
-                <div class="table-responsive-lg">
+                <label for="" style="font-size: 16px;">เลือกรอบการประเมิน</label>
+                <select class="form-control" (change)="getlleave_user($event.target.value)">
+                    <option>เลือกรอบการประเมิน</option>
+                    <option *ngFor="let item of showleave_limit; let i = index" value="{{item.limit_ID}}">
+                        {{item.Name_limit}}</option>
+                </select>
+                <div class="table-responsive-xl">
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">ชื่อประเภท</th>
                                 <th scope="col">เกณฑ์วันลา</th>
+                                <th scope="col">ลามาแล้ว</th>
+
                                 <th scope="col">คงเหลือ</th>
                                 <th scope="col">ลาเกิน</th>
                                 <!-- <th scope="col">สามารถลาเกินได้</th> -->
@@ -32,6 +41,7 @@
                             <tr>
                                 <td>{{item.LTypeName}}</td>
                                 <td>{{item.Number}} /วัน</td>
+                                <td>{{item.sum_total}} /วัน</td>
                                 <td>{{item.Remain}} /วัน</td>
                                 <div *ngIf="item.Remain_over > 0 " style="color: red;">
                                     <td>{{item.Remain_over}} /วัน</td>

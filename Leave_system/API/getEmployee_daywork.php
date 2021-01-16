@@ -5,7 +5,7 @@
 
 
  
- $sql  = "SELECT * FROM `employee` WHERE 1";
+ $sql  = "SELECT * FROM `employee` WHERE status_data = 'Y'";
 
 
 

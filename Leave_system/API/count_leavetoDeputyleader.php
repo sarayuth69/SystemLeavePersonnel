@@ -7,10 +7,10 @@
         JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
         JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
     JOIN `position` ON `employee`.`Position_ID` = `position`.`Position_ID`
-
+    JOIN `sector` ON `sector`.Sector_ID = `employee`.Sector_ID
         JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
         JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
-        WHERE  `leave`.`LeaveStatus_ID` = '3' 
+        WHERE  `leave`.`LeaveStatus_ID` = '3' AND sector.Sector_ID =  '".$_POST["Sector_ID"]."'
         ";
         $result = mysqli_query($conn,$sql); 
         $myArray = array();

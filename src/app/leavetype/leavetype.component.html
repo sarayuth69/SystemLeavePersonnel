@@ -68,11 +68,11 @@
                     <!-- <th scope="col">รหัสประเภทการลา</th> -->
                     <th scope="col">ชื่อประเภทการลา</th>
                     <th scope="col">จำนวนวันลา/วัน</th>
-                    <th scope="col">จำนวนที่ลาเกินได้/วัน</th>
+                    <!-- <th scope="col">จำนวนที่ลาเกินได้/วัน</th> -->
 
                     <!-- <th scope="col">คงเหลือ/วัน</th> -->
                     <th scope="col">แจ้งล่วงหน้า/วัน</th>
-                    <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
+                    <th scope="col">จำนวนครั้งที่ลา</th>
                     <!-- <th scope="col">สถานะสิทธิการลา</th> -->
                     <th scope="col">สถานะบุคลากร</th>
                     <th scope="col">หมายเหตุ</th>
@@ -96,10 +96,10 @@
                       </div>
                     </td>
                     <td>{{item.Number}}</td>
-                    <td>{{item.LType_limit}}</td>
+                    <!-- <td>{{item.LType_limit}}</td> -->
                     <!-- <td>{{item.Remain}}</td> -->
                     <td>{{item.AdvanceNotice}}</td>
-                    <!-- <td>{{item.LOrdinal}}</td> -->
+                    <td>{{item.LOrdinal}}</td>
                     <!-- <td >{{item.QuotaStatus}}</td> -->
                     <td>{{item.EmpstatusName}}</td>
                     <td>{{item.leavetype_remark}}</td>
@@ -108,7 +108,7 @@
                       <button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
                         data-target="#exampleModal2"
                         (click)="updateLeavetype(item.LType_ID,item.LTypeName
-                    ,item.Number,item.LType_limit,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
+                    ,item.Number,item.LType_limit,item.AdvanceNotice,item.LOrdinal,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                       </button>
 
@@ -137,11 +137,11 @@
                     <!-- <th scope="col">รหัสประเภทการลา</th> -->
                     <th scope="col">ชื่อประเภทการลา</th>
                     <th scope="col">จำนวนวันลา/วัน</th>
-                    <th scope="col">จำนวนที่ลาเกินได้/วัน</th>
+                    <!-- <th scope="col">จำนวนที่ลาเกินได้/วัน</th> -->
 
                     <!-- <th scope="col">คงเหลือ/วัน</th> -->
                     <th scope="col">แจ้งล่วงหน้า/วัน</th>
-                    <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
+                    <th scope="col">จำนวนครั้งที่ลา</th>
                     <!-- <th scope="col">สถานะสิทธิการลา</th> -->
                     <th scope="col">สถานะบุคลากร</th>
                     <th scope="col">หมายเหตุ</th>
@@ -165,10 +165,10 @@
                       </div>
                     </td>
                     <td>{{item.Number}}</td>
-                    <td>{{item.LType_limit}}</td>
+                    <!-- <td>{{item.LType_limit}}</td> -->
                     <!-- <td>{{item.Remain}}</td> -->
                     <td>{{item.AdvanceNotice}}</td>
-                    <!-- <td>{{item.LOrdinal}}</td> -->
+                    <td>{{item.LOrdinal}}</td>
                     <!-- <td>{{item.QuotaStatus}}</td> -->
                     <td>{{item.EmpstatusName}}</td>
                     <td>{{item.leavetype_remark}}</td>
@@ -177,7 +177,7 @@
                       <button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
                         data-target="#exampleModal2"
                         (click)="updateLeavetype(item.LType_ID,item.LTypeName
-                    ,item.Number,item.LType_limit,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
+                    ,item.Number,item.LType_limit,item.AdvanceNotice,item.LOrdinal,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                       </button>
                       &nbsp;
@@ -202,10 +202,10 @@
                     <!-- <th scope="col">รหัสประเภทการลา</th> -->
                     <th scope="col">ชื่อประเภทการลา</th>
                     <th scope="col">จำนวนวันลา/วัน</th>
-                    <th scope="col">จำนวนที่ลาเกินได้/วัน</th>
+                    <!-- <th scope="col">จำนวนที่ลาเกินได้/วัน</th> -->
                     <!-- <th scope="col">คงเหลือ/วัน</th> -->
                     <th scope="col">แจ้งล่วงหน้า/วัน</th>
-                    <!-- <th scope="col">จำนวนครั้งที่ลา/วัน</th> -->
+                    <th scope="col">จำนวนครั้งที่ลา</th>
                     <!-- <th scope="col">สถานะสิทธิการลา</th> -->
                     <th scope="col">สถานะบุคลากร</th>
                     <th scope="col">หมายเหตุ</th>
@@ -229,10 +229,10 @@
                       </div>
                     </td>
                     <td>{{item.Number}}</td>
-                    <td>{{item.LType_limit}}</td>
+                    <!-- <td>{{item.LType_limit}}</td> -->
                     <!-- <td>{{item.Remain}}</td> -->
                     <td>{{item.AdvanceNotice}}</td>
-                    <!-- <td>{{item.LOrdinal}}</td> -->
+                    <td>{{item.LOrdinal}}</td>
                     <!-- <td>{{item.QuotaStatus}}</td> -->
                     <td>{{item.EmpstatusName}}</td>
                     <td>{{item.leavetype_remark}}</td>
@@ -241,7 +241,7 @@
                       <button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
                         data-target="#exampleModal2"
                         (click)="updateLeavetype(item.LType_ID,item.LTypeName
-                    ,item.Number,item.LType_limit,item.AdvanceNotice,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
+                    ,item.Number,item.LType_limit,item.AdvanceNotice,item.LOrdinal,item.leavetype_remark,item.QuotaStatus,item.Empstatus_ID)">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                       </button>
                       &nbsp;
@@ -403,6 +403,10 @@
               <label>แจ้งล่วงหน้า</label>
               <input type="text" class="form-control" id="AdvanceNotice" placeholder="แจ้งล่วงหน้า"
                 [formControl]="AdvanceNotice" required>
+
+              <label>จำนวนครั้งที่ลา</label>
+              <input type="text" class="form-control" id="AdvanceNotice" placeholder="ครั้ง" [formControl]="LOrdinal"
+                required>
             </div>
             <div class="form-row">
               <label>หมายเหตุ</label>
@@ -418,7 +422,7 @@
               </select>
               <label for="validationDefault05">สถานะบุคลากร</label>
               <select id="Empstatus_ID" class="form-control" [formControl]="Empstatus_ID">
-                <option value="203">ราชการ</option>
+                <option value="203">ข้าราชการ</option>
                 <option value="202">พนักงานมหาวิทยาลัย</option>
                 <option value="201">ลูกจ้างเงินรายได้</option>
               </select>
@@ -426,8 +430,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddLeavetype()">Save </button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddLeavetype()">บันทึก </button>
         </div>
       </div>
     </div>
@@ -470,6 +474,9 @@
               <label>แจ้งล่วงหน้า</label>
               <input type="text" class="form-control" id="AdvanceNotice" placeholder="แจ้งล่วงหน้า"
                 [formControl]="AdvanceNotice" required>
+              <label>จำนวนครั้งที่ลา</label>
+              <input type="text" class="form-control" id="AdvanceNotice" placeholder="ครั้ง" [formControl]="LOrdinal"
+                required>
             </div>
             <div class="form-row">
               <label>หมายเหตุ</label>
@@ -494,7 +501,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal"
             (click)="updateLeaveType1()">บันทึก</button>
         </div>
@@ -595,7 +602,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal"
           (click)="update_holiday_true()">บันทึก</button>
       </div>

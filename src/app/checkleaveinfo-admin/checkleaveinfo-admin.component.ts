@@ -10,13 +10,14 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 // import { baseUrl } from '../baseUrl.service';
 import { GlobalVariable } from '../baseUrl';
+;
 
 @Component({
-  selector: 'app-checkleaveinfo',
-  templateUrl: './checkleaveinfo.component.html',
-  styleUrls: ['./checkleaveinfo.component.scss']
+  selector: 'app-checkleaveinfo-admin',
+  templateUrl: './checkleaveinfo-admin.component.html',
+  styleUrls: ['./checkleaveinfo-admin.component.scss']
 })
-export class CheckleaveinfoComponent implements OnInit {
+export class CheckleaveinfoAdminComponent implements OnInit {
   public baseUrl = GlobalVariable.BASE_API_URL;
   Dept_to_head;
   seachleave;
@@ -51,12 +52,11 @@ export class CheckleaveinfoComponent implements OnInit {
   btnDisable_Doc: boolean = true
   limit;
   showleave_limit;
-  constructor(
-    public router: Router,
+  constructor(public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
-    public http: HttpClient,
-  ) { }
+    public http: HttpClient,) { }
+
   ngOnInit() {
     this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
       (data: any) => {
@@ -66,8 +66,10 @@ export class CheckleaveinfoComponent implements OnInit {
         console.log(error);
       }
     )
-   
-    if (localStorage.getItem('Role') === "5") {
+    if (localStorage.getItem('privilege') === "A") {
+      this.btnDisable_Doc = false
+    }
+    if (localStorage.getItem('Role') === "5" || localStorage.getItem('privilege') === "A") {
       const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
         + '&Role=' + localStorage.getItem("Role")
         + '&privilege=' + localStorage.getItem("privilege")
@@ -76,7 +78,7 @@ export class CheckleaveinfoComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       this.http
-        .post(`${this.baseUrl}getDept_to_head.php`, body, {
+        .post(`${this.baseUrl}getDept_to_head_admin.php`, body, {
           headers: headers
         }).subscribe(
           (data: any) => {
@@ -88,45 +90,8 @@ export class CheckleaveinfoComponent implements OnInit {
           }
         )
     }
-     if (localStorage.getItem('Role') === "4") {
-      const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
-        + '&Role=' + localStorage.getItem("Role")
-        + '&Sector_ID=' + localStorage.getItem("Sector_ID")
 
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      });
-      this.http
-        .post(`${this.baseUrl}getDept_to_head.php`, body, {
-          headers: headers
-        }).subscribe(
-          (data: any) => {
-            this.Dept_to_head = data;
-          },
-          (error: any) => {
-
-          }
-        )
-    }
-    else {
-      const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
-        + '&Role=' + localStorage.getItem("Role")
-
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      });
-      this.http
-        .post(`${this.baseUrl}getDept_to_head.php`, body, {
-          headers: headers
-        }).subscribe(
-          (data: any) => {
-            this.Dept_to_head = data;
-          },
-          (error: any) => {
-
-          }
-        )
-    }
+   
 
   }
   getlleave_user(event) {
@@ -174,7 +139,7 @@ export class CheckleaveinfoComponent implements OnInit {
             Swal.fire({
               icon: 'error',
               title: 'ไม่พบข้อมูล',
-              text: ''
+              text: 'Something went wrong!'
             })
           } else {
             this.seachleave = data;
@@ -256,104 +221,108 @@ export class CheckleaveinfoComponent implements OnInit {
     this.Leave_characteristics_dateStart_show = Leave_characteristics_dateStart
     this.Leave_characteristics_dateLast_show = Leave_characteristics_dateLast
     this.file_names_show = file_names
-   
+    if (localStorage.getItem('privilege') === "A") {
+      this.btn_delete = true
+    }
+    else {
+      this.btn_delete = false
+    }
 
   }
 
 
-  // updateleave_status(LeaveStatus_Document) {
-  //   const body = 'leave_ID=' + this.Leave_ID_show
-  //     + '&LeaveStatus_Document=' + LeaveStatus_Document
-  //   console.log(body);
+  updateleave_status(LeaveStatus_Document) {
+    const body = 'leave_ID=' + this.Leave_ID_show
+      + '&LeaveStatus_Document=' + LeaveStatus_Document
+    console.log(body);
 
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/x-www-form-urlencoded'
-  //   });
-  //   this.http.post(`${this.baseUrl}Updatestatus_doc.php`, body, {
-  //     headers: headers
-  //   }).subscribe(
-  //     (data: any) => {
-  //       console.log(data);
-  //       Swal.fire({
-  //         icon: 'success',
-  //         title: 'บันทึกเรียบร้อย',
-  //         text: ''
-  //       }).then(() => {
-  //         this.http.get(`${this.baseUrl}Checkleaveinfo.php?Emp_ID=${this.Emp_ID_show}&Day_leave_start=${this.Day_leave_start_show}&Day_leave_last=${this.Day_leave_last_show}`).subscribe(
-  //           (data: any) => {
-  //             console.log(data);
-  //             if (data.length === 0) {
-  //               Swal.fire({
-  //                 icon: 'error',
-  //                 title: 'ไม่พบข้อมูล',
-  //                 text: 'Something went wrong!'
-  //               })
-  //             } else {
-  //               this.seachleave = data;
-  //             }
-  //           },
-  //           (error: any) => {
-  //             Swal.fire({
-  //               icon: 'error',
-  //               title: 'ไม่พบข้อมูล',
-  //               text: 'Something went wrong!'
-  //             })
-  //           }
-  //         );
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http.post(`${this.baseUrl}Updatestatus_doc.php`, body, {
+      headers: headers
+    }).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          icon: 'success',
+          title: 'บันทึกเรียบร้อย',
+          text: ''
+        }).then(() => {
+          this.http.get(`${this.baseUrl}Checkleaveinfo.php?Emp_ID=${this.Emp_ID_show}&Day_leave_start=${this.Day_leave_start_show}&Day_leave_last=${this.Day_leave_last_show}`).subscribe(
+            (data: any) => {
+              console.log(data);
+              if (data.length === 0) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'ไม่พบข้อมูล',
+                  text: 'Something went wrong!'
+                })
+              } else {
+                this.seachleave = data;
+              }
+            },
+            (error: any) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'ไม่พบข้อมูล',
+                text: 'Something went wrong!'
+              })
+            }
+          );
 
-  //       })
-  //     }, (error: any) => {
-  //       console.log(error);
+        })
+      }, (error: any) => {
+        console.log(error);
 
-  //     }
-  //   )
+      }
+    )
 
-  // }
-
-
+  }
 
 
 
 
 
-  // delete_leave() {
-
-  //   Swal.fire({
-  //     title: 'คุณจะลบการลาของ' + ' ' + this.EmpName + this.EmpLastName + ' ' + 'หรือไม่',
-  //     text: "You won't be able to revert this!",
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: 'Yes, delete it!'
-  //   }).then((result) => {
-  //     if (result.value) {
-  //       Swal.fire(
-  //         'Deleted!',
-  //         'Your file has been deleted.',
-  //         'success'
-  //       ).then(() => {
-  //         this.http
-  //           .get(
-  //             `${this.baseUrl}Delete_leave_user.php?Leave_ID=` + this.Leave_ID
-  //           )
-  //           .subscribe(
-  //             (data: any) => {
-  //               console.log(data[0]);
-  //               this.seachleave = data[0];
-  //             },
-  //             (error: any) => {
 
 
-  //             }
-  //           );
-  //       }).then(() => {
-  //         this.leaveSearch(this.Emp_ID_show, this.Day_leave_start_show, this.Day_leave_last_show);
-  //       })
+  delete_leave(Leave_ID, EmpName, EmpLastName) {
 
-  //     }
-  //   })
+    Swal.fire({
+      title: 'คุณจะลบการลาของ' + ' ' + EmpName + EmpLastName + ' ' + 'หรือไม่',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        ).then(() => {
+          this.http
+            .get(
+              `${this.baseUrl}Delete_leave_user.php?Leave_ID=` + Leave_ID
+            )
+            .subscribe(
+              (data: any) => {
+                console.log(data[0]);
+                this.seachleave = data[0];
+              },
+              (error: any) => {
 
-  // }
 
+              }
+            );
+        }).then(() => {
+          this.leaveSearch(this.Emp_ID_show, this.Day_leave_start_show, this.Day_leave_last_show);
+        })
+
+      }
+    })
+
+  }
 }

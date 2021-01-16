@@ -1,1 +1,186 @@
-<p>employee works!</p>
+<div class="card" *ngIf="table5">
+    <div class="card-header">
+        <div class="row-md-1">
+            <div class="col-md-4">
+                บุคลากร
+                &nbsp;&nbsp;&nbsp;
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-xl">
+
+
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">รหัสบุคลากร</th>
+                        <th scope="col">ชื่อบุคลากร</th>
+                        <th scope="col">ตำแหน่ง/แผนก</th>
+                        <th scope="col">สถานะ</th>
+                    </tr>
+                </thead>
+                <tbody
+                    *ngFor="let item of Employee | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
+                    <tr>
+                        <td>{{item.Emp_ID}}</td>
+                        <td>{{item.EmpName}} {{item.EmpLastName}}
+                            <p class=" card-text">เพศ : {{item.Sex}} </p>
+                        </td>
+                        <td>
+                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
+                            <p class="card-title">แผนก : {{item.DeptName}}</p>
+                        </td>
+                        <td>{{item.EmpstatusName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+            <br>
+        </div>
+    </div>
+</div>
+
+<!-- ของรองหัวหน้าหน่วยงาน -->
+<div class="card" *ngIf="table4">
+    <div class="card-header">
+        <div class="row-md-1">
+            <div class="col-md-4">
+                บุคลากร
+                &nbsp;&nbsp;&nbsp;
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-xl">
+
+
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">รหัสบุคลากร</th>
+                        <th scope="col">ชื่อบุคลากร</th>
+                        <th scope="col">ตำแหน่ง/แผนก</th>
+                        <th scope="col">สถานะ</th>
+
+                    </tr>
+                </thead>
+                <tbody
+                    *ngFor="let item of Dept_to_head | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
+                    <tr>
+                        <td>{{item.Emp_ID}}</td>
+                        <td>{{item.EmpName}} {{item.EmpLastName}}
+                            <p class="card-text">เพศ : {{item.Sex}} </p>
+                        </td>
+                        <td>
+                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
+
+                            <p class="card-title">แผนก : {{item.DeptName}}</p>
+                        </td>
+                        <td>{{item.EmpstatusName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+
+            <br>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ของหัวหน้า -->
+<div class="card" *ngIf="table3">
+    <div class="card-header">
+        <div class="row-md-1">
+            <div class="col-md-4">
+                บุคลากร
+                &nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-xl">
+
+
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">รหัสบุคลากร</th>
+                        <th scope="col">ชื่อบุคลากร</th>
+                        <th scope="col">ตำแหน่ง/แผนก</th>
+                        <th scope="col">สถานะ</th>
+
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of Dept_to_head | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                    <tr>
+                        <td>{{item.Emp_ID}}</td>
+                        <td>{{item.EmpName}} {{item.EmpLastName}}
+                            <p class="card-text">เพศ : {{item.Sex}} </p>
+                        </td>
+                        <td>
+                            <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
+                            <p class="card-title">แผนก : {{item.DeptName}}</p>
+                        </td>
+                        <td>{{item.EmpstatusName}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+        </div>
+        <br>
+    </div>
+</div>
+
+<!-- *************** -->
+<!-- ของหัวหน้าแผนก -->
+<div style="padding: 1%;">
+    <div class="card" *ngIf="table2">
+
+        <div class="card-header">
+            <div class="row-md-1">
+                <div class="col-md-4">
+                    บุคลากร
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive-xl">
+
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">รหัสบุคลากร</th>
+                            <th scope="col">ชื่อบุคลากร</th>
+                            <th scope="col">ตำแหน่ง/แผนก</th>
+                            <th scope="col">สถานะ</th>
+
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of Dept_to_head; let i = index">
+                        <tr>
+                            <td>{{item.Emp_ID}}</td>
+                            <td>{{item.EmpName}} {{item.EmpLastName}}
+                                <p class="card-text">เพศ : {{item.Sex}} </p>
+                            </td>
+                            <td>
+                                <b style="color:rgb(0, 183, 255);">ตำแหน่ง : </b> {{item.PositionName}}
+                                <p class="card-title">แผนก : {{item.DeptName}}</p>
+                            </td>
+                            <td>{{item.EmpstatusName}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -38,7 +38,7 @@ export class EmployeeshowComponent implements OnInit {
   public status;
 
   public countUser;
-  public SectorName;
+  // public SectorName;
   table_Emp: boolean;
   table_search: boolean;
   Empployee: any;
@@ -72,10 +72,10 @@ export class EmployeeshowComponent implements OnInit {
   Leave_characteristics_dateLast = new FormControl('');
   Leave_characteristics_dateStart = new FormControl('');
   status_data = new FormControl('');
-
+  privilege: any;
 
   DeptName = new FormControl('');
-  Sector = new FormControl('');
+  SectorName = new FormControl('');
   PositionName = new FormControl('');
 
   LType_ID = new FormControl('');
@@ -93,14 +93,18 @@ export class EmployeeshowComponent implements OnInit {
   UploadFile = new FormControl('');
   Response_Time = new FormControl('');
   Person_Code_Allow = new FormControl('');
+  invalid_type: any;
+
+
 
   Local_Emp_ID = localStorage.getItem('Emp_ID');
   Local_EmpName = localStorage.getItem('EmpName');
   Local_EmpLastName = localStorage.getItem('EmpLastName');
   Local_PositionName = localStorage.getItem('PositionName');
   Local_DeptName = localStorage.getItem('DeptName');
-  Local_Sector = localStorage.getItem('SectorName');
+  Local_SectorName = localStorage.getItem('SectorName');
   Local_Role = localStorage.getItem('Role');
+
   marked = false;
   check_Remain: any;
   LType_ID_check: any;
@@ -113,6 +117,8 @@ export class EmployeeshowComponent implements OnInit {
   showleave_limit
   invalid_doc: any;
   invalid_limit: any;
+  seach_waiting
+  emp_waiting: boolean;
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -126,11 +132,23 @@ export class EmployeeshowComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.Local_SectorName);
+    try {
+      this.Local_Emp_ID
+      this.Local_EmpName
+      this.Local_EmpLastName
+      this.Local_PositionName
+      this.Local_DeptName
+      this.Local_SectorName
+    } catch (e) {
+
+    }
+
     if (localStorage.getItem('Role') === "4") {
       const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
         + '&Role=' + localStorage.getItem("Role")
         + '&Sector_ID=' + localStorage.getItem("Sector_ID")
-      console.log(body1);
+
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       });
@@ -140,18 +158,18 @@ export class EmployeeshowComponent implements OnInit {
         }).subscribe(
           (data: any) => {
             this.Dept_to_head = data;
-            console.log(this.Dept_to_head);
+
 
           },
           (error: any) => {
-            console.log(error);
+
           }
         )
     }
     else {
       const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
         + '&Role=' + localStorage.getItem("Role")
-      console.log(body1);
+
       const headers1 = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       });
@@ -163,7 +181,7 @@ export class EmployeeshowComponent implements OnInit {
             this.Dept_to_head = data;
           },
           (error: any) => {
-            console.log(error);
+
           }
 
         )
@@ -179,7 +197,7 @@ export class EmployeeshowComponent implements OnInit {
         }
       },
       (error: any) => {
-        console.log(error);
+
       }
     );
 
@@ -188,7 +206,7 @@ export class EmployeeshowComponent implements OnInit {
         this.countUser = data;
       },
       (error: any) => {
-        console.log(error);
+
       }
     );
     this.http.get(`${this.baseUrl}getStatus.php`).subscribe(
@@ -196,7 +214,7 @@ export class EmployeeshowComponent implements OnInit {
         this.status = data;
       },
       (error: any) => {
-        console.log(error);
+
       }
     );
     this.http.get(`${this.baseUrl}getDept.php`).subscribe(
@@ -204,7 +222,7 @@ export class EmployeeshowComponent implements OnInit {
         this.dep = data;
       },
       (error: any) => {
-        console.log(error);
+
       }
     );
     this.http.get(`${this.baseUrl}getsector.php`).subscribe(
@@ -212,7 +230,7 @@ export class EmployeeshowComponent implements OnInit {
         this.sector = data;
       },
       (error: any) => {
-        console.log(error);
+
       }
     )
     this.http.get(`${this.baseUrl}Search.php`).subscribe(
@@ -220,7 +238,25 @@ export class EmployeeshowComponent implements OnInit {
         this.seach = data;
       },
       (error: any) => {
-        console.log(error);
+
+      }
+    );
+
+    this.http.get(`${this.baseUrl}Searchstatus_data_waiting.php`).subscribe(
+      (data: any) => {
+        this.seach_waiting = data;
+        console.log(this.seach_waiting.length);
+        if (this.seach_waiting.status_data === 'W') {
+          this.emp_waiting = true;
+        }
+        else {
+          this.emp_waiting = false;
+
+        }
+
+      },
+      (error: any) => {
+
       }
     );
 
@@ -229,7 +265,7 @@ export class EmployeeshowComponent implements OnInit {
         this.positionEmp = data;
       },
       (error: any) => {
-        console.log(error);
+
       }
     );
 
@@ -238,12 +274,12 @@ export class EmployeeshowComponent implements OnInit {
 
         for (var i = 0; i <= data.length; i++) {
           this.showleave_limit = data;
-          console.log(this.showleave_limit[i].date_stop);
+
 
         }
 
       }, (error: any) => {
-        console.log(error);
+
       }
     )
     const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
@@ -259,7 +295,7 @@ export class EmployeeshowComponent implements OnInit {
           this.leavetype = data;
         },
         (error: any) => {
-          console.log(error);
+
         }
 
       )
@@ -269,7 +305,9 @@ export class EmployeeshowComponent implements OnInit {
 
 
 
-    if (localStorage.getItem('Role') === "6") {
+    if (localStorage.getItem('Role') === "5" || localStorage.getItem('Role') === "4"
+      || localStorage.getItem('Role') === "3" || localStorage.getItem('Role') === "2"
+      || localStorage.getItem('Role') === "1" && localStorage.getItem('privilege') === "A") {
       this.table1 = false;
       this.table2 = false;
       this.table3 = false;
@@ -277,7 +315,7 @@ export class EmployeeshowComponent implements OnInit {
       this.table5 = false;
       this.table6 = true;
     }
-    if (localStorage.getItem('Role') === "5") {
+    else if (localStorage.getItem('Role') === "5") {
       this.table1 = false;
       this.table2 = false;
       this.table3 = false;
@@ -319,24 +357,22 @@ export class EmployeeshowComponent implements OnInit {
     }
 
   }
-  click_leave_type(Emp_ID) {
+  click_a() {
+
+
 
   }
   updateEmp(
     Emp_ID, EmpName, EmpLastName, Sex, Birthday, ID_card, Age, Tel, Address, Work_day, Duration_work, Empstatus_ID, Position_ID
-    , Dept_ID, Sector_ID, status_data
+    , Dept_ID, Sector_ID, status_data, privilege_chack
   ) {
     this.Emp_ID = new FormControl(Emp_ID);
-    console.log(this.Emp_ID);
-
     // this.Prefix = new FormControl(Prefix);
     this.EmpName = new FormControl(EmpName);
     this.EmpLastName = new FormControl(EmpLastName);
     this.Sex = new FormControl(Sex);
     this.Birthday = new FormControl(Birthday);
     this.ID_card = new FormControl(ID_card);
-    console.log(this.ID_card);
-
     this.Age = new FormControl(Age);
     this.Address = new FormControl(Address);
     this.Tel = new FormControl(Tel);
@@ -347,8 +383,20 @@ export class EmployeeshowComponent implements OnInit {
     this.Dept_ID = new FormControl(Dept_ID);
     this.Sector_ID = new FormControl(Sector_ID);
     this.status_data = new FormControl(status_data);
+    if (privilege_chack === "A") {
+      document.getElementById("inlineRadio1").checked = true
+    }
+    else {
+      document.getElementById("inlineRadio2").checked = true
+    }
   }
   public updateEmployee() {
+    if (document.getElementById("inlineRadio1").checked === true) {
+      this.privilege = "A"
+    }
+    else {
+      this.privilege = "U"
+    }
     const body = 'Emp_ID=' + this.Emp_ID.value
       // + '&Prefix=' + this.Prefix.value
       + '&EmpName=' + this.EmpName.value
@@ -366,6 +414,7 @@ export class EmployeeshowComponent implements OnInit {
       + '&Position_ID=' + this.Position_ID.value
       + '&Dept_ID=' + this.Dept_ID.value
       + '&Sector_ID=' + this.Sector_ID.value
+      + '&privilege=' + this.privilege
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -379,7 +428,7 @@ export class EmployeeshowComponent implements OnInit {
           this.Empployee = data[0];
         },
         (error: any) => {
-          console.log(error);
+
         }
       );
     Swal.fire({
@@ -396,7 +445,7 @@ export class EmployeeshowComponent implements OnInit {
         //     this.Employee = data;
         //   },
         //   (error: any) => {
-        //     console.log(error);
+        //    
         //   }
         // );
 
@@ -412,10 +461,11 @@ export class EmployeeshowComponent implements OnInit {
     Swal.fire({
       title: 'คุณจะลบ' + ' ' + this.EmpName_show + ' ' + 'หรือไม่',
       icon: 'warning',
+      confirmButtonText: 'บันทึก',
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'ยกเลิก',
       showCancelButton: true,
-      confirmButtonColor: '#00FF33',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
         Swal.fire({
@@ -431,7 +481,7 @@ export class EmployeeshowComponent implements OnInit {
           //     this.Employee = data;
           //   },
           //   (error: any) => {
-          //     console.log(error);
+          //    
           //   }
           // );
         })
@@ -446,7 +496,7 @@ export class EmployeeshowComponent implements OnInit {
               this.Empployee = data[0];
             },
             (error: any) => {
-              console.log(error);
+
             }
           );
       }
@@ -462,7 +512,7 @@ export class EmployeeshowComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'ไม่พบข้อมูล',
-        text: 'Something went wrong!'
+        text: ''
       })
     } else {
       this.http.get(`${this.baseUrl}Search.php?Emp_ID=` + Emp_ID).subscribe(
@@ -471,7 +521,7 @@ export class EmployeeshowComponent implements OnInit {
 
         },
         (error: any) => {
-          console.log(error);
+
         }
       );
     }
@@ -503,7 +553,7 @@ export class EmployeeshowComponent implements OnInit {
           this.leavetype = data;
         },
         (error: any) => {
-          console.log(error);
+
         }
       )
     const tpyeUser = 'Emp_ID=' + Emp_ID
@@ -516,12 +566,17 @@ export class EmployeeshowComponent implements OnInit {
         headers: headers3
       }).subscribe(
         (data: any) => {
-          this.leavetypeUser = data;
-          console.log(this.leavetypeUser);
+          try {
+            this.leavetypeUser = data;
+          } catch (error) {
+
+          }
+
+
 
         },
         (error: any) => {
-          console.log(error);
+
         }
 
       )
@@ -533,7 +588,7 @@ export class EmployeeshowComponent implements OnInit {
   text_chack = /(ลาป่วย)/g;
   dataChanged(newObj) {
     console.log(newObj);
-
+    this.invalid_type = "is-valid"
     this.check_Remain = newObj.Remain
     this.LType_ID_check = newObj.LType_ID
     this.LType_limit_check = newObj.LType_limit
@@ -583,15 +638,24 @@ export class EmployeeshowComponent implements OnInit {
 
 
 
-    if (+LeaveTotal > +check_number) {
+    if (!this.LType_ID.value) {
+      this.invalid_type = "is-invalid"
+      Swal.fire({
+        icon: 'error',
+        title: 'กรุณาเลือกประเภทการลา',
+      })
+    }
+
+    else if (+LeaveTotal > +check_number) {
       Swal.fire({
         title: 'คุณลาเกินกำหนดแล้ว ยินยอมให้หักเงินเดือนหรือไม่',
-        text: "You won't be able to revert this!",
+        text: "",
         icon: 'warning',
-        showCancelButton: true,
+        confirmButtonText: 'ตกลง',
         confirmButtonColor: '#3085d6',
+        cancelButtonText: 'ยกเลิก',
+        showCancelButton: true,
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, '
       }).then((result) => {
         if (result.isConfirmed) {
           if (Role_chack === "1") {
@@ -599,12 +663,23 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_doc = "is-invalid"
               this.invalid_limit = "is-invalid"
             }
+
+
+            if (!this.LeaveDateLast.value) {
+
+              Swal.fire({
+                icon: 'error',
+                title: 'กรุณาเลือกวันลาให้ถูกต้อง',
+              })
+
+            }
             if (!this.LeaveStatus_Document.value) {
               this.invalid_doc = "is-invalid"
             }
             if (!this.limit_ID.value) {
               this.invalid_limit = "is-invalid"
             }
+
             else {
               this.Add_leave_level_1(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
             }
@@ -614,12 +689,23 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_doc = "is-invalid"
               this.invalid_limit = "is-invalid"
             }
+
+
+            if (!this.LeaveDateLast.value) {
+
+              Swal.fire({
+                icon: 'error',
+                title: 'กรุณาเลือกวันลาให้ถูกต้อง',
+              })
+
+            }
             if (!this.LeaveStatus_Document.value) {
               this.invalid_doc = "is-invalid"
             }
             if (!this.limit_ID.value) {
               this.invalid_limit = "is-invalid"
             }
+
             else {
               this.Add_leave_level_2(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
 
@@ -630,12 +716,23 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_doc = "is-invalid"
               this.invalid_limit = "is-invalid"
             }
+
+
+            if (!this.LeaveDateLast.value) {
+
+              Swal.fire({
+                icon: 'error',
+                title: 'กรุณาเลือกวันลาให้ถูกต้อง',
+              })
+
+            }
             if (!this.LeaveStatus_Document.value) {
               this.invalid_doc = "is-invalid"
             }
             if (!this.limit_ID.value) {
               this.invalid_limit = "is-invalid"
             }
+
             else {
               this.Add_leave_level_3(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
             }
@@ -645,12 +742,23 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_doc = "is-invalid"
               this.invalid_limit = "is-invalid"
             }
+
+
+            if (!this.LeaveDateLast.value) {
+
+              Swal.fire({
+                icon: 'error',
+                title: 'กรุณาเลือกวันลาให้ถูกต้อง',
+              })
+
+            }
             if (!this.LeaveStatus_Document.value) {
               this.invalid_doc = "is-invalid"
             }
             if (!this.limit_ID.value) {
               this.invalid_limit = "is-invalid"
             }
+
             else {
               this.Add_leave_level_4(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
             }
@@ -678,12 +786,23 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_doc = "is-invalid"
           this.invalid_limit = "is-invalid"
         }
+
+
+        if (!this.LeaveDateLast.value) {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'กรุณาเลือกวันลาให้ถูกต้อง',
+          })
+
+        }
         if (!this.LeaveStatus_Document.value) {
           this.invalid_doc = "is-invalid"
         }
         if (!this.limit_ID.value) {
           this.invalid_limit = "is-invalid"
         }
+
         else {
           this.Add_leave_level_1(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
@@ -693,12 +812,23 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_doc = "is-invalid"
           this.invalid_limit = "is-invalid"
         }
+
+
+        if (!this.LeaveDateLast.value) {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'กรุณาเลือกวันลาให้ถูกต้อง',
+          })
+
+        }
         if (!this.LeaveStatus_Document.value) {
           this.invalid_doc = "is-invalid"
         }
         if (!this.limit_ID.value) {
           this.invalid_limit = "is-invalid"
         }
+
         else {
           this.Add_leave_level_2(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
@@ -708,12 +838,23 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_doc = "is-invalid"
           this.invalid_limit = "is-invalid"
         }
+
+
+        if (!this.LeaveDateLast.value) {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'กรุณาเลือกวันลาให้ถูกต้อง',
+          })
+
+        }
         if (!this.LeaveStatus_Document.value) {
           this.invalid_doc = "is-invalid"
         }
         if (!this.limit_ID.value) {
           this.invalid_limit = "is-invalid"
         }
+
         else {
           this.Add_leave_level_3(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
@@ -723,12 +864,23 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_doc = "is-invalid"
           this.invalid_limit = "is-invalid"
         }
+
+
+        if (!this.LeaveDateLast.value) {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'กรุณาเลือกวันลาให้ถูกต้อง',
+          })
+
+        }
         if (!this.LeaveStatus_Document.value) {
           this.invalid_doc = "is-invalid"
         }
         if (!this.limit_ID.value) {
           this.invalid_limit = "is-invalid"
         }
+
         else {
           this.Add_leave_level_4(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
@@ -777,7 +929,7 @@ export class EmployeeshowComponent implements OnInit {
               this.addLeave = data;
             },
             (error: any) => {
-              console.log(error);
+
             }
           );
         Swal.fire({
@@ -826,7 +978,7 @@ export class EmployeeshowComponent implements OnInit {
               this.addLeave = data;
             },
             (error: any) => {
-              console.log(error);
+
             }
           );
         Swal.fire({
@@ -899,7 +1051,7 @@ export class EmployeeshowComponent implements OnInit {
                 this.modal_dismiss = "model"
               },
               (error: any) => {
-                console.log(error);
+
               }
             );
         }
@@ -949,7 +1101,7 @@ export class EmployeeshowComponent implements OnInit {
                 this.modal_dismiss = "model"
               },
               (error: any) => {
-                console.log(error);
+
               }
             );
         }
@@ -997,7 +1149,7 @@ export class EmployeeshowComponent implements OnInit {
               this.addLeave = data;
             },
             (error: any) => {
-              console.log(error);
+
             }
           );
         Swal.fire({
@@ -1046,7 +1198,7 @@ export class EmployeeshowComponent implements OnInit {
               this.addLeave = data;
             },
             (error: any) => {
-              console.log(error);
+
             }
           );
         Swal.fire({
@@ -1119,7 +1271,7 @@ export class EmployeeshowComponent implements OnInit {
                 this.modal_dismiss = "model"
               },
               (error: any) => {
-                console.log(error);
+
               }
             );
         }
@@ -1169,7 +1321,7 @@ export class EmployeeshowComponent implements OnInit {
                 this.modal_dismiss = "model"
               },
               (error: any) => {
-                console.log(error);
+
               }
             );
         }
@@ -1216,7 +1368,7 @@ export class EmployeeshowComponent implements OnInit {
               this.addLeave = data;
             },
             (error: any) => {
-              console.log(error);
+
             }
           );
         Swal.fire({
@@ -1265,7 +1417,7 @@ export class EmployeeshowComponent implements OnInit {
               this.addLeave = data;
             },
             (error: any) => {
-              console.log(error);
+
             }
           );
         Swal.fire({
@@ -1338,7 +1490,7 @@ export class EmployeeshowComponent implements OnInit {
                 this.modal_dismiss = "model"
               },
               (error: any) => {
-                console.log(error);
+
               }
             );
         }
@@ -1388,7 +1540,7 @@ export class EmployeeshowComponent implements OnInit {
                 this.modal_dismiss = "model"
               },
               (error: any) => {
-                console.log(error);
+
               }
             );
         }
@@ -1435,7 +1587,7 @@ export class EmployeeshowComponent implements OnInit {
               this.addLeave = data;
             },
             (error: any) => {
-              console.log(error);
+
             }
           );
         Swal.fire({
@@ -1484,7 +1636,7 @@ export class EmployeeshowComponent implements OnInit {
               this.addLeave = data;
             },
             (error: any) => {
-              console.log(error);
+
             }
           );
         Swal.fire({
@@ -1557,7 +1709,7 @@ export class EmployeeshowComponent implements OnInit {
                 this.modal_dismiss = "model"
               },
               (error: any) => {
-                console.log(error);
+
               }
             );
         } else {
@@ -1606,7 +1758,7 @@ export class EmployeeshowComponent implements OnInit {
                 this.modal_dismiss = "model"
               },
               (error: any) => {
-                console.log(error);
+
               }
             );
         }
@@ -1717,7 +1869,7 @@ export class EmployeeshowComponent implements OnInit {
         }
       },
       (error: any) => {
-        console.log(error);
+
 
       }
     )

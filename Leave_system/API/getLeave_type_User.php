@@ -104,7 +104,7 @@
         employee
         LEFT JOIN leavetype ON leavetype.Empstatus_ID = employee.Empstatus_ID
         LEFT JOIN employeestatus ON employeestatus.Empstatus_ID = employee.Empstatus_ID
-        LEFT JOIN (SELECT * FROM `leave` WHERE  LeaveStatus_ID = 5  and year(now()) = year(LeaveDateStart))AS `leave` ON  `leave`.LType_ID = leavetype.LType_ID
+        LEFT JOIN (SELECT * FROM `leave` WHERE  LeaveStatus_ID = 5 AND `leave`.Emp_ID ='".$_POST["Emp_ID"]."' and year(now()) = year(LeaveDateStart))AS `leave` ON  `leave`.LType_ID = leavetype.LType_ID
      LEFT JOIN leave_limit ON `leave`.limit_ID = leave_limit.limit_ID
         AND `leave`.LeaveDateStart BETWEEN `leave_limit`.Date_start AND ADDDATE(`leave_limit`.Date_start,INTERVAL limit_date  MONTH)
         AND `leave`.LType_ID = leavetype.LType_ID 

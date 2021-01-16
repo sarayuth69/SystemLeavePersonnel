@@ -8,7 +8,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">
-                                <h3 class="card-title">รายการลา </h3>
+                                <h3 class="card-title">รายการลา</h3>
 
                             </div>
                             <div class="col-sm">
@@ -87,7 +87,9 @@
                                         <td class="text-center">{{item.LTypeName}}</td>
                                         <td class="text-center"> {{item.LeaveDateStart_month}} ถึง
                                             {{item.LeaveDateLast_month}}</td>
-                                        <td class="text-center"> {{item.LeaveTotal}} </td>
+                                        <td class="text-center"> {{item.LeaveTotal}} <p *ngIf="item.LeaveTotal == 0"
+                                                style="color: red;">ขออนุญาตยกเลิก</p>
+                                        </td>
                                         <!-- <td class="text-center"> {{item.file_names}}</td> -->
 
 
@@ -112,14 +114,14 @@
                                         </td>
                                         <td class="text-center">
                                             &nbsp;
-                                            <button *ngIf="item.LeaveStatus_ID < 5" type="button" data-toggle="tooltip"
-                                                data-placement="top" title="ยกเลิกการลา"
+                                            <button *ngIf="item.LeaveStatus_ID < 5 && item.LeaveTotal > 0" type="button"
+                                                data-toggle="tooltip" data-placement="top" title="ยกเลิกการลา"
                                                 class="btn btn-danger btn-circle btn-xl"
                                                 (click)="cancel_leave(item.Leave_ID,item.LeaveStatus_ID)"><i
-                                                    class="fa fa-calendar-times-o" aria-hidden="true"></i> </button>
+                                                    class="fa fa-calendar-times" aria-hidden="true"></i> </button>
 
                                             <!-- Button trigger modal -->
-                                            <button *ngIf="item.LeaveStatus_ID==5" type="button"
+                                            <button *ngIf="item.LeaveStatus_ID==5 && item.LeaveTotal > 0" type="button"
                                                 class="btn btn-primary btn-circle btn-xl" data-toggle="modal"
                                                 data-target="#exampleModal_cancel" title="ขออนุญาติยกเลิกการลา"
                                                 (click)="cancel(item.Leave_ID,item.LTypeName,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,item.LeaveDateStart,item.LeaveDateLast)">
@@ -378,7 +380,10 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">แนปไฟล์ :</th>
-                                    <td>{{file_names_show}}</td>
+                                    <td>
+                                        <a
+                                            href="http://cpe.rmuti.ac.th/project/Leave_system/upload/{{file_names_show}}">{{file_names_show}}</a>
+                                    </td>
 
                                 </tr>
                                 <tr>
@@ -549,8 +554,8 @@
             <div class="modal-body">
                 <div class="tab-pane fade show active">
 
-                    <div class="card">
-                        <div class="card-body">
+                    <div>
+                        <div>
                             <form>
 
                                 <div class="card-header text-left">
@@ -559,10 +564,15 @@
                                 <br>
 
                                 <div class="col-sm">
+                                    <label>เลือกรอบการประเมิน</label>
+                                    <select class="custom-select {{invalid_limit}}" [formControl]="limit_ID"
+                                        (change)="change_limit($event.target.value)">
+                                        <option *ngFor="let item of showleave_limit " value="{{item.limit_ID}}">
+                                            {{item.Name_limit}}</option>
+                                    </select>
                                     <label>ประเภทการลา</label>
-                                    <select [(ngModel)]="data" [formControl]="LType_ID"
-                                        (ngModelChange)="dataChanged($event)" name="data" id="type_leave"
-                                        class="custom-select my-1 mr-sm-2">
+                                    <select [formControl]="LType_ID" (ngModelChange)="dataChanged($event)" name="data"
+                                        id="type_leave" class="custom-select {{invalid_type}}">
                                         <option *ngFor="let currentData of leavetypeUser" [ngValue]="currentData">
                                             {{currentData.LTypeName}}
                                         </option>
@@ -572,7 +582,7 @@
                                 <div class="container">
                                     <div class="form-row">
                                         <p>เรื่อง</p>
-                                        <input type="text" class="form-control" id="nameleave"
+                                        <input type="text" class="form-control {{invalid_type}}" id="nameleave"
                                             value="{{LTypeName_check}}" #Name_Leave readonly>
                                         <p>เรียน</p>
                                         <input type="text" id="toheader"
@@ -637,13 +647,13 @@
                                     <div class="row">
                                         <div class="col-sm">
                                             <label> วันลาคงเหลือ</label><br>
-                                            <input type="text" id="check_Remain" value="{{check_Remain}}" #check_number
-                                                style="width: 50%;" readonly>
+                                            <input type="text" id="check_Remain" class="form-control"
+                                                value="{{check_Remain}}" #check_number style="width: 50%;" readonly>
                                         </div>
                                         <div class="col-sm">
                                             <label> วันลาเกิน</label><br>
-                                            <input type="text" id="LType_limit_check" value="{{LType_limit_check}}"
-                                                #limit_type style="width: 50%;" readonly>
+                                            <input type="text" id="LType_limit_check" class="form-control"
+                                                value="{{Remain_over_check}}" #Remain_over style="width: 50%;" readonly>
                                         </div>
                                         <div class="col-sm">
                                             <div class="custom-control custom-checkbox">
@@ -651,8 +661,8 @@
                                                     (change)="toggleVisibility($event)">
                                                 <label class="custom-control-label"
                                                     for="inlineCheckbox1">มีผู้รับผิดชอบงานแทน</label>
-                                                <span *ngIf="marked"><input type="text" id="employee_work"
-                                                        [formControl]="employee"></span>
+                                                <span *ngIf="marked"><input type="text" class="form-control"
+                                                        id="employee_work" [formControl]="employee"></span>
 
                                             </div>
                                             <!-- <div class="custom-control custom-checkbox">
@@ -686,20 +696,6 @@
 
 
                                 </div>
-                                <!-- <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="dateCheck1"
-                                        (change)="toggleVisibility_date($date)">
-                                    <label class="custom-control-label" for="customCheck1">ลามากกว่า 1 วัน</label>
-
-                                </div> -->
-
-
-
-                                <!-- <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="inlineCheckbox2"
-                                        (change)="toggleVisibility_date($event)">
-                                    <label class="custom-control-label" for="inlineCheckbox2">ลามากกว่า 1 วัน</label>
-                                </div> -->
 
 
                                 <div class="form-row">
@@ -707,7 +703,7 @@
                                         <div class="card text-white  mb-3" style="max-width: 18rem;">
                                             <div class="card-header bg-primary">วันที่ลา</div>
                                             <div class="card-body text-primary">
-                                                <input type="date" class="form-control" id="LeaveDateStart"
+                                                <input type="date" class="form-control " id="LeaveDateStart"
                                                     [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
                                                     (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
                                                     required>
@@ -722,23 +718,18 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <!-- <label for="validationDefault04">วันที่ลา</label>
-                                        <input type="date" class="form-control" id="LeaveDateStart"
-                                            [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
-                                            data-date-format="DD MMMM YYYY" required>
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                        </select> -->
+
                                     </div>
 
                                     <div class="col-sm">
                                         <div class="card text-white  mb-3" style="max-width: 18rem;">
                                             <div class="card-header bg-danger ">ถึงวันที่</div>
                                             <div class="card-body text-primary">
-                                                <input type="date" class="form-control" id="LeaveDateLast"
+                                                <input type="date" class="form-control " id="LeaveDateLast"
                                                     (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
                                                     [formControl]="LeaveDateLast" [max]="maxDate"
                                                     data-date-format="DD MMMM YYYY" required>
+
                                                 <h6>ประเภทวันลา</h6>
                                                 <select class="custom-select" id="Leave_characteristics_dateLast"
                                                     [disabled]="btnDisable_last" #Leave_characteristics_dateLast
@@ -749,14 +740,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <!-- <label>ถึงวันที่</label> -->
-                                        <!-- <input type="date" class="form-control" id="LeaveDateLast"
-                                            (change)="test_date(LeaveDateStart.value,LeaveDateLast.value)"
-                                            [formControl]="LeaveDateLast" [max]="maxDate" data-date=""
-                                            data-date-format="DD MMMM YYYY" required>
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                        </select> -->
+
                                     </div>
 
                                     <div class="col-md-2 mb-2">
@@ -772,12 +756,7 @@
                                             <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
                                             <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
                                         </select>
-                                        <label>เลือกรอบการประเมิน</label>
-                                        <select class="custom-select {{invalid_limit}}" [formControl]="limit_ID"
-                                            (change)="change_limit($event)">
-                                            <option *ngFor="let item of showleave_limit " value="{{item.limit_ID}}">
-                                                {{item.Name_limit}}</option>
-                                        </select>
+
                                     </div>
 
                                     <form>
@@ -791,23 +770,14 @@
                                                     aria-hidden="true"></i></button>
                                             <br>
                                             <br>
-                                            <div class="progress" *ngIf="progress">
 
-                                                <div class="progress-bar" [style.width]="progress + '%'">{{progress}}%
-                                                </div>
-                                            </div>
                                         </div>
                                         <br>
 
 
                                     </form>
                                     <div class="form-row">
-                                        <!-- <label>สถานะการส่งใบลาฉบับจริง</label>
-                                        <select class="custom-select" [formControl]="LeaveStatus_Document">
-                                            <option selected>--เลือกสถานะ--</option>
-                                            <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
-                                            <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
-                                        </select> -->
+
                                     </div>
                                 </div>
                             </form>
@@ -816,9 +786,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                 <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}`
-                    (click)="AddLeave(LeaveTotal.value,check_number.value,limit_type.value,Name_Leave.value,To_Person.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">OK</button>
+                    (click)="AddLeave(LeaveTotal.value,check_number.value,Remain_over.value,Name_Leave.value,To_Person.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">ยืนยัน</button>
 
             </div>
         </div>
@@ -961,9 +931,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                 <button type="button" class="btn btn-primary"
-                    (click)="allow_cancel_leave(cancel_total.value,Leave_ID_cancel_text.value)">บันทึก</button>
+                    (click)="allow_cancel_leave(cancel_total.value,Leave_ID_cancel_text.value)">ยืนยัน</button>
             </div>
         </div>
     </div>

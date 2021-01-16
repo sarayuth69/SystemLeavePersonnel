@@ -21,6 +21,8 @@ export class CheckleaveComponent implements OnInit {
   public leavetypeUser;
   pageActual: any;
   showleave_limit;
+  show_year;
+  limit;
   constructor(
     public router: Router  ,
     public route: ActivatedRoute,
@@ -34,52 +36,18 @@ export class CheckleaveComponent implements OnInit {
     
 
 
-
-
-    // this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
-    //   (data : any)=>{
+    this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+      (data: any) => {
+        this.showleave_limit = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
   
-    //     for( var i = 0 ;i <= data.length;i++){
-    //       this.showleave_limit = data;
-    //         console.log(this.showleave_limit[i] .date_stop);
-            
-    //     }
-
-    //     const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
-    //    + '&LeaveDateStart='+ this.showleave_limit.date_stop
-    //    + '&limit_date='+this.showleave_limit.limit_date
-    //     console.log(tpyeUser);
-    //     const headers1 = new HttpHeaders({
-    //       'Content-Type': 'application/x-www-form-urlencoded'
-    //     });
-    //     this.http
-    //       .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
-    //         headers: headers1
-    //       }).subscribe(
-    //         (data: any) => {
-    //           this.leavetypeUser = data;
-    //           console.log(this.leavetypeUser);
-    
-    //         },
-    //         (error: any) => {
-    //           console.log(error);
-    //         }
-    
-    //       )
-        
-      
-    //   },(error : any)=>{
-    //     console.log(error);        
-    //   }
-    // )
-
-
-
-
-
-
     
     const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+      + '&limit_ID=' + this.limit
     console.log(tpyeUser);
     const headers1 = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -97,7 +65,9 @@ export class CheckleaveComponent implements OnInit {
           console.log(error);
         }
 
-      )
+    )
+    
+
     const body = 'Empstatus_ID=' + localStorage.getItem("Empstatus_ID")
     console.log(body);
     const headers = new HttpHeaders({
@@ -118,6 +88,30 @@ export class CheckleaveComponent implements OnInit {
 
       )
 }
+  getlleave_user(event) { 
+    console.log(event);
+    this.limit = event
+    
+    const tpyeUser = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+      + '&limit_ID=' + this.limit
+    console.log(tpyeUser);
+    const headers1 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.leavetypeUser = data;
+          console.log(this.leavetypeUser);
 
+        },
+        (error: any) => {
+          console.log(error);
+        }
+
+      )
+  }
 
 }

@@ -107,7 +107,7 @@ export class LeavetypeComponent implements OnInit {
 
         for (var i = 0; i <= data.length; i++) {
           this.showleave_limit = data;
-          console.log(this.showleave_limit[i].date_stop);
+          // console.log(this.showleave_limit[i].date_stop);
 
         }
         //  this.showleave_limit = data;
@@ -205,7 +205,7 @@ export class LeavetypeComponent implements OnInit {
       || this.QuotaStatus.value === "" || this.Empstatus_ID.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
-        'That thing is still around?',
+        '',
         'question'
       )
     } else {
@@ -289,10 +289,11 @@ export class LeavetypeComponent implements OnInit {
     Swal.fire({
       title: 'คุณจะลบ' + ' ' + this.leavetypeName_show + ' ' + 'หรือไม่',
       icon: 'warning',
+      confirmButtonText: 'บันทึก',
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'ยกเลิก',
       showCancelButton: true,
-      confirmButtonColor: '#00FF33',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
         Swal.fire({
@@ -359,7 +360,7 @@ export class LeavetypeComponent implements OnInit {
 
 
   updateLeavetype(
-    LType_ID, LTypeName, Number, LType_limit, AdvanceNotice, leavetype_remark, QuotaStatus, Empstatus_ID
+    LType_ID, LTypeName, Number, LType_limit, AdvanceNotice, LOrdinal, leavetype_remark, QuotaStatus, Empstatus_ID
   ) {
     this.LType_ID = new FormControl(LType_ID);
     this.LTypeName = new FormControl(LTypeName);
@@ -367,6 +368,7 @@ export class LeavetypeComponent implements OnInit {
     this.LType_limit = new FormControl(LType_limit);
     // this.Remain = new FormControl(Remain);
     this.AdvanceNotice = new FormControl(AdvanceNotice);
+    this.LOrdinal = new FormControl(LOrdinal);
     this.leavetype_remark = new FormControl(leavetype_remark);
     this.QuotaStatus = new FormControl(QuotaStatus);
     this.Empstatus_ID = new FormControl(Empstatus_ID);
@@ -380,7 +382,7 @@ export class LeavetypeComponent implements OnInit {
       + '&LType_limit=' + this.LType_limit.value
       // + '&Remain=' + this.Remain.value
       + '&AdvanceNotice=' + this.AdvanceNotice.value
-      + '&LOrdinal=' + 0
+      + '&LOrdinal=' + this.LOrdinal.value
       + '&leavetype_remark=' + this.leavetype_remark.value
       + '&QuotaStatus=' + this.QuotaStatus.value
       + '&Empstatus_ID=' + this.Empstatus_ID.value
@@ -476,7 +478,7 @@ export class LeavetypeComponent implements OnInit {
     if (this.Date_start.value === "" || this.limit_date.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
-        'That thing is still around?',
+        '',
         'question'
       )
     } else {
@@ -549,10 +551,11 @@ export class LeavetypeComponent implements OnInit {
     Swal.fire({
       title: 'คุณจะลบ' + ' ' + this.Name_limit_show + ' ' + 'หรือไม่',
       icon: 'warning',
+      confirmButtonText: 'บันทึก',
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'ยกเลิก',
       showCancelButton: true,
-      confirmButtonColor: '#00FF33',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
         Swal.fire({
@@ -686,10 +689,11 @@ export class LeavetypeComponent implements OnInit {
     Swal.fire({
       title: 'คุณจะลบ' + ' ' + this.holiday_date_show + ' ' + 'ซึ่งเป็นวัน' + ' ' + this.holiday_data_show + ' ' + 'หรือไม่',
       icon: 'warning',
+      confirmButtonText: 'บันทึก',
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'ยกเลิก',
       showCancelButton: true,
-      confirmButtonColor: '#00FF33',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
         Swal.fire({

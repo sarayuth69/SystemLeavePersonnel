@@ -35,6 +35,12 @@ export class HeaderComponent implements OnInit {
   emp3: boolean
   emp2: boolean
   emp1: boolean
+
+  emp5_A: boolean
+  emp4_A: boolean
+  emp3_A: boolean
+  emp2_A: boolean
+  emp1_A: boolean
   show1: boolean
   EmpName = localStorage.getItem('EmpName');
   EmpLastName = localStorage.getItem('EmpLastName');
@@ -75,12 +81,17 @@ export class HeaderComponent implements OnInit {
           this.msg = data
           for (var i = 0; i <= this.msg.length; i++) {
 
-            if (this.msg[i].count_data >= 1) {
-              this.test_2 = true
-              this.test_1 = this.msg[i].count_data
-            } else {
-              this.test_2 = false
+            try {
+              if (this.msg[i].count_data >= 1) {
+                this.test_2 = true
+                this.test_1 = this.msg[i].count_data
+              } else {
+                this.test_2 = false
+              }
+            } catch (error) {
+              // console.log(' — Error is handled gracefully: ', error.name);
             }
+
           }
         },
         (error: any) => {
@@ -117,17 +128,18 @@ export class HeaderComponent implements OnInit {
     // )
 
 
-    if (localStorage.getItem('Role') === "6") {
-      this.show = true;
-      // this.emp5 = false; 
-      // this.emp3 = false; 
+    // if (localStorage.getItem('privilege') === "A") {
+    //   this.show = true;
+    //   // this.emp5 = false; 
+    //   // this.emp3 = false; 
 
-    } else if (localStorage.getItem('Role') === "1") {
+    // }
+    if (localStorage.getItem('Role') === "1" && localStorage.getItem('privilege') === "U") {
       this.emp1 = true;
       // this.show = false; 
       // this.emp3 = false; 
 
-    } else if (localStorage.getItem('Role') === "2") {
+    } else if (localStorage.getItem('Role') === "2" && localStorage.getItem('privilege') === "U") {
       this.emp2 = true;
       const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
       console.log(body);
@@ -141,13 +153,17 @@ export class HeaderComponent implements OnInit {
           (data: any) => {
             this.count_watting = data
             for (var i = 0; i <= this.count_watting.length; i++) {
-              console.log(this.count_watting[i].countleave);
-              if (this.count_watting[i].countleave >= 1) {
-                this.show_count_lavel2 = true
-                this.countleave_toDepartmenthead = this.count_watting[i].countleave
-              } else {
-                this.show_count_lavel2 = false
+              try {
+                if (this.count_watting[i].countleave >= 1) {
+                  this.show_count_lavel2 = true
+                  this.countleave_toDepartmenthead = this.count_watting[i].countleave
+                } else {
+                  this.show_count_lavel2 = false
+                }
+              } catch (error) {
+                
               }
+            
             }
           },
           (error: any) => {
@@ -158,7 +174,7 @@ export class HeaderComponent implements OnInit {
       // this.show = false; 
       // this.emp3 = false; 
 
-    } else if (localStorage.getItem('Role') === "3") {
+    } else if (localStorage.getItem('Role') === "3" && localStorage.getItem('privilege') === "U") {
       this.emp3 = true;
       const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
       console.log(body);
@@ -172,13 +188,17 @@ export class HeaderComponent implements OnInit {
           (data: any) => {
             this.count_watting = data
             for (var i = 0; i <= this.count_watting.length; i++) {
-              console.log(this.count_watting[i].countleave);
-              if (this.count_watting[i].countleave >= 1) {
-                this.show_count_lavel3 = true
-                this.countleave_toSupervisor = this.count_watting[i].countleave
-              } else {
-                this.show_count_lavel3 = false
+              try {
+                if (this.count_watting[i].countleave >= 1) {
+                  this.show_count_lavel3 = true
+                  this.countleave_toSupervisor = this.count_watting[i].countleave
+                } else {
+                  this.show_count_lavel3 = false
+                }
+              } catch (error) {
+
               }
+
             }
           },
           (error: any) => {
@@ -190,30 +210,64 @@ export class HeaderComponent implements OnInit {
       // this.show = false; 
       // this.emp3 = false; 
 
-    } else if (localStorage.getItem('Role') === "4") {
+    } else if (localStorage.getItem('Role') === "4" && localStorage.getItem('privilege') === "U") {
       // this.emp4 = false; 
       // this.emp5 = false; 
       // this.show = false; 
       this.emp4 = true;
-      this.http.get(`${this.baseUrl}count_leavetoDeputyleader.php`).subscribe(
-        (data: any) => {
-          this.count_watting = data
-          for (var i = 0; i <= this.count_watting.length; i++) {
-            console.log(this.count_watting[i].countleave);
-            if (this.count_watting[i].countleave >= 1) {
-              this.show_count_lavel4 = true
-              this.countleave_toDeputyleader = this.count_watting[i].countleave
-            } else {
-              this.show_count_lavel4 = false
+      const body = 'Sector_ID=' + localStorage.getItem("Sector_ID")
+      console.log(body);
+      const headers1 = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}count_leavetoDeputyleader.php`, body, {
+          headers: headers1
+        }).subscribe(
+          (data: any) => {
+            this.count_watting = data
+            for (var i = 0; i <= this.count_watting.length; i++) {
+              try {
+                if (this.count_watting[i].countleave >= 1) {
+                  this.show_count_lavel4 = true
+                  this.countleave_toDeputyleader = this.count_watting[i].countleave
+                } else {
+                  this.show_count_lavel4 = false
+                }
+              } catch (error) {
+                // console.log(' — Error is handled gracefully: ', error.name);
+              }
+
             }
+          },
+          (error: any) => {
+            console.log("");
           }
 
-        }, (error: any) => {
-          console.log("");
-        }
-      )
+        )
 
-    } else if (localStorage.getItem('Role') === "5") {
+
+
+
+      // this.http.get(`${this.baseUrl}count_leavetoDeputyleader.php`).subscribe(
+      //   (data: any) => {
+      //     this.count_watting = data
+      //     for (var i = 0; i <= this.count_watting.length; i++) {
+      //       console.log(this.count_watting[i].countleave);
+      //       if (this.count_watting[i].countleave >= 1) {
+      //         this.show_count_lavel4 = true
+      //         this.countleave_toDeputyleader = this.count_watting[i].countleave
+      //       } else {
+      //         this.show_count_lavel4 = false
+      //       }
+      //     }
+
+      //   }, (error: any) => {
+      //     console.log("");
+      //   }
+      // )
+
+    } else if (localStorage.getItem('Role') === "5" && localStorage.getItem('privilege') === "U") {
       // this.emp4 = false; 
       // this.emp5 = false; 
       // this.show = false; 
@@ -222,13 +276,17 @@ export class HeaderComponent implements OnInit {
         (data: any) => {
           this.count_watting = data
           for (var i = 0; i <= this.count_watting.length; i++) {
-            console.log(this.count_watting[i].countleave);
-            if (this.count_watting[i].countleave >= 1) {
-              this.show_count_lavel5 = true
-              this.countleave_toperson = this.count_watting[i].countleave
-            } else {
-              this.show_count_lavel5 = false
+            try {
+              if (this.count_watting[i].countleave >= 1) {
+                this.show_count_lavel5 = true
+                this.countleave_toperson = this.count_watting[i].countleave
+              } else {
+                this.show_count_lavel5 = false
+              }
+            } catch (error) {
+
             }
+
           }
 
         }, (error: any) => {
@@ -237,6 +295,135 @@ export class HeaderComponent implements OnInit {
       )
     }
 
+    else if (localStorage.getItem('Role') === "1" && localStorage.getItem('privilege') === "A") {
+      this.emp1_A = true
+    }
+    else if (localStorage.getItem('Role') === "2" && localStorage.getItem('privilege') === "A") {
+      this.emp2_A = true;
+      const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+      console.log(body);
+      const headers1 = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}count_leavetoDepartmenthead.php`, body, {
+          headers: headers1
+        }).subscribe(
+          (data: any) => {
+            this.count_watting = data
+            for (var i = 0; i <= this.count_watting.length; i++) {
+              try {
+                if (this.count_watting[i].countleave >= 1) {
+                  this.show_count_lavel2 = true
+                  this.countleave_toDepartmenthead = this.count_watting[i].countleave
+                } else {
+                  this.show_count_lavel2 = false
+                }
+              } catch (error) {
+
+              }
+
+            }
+          },
+          (error: any) => {
+            console.log("");
+          }
+
+        )
+      // this.show = false;
+      // this.emp3 = false; 
+    }
+    else if (localStorage.getItem('Role') === "3" && localStorage.getItem('privilege') === "A") {
+
+      this.emp3_A = true;
+      const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
+      console.log(body);
+      const headers1 = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}count_leavetoSupervisor.php`, body, {
+          headers: headers1
+        }).subscribe(
+          (data: any) => {
+            this.count_watting = data
+            for (var i = 0; i <= this.count_watting.length; i++) {
+              try {
+                if (this.count_watting[i].countleave >= 1) {
+                  this.show_count_lavel3 = true
+                  this.countleave_toSupervisor = this.count_watting[i].countleave
+                } else {
+                  this.show_count_lavel3 = false
+                }
+              } catch (error) {
+
+              }
+
+            }
+          },
+          (error: any) => {
+            console.log("");
+          }
+
+        )
+    }
+    else if (localStorage.getItem('Role') === "4" && localStorage.getItem('privilege') === "A") {
+      this.emp4_A = true;
+      const body = 'Sector_ID=' + localStorage.getItem("Sector_ID")
+      console.log(body);
+      const headers1 = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}count_leavetoDeputyleader.php`, body, {
+          headers: headers1
+        }).subscribe(
+          (data: any) => {
+            this.count_watting = data
+            for (var i = 0; i <= this.count_watting.length; i++) {
+              try {
+                if (this.count_watting[i].countleave >= 1) {
+                  this.show_count_lavel4 = true
+                  this.countleave_toDeputyleader = this.count_watting[i].countleave
+                } else {
+                  this.show_count_lavel4 = false
+                }
+              } catch (error) {
+                // console.log(' — Error is handled gracefully: ', error.name);
+              }
+
+            }
+          },
+          (error: any) => {
+            console.log("");
+          }
+
+        )
+    }
+    else if (localStorage.getItem('Role') === "5" && localStorage.getItem('privilege') === "A") {
+      this.emp5_A = true;
+      this.http.get(`${this.baseUrl}count_LeaveToperson.php`).subscribe(
+        (data: any) => {
+          this.count_watting = data
+          for (var i = 0; i <= this.count_watting.length; i++) {
+            try {
+              if (this.count_watting[i].countleave >= 1) {
+                this.show_count_lavel5 = true
+                this.countleave_toperson = this.count_watting[i].countleave
+              } else {
+                this.show_count_lavel5 = false
+              }
+            } catch (error) {
+
+            }
+
+          }
+
+        }, (error: any) => {
+          console.log("");
+        }
+      )
+    }
   }
 
   // click() {

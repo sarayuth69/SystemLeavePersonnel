@@ -34,25 +34,15 @@ export class CheckdayworkComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // setTimeout(() => {
-    //   for (let index = 0; index < this.Employee.length; index++) {
-    //     const comin = document.getElementById(`comin${index}`) as HTMLInputElement;
-    //     comin.checked = false;
-    //     const notcomin = document.getElementById(`notcomin${index}`) as HTMLInputElement;
-    //     notcomin.checked = false;
-    //     // document.getElementById(`comin${index}`).checked  = false;
-    //     // document.getElementById(`notcomin${index}`).checked = false;
-
-    //   }
-    // }, 2000);
+ 
     this.maxDate = moment(new Date()).format('YYYY-MM-DD')
     this.http.get(`${this.baseUrl}getEmployee_daywork.php`).subscribe(
       (data: any) => {
-        console.log(data);
+       
         this.Employee = data;
       },
       (error: any) => {
-        console.log(error);
+        
       }
     );
   }
@@ -67,11 +57,11 @@ export class CheckdayworkComponent implements OnInit {
   //       )
   //       .subscribe(
   //         (data: any) => {
-  //           console.log(data);
+  //          
   //           this.chack = data;
   //         },
   //         (error: any) => {
-  //           console.log(error);
+  //           
   //         }
 
   //       );
@@ -84,11 +74,11 @@ export class CheckdayworkComponent implements OnInit {
   //       }).then(
   //         this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
   //           (data: any) => {
-  //             console.log(data);
+  //            
   //             this.Employee = data;
   //           },
   //           (error: any) => {
-  //             console.log(error);
+  //             
   //           }
   //         )
   //       )
@@ -103,11 +93,11 @@ export class CheckdayworkComponent implements OnInit {
   //     )
   //     .subscribe(
   //       (data: any) => {
-  //         console.log(data);
+  //        
   //         this.chack = data;
   //       },
   //       (error: any) => {
-  //         console.log(error);
+  //         
   //       }
 
   //     );
@@ -120,11 +110,11 @@ export class CheckdayworkComponent implements OnInit {
   //     }).then(
   //       this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
   //         (data: any) => {
-  //           console.log(data);
+  //          
   //           this.Employee = data;
   //         },
   //         (error: any) => {
-  //           console.log(error);
+  //           
   //         }
   //       )
   //     )
@@ -142,15 +132,15 @@ export class CheckdayworkComponent implements OnInit {
     }
     this.Day_Work = D;
     this.textdata = T;
-    console.log(this.Emp_ID);
-    console.log(this.Status_Work);
-    console.log(this.Day_Work);
-    console.log(this.textdata);
+    // console.log(this.Emp_ID);
+    // console.log(this.Status_Work);
+    // console.log(this.Day_Work);
+    // console.log(this.textdata);
     if (!D) {
       Swal.fire({
         icon: 'error',
-        title: 'กรุณาเลือกวันที่',
-        text: 'Something went wrong!',
+        title: 'กรุณาเลือกวันที่'
+      
       })
     }
     else {
@@ -161,7 +151,7 @@ export class CheckdayworkComponent implements OnInit {
         + '&Data=' + this.textdata
         + '&message=' + this.message
 
-      console.log(body);
+      // console.log(body);
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       });
@@ -171,11 +161,11 @@ export class CheckdayworkComponent implements OnInit {
         })
         .subscribe(
           (data: any) => {
-            console.log(data[0]);
+            // console.log(data[0]);
             // this.department = data[0];
           },
           (error: any) => {
-            console.log(error);
+            
           }
         );
       Swal.fire({
@@ -190,11 +180,11 @@ export class CheckdayworkComponent implements OnInit {
       // .then(()=>{
       //   this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
       //     (data: any) => {
-      //       console.log(data);
+      //      
 
       //     },
       //     (error: any) => {
-      //       console.log(error);
+      //       
       //     }
       //   );
       // })
@@ -210,10 +200,10 @@ export class CheckdayworkComponent implements OnInit {
       a = "ไม่มาทำงาน"
     }
     else if (a === null) {
-      console.log("asdasdsa");
+      // console.log("asdasdsa");
 
     }
-    console.log(a);
+    // console.log(a);
 
   }
   checkall() {
@@ -242,7 +232,7 @@ export class CheckdayworkComponent implements OnInit {
       //  console.log(Emp_ID.value);
       const textdata = document.getElementById(`textdata${index}`) as HTMLInputElement;
       textdata.value;
-      console.log(textdata.value);
+      // console.log(textdata.value);
 
 
       // var Emp_ID = document.getElementById(`Emp_ID${index}`).value;
@@ -264,7 +254,7 @@ export class CheckdayworkComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'กรุณาเลือกวันที่',
-        text: 'Something went wrong!',
+        text: '',
       })
     }
     else {
@@ -297,8 +287,8 @@ export class CheckdayworkComponent implements OnInit {
           else {
             Swal.fire({
               icon: 'error',
-              title: 'เลือกไห้ครบ',
-              text: 'Something went wrong!',
+              title: 'กรุณาเลือกไห้ครบ',
+              text: '',
             })
           }
         }

@@ -71,21 +71,33 @@ export class SumleaveComponent implements OnInit {
   test2 = []
 
   ngAfterViewInit(sumleave) {
-    console.log(sumleave);
-
     // this.chart_show = chart
-    this.test1.forEach(element => {
-      this.test1.splice(element.LTypeName)
-    });
-    this.test2.forEach(element => {
-      this.test2.splice(element.sum_total)
-    });
-    
-    sumleave.forEach(element => {
-      console.log(element);
-      this.test1.push(element.LTypeName)
-      this.test2.push(element.sum_total)
-    });
+    try {
+      this.test1.forEach(element => {
+        this.test1.splice(element.LTypeName)
+      });
+    } catch (error) {
+
+    }
+    try {
+      this.test2.forEach(element => {
+        this.test2.splice(element.sum_total)
+      });
+
+    } catch (error) {
+
+    }
+    try {
+      sumleave.forEach(element => {
+        console.log(element);
+        this.test1.push(element.LTypeName)
+        this.test2.push(element.sum_total)
+      });
+    } catch (error) {
+
+    }
+
+
 
 
     this.canvas = document.getElementById('myChart');
@@ -185,7 +197,7 @@ export class SumleaveComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'กรุณาเลือกวันที่',
-        text: 'Something went wrong!'
+        text: ''
       })
     } else {
       this.http.get(`${this.baseUrl}searchdayleave.php?Day_leave_start=${this.Day_leave_start_chack}&Day_leave_last=${this.Day_leave_last_chack}`).subscribe(
@@ -196,7 +208,7 @@ export class SumleaveComponent implements OnInit {
             Swal.fire({
               icon: 'error',
               title: 'ไม่พบข้อมูล',
-              text: 'Something went wrong!'
+              text: ''
             })
           }
           else {
@@ -208,7 +220,7 @@ export class SumleaveComponent implements OnInit {
           Swal.fire({
             icon: 'error',
             title: 'ไม่พบข้อมูล',
-            text: 'Something went wrong!'
+            text: ''
           })
         }
       );

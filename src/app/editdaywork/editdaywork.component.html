@@ -18,41 +18,45 @@
       </div>
     </div>
   </div>
-  <table class="table table-borderless">
-    <thead>
-      <tr>
-        <th scope="col">ลำดับ</th>
-        <th scope="col">ชื่อ-นามสกุล</th>
-        <th scope="col">สถานะ</th>
-        <th scope="col">สาเหตุ</th>
-        <th scope="col">จัดการ</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let item of searchdaywork; let i = index">
-      <tr>
-        <td>
-          <p ng-repeat="i in range(1, 5)">
-            {{ i+1 }}
-          </p>
-        </td>
+  <div class="table-responsive-xl">
 
-        <td> {{item.EmpName}} {{item.EmpLastName}} </td>
-        <td *ngIf="item.Status_Work == 'ไม่มาทำงาน'" style="color: red;" > {{item.Status_Work}} </td>
-        <td *ngIf="item.Status_Work == 'มาทำงาน'" style="color: rgb(11, 194, 11);"> {{item.Status_Work}} </td>
 
-        <td> {{item.Data}} </td>
-        <td>
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" (click)="Updateworktime(item.Day_ID,item.EmpName,item.EmpLastName,
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th scope="col">ลำดับ</th>
+          <th scope="col">ชื่อ-นามสกุล</th>
+          <th scope="col">สถานะ</th>
+          <th scope="col">สาเหตุ</th>
+          <th scope="col">จัดการ</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let item of searchdaywork; let i = index">
+        <tr>
+          <td>
+            <p ng-repeat="i in range(1, 5)">
+              {{ i+1 }}
+            </p>
+          </td>
+
+          <td> {{item.EmpName}} {{item.EmpLastName}} </td>
+          <td *ngIf="item.Status_Work == 'ไม่มาทำงาน'" style="color: red;"> {{item.Status_Work}} </td>
+          <td *ngIf="item.Status_Work == 'มาทำงาน'" style="color: rgb(11, 194, 11);"> {{item.Status_Work}} </td>
+
+          <td> {{item.Data}} </td>
+          <td>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal"
+              (click)="Updateworktime(item.Day_ID,item.EmpName,item.EmpLastName,
            item.Status_Work,item.Data)">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          </button>
-        </td>
-      </tr>
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
 
-    </tbody>
-  </table>
-
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
@@ -97,8 +101,8 @@
           </div>
           <div class="form-group ">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input"  data-md-icheck
-                (change)="toggleVisibility($event)" id="defaultCheck1">
+              <input type="checkbox" class="form-check-input" data-md-icheck (change)="toggleVisibility($event)"
+                id="defaultCheck1">
               <label class="form-check-label" for="defaultCheck1">
                 ตรวจสอบแล้ว
               </label>

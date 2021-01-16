@@ -33,6 +33,7 @@ import { FilelaeveprintComponent } from './filelaeveprint/filelaeveprint.compone
 import { LeavetowaitingComponent } from './leavetowaiting/leavetowaiting.component';
 import { CheckleaveinfoComponent } from './checkleaveinfo/checkleaveinfo.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CheckleaveinfoAdminComponent } from './checkleaveinfo-admin/checkleaveinfo-admin.component';
 
 
 
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
   { path: 'filelaeveprint', component: FilelaeveprintComponent },
   { path: 'leavetowaiting', component: LeavetowaitingComponent },
   { path: 'checkleaveinfo', component: CheckleaveinfoComponent },
+  { path: 'checkleaveinfo-admin', component: CheckleaveinfoAdminComponent },
   { path: 'sector', component: SectorComponent },
   { path: 'checkdaywork', component: CheckdayworkComponent },
   { path: 'department', component: DepartmentComponent },
@@ -90,7 +92,8 @@ const appRoutes: Routes = [
     FilelaeveprintComponent,
     LeavetowaitingComponent,
     CheckleaveinfoComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    CheckleaveinfoAdminComponent
 
 
 

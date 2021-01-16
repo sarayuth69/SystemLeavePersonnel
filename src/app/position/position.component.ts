@@ -70,7 +70,7 @@ export class PositionComponent implements OnInit {
     if (this.Position_ID.value === "" || this.PositionName.value === "" || this.Role.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
-        'That thing is still around?',
+        '',
         'question'
       )
     } else {
@@ -127,10 +127,11 @@ export class PositionComponent implements OnInit {
     Swal.fire({
       title: 'คุณจะลบ' + ' ' + this.PositionName_show + ' ' + 'หรือไม่',
       icon: 'warning',
+      confirmButtonText: 'บันทึก',
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'ยกเลิก',
       showCancelButton: true,
-      confirmButtonColor: '#00FF33',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
         Swal.fire({

@@ -45,7 +45,10 @@
                     </div>
                 </div>
             </div>
+            <div class="table-responsive-lg">
 
+
+            </div>
         </div>
     </div>
     <br>
@@ -69,7 +72,6 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive-xl">
-
 
 
                         <table class="table table-hover">
@@ -222,11 +224,12 @@
                             </div>
                             <div class="col-sm">
                                 <h6> ชื่อ </h6>
-                                <input type="text" class="EmpName_show" value="{{EmpName_show}}" readonly>
+                                <input type="text" class="EmpName_show" #EmpName value="{{EmpName_show}}" readonly>
                             </div>
                             <div class="col-sm">
                                 <h6> นามสกุล </h6>
-                                <input type="text" class="EmpLastName__show" value="{{EmpLastName_show}}" readonly>
+                                <input type="text" class="EmpLastName__show" #EmpLastName value="{{EmpLastName_show}}"
+                                    readonly>
 
                             </div>
                         </div>
@@ -234,7 +237,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">
-
+                                <input type="text" class="Leave_ID_show" #Leave_ID value="{{Leave_ID_show}}" readonly>
                                 <h6>ตำแหน่ง </h6>
                                 <input type="text" class="EmpName_show" value="{{PositionName_show}}" readonly>
 
@@ -313,8 +316,16 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">สถานะการส่งใบลาฉบับจริง :</th>
-                                    <td> {{LeaveStatus_Document_show}}</td>
 
+                                    <td>
+                                        <!-- <input class="leave" type="text" value="{{Leave_ID_show}}"> -->
+                                        <select class="form-control" title="สำหรับผู้ดูแลระบบเท่านั้น"
+                                            #LeaveStatus_Document [disabled]="btnDisable_Doc"
+                                            value="{{LeaveStatus_Document_show}}">
+                                            <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
+                                            <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
+                                        </select>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -324,10 +335,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-                <!-- <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete_leave()"
-                    *ngIf="btn_delete">ลบ</button> -->
-                <!-- <button type="button" class="btn btn-primary" data-dismiss="modal"
-                    (click)="updateleave_status(LeaveStatus_Document.value)">บันทึก</button> -->
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                    (click)="delete_leave(Leave_ID.value,EmpName.value,EmpLastName.value)"
+                    *ngIf="btn_delete">ลบ</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    (click)="updateleave_status(LeaveStatus_Document.value)">บันทึก</button>
             </div>
         </div>
     </div>

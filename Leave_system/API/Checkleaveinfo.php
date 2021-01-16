@@ -41,8 +41,12 @@
     JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
     JOIN `position` ON `employee`.`Position_ID` = `position`.`Position_ID`
     JOIN `sector` ON `employee`.`Sector_ID` = `sector`.`Sector_ID`
-    WHERE`employee`.`Emp_ID` LIKE '%{$_GET['Emp_ID']}%' AND `leave`.`LeaveDateStart`  BETWEEN '$day_leave_start' AND '$day_leave_last' 
-         OR `leave`.`LeaveDateLast`  BETWEEN '$day_leave_start' AND '$day_leave_last' 
+    WHERE
+    -- `employee`.`Emp_ID` LIKE '%{$_GET['Emp_ID']}%' AND `leave`.`LeaveDateStart`  BETWEEN '$day_leave_start' AND '$day_leave_last' 
+    --      OR `leave`.`LeaveDateLast`  BETWEEN '$day_leave_start' AND '$day_leave_last' 
+         `leave`.`LeaveDateStart` BETWEEN '$day_leave_start' AND '$day_leave_last' 
+	  AND `employee`.`Emp_ID` = '".$_GET['Emp_ID']."'
+         OR `leave`.`LeaveDateLast` BETWEEN '$day_leave_start' AND '$day_leave_last'  AND `employee`.`Emp_ID` = '".$_GET['Emp_ID']."'
     ";
           $result = mysqli_query($conn,$sql); 
           $myArray = array();

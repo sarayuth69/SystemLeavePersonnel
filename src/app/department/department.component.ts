@@ -62,17 +62,17 @@ export class DepartmentComponent implements OnInit {
     )
   }
   AddDept() {
-   
+
 
     const body = 'Dept_ID=' + this.Dept_ID.value
       + '&DeptName=' + this.DeptName.value
-      // + '&Sector_ID=' + this.Sector_ID
+    // + '&Sector_ID=' + this.Sector_ID
 
     console.log(body);
-    if (this.Dept_ID.value === "" || this.DeptName.value === "" ) {
+    if (this.Dept_ID.value === "" || this.DeptName.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
-        'That thing is still around?',
+        '',
         'question'
       )
     }
@@ -122,17 +122,19 @@ export class DepartmentComponent implements OnInit {
     this.DeptName_show = name;
     Swal.fire({
       title: 'คุณจะลบ' + ' ' + this.DeptName_show + ' ' + 'หรือไม่',
-      text: "You won't be able to revert this!",
+      text: "",
       icon: 'warning',
-      showCancelButton: true,
+      confirmButtonText: 'บันทึก',
       confirmButtonColor: '#3085d6',
+      cancelButtonText: 'ยกเลิก',
+      showCancelButton: true,
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+
     }).then((result) => {
       if (result.value) {
         Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
+          'ลบเรียบร้อย!',
+          '',
           'success'
         ).then(() => {
           this.http.get(`${this.baseUrl}getDept.php`).subscribe(
@@ -169,15 +171,15 @@ export class DepartmentComponent implements OnInit {
 
     this.Dept_ID = new FormControl(Dept_ID);
     this.DeptName = new FormControl(DeptName);
-  
+
   }
   public updateDepartmant() {
-  
+
 
     const body =
       'Dept_ID=' + this.Dept_ID.value
       + '&DeptName=' + this.DeptName.value
-    
+
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'

@@ -81,11 +81,11 @@
               ประเภทการลา
             </a>
           </li>
-          <!-- <li class="sidebar">
+          <li class="sidebar">
             <a class="nav-link toggle" [routerLink]="['/leavelist']"><i class="fa fa-envelope"></i>
               รายการลา
             </a>
-          </li> -->
+          </li>
           <li class="sidebar-dropdown">
             <a>
               <i class="far fa-gem"></i>
@@ -148,6 +148,1059 @@
   </main>
   <!-- page-content" -->
 </div>
+<div class="page-wrapper chiller-theme toggled" *ngIf="emp1_A">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a [routerLink]="['/home']">ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      <!-- <div class="sidebar-search">
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="Search...">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu ">
+            <span style="color:dodgerblue;">Menu Admin</span>
+          </li>
+
+          <li class="sidebar-dropdown">
+            <a>
+          <i class="fa fa-cog" aria-hidden="true"></i>
+              จัดการ
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employeeshow']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/department']">แผนก</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/sector']">ฝ่ายงาน</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/position']">ตำแหน่ง</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/employeestatus']">สถานะบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar">
+            <a class="sidebar-toggle" [routerLink]="['/leavetype']">
+              <i class='fa fa-book'></i>
+              ประเภทการลา
+            </a>
+          </li>
+          <!-- <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/leavelist']"><i class="fa fa-envelope"></i>
+              รายการลา
+            </a>
+          </li> -->
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="far fa-gem"></i>
+              จัดการวันมาทำงาน
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/checkdaywork']">บันทึกวันมาทำงาน</a>
+
+                </li>
+                <li>
+                  <a [routerLink]="['/editdaywork']">ตรวจสอบวันมาทำงาน</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              การลา/ใบลางาน
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+
+                <li>
+                  <a [routerLink]="['/checkleaveinfo-admin']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+         
+          <li>
+            <a [routerLink]="['/sumleave']">
+              <i class="fa fa-bar-chart" aria-hidden="true"></i>
+              <span>สรุปการลา</span>
+            </a>
+          </li>
+         
+        </ul>
+        <ul>
+          <li class="header-menu">
+            <span style="color:dodgerblue;">Menu Position</span>
+          </li>
+          <li>
+            <a [routerLink]="['/Notifications']">
+              <i class="fa fa-bell" aria-hidden="true"></i> แจ้งเตือน
+              <span class="badge badge-pill badge-warning" *ngIf="test_2">{{test_1}}</span>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/leavelist']">
+              <i class='fa fa-book'></i> รายการลา
+        
+            </a>
+          </li>
+          <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square" aria-hidden="true"></i>
+              ตรวจสอบจำนวนวันลา
+            </a>
+          </li>
+          <li class="header-menu">
+            <span style="color:dodgerblue;">Logout</span>
+          </li>
+          <li>
+            <a (click)="logoutsso()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
+
+<div class="page-wrapper chiller-theme toggled" *ngIf="emp2_A">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a [routerLink]="['/home']">ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      <!-- <div class="sidebar-search">
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="Search...">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu ">
+            <span style="color:dodgerblue;">Menu Admin</span>
+          </li>
+
+          <li class="sidebar-dropdown">
+            <a>
+            <i class="fa fa-cog" aria-hidden="true"></i>
+              จัดการ
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employeeshow']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/department']">แผนก</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/sector']">ฝ่ายงาน</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/position']">ตำแหน่ง</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/employeestatus']">สถานะบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar">
+            <a class="sidebar-toggle" [routerLink]="['/leavetype']">
+              <i class='fa fa-book'></i>
+              ประเภทการลา
+            </a>
+          </li>
+          <!-- <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/leavelist']"><i class="fa fa-envelope"></i>
+              รายการลา
+            </a>
+          </li> -->
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="far fa-gem"></i>
+              จัดการวันมาทำงาน
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/checkdaywork']">บันทึกวันมาทำงาน</a>
+
+                </li>
+                <li>
+                  <a [routerLink]="['/editdaywork']">ตรวจสอบวันมาทำงาน</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              การลา/ใบลางาน
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+
+                <li>
+                  <a [routerLink]="['/checkleaveinfo-admin']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li>
+            <a [routerLink]="['/sumleave']">
+              <i class="fa fa-bar-chart" aria-hidden="true"></i>
+              <span>สรุปการลา</span>
+            </a>
+          </li>
+
+        </ul>
+        <ul>
+          <li class="header-menu">
+            <span style="color:dodgerblue;">Menu Position</span>
+          </li>
+          <li>
+            <a [routerLink]="['/Notifications']">
+              <i class="fa fa-bell" aria-hidden="true"></i> แจ้งเตือน
+              <span class="badge badge-pill badge-warning" *ngIf="test_2">{{test_1}}</span>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/leavelist']">
+              <i class='fa fa-book'></i> รายการลา
+        
+            </a>
+          </li>
+          <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square" aria-hidden="true"></i>
+              ตรวจสอบจำนวนวันลา
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              บุลคากร/การลา
+        
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employee']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a [routerLink]="['/leavetowaiting']">
+              <i class="fa fa-hourglass"></i>
+              การลาที่รอรับรอง
+              <span class="badge badge-pill badge-warning" *ngIf="show_count_lavel2">{{countleave_toDepartmenthead}}</span>
+            </a>
+          </li>
+          <li class="header-menu">
+            <span style="color:dodgerblue;">Logout</span>
+          </li>
+          <li>
+            <a (click)="logoutsso()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
+
+
+
+
+<div class="page-wrapper chiller-theme toggled" *ngIf="emp3_A">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a [routerLink]="['/home']">ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      <!-- <div class="sidebar-search">
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="Search...">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu ">
+            <span style="color:dodgerblue;">Menu Admin</span>
+          </li>
+
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-cog" aria-hidden="true"></i>
+              จัดการ
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employeeshow']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/department']">แผนก</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/sector']">ฝ่ายงาน</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/position']">ตำแหน่ง</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/employeestatus']">สถานะบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar">
+            <a class="sidebar-toggle" [routerLink]="['/leavetype']">
+              <i class='fa fa-book'></i>
+              ประเภทการลา
+            </a>
+          </li>
+          <!-- <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/leavelist']"><i class="fa fa-envelope"></i>
+              รายการลา
+            </a>
+          </li> -->
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="far fa-gem"></i>
+              จัดการวันมาทำงาน
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/checkdaywork']">บันทึกวันมาทำงาน</a>
+
+                </li>
+                <li>
+                  <a [routerLink]="['/editdaywork']">ตรวจสอบวันมาทำงาน</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              การลา/ใบลางาน
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+
+                <li>
+                  <a [routerLink]="['/checkleaveinfo-admin']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li>
+            <a [routerLink]="['/sumleave']">
+              <i class="fa fa-bar-chart" aria-hidden="true"></i>
+              <span>สรุปการลา</span>
+            </a>
+          </li>
+
+        </ul>
+        <ul>
+          <li class="header-menu">
+            <span style="color:dodgerblue;">Menu Position</span>
+          </li>
+          <li>
+            <a [routerLink]="['/Notifications']">
+              <i class="fa fa-bell" aria-hidden="true"></i> แจ้งเตือน
+              <span class="badge badge-pill badge-warning" *ngIf="test_2">{{test_1}}</span>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/leavelist']">
+              <i class='fa fa-book'></i> รายการลา
+
+            </a>
+          </li>
+          <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square"
+                aria-hidden="true"></i>
+              ตรวจสอบจำนวนวันลา
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              บุลคากร/การลา
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employee']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+            <li>
+              <a [routerLink]="['/leavetowaiting']">
+                <i class="fa fa-hourglass"></i>
+                การลาที่รอรับรอง
+                <span class="badge badge-pill badge-warning" *ngIf="show_count_lavel3">{{countleave_toSupervisor}}</span>
+              </a>
+            </li>
+          <li class="header-menu">
+            <span style="color:dodgerblue;">Logout</span>
+          </li>
+          <li>
+            <a (click)="logoutsso()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
+
+
+
+<div class="page-wrapper chiller-theme toggled" *ngIf="emp4_A">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a [routerLink]="['/home']">ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      <!-- <div class="sidebar-search">
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="Search...">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu ">
+            <span style="color:dodgerblue;">Menu Admin</span>
+          </li>
+
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-cog" aria-hidden="true"></i>
+              จัดการ
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employeeshow']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/department']">แผนก</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/sector']">ฝ่ายงาน</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/position']">ตำแหน่ง</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/employeestatus']">สถานะบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar">
+            <a class="sidebar-toggle" [routerLink]="['/leavetype']">
+              <i class='fa fa-book'></i>
+              ประเภทการลา
+            </a>
+          </li>
+          <!-- <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/leavelist']"><i class="fa fa-envelope"></i>
+              รายการลา
+            </a>
+          </li> -->
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="far fa-gem"></i>
+              จัดการวันมาทำงาน
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/checkdaywork']">บันทึกวันมาทำงาน</a>
+
+                </li>
+                <li>
+                  <a [routerLink]="['/editdaywork']">ตรวจสอบวันมาทำงาน</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              การลา/ใบลางาน
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+
+                <li>
+                  <a [routerLink]="['/checkleaveinfo-admin']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li>
+            <a [routerLink]="['/sumleave']">
+              <i class="fa fa-bar-chart" aria-hidden="true"></i>
+              <span>สรุปการลา</span>
+            </a>
+          </li>
+
+        </ul>
+        <ul>
+          <li class="header-menu">
+            <span style="color:dodgerblue;">Menu Position</span>
+          </li>
+          <li>
+            <a [routerLink]="['/Notifications']">
+              <i class="fa fa-bell" aria-hidden="true"></i> แจ้งเตือน
+              <span class="badge badge-pill badge-warning" *ngIf="test_2">{{test_1}}</span>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/leavelist']">
+              <i class='fa fa-book'></i> รายการลา
+
+            </a>
+          </li>
+          <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square"
+                aria-hidden="true"></i>
+              ตรวจสอบจำนวนวันลา
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              บุลคากร/การลา
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employee']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a [routerLink]="['/leavetowaiting']">
+              <i class="fa fa-hourglass"></i>
+              การลาที่รอรับรอง
+              <span class="badge badge-pill badge-warning" *ngIf="show_count_lavel4">{{countleave_toDeputyleader}}</span>
+            </a>
+          </li>
+          <li class="header-menu">
+            <span style="color:dodgerblue;">Logout</span>
+          </li>
+          <li>
+            <a (click)="logoutsso()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
+
+
+
+
+
+
+<div class="page-wrapper chiller-theme toggled" *ngIf="emp5_A">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a [routerLink]="['/home']">ระบบจัดการงานบุคลากร สวส</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{EmpName}}
+            <strong>{{EmpLastName}} </strong>
+          </span>
+          <span class="user-role">{{PositionName}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      <!-- <div class="sidebar-search">
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="Search...">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu ">
+            <span style="color:dodgerblue;">Menu Admin</span>
+          </li>
+
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-cog" aria-hidden="true"></i>
+              จัดการ
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employeeshow']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/department']">แผนก</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/sector']">ฝ่ายงาน</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/position']">ตำแหน่ง</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/employeestatus']">สถานะบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar">
+            <a class="sidebar-toggle" [routerLink]="['/leavetype']">
+              <i class='fa fa-book'></i>
+              ประเภทการลา
+            </a>
+          </li>
+          <!-- <li class="sidebar">
+            <a class="nav-link toggle" [routerLink]="['/leavelist']"><i class="fa fa-envelope"></i>
+              รายการลา
+            </a>
+          </li> -->
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="far fa-gem"></i>
+              จัดการวันมาทำงาน
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/checkdaywork']">บันทึกวันมาทำงาน</a>
+
+                </li>
+                <li>
+                  <a [routerLink]="['/editdaywork']">ตรวจสอบวันมาทำงาน</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              การลา/ใบลางาน
+
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+
+                <li>
+                  <a [routerLink]="['/checkleaveinfo-admin']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li>
+            <a [routerLink]="['/sumleave']">
+              <i class="fa fa-bar-chart" aria-hidden="true"></i>
+              <span>สรุปการลา</span>
+            </a>
+          </li>
+
+        </ul>
+        <ul>
+          <li class="header-menu">
+            <span style="color:dodgerblue;">Menu Position</span>
+          </li>
+          <li>
+            <a [routerLink]="['/leavetowaiting']">
+              <i class='fa fa-book'></i> รออนุญาต
+              <span class="badge badge-pill badge-warning" *ngIf="show_count_lavel5">{{countleave_toperson}}</span>
+            </a>
+          </li>
+        
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              บุคลากร/การลา
+        
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/employee']">บุคลากร
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <!-- <li>
+            <a [routerLink]="['/sumleave']">
+              <i class="fa fa-hourglass"></i>
+              <span>สรุปการลา</span>
+            </a>
+          </li> -->
+          <li class="header-menu">
+            <span style="color:dodgerblue;">Logout</span>
+          </li>
+          <li>
+            <a (click)="logoutsso()">
+              <i class='fa fa-sign-out-alt'></i>
+              <span>ออกจากระบบ</span>
+            </a>
+          </li>
+        
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+  </nav>
+
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- page-content" -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- บุคลากร -->
 <div class="page-wrapper chiller-theme toggled" *ngIf="emp1">
@@ -286,7 +1339,7 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a [routerLink]="['/employeeshow']">บุคลากร
+                  <a [routerLink]="['/employee']">บุคลากร
                     <span class="badge badge-pill badge-success">Pro</span>
                   </a>
                 </li>
@@ -389,7 +1442,7 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a [routerLink]="['/employeeshow']">บุคลากร
+                  <a [routerLink]="['/employee']">บุคลากร
                     <span class="badge badge-pill badge-success">Pro</span>
                   </a>
                 </li>
@@ -491,7 +1544,7 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a [routerLink]="['/employeeshow']">บุคลากร
+                  <a [routerLink]="['/employee']">บุคลากร
                     <span class="badge badge-pill badge-success">Pro</span>
                   </a>
                 </li>
@@ -584,7 +1637,7 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a [routerLink]="['/employeeshow']">บุคลากร
+                  <a [routerLink]="['/employee']">บุคลากร
                     <span class="badge badge-pill badge-success">Pro</span>
                   </a>
                 </li>

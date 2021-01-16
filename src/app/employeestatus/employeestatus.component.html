@@ -53,33 +53,37 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="text-center">
-                            <th scope="col">รหัสสถานะบุคลากร</th>
-                            <th scope="col">ชื่อสถานะบุคลากร</th>
-                            <th scope="col">จัดการ</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let item of status; let i = index">
-                        <tr>
-                            <td class="text-center">{{item.Empstatus_ID}}</td>
-                            <td>{{item.EmpstatusName}}</td>
-                            <td class="text-center">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
-                                    title="แก้ไข้ข้อมูล" data-target="#exampleModalEditstatus"
-                                    (click)="updateStatus(item.Empstatus_ID,item.EmpstatusName)">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                </button>
-                                &nbsp; &nbsp;
-                                <button type="button" class="btn btn-danger btn-circle btn-xl" title="ลบข้อมูล"
-                                    (click)="deletestatus(item.Empstatus_ID,item.EmpstatusName)"><i class="fa fa-trash"
-                                        aria-hidden="true"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive-xl">
+
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">รหัสสถานะบุคลากร</th>
+                                <th scope="col">ชื่อสถานะบุคลากร</th>
+                                <th scope="col">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of status; let i = index">
+                            <tr>
+                                <td class="text-center">{{item.Empstatus_ID}}</td>
+                                <td>{{item.EmpstatusName}}</td>
+                                <td class="text-center">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal"
+                                        title="แก้ไข้ข้อมูล" data-target="#exampleModalEditstatus"
+                                        (click)="updateStatus(item.Empstatus_ID,item.EmpstatusName)">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </button>
+                                    &nbsp; &nbsp;
+                                    <button type="button" class="btn btn-danger btn-circle btn-xl" title="ลบข้อมูล"
+                                        (click)="deletestatus(item.Empstatus_ID,item.EmpstatusName)"><i
+                                            class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <!-- Modalแก้ไข -->
                 <div class="modal fade" id="exampleModalEditstatus" tabindex="-1" role="dialog"
                     aria-labelledby="Empstatus1" aria-hidden="true">

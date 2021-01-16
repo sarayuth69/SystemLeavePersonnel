@@ -43,7 +43,7 @@
                   </div>
                 </div>
                 <div class="col">
-                  <canvas id="myChart"  width="500" height="300" ></canvas>
+                  <canvas id="myChart" width="500" height="300"></canvas>
 
                 </div>
               </div>
@@ -169,37 +169,39 @@
 
             </div>
           </div>
+          <div class="table-responsive-xl">
 
-          <table class="table table-borderless">
-            <thead>
-              <tr>
-                <th scope="col">ลำดับ</th>
-                <th scope="col">ชื่อ-นามสกุล</th>
-                <th scope="col">สถานะ</th>
-                <th scope="col">จำนวนวันลา</th>
-                <th scope="col">วันลา</th>
-                <th scope="col">ถึงวัน</th>
 
-              </tr>
-            </thead>
-            <tbody *ngFor="let item of searchdayleave; let i = index">
-              <tr>
-                <td>
-                  <p ng-repeat="i in range(1, 5)">
-                    {{ i+1 }}
-                  </p>
-                </td>
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col">ลำดับ</th>
+                  <th scope="col">ชื่อ-นามสกุล</th>
+                  <th scope="col">สถานะ</th>
+                  <th scope="col">จำนวนวันลา</th>
+                  <th scope="col">วันลา</th>
+                  <th scope="col">ถึงวัน</th>
 
-                <td> {{item.EmpName}} {{item.EmpLastName}} </td>
-                <td> {{item.LTypeName}} </td>
-                <td> {{item.LeaveTotal}} </td>
-                <td> {{item.LeaveDateStart}} </td>
-                <td> {{item.LeaveDateLast}} </td>
-              </tr>
+                </tr>
+              </thead>
+              <tbody *ngFor="let item of searchdayleave; let i = index">
+                <tr>
+                  <td>
+                    <p ng-repeat="i in range(1, 5)">
+                      {{ i+1 }}
+                    </p>
+                  </td>
 
-            </tbody>
-          </table>
+                  <td> {{item.EmpName}} {{item.EmpLastName}} </td>
+                  <td> {{item.LTypeName}} </td>
+                  <td> {{item.LeaveTotal}} </td>
+                  <td> {{item.LeaveDateStart}} </td>
+                  <td> {{item.LeaveDateLast}} </td>
+                </tr>
 
+              </tbody>
+            </table>
+          </div>
         </div>
 
 
