@@ -112,18 +112,22 @@
                                                     aria-hidden="true"></i></button>
                                             <!-- <a routerLink="/FilelaeveprintComponent">ปริ้น</a>  -->
                                         </td>
+                                        <!-- item.LeaveStatus_ID < 5 && item.LeaveTotal> 0 || -->
                                         <td class="text-center">
                                             &nbsp;
-                                            <button *ngIf="item.LeaveStatus_ID < 5 && item.LeaveTotal > 0" type="button"
-                                                data-toggle="tooltip" data-placement="top" title="ยกเลิกการลา"
-                                                class="btn btn-danger btn-circle btn-xl"
+                                            <button
+                                                *ngIf="item.LeaveStatus_ID < 5 && item.LeaveTotal> 0 && item.LTypeName != 'ลาป่วย'"
+                                                type="button" data-toggle="tooltip" data-placement="top"
+                                                title="ยกเลิกการลา" class="btn btn-danger btn-circle btn-xl"
                                                 (click)="cancel_leave(item.Leave_ID,item.LeaveStatus_ID)"><i
                                                     class="fa fa-calendar-times" aria-hidden="true"></i> </button>
 
                                             <!-- Button trigger modal -->
-                                            <button *ngIf="item.LeaveStatus_ID==5 && item.LeaveTotal > 0" type="button"
-                                                class="btn btn-primary btn-circle btn-xl" data-toggle="modal"
-                                                data-target="#exampleModal_cancel" title="ขออนุญาติยกเลิกการลา"
+                                            <button
+                                                *ngIf="item.LeaveStatus_ID==5 && item.LeaveTotal > 0 && item.LTypeName != 'ลาป่วย'"
+                                                type="button" class="btn btn-primary btn-circle btn-xl"
+                                                data-toggle="modal" data-target="#exampleModal_cancel"
+                                                title="ขออนุญาติยกเลิกการลา"
                                                 (click)="cancel(item.Leave_ID,item.LTypeName,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,item.LeaveDateStart,item.LeaveDateLast)">
                                                 <i class="fa fa-question-circle" aria-hidden="true"></i>
                                             </button>
@@ -222,7 +226,7 @@
                                                 data-target="#exampleModal"
                                                 (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                                                         item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
-                                                                        item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
+                                                                        item.LeaveData,item.ContactInformation,item.employee,item.cancel_date_start,item.cancel_date_stop,item.LeaveTotal,
                                                                       item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names)">
                                                 <u> {{item.EmpName}}
                                                     {{item.EmpLastName}}</u></a>
@@ -559,7 +563,7 @@
                             <form>
 
                                 <div class="card-header text-left">
-                                    <b style="color: mediumblue;"> ยื่นการลา</b>
+                                    <b style="color: mediumblue;"> ยื่นการลา </b>
                                 </div>
                                 <br>
 
@@ -703,15 +707,18 @@
                                         <div class="card text-white  mb-3" style="max-width: 18rem;">
                                             <div class="card-header bg-primary">วันที่ลา</div>
                                             <div class="card-body text-primary">
-                                                <input type="date" class="form-control " id="LeaveDateStart"
+                                                <input type="date" class="form-control" value="{{date_chack_leave}}"
+                                                    id="date_chack" #date_chack style="display: none;">
+
+                                                <input type="date" class="form-control" id="LeaveDateStart"
                                                     [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
-                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
+                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)"
                                                     required>
                                                 <h6>ประเภทวันลา</h6>
 
                                                 <select class="custom-select" id="Leave_characteristics_dateStart"
                                                     [disabled]="btnDisable_start" #Leave_characteristics_dateStart
-                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">
+                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)">
                                                     <option value="เต็มวัน">เต็มวัน</option>
                                                     <option value="ครึ่งวันเช้า">ครึ่งวันเช้า</option>
                                                     <option value="ครึ่งวันบ่าย">ครึ่งวันบ่าย</option>
@@ -726,21 +733,20 @@
                                             <div class="card-header bg-danger ">ถึงวันที่</div>
                                             <div class="card-body text-primary">
                                                 <input type="date" class="form-control " id="LeaveDateLast"
-                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
+                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)"
                                                     [formControl]="LeaveDateLast" [max]="maxDate"
                                                     data-date-format="DD MMMM YYYY" required>
 
                                                 <h6>ประเภทวันลา</h6>
                                                 <select class="custom-select" id="Leave_characteristics_dateLast"
                                                     [disabled]="btnDisable_last" #Leave_characteristics_dateLast
-                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">
+                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)">
                                                     <option value="เต็มวัน">เต็มวัน</option>
                                                     <option value="ครึ่งวันเช้า">ครึ่งวันเช้า</option>
                                                     <option value="ครึ่งวันบ่าย">ครึ่งวันบ่าย</option>
                                                 </select>
                                             </div>
                                         </div>
-
                                     </div>
 
                                     <div class="col-md-2 mb-2">
@@ -754,7 +760,8 @@
                                             [formControl]="LeaveStatus_Document">
 
                                             <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
-                                            <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
+                                            <option value="ยังไม่ส่งใบลาฉบับจริง" selected>ยังไม่ส่งใบลาฉบับจริง
+                                            </option>
                                         </select>
 
                                     </div>

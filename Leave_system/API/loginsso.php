@@ -22,7 +22,7 @@ if(isset($SSO)){
     $sql  = "INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, 
     `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`,
     `Username`,`Password`, `Work_day`,`Duration_work`, `status_data`,
-    `Empstatus_ID`, `Position_ID`, `Dept_ID`) VALUES 
+    `Empstatus_ID`, `Position_ID`, `Dept_ID`,`privilege`) VALUES 
     (
     '".$SSO->uid[0]."',
     '".$SSO->prename[0]."',
@@ -36,10 +36,12 @@ if(isset($SSO)){
     '',
     NOW(),
     '',
+    'W',
     '',
     '',
     '',
     ''
+
     )
     ON DUPLICATE KEY UPDATE
     Emp_ID ='" . $SSO->uid[0] . "',

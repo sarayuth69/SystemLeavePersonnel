@@ -560,13 +560,13 @@ export class LeavetowaitingComponent implements OnInit {
 
 
 
-
+  Leave_ID_cancel
   showdata_cancel(Leave_ID, EmpName, EmpLastName, PositionName, DeptName, LTypeName,
     LeaveDateStart, LeaveDateLast, LeaveTotal, LeaveData, LeaveStatus_Name, cancel_id) {
     console.log(EmpName);
     console.log(Leave_ID);
 
-    this.Leave_ID = Leave_ID
+    this.Leave_ID_cancel = Leave_ID
     this.EmpName = EmpName
     this.EmpLastName = EmpLastName
     this.PositionName = PositionName
@@ -834,16 +834,20 @@ export class LeavetowaitingComponent implements OnInit {
   }
   cancel_total: any;
   leave_ID: any;
-  allow_cancel(cancel_id, cancel_total, leave_ID, LeaveTotal) {
+  Name_Leave: any;
+  allow_cancel(cancel_id, cancel_total, leave_ID, LeaveTotal, Name_Leave) {
     this.cancel_id = cancel_id;
     this.cancel_total = cancel_total;
     this.leave_ID = leave_ID;
     this.LeaveTotal = LeaveTotal;
+    this.Name_Leave = Name_Leave;
+    console.log(this.Name_Leave);
 
     const body = 'cancel_id=' + this.cancel_id
       + '&cancel_status=' + 8
       + '&cancel_total=' + this.cancel_total
       + '&leave_ID=' + this.leave_ID
+      + '&Name_Leave=' + this.Name_Leave + " / ขออนุญาตยกเลิก"
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -868,6 +872,7 @@ export class LeavetowaitingComponent implements OnInit {
 
         const body = '&cancel_total=' + this.cancel_total
           + '&leave_ID=' + this.leave_ID
+          + '&Name_Leave=' + this.Name_Leave + " / ขออนุญาตยกเลิก"
         console.log(body);
         const headers = new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded'

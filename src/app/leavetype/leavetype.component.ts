@@ -45,8 +45,7 @@ export class LeavetypeComponent implements OnInit {
   Name_limit = new FormControl('');
 
   pageActual: any;
-
-
+  edit_limit: any;
 
   holiday_ID = new FormControl('');
   holiday_date = new FormControl('');
@@ -571,7 +570,7 @@ export class LeavetypeComponent implements OnInit {
             )
             .subscribe(
               (data: any) => {
-                
+
               },
               (error: any) => {
                 console.log(error);
@@ -729,5 +728,64 @@ export class LeavetypeComponent implements OnInit {
       }
 
     })
+  }
+
+  updatelimit(limit_ID, Name_limit, Date_start, limit_date) {
+    this.limit_ID = new FormControl(limit_ID);
+    this.Name_limit = new FormControl(Name_limit);
+    this.Date_start = new FormControl(Date_start);
+    this.limit_date = new FormControl(limit_date);
+  }
+  updatelimit_to_database() {
+    const body =
+      'limit_ID=' + this.limit_ID.value
+      + '&Name_limit=' + this.Name_limit.value
+      + '&Date_start=' + this.Date_start.value
+      + '&limit_date=' + this.limit_date.value
+
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}Updatelimit.php`, body, {
+        headers: headers
+      })
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.edit_limit = data[0];
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'แก้ไขเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+        (data: any) => {
+          for (var i = 0; i <= data.length; i++) {
+            try {
+              this.showleave_limit = data;
+            } catch (e) {
+            }
+
+          }
+        }, (error: any) => {
+          console.log(error);
+        }
+      )
+    })
+  }
+  remove_input() {
+    this.limit_ID = new FormControl(" ");
+    this.Name_limit = new FormControl(" ");
+    this.Date_start = new FormControl(" ");
+    this.limit_date = new FormControl(" ");
   }
 }

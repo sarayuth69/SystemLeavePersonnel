@@ -247,7 +247,7 @@
               <td class="text-center"> {{item.cancel_date_start}}</td>
               <td class="text-center"> {{item.cancel_date_stop}} </td>
               <td class="text-center"> {{item.cancel_total}} </td>
-              <td class="text-center"> </td>
+
               <td class="text-center" *ngIf="item.cancel_status == 9 ">
                 <p style="color:red;">ไม่อนุญาตให้ยกเลิกการลา </p>
               </td>
@@ -266,7 +266,7 @@
                     aria-hidden="true"></i></button>
 
                 <button type="button" class="btn btn-info btn-circle btn-xl"
-                  (click)="allow_cancel(item.cancel_id,item.cancel_total,item.leave_ID,item.LeaveTotal)"><i
+                  (click)="allow_cancel(item.cancel_id,item.cancel_total,item.leave_ID,item.LeaveTotal,item.Name_Leave)"><i
                     class="fa fa-check-square" aria-hidden="true"></i></button>
               </td>
             </tbody>
@@ -846,9 +846,9 @@
           <table class="table">
             <table class="table table-bordered hover ">
               <thead>
-                <tr class="Leave_ID">
+                <tr>
                   <th width="120">รหัสการลา</th>
-                  <td>{{Leave_ID}} </td>
+                  <td>{{Leave_ID_cancel}} </td>
                 </tr>
                 <tr>
                   <th width="120">ชื่อ-นามสกุล</th>

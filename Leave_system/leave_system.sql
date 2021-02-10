@@ -26,11 +26,13 @@ CREATE TABLE IF NOT EXISTS `cancel_leave` (
   `cancel_status` varchar(255) DEFAULT NULL,
   `leave_ID` int(11) DEFAULT NULL,
   PRIMARY KEY (`cancel_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
--- Dumping data for table leave_system.cancel_leave: ~2 rows (approximately)
+-- Dumping data for table leave_system.cancel_leave: ~3 rows (approximately)
 DELETE FROM `cancel_leave`;
 /*!40000 ALTER TABLE `cancel_leave` DISABLE KEYS */;
+INSERT INTO `cancel_leave` (`cancel_id`, `cancel_data`, `cancel_date_start`, `cancel_date_stop`, `cancel_total`, `cancel_status`, `leave_ID`) VALUES
+	(16, '', '2021-02-10', '2021-02-11', 2, '10', 17);
 /*!40000 ALTER TABLE `cancel_leave` ENABLE KEYS */;
 
 -- Dumping structure for table leave_system.department
@@ -53,6 +55,8 @@ INSERT INTO `department` (`Dept_ID`, `DeptName`) VALUES
 	('1004', 'แผนกงานวิศวกรรมเครือข่าย');
 INSERT INTO `department` (`Dept_ID`, `DeptName`) VALUES
 	('1005', 'แผนกงานอีเลิร์นนิ่งและเทคโนโลยีการศึกษา');
+INSERT INTO `department` (`Dept_ID`, `DeptName`) VALUES
+	('1006', 'ไม่มีแผนก');
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 
 -- Dumping structure for table leave_system.employee
@@ -74,34 +78,47 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `Position_ID` varchar(20) DEFAULT NULL COMMENT 'รหัสตำแหน่ง',
   `Dept_ID` varchar(20) DEFAULT NULL COMMENT 'รหัสแผนก',
   `Sector_ID` varchar(20) DEFAULT NULL COMMENT 'รหัสฝ่านงาน',
+  `privilege` varchar(50) DEFAULT NULL COMMENT 'กำหนดว่าใครเป็น User,Addmin',
   PRIMARY KEY (`Emp_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table leave_system.employee: ~3 rows (approximately)
+-- Dumping data for table leave_system.employee: ~14 rows (approximately)
 DELETE FROM `employee`;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('ananya.si', 'นางสาว', 'อนัญญา', 'สีกระโทก', '', '1309900759252', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5022', '1001', '301');
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('dulyapol.bu', 'นาย', 'ประภวิชญ์', 'บรรจงกุล', '', '1100500141379', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5022', '1001', '301');
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('kittipong.pl', 'นาย', 'กิตติพงษ์', 'ปลิงกระโทก', '', '1309901292161', 'Nakhon Ratchasima', '', '', '', '2021-01-06', '', 'Y', '202', '5022', '1001', '301');
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('lampan.ki', 'นางสาว', 'ลำแพน', 'กลิ่นพยอม', '', '5570400049186', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5009', '1001', '301');
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('phitchayakorn.sr', 'นาย', 'พิชญากร', 'ศรีเนาวรัตน์', '', '1309900951358', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '203', '5022', '1001', '302');
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('pornpassorn.on', 'นาง', 'พรภัสสร', 'อ่อนเกิด', '', '3309901094854', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '203', '5002', 'null', '301');
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('sarayuth.kr', 'นาย', 'ศรายุทธ', 'ไกรษร', '', '1309901383809', 'Nakhon Ratchasima', '', '', '', '2020-12-29', '', 'Y', '203', '5001', '1004', '302');
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('surawadee.ko', 'นาง', 'สุรวดี', 'กอคูณกลาง', '', '1309900249637', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5022', '1001', '301');
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('tassanee', 'นางสาว', 'ทัศนีย์', 'เปรียบจันทึก', '', '3300800364564', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5022', '1001', '301');
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('urai', 'นางสาว', 'อุไร', 'แสงศิริ', '', '3300100663038', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5007', '1001', '301');
-INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`) VALUES
-	('wanwisa', 'นาง', 'วันวิสาข์', 'ยนต์พิมาย', '', '3309901609374', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5004', 'null', '301');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('ananya.si', 'นางสาว', 'อนัญญา', 'สีกระโทก', '', '1309900759252', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5022', '1001', '301', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('annop.mu', 'นาย', 'อรรณพ', 'เหมือนจิต', '', '1101800983198', 'Nakhon Ratchasima', '', '', '', '2021-02-03', '', 'W', '', '', '', NULL, '');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('apichat', 'นาย', 'อภิชาต', 'ติรประเสริฐสิน', '', '3309901338702', 'Nakhon Ratchasima', '', '', '', '2021-01-26', '', 'Y', '203', '5001', '1006', '304', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('dulyapol.bu', 'นาย', 'ประภวิชญ์', 'บรรจงกุล', '', '1100500141379', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5022', '1001', '301', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('gasam.pa', 'นาย', 'เกษม', 'พาพุทธ', '', '1390400035231', 'Nakhon Ratchasima', '', '', '', '2021-01-07', '', 'Y', '202', '5016', '1001', '301', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('kanjanaporn.jn', 'นางสาว', 'กาญจนาภรณ์', 'เจนศิริวงษ์', '', '1200900169636', 'Nakhon Ratchasima', '', '', '', '2021-01-15', '', 'Y', '202', '5015', '1001', '301', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('kittipong.pl', 'นาย', 'กิตติพงษ์', 'ปลิงกระโทก', '', '1309901292161', 'Nakhon Ratchasima', '', '', '', '2021-01-06', '', 'Y', '202', '5001', '1006', '304', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('komittibate.ma', 'นาย', 'คมอิทธิเบศ', 'แมบจันทึก', '', '1309901100556', 'Nakhon Ratchasima', '', '', '', '2021-02-05', '', 'W', '', '', '', NULL, '');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('lampan.ki', 'นางสาว', 'ลำแพน', 'กลิ่นพยอม', '', '5570400049186', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5009', '1001', '301', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('nuttacit.ph', 'นาย', 'ณัฐสิทธิ์', 'ผัดตุ่น', '', '1630200064072', 'Nakhon Ratchasima', '', '', '', '2021-02-05', '', 'Y', '202', '5007', '1001', '301', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('phitchayakorn.sr', 'นาย', 'พิชญากร', 'ศรีเนาวรัตน์', '', '1309900951358', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '203', '5009', '1001', '301', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('pornpassorn.on', 'นาง', 'พรภัสสร', 'อ่อนเกิด', '', '3309901094854', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '203', '5002', '1006', '301', 'A');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('sarayuth.kr', 'นาย', 'ศรายุทธ', 'ไกรษร', '', '1309901383809', 'Nakhon Ratchasima', '', '', '', '2020-12-29', '', 'Y', '203', '5002', '1001', '301', 'A');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('surawadee.ko', 'นาง', 'สุรวดี', 'กอคูณกลาง', '', '1309900249637', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5022', '1001', '301', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('tassanee', 'นางสาว', 'ทัศนีย์', 'เปรียบจันทึก', '', '3300800364564', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5022', '1001', '301', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('urai', 'นางสาว', 'อุไร', 'แสงศิริ', '', '3300100663038', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5007', '1001', '301', 'U');
+INSERT INTO `employee` (`Emp_ID`, `Prefix`, `EmpName`, `EmpLastName`, `Sex`, `ID_card`, `Address`, `Tel`, `Username`, `Password`, `Work_day`, `Duration_work`, `status_data`, `Empstatus_ID`, `Position_ID`, `Dept_ID`, `Sector_ID`, `privilege`) VALUES
+	('wanwisa', 'นาง', 'วันวิสาข์', 'ยนต์พิมาย', '', '3309901609374', 'Nakhon Ratchasima', '', '', '', '2021-01-04', '', 'Y', '202', '5004', '1006', '301', 'U');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 
 -- Dumping structure for table leave_system.employeestatus
@@ -130,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `holiday` (
   PRIMARY KEY (`holiday_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
--- Dumping data for table leave_system.holiday: ~46 rows (approximately)
+-- Dumping data for table leave_system.holiday: ~49 rows (approximately)
 DELETE FROM `holiday`;
 /*!40000 ALTER TABLE `holiday` DISABLE KEYS */;
 INSERT INTO `holiday` (`holiday_ID`, `holiday_date`, `holiday_data`) VALUES
@@ -243,11 +260,19 @@ CREATE TABLE IF NOT EXISTS `leave` (
   `LType_ID` int(10) DEFAULT NULL COMMENT 'รหัสประเภทการลา	',
   `file_names` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Leave_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
--- Dumping data for table leave_system.leave: ~6 rows (approximately)
+-- Dumping data for table leave_system.leave: ~19 rows (approximately)
 DELETE FROM `leave`;
 /*!40000 ALTER TABLE `leave` DISABLE KEYS */;
+INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`, `To_Person`, `LeaveDateStart`, `Leave_characteristics_dateStart`, `LeaveDateLast`, `Leave_characteristics_dateLast`, `LeaveData`, `ContactInformation`, `employee`, `LeaveTotal`, `number_leave`, `LeaveStatus_ID`, `LeaveStatus_Document`, `Response_Time`, `limit_ID`, `LType_ID`, `file_names`) VALUES
+	(17, 'gasam.pa', 'การลาพักผ่อน / ขออนุญาตยกเลิก', 'ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ', '2021-02-10', 'เต็มวัน', '2021-02-11', 'เต็มวัน', '', '', '', 0, 0, 5, 'ยังไม่ส่งใบลาฉบับจริง', '2021-02-10 16:30:14', 27, 4007, '');
+INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`, `To_Person`, `LeaveDateStart`, `Leave_characteristics_dateStart`, `LeaveDateLast`, `Leave_characteristics_dateLast`, `LeaveData`, `ContactInformation`, `employee`, `LeaveTotal`, `number_leave`, `LeaveStatus_ID`, `LeaveStatus_Document`, `Response_Time`, `limit_ID`, `LType_ID`, `file_names`) VALUES
+	(18, 'gasam.pa', 'การลาป่วย', 'ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ', '2021-02-09', 'เต็มวัน', '2021-02-09', 'เต็มวัน', '', '', '', 1, 1, 5, 'ยังไม่ส่งใบลาฉบับจริง', '2021-02-10 16:41:39', 27, 4002, '');
+INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`, `To_Person`, `LeaveDateStart`, `Leave_characteristics_dateStart`, `LeaveDateLast`, `Leave_characteristics_dateLast`, `LeaveData`, `ContactInformation`, `employee`, `LeaveTotal`, `number_leave`, `LeaveStatus_ID`, `LeaveStatus_Document`, `Response_Time`, `limit_ID`, `LType_ID`, `file_names`) VALUES
+	(19, 'gasam.pa', 'การลากิจ', 'ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ', '2021-02-22', 'เต็มวัน', '2021-02-25', 'เต็มวัน', '', '', '', 4, 1, 5, 'ยังไม่ส่งใบลาฉบับจริง', '2021-02-10 16:52:25', 27, 4005, '');
+INSERT INTO `leave` (`Leave_ID`, `Emp_ID`, `Name_Leave`, `To_Person`, `LeaveDateStart`, `Leave_characteristics_dateStart`, `LeaveDateLast`, `Leave_characteristics_dateLast`, `LeaveData`, `ContactInformation`, `employee`, `LeaveTotal`, `number_leave`, `LeaveStatus_ID`, `LeaveStatus_Document`, `Response_Time`, `limit_ID`, `LType_ID`, `file_names`) VALUES
+	(20, 'gasam.pa', 'การลากิจ', 'ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ', '2021-02-17', 'เต็มวัน', '2021-02-17', 'เต็มวัน', '', '', '', 1, 1, 1, 'ยังไม่ส่งใบลาฉบับจริง', '2021-02-10 21:20:18', 27, 4005, '');
 /*!40000 ALTER TABLE `leave` ENABLE KEYS */;
 
 -- Dumping structure for table leave_system.leavestatus
@@ -257,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `leavestatus` (
   PRIMARY KEY (`LeaveStatus_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table leave_system.leavestatus: ~10 rows (approximately)
+-- Dumping data for table leave_system.leavestatus: ~8 rows (approximately)
 DELETE FROM `leavestatus`;
 /*!40000 ALTER TABLE `leavestatus` DISABLE KEYS */;
 INSERT INTO `leavestatus` (`LeaveStatus_ID`, `LeaveStatus_Name`) VALUES
@@ -267,7 +292,7 @@ INSERT INTO `leavestatus` (`LeaveStatus_ID`, `LeaveStatus_Name`) VALUES
 INSERT INTO `leavestatus` (`LeaveStatus_ID`, `LeaveStatus_Name`) VALUES
 	(3, 'รอรองหัวหน้าหน่วยงานอนุญาต');
 INSERT INTO `leavestatus` (`LeaveStatus_ID`, `LeaveStatus_Name`) VALUES
-	(4, 'รอจากหัวหน้าหน่วยงานอนุญาต');
+	(4, 'รอหัวหน้าหน่วยงานอนุญาต');
 INSERT INTO `leavestatus` (`LeaveStatus_ID`, `LeaveStatus_Name`) VALUES
 	(5, 'อนุญาต');
 INSERT INTO `leavestatus` (`LeaveStatus_ID`, `LeaveStatus_Name`) VALUES
@@ -294,25 +319,25 @@ CREATE TABLE IF NOT EXISTS `leavetype` (
   `leavetype_remark` varchar(255) DEFAULT NULL COMMENT 'หมายเหตุ',
   `Empstatus_ID` varchar(10) DEFAULT NULL COMMENT 'สถานะบุคลากร',
   PRIMARY KEY (`LType_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4034 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4035 DEFAULT CHARSET=utf8;
 
--- Dumping data for table leave_system.leavetype: ~16 rows (approximately)
+-- Dumping data for table leave_system.leavetype: ~17 rows (approximately)
 DELETE FROM `leavetype`;
 /*!40000 ALTER TABLE `leavetype` DISABLE KEYS */;
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4001, 'ลาป่วย', 60, 10, 'ไม่ต้องแจ่งล่วงหน้า', 0, 'ลาได้', '', '203');
+	(4001, 'ลาป่วย', 60, 10, 'ไม่ต้องแจ่งล่วงหน้า', 10, 'ลาได้', '', '203');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4002, 'ลาป่วย', 60, 10, '-', 0, 'ลาได้', '', '202');
+	(4002, 'ลาป่วย', 60, 10, '-', 8, 'ลาได้', '', '202');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4003, 'ลาป่วย', 15, 5, '0', 0, 'ลาได้', '-', '201');
+	(4003, 'ลาป่วย', 15, 5, '0', 8, 'ลาได้', '-', '201');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4004, 'ลากิจส่วนตัว', 30, 0, '5', 0, 'ลาได้', '', '203');
+	(4004, 'ลากิจส่วนตัว', 30, 0, '5', 8, 'ลาได้', '', '203');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4005, 'ลากิจ', 30, 50, '5', 0, 'ลาได้', '', '202');
+	(4005, 'ลากิจ', 30, 50, '5', 8, 'ลาได้', '', '202');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4007, 'ลาพักผ่อน', 10, 20, '7', 0, 'ลาได้', '', '202');
+	(4007, 'ลาพักผ่อน', 10, 20, '7', 8, 'ลาได้', '', '202');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4009, 'ลาพักผ่อน', 10, 0, '-', 0, 'ลาได้', '', '203');
+	(4009, 'ลาพักผ่อน', 10, 0, '-', 8, 'ลาได้', '', '203');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
 	(4010, 'ลาคลอดบุตร', 90, 0, '-', 0, 'ลาได้', '', '203');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
@@ -322,15 +347,17 @@ INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `Adva
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
 	(4015, 'ลาพักผ่อน', 10, 5, '0', 0, 'ลาได้', '-', '201');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4029, 'ลาไปต่างประเทศ', 100, 10, '5', 0, 'ลาได้', '', '202');
+	(4029, 'ลาไปปฏิบัติงานในองค์การระหว่างประเทศ', 100, 10, '5', 0, 'ลาได้', '', '202');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4030, 'ลาไปช่วยเหลือภรรยาที่คลอดบุตร', 90, 90, '5', 0, 'ลาได้', '', '203');
+	(4030, 'ลาไปช่วยเหลือภรรยาที่คลอดบุตร', 90, 90, '5', 0, 'ลาไม่ได้', '', '203');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
 	(4031, 'ลาอุปสมบทหรือการลาไปประกอบพิธีฮัจย์', 90, 90, '5', 0, 'ลาได้', '', '203');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4032, 'ลาเขารับการตรวจเลือกหรือเข้ารับการเตียมพล', 180, 0, '5', 0, 'ลาได้', '', '203');
+	(4032, 'ลาเขารับการตรวจเลือกหรือเข้ารับการเตียมพล', 180, 0, '5', 0, 'ลาไม่ได้', '', '203');
 INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
-	(4033, 'ลาไปศึกษา ฝึกอบรม ปฏิบัติการวิจัย หรือดูงาน', 180, 0, '5', 0, 'ลาได้', '', '203');
+	(4033, 'ลาไปศึกษา ฝึกอบรม ปฏิบัติการวิจัย หรือดูงาน', 180, 0, '5', 0, 'ลาไม่ได้', '', '203');
+INSERT INTO `leavetype` (`LType_ID`, `LTypeName`, `Number`, `LType_limit`, `AdvanceNotice`, `LOrdinal`, `QuotaStatus`, `leavetype_remark`, `Empstatus_ID`) VALUES
+	(4034, 'ลาไปปฏิบัติงานในองค์การระหว่างประเทศ', 100, 0, '-', 0, 'ลาไม่ได้', '-', '203');
 /*!40000 ALTER TABLE `leavetype` ENABLE KEYS */;
 
 -- Dumping structure for table leave_system.leave_limit
@@ -342,11 +369,11 @@ CREATE TABLE IF NOT EXISTS `leave_limit` (
   PRIMARY KEY (`limit_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
--- Dumping data for table leave_system.leave_limit: ~2 rows (approximately)
+-- Dumping data for table leave_system.leave_limit: ~3 rows (approximately)
 DELETE FROM `leave_limit`;
 /*!40000 ALTER TABLE `leave_limit` DISABLE KEYS */;
 INSERT INTO `leave_limit` (`limit_ID`, `Name_limit`, `Date_start`, `limit_date`) VALUES
-	(27, 'รอบที่ 1/2564', '2021-01-01', '6');
+	(27, 'รอบที่ 1/2564', '2020-09-01', '6');
 INSERT INTO `leave_limit` (`limit_ID`, `Name_limit`, `Date_start`, `limit_date`) VALUES
 	(28, 'รอบที่ 2/2564', '2021-06-02', '6');
 /*!40000 ALTER TABLE `leave_limit` ENABLE KEYS */;
@@ -360,11 +387,177 @@ CREATE TABLE IF NOT EXISTS `officiate_day` (
   `Day_ID` int(20) NOT NULL AUTO_INCREMENT COMMENT 'รหัสวันมาทำงาน',
   `message` int(2) DEFAULT NULL COMMENT 'การแจ้งเตือน',
   PRIMARY KEY (`Day_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
 
--- Dumping data for table leave_system.officiate_day: ~198 rows (approximately)
+-- Dumping data for table leave_system.officiate_day: ~41 rows (approximately)
 DELETE FROM `officiate_day`;
 /*!40000 ALTER TABLE `officiate_day` DISABLE KEYS */;
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'dulyapol.bu', '', 14, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'gasam.pa', '', 15, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'ananya.si', '', 16, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'kittipong.pl', '', 17, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'lampan.ki', '', 18, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'nuttacit.ph', '', 19, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'phitchayakorn.sr', '', 20, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'pornpassorn.on', '', 21, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'sarayuth.kr', '', 22, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'surawadee.ko', '', 23, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'tassanee', '', 24, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'urai', '', 25, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-07', 'ไม่มาทำงาน', 'wanwisa', '', 26, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'dulyapol.bu', '', 27, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'kanjanaporn.jn', '', 28, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'gasam.pa', '', 29, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'ananya.si', '', 30, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'nuttacit.ph', '', 31, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'phitchayakorn.sr', '', 32, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'lampan.ki', '', 33, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'kittipong.pl', '', 34, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'pornpassorn.on', '', 35, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'tassanee', '', 36, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'surawadee.ko', '', 37, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'sarayuth.kr', '', 38, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'urai', '', 39, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'ไม่มาทำงาน', 'wanwisa', '', 40, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'ananya.si', '', 41, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'dulyapol.bu', '', 42, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'gasam.pa', '', 43, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'kanjanaporn.jn', '', 44, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'kittipong.pl', '', 45, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'phitchayakorn.sr', '', 46, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'nuttacit.ph', '', 47, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'lampan.ki', '', 48, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'sarayuth.kr', '', 49, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'pornpassorn.on', '', 50, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'surawadee.ko', '', 51, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'tassanee', '', 52, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'wanwisa', '', 53, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-15', 'มาทำงาน', 'urai', '', 54, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'dulyapol.bu', '', 55, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'kittipong.pl', '', 56, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'lampan.ki', '', 57, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'ananya.si', '', 58, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'gasam.pa', '', 59, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'kanjanaporn.jn', '', 60, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'nuttacit.ph', '', 61, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'sarayuth.kr', '', 62, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'pornpassorn.on', '', 63, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'phitchayakorn.sr', '', 64, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'surawadee.ko', '', 65, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'urai', '', 66, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'tassanee', '', 67, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-01-26', 'มาทำงาน', 'wanwisa', '', 68, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'ananya.si', '', 69, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'ไม่มาทำงาน', 'dulyapol.bu', '', 70, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'kanjanaporn.jn', '', 71, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'gasam.pa', '', 72, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'lampan.ki', '', 73, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'kittipong.pl', '', 74, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'phitchayakorn.sr', '', 75, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'pornpassorn.on', '', 76, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'sarayuth.kr', '', 77, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'surawadee.ko', '', 78, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'tassanee', '', 79, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'ไม่มาทำงาน', 'urai', '', 80, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-09', 'มาทำงาน', 'wanwisa', '', 81, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'ไม่มาทำงาน', 'ananya.si', '', 82, 0);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'dulyapol.bu', '', 83, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'gasam.pa', '', 84, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'apichat', '', 85, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'kittipong.pl', '', 86, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'kanjanaporn.jn', '', 87, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'phitchayakorn.sr', '', 88, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'lampan.ki', '', 89, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'nuttacit.ph', '', 90, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'pornpassorn.on', '', 91, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'surawadee.ko', '', 92, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'sarayuth.kr', '', 93, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'urai', '', 94, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'tassanee', '', 95, 1);
+INSERT INTO `officiate_day` (`Day_Work`, `Status_Work`, `Emp_ID`, `Data`, `Day_ID`, `message`) VALUES
+	('2021-02-10', 'มาทำงาน', 'wanwisa', '', 96, 1);
 /*!40000 ALTER TABLE `officiate_day` ENABLE KEYS */;
 
 -- Dumping structure for table leave_system.position
@@ -422,8 +615,6 @@ INSERT INTO `position` (`Position_ID`, `PositionName`, `Role`) VALUES
 	('5021', 'บรรณารักษ์', '1');
 INSERT INTO `position` (`Position_ID`, `PositionName`, `Role`) VALUES
 	('5022', 'เจ้าหน้าที่บริหารงานทั่วไป', '1');
-INSERT INTO `position` (`Position_ID`, `PositionName`, `Role`) VALUES
-	('5023', 'ผู้ดูแลระบบ', '6');
 /*!40000 ALTER TABLE `position` ENABLE KEYS */;
 
 -- Dumping structure for table leave_system.sector
@@ -442,6 +633,8 @@ INSERT INTO `sector` (`Sector_ID`, `SectorName`) VALUES
 	('302', 'งานวิทยบริการ');
 INSERT INTO `sector` (`Sector_ID`, `SectorName`) VALUES
 	('303', 'งานเทคโนโลยีสารสนเทศ');
+INSERT INTO `sector` (`Sector_ID`, `SectorName`) VALUES
+	('304', 'ไม่มีฝ่ายงาน');
 /*!40000 ALTER TABLE `sector` ENABLE KEYS */;
 
 -- Dumping structure for table leave_system.upload
@@ -452,7 +645,7 @@ CREATE TABLE IF NOT EXISTS `upload` (
   PRIMARY KEY (`file_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1220 DEFAULT CHARSET=utf8;
 
--- Dumping data for table leave_system.upload: ~13 rows (approximately)
+-- Dumping data for table leave_system.upload: ~0 rows (approximately)
 DELETE FROM `upload`;
 /*!40000 ALTER TABLE `upload` DISABLE KEYS */;
 /*!40000 ALTER TABLE `upload` ENABLE KEYS */;

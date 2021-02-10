@@ -265,17 +265,13 @@ export class EmployeeshowComponent implements OnInit {
         this.positionEmp = data;
       },
       (error: any) => {
-
       }
     );
 
     this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
       (data: any) => {
-
         for (var i = 0; i <= data.length; i++) {
           this.showleave_limit = data;
-
-
         }
 
       }, (error: any) => {
@@ -383,15 +379,19 @@ export class EmployeeshowComponent implements OnInit {
     this.Dept_ID = new FormControl(Dept_ID);
     this.Sector_ID = new FormControl(Sector_ID);
     this.status_data = new FormControl(status_data);
+
     if (privilege_chack === "A") {
-      document.getElementById("inlineRadio1").checked = true
+      const ele = document.getElementById("inlineRadio1") as HTMLInputElement;
+      ele.checked = true
     }
     else {
-      document.getElementById("inlineRadio2").checked = true
+      const ele = document.getElementById("inlineRadio2") as HTMLInputElement;
+      ele.checked = true
     }
   }
   public updateEmployee() {
-    if (document.getElementById("inlineRadio1").checked === true) {
+    const ele = document.getElementById("inlineRadio1") as HTMLInputElement;
+    if (ele.checked === true) {
       this.privilege = "A"
     }
     else {
@@ -586,24 +586,52 @@ export class EmployeeshowComponent implements OnInit {
   }
   maxDate: any;
   text_chack = /(ลาป่วย)/g;
+  leavetypeUser_chack
+  Remain_over_check: Number;
+  limit
+
   dataChanged(newObj) {
     console.log(newObj);
+    console.log(newObj.LTypeName.length);
     this.invalid_type = "is-valid"
-    this.check_Remain = newObj.Remain
-    this.LType_ID_check = newObj.LType_ID
-    this.LType_limit_check = newObj.LType_limit
+    const tpyeUser = 'Emp_ID=' + this.Emp_ID.value
+      + '&limit_ID=' + this.limit
+      + '&LType_ID=' + newObj.LType_ID
+    console.log(tpyeUser);
+    const headers1 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getLeave_type_chack.php`, tpyeUser, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.leavetypeUser_chack = data;
+          console.log(this.leavetypeUser_chack);
+          this.check_Remain = this.leavetypeUser_chack[0].Remain
+          this.LType_ID_check = this.leavetypeUser_chack[0].LType_ID
+          this.Remain_over_check = this.leavetypeUser_chack[0].Remain_over
+          console.log(this.check_Remain, this.Remain_over_check);
+
+        }
+        ,
+        (error: any) => {
+          // console.log(error);
+        })
     if (newObj.LTypeName.length > 0) {
       this.LTypeName_check = `การ${newObj.LTypeName}`
     }
     else {
       this.LTypeName_check = " "
     }
+
     if (this.text_chack.test(newObj.LTypeName)) {
       this.maxDate = moment(new Date()).format('YYYY-MM-DD')
     }
     else if (newObj.LTypeName !== "ลาป่วย") {
       this.maxDate = ""
     }
+
 
   }
   selectedFile: File;
@@ -625,24 +653,59 @@ export class EmployeeshowComponent implements OnInit {
   }
   change_limit(e) {
     this.invalid_limit = "is-valid"
+    console.log(e);
+    this.limit = e
+    const tpyeUser = 'Emp_ID=' + this.Emp_ID.value
+      + '&limit_ID=' + this.limit
+      + '&LType_ID=' + this.LType_ID_check
+    console.log(tpyeUser);
+    const headers1 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getLeave_type_chack.php`, tpyeUser, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.leavetypeUser_chack = data;
+          console.log(this.leavetypeUser_chack);
+          this.check_Remain = this.leavetypeUser_chack[0].Remain
+          this.LType_ID_check = this.leavetypeUser_chack[0].LType_ID
+          this.Remain_over_check = this.leavetypeUser_chack[0].Remain_over
+          console.log(this.check_Remain, this.Remain_over_check);
 
+        }
+        ,
+        (error: any) => {
+          // console.log(error);
+        })
   }
-  AddLeave(LeaveTotal, check_number, limit_type, Name_Leave, To_Person, Role_chack, Leave_characteristics_dateStart, Leave_characteristics_dateLast) {
+
+  AddLeave(LeaveTotal, check_number, Remain_over, Name_Leave, To_Person, Role_chack, Leave_characteristics_dateStart, Leave_characteristics_dateLast) {
 
     console.log(+check_number);
     console.log(+LeaveTotal);
-    console.log(limit_type);
+    console.log(Remain_over);
     console.log(Name_Leave);
     console.log(To_Person);
     console.log(this.selectedFile);
 
 
 
+    if (!this.LType_ID.value && !this.limit_ID.value && !this.LeaveStatus_Document.value) {
+      this.invalid_type = "is-invalid"
+      this.invalid_doc = "is-invalid"
+      this.invalid_limit = "is-invalid"
+      Swal.fire({
+        icon: 'error',
+        title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
+      })
+    }
     if (!this.LType_ID.value) {
       this.invalid_type = "is-invalid"
       Swal.fire({
         icon: 'error',
-        title: 'กรุณาเลือกประเภทการลา',
+        title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
       })
     }
 
@@ -680,7 +743,8 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_limit = "is-invalid"
             }
 
-            else {
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+
               this.Add_leave_level_1(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
             }
           }
@@ -706,7 +770,8 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_limit = "is-invalid"
             }
 
-            else {
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+
               this.Add_leave_level_2(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
 
             }
@@ -733,7 +798,8 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_limit = "is-invalid"
             }
 
-            else {
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+
               this.Add_leave_level_3(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
             }
           }
@@ -759,7 +825,8 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_limit = "is-invalid"
             }
 
-            else {
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+
               this.Add_leave_level_4(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
             }
           }
@@ -803,7 +870,8 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_limit = "is-invalid"
         }
 
-        else {
+        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+
           this.Add_leave_level_1(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
       }
@@ -829,7 +897,8 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_limit = "is-invalid"
         }
 
-        else {
+        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+
           this.Add_leave_level_2(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
       }
@@ -855,7 +924,8 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_limit = "is-invalid"
         }
 
-        else {
+        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+
           this.Add_leave_level_3(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
       }
@@ -881,7 +951,8 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_limit = "is-invalid"
         }
 
-        else {
+        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+
           this.Add_leave_level_4(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
       }
@@ -901,9 +972,9 @@ export class EmployeeshowComponent implements OnInit {
           + '&Name_Leave=' + Name_Leave + "/หักเงินเดือน"
           + '&To_Person=' + To_Person
           + '&LeaveDateStart=' + this.LeaveDateStart.value
-          + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+          + '&Leave_characteristics_dateStart=' + Leave_characteristics_dateStart
           + '&LeaveDateLast=' + this.LeaveDateLast.value
-          + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+          + '&Leave_characteristics_dateLast=' + Leave_characteristics_dateLast
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
@@ -950,9 +1021,9 @@ export class EmployeeshowComponent implements OnInit {
           + '&Name_Leave=' + Name_Leave
           + '&To_Person=' + To_Person
           + '&LeaveDateStart=' + this.LeaveDateStart.value
-          + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+          + '&Leave_characteristics_dateStart=' + Leave_characteristics_dateStart
           + '&LeaveDateLast=' + this.LeaveDateLast.value
-          + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+          + '&Leave_characteristics_dateLast=' + Leave_characteristics_dateLast
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
@@ -1013,9 +1084,9 @@ export class EmployeeshowComponent implements OnInit {
           uploadData.append('Name_Leave', Name_Leave + "/หักเงินเดือน")
           uploadData.append('To_Person', To_Person)
           uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
-          uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+          uploadData.append('Leave_characteristics_dateStart', Leave_characteristics_dateStart)
           uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
-          uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+          uploadData.append('Leave_characteristics_dateLast', Leave_characteristics_dateLast)
           uploadData.append('LeaveData', this.LeaveData.value)
           uploadData.append('ContactInformation', this.ContactInformation.value)
           uploadData.append('employee', this.employee.value)
@@ -1063,9 +1134,9 @@ export class EmployeeshowComponent implements OnInit {
           uploadData.append('Name_Leave', Name_Leave)
           uploadData.append('To_Person', To_Person)
           uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
-          uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+          uploadData.append('Leave_characteristics_dateStart', Leave_characteristics_dateStart)
           uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
-          uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+          uploadData.append('Leave_characteristics_dateLast', Leave_characteristics_dateLast)
           uploadData.append('LeaveData', this.LeaveData.value)
           uploadData.append('ContactInformation', this.ContactInformation.value)
           uploadData.append('employee', this.employee.value)
@@ -1121,9 +1192,9 @@ export class EmployeeshowComponent implements OnInit {
           + '&Name_Leave=' + Name_Leave + "/หักเงินเดือน"
           + '&To_Person=' + To_Person
           + '&LeaveDateStart=' + this.LeaveDateStart.value
-          + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+          + '&Leave_characteristics_dateStart=' + Leave_characteristics_dateStart
           + '&LeaveDateLast=' + this.LeaveDateLast.value
-          + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+          + '&Leave_characteristics_dateLast=' + Leave_characteristics_dateLast
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
@@ -1170,9 +1241,9 @@ export class EmployeeshowComponent implements OnInit {
           + '&Name_Leave=' + Name_Leave
           + '&To_Person=' + To_Person
           + '&LeaveDateStart=' + this.LeaveDateStart.value
-          + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+          + '&Leave_characteristics_dateStart=' + Leave_characteristics_dateStart
           + '&LeaveDateLast=' + this.LeaveDateLast.value
-          + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+          + '&Leave_characteristics_dateLast=' + Leave_characteristics_dateLast
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
@@ -1233,9 +1304,9 @@ export class EmployeeshowComponent implements OnInit {
           uploadData.append('Name_Leave', Name_Leave + "/หักเงินเดือน")
           uploadData.append('To_Person', To_Person)
           uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
-          uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+          uploadData.append('Leave_characteristics_dateStart', Leave_characteristics_dateStart)
           uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
-          uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+          uploadData.append('Leave_characteristics_dateLast', Leave_characteristics_dateLast)
           uploadData.append('LeaveData', this.LeaveData.value)
           uploadData.append('ContactInformation', this.ContactInformation.value)
           uploadData.append('employee', this.employee.value)
@@ -1283,9 +1354,9 @@ export class EmployeeshowComponent implements OnInit {
           uploadData.append('Name_Leave', Name_Leave)
           uploadData.append('To_Person', To_Person)
           uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
-          uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+          uploadData.append('Leave_characteristics_dateStart', Leave_characteristics_dateStart)
           uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
-          uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+          uploadData.append('Leave_characteristics_dateLast', Leave_characteristics_dateLast)
           uploadData.append('LeaveData', this.LeaveData.value)
           uploadData.append('ContactInformation', this.ContactInformation.value)
           uploadData.append('employee', this.employee.value)
@@ -1340,9 +1411,9 @@ export class EmployeeshowComponent implements OnInit {
           + '&Name_Leave=' + Name_Leave + "/หักเงินเดือน"
           + '&To_Person=' + To_Person
           + '&LeaveDateStart=' + this.LeaveDateStart.value
-          + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+          + '&Leave_characteristics_dateStart=' + Leave_characteristics_dateStart
           + '&LeaveDateLast=' + this.LeaveDateLast.value
-          + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+          + '&Leave_characteristics_dateLast=' + Leave_characteristics_dateLast
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
@@ -1389,9 +1460,9 @@ export class EmployeeshowComponent implements OnInit {
           + '&Name_Leave=' + Name_Leave
           + '&To_Person=' + To_Person
           + '&LeaveDateStart=' + this.LeaveDateStart.value
-          + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+          + '&Leave_characteristics_dateStart=' + Leave_characteristics_dateStart
           + '&LeaveDateLast=' + this.LeaveDateLast.value
-          + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+          + '&Leave_characteristics_dateLast=' + Leave_characteristics_dateLast
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
@@ -1452,9 +1523,9 @@ export class EmployeeshowComponent implements OnInit {
           uploadData.append('Name_Leave', Name_Leave + "/หักเงินเดือน")
           uploadData.append('To_Person', To_Person)
           uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
-          uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+          uploadData.append('Leave_characteristics_dateStart', Leave_characteristics_dateStart)
           uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
-          uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+          uploadData.append('Leave_characteristics_dateLast', Leave_characteristics_dateLast)
           uploadData.append('LeaveData', this.LeaveData.value)
           uploadData.append('ContactInformation', this.ContactInformation.value)
           uploadData.append('employee', this.employee.value)
@@ -1502,9 +1573,9 @@ export class EmployeeshowComponent implements OnInit {
           uploadData.append('Name_Leave', Name_Leave)
           uploadData.append('To_Person', To_Person)
           uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
-          uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+          uploadData.append('Leave_characteristics_dateStart', Leave_characteristics_dateStart)
           uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
-          uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+          uploadData.append('Leave_characteristics_dateLast', Leave_characteristics_dateLast)
           uploadData.append('LeaveData', this.LeaveData.value)
           uploadData.append('ContactInformation', this.ContactInformation.value)
           uploadData.append('employee', this.employee.value)
@@ -1559,9 +1630,9 @@ export class EmployeeshowComponent implements OnInit {
           + '&Name_Leave=' + Name_Leave + "/หักเงินเดือน"
           + '&To_Person=' + To_Person
           + '&LeaveDateStart=' + this.LeaveDateStart.value
-          + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+          + '&Leave_characteristics_dateStart=' + Leave_characteristics_dateStart
           + '&LeaveDateLast=' + this.LeaveDateLast.value
-          + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+          + '&Leave_characteristics_dateLast=' + Leave_characteristics_dateLast
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
@@ -1608,9 +1679,9 @@ export class EmployeeshowComponent implements OnInit {
           + '&Name_Leave=' + Name_Leave
           + '&To_Person=' + To_Person
           + '&LeaveDateStart=' + this.LeaveDateStart.value
-          + '&Leave_characteristics_dateStart=' + this.Leave_characteristics_dateStart.value
+          + '&Leave_characteristics_dateStart=' + Leave_characteristics_dateStart
           + '&LeaveDateLast=' + this.LeaveDateLast.value
-          + '&Leave_characteristics_dateLast=' + this.Leave_characteristics_dateLast.value
+          + '&Leave_characteristics_dateLast=' + Leave_characteristics_dateLast
           + '&LeaveData=' + this.LeaveData.value
           + '&ContactInformation=' + this.ContactInformation.value
           + '&employee=' + this.employee.value
@@ -1671,9 +1742,9 @@ export class EmployeeshowComponent implements OnInit {
           uploadData.append('Name_Leave', Name_Leave + "/หักเงินเดือน")
           uploadData.append('To_Person', To_Person)
           uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
-          uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+          uploadData.append('Leave_characteristics_dateStart', Leave_characteristics_dateStart)
           uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
-          uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+          uploadData.append('Leave_characteristics_dateLast', Leave_characteristics_dateLast)
           uploadData.append('LeaveData', this.LeaveData.value)
           uploadData.append('ContactInformation', this.ContactInformation.value)
           uploadData.append('employee', this.employee.value)
@@ -1720,9 +1791,9 @@ export class EmployeeshowComponent implements OnInit {
           uploadData.append('Name_Leave', Name_Leave)
           uploadData.append('To_Person', To_Person)
           uploadData.append('LeaveDateStart', this.LeaveDateStart.value)
-          uploadData.append('Leave_characteristics_dateStart', this.Leave_characteristics_dateStart.value)
+          uploadData.append('Leave_characteristics_dateStart', Leave_characteristics_dateStart)
           uploadData.append('LeaveDateLast', this.LeaveDateLast.value)
-          uploadData.append('Leave_characteristics_dateLast', this.Leave_characteristics_dateLast.value)
+          uploadData.append('Leave_characteristics_dateLast', Leave_characteristics_dateLast)
           uploadData.append('LeaveData', this.LeaveData.value)
           uploadData.append('ContactInformation', this.ContactInformation.value)
           uploadData.append('employee', this.employee.value)
@@ -1783,98 +1854,179 @@ export class EmployeeshowComponent implements OnInit {
   test_arrar = 0
   btnDisable_start: boolean = true
   btnDisable_last: boolean = true
+  invalid_Last
   onseletday(LeaveDateStart, LeaveDateLast, Leave_characteristics_dateStart, Leave_characteristics_dateLast) {
-    console.log(LeaveDateStart, LeaveDateLast);
+    var moment = require('moment-business-days');
+    var dayleave = moment(LeaveDateLast).startOf('day').businessDiff(moment(LeaveDateStart).startOf('day'), 'day') + 1;
 
-    this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
-      (data: any) => {
-        this.show_holiday = data
-        console.log(this.show_holiday);
-        if (LeaveDateStart.length > 0) {
-          this.btnDisable_start = false;
 
+
+
+    const body = 'Emp_ID=' + this.Emp_ID.value
+    // console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getLeave.php`, body, {
+        headers: headers
+      }).subscribe(
+        (data: any) => {
+          this.leave = data;
+
+          for (let i = 0; i < this.leave.length; i++) {
+            const element = this.leave[i];
+            console.log(element.LeaveDateStart, element.LeaveDateLast);
+            if (LeaveDateStart >= element.LeaveDateStart && LeaveDateStart <= element.LeaveDateLast) {
+              Swal.fire({
+                icon: 'error',
+                title: 'ไม่สามารถลาได้เนื่องจากคุณลาวันนี้ไปแล้ว',
+
+              })
+              this.LeaveDateStart = new FormControl('');
+              this.btnDisable_start = true;
+              this.numberleave = dayleave = 0;
+              break;
+            }
+            else if (LeaveDateLast >= element.LeaveDateStart && LeaveDateLast <= element.LeaveDateLast) {
+              Swal.fire({
+                icon: 'error',
+                title: 'ไม่สามารถลาได้เนื่องจากคุณลาวันนี้ไปแล้ว',
+              })
+              this.LeaveDateLast = new FormControl('');
+              this.btnDisable_last = true;
+              break;
+            }
+            else {
+
+            }
+
+          }
+        },
+        (error: any) => {
+          // console.log(error);
         }
-        if (LeaveDateLast.length > 0) {
-          this.btnDisable_last = false;
-
-        }
+      )
 
 
-        var moment = require('moment-business-days');
-        var dayleave = moment(LeaveDateLast).startOf('day').businessDiff(moment(LeaveDateStart).startOf('day'), 'day') + 1;
-        if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && Leave_characteristics_dateLast == "เต็มวัน"
-          || Leave_characteristics_dateStart == "เต็มวัน" && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
-
-          for (var i = 0; i < this.show_holiday.length; i++) {
-            if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
-              this.numberleave = dayleave -= 1
-            }
-            if (LeaveDateStart != this.show_holiday[i].holiday_date) {
-              this.numberleave = dayleave - 0.5
-            }
-          }
-          if (this.numberleave == 0 || this.numberleave < 0) {
-            Swal.fire({
-              icon: 'error',
-              title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
-              text: '',
-              footer: ''
-            }).then(() => {
-
-            })
-          }
-        }
-
-
-        if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
-          for (var i = 0; i < this.show_holiday.length; i++) {
-            if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
-              this.numberleave = dayleave -= 1
-            }
-            if (LeaveDateStart != this.show_holiday[i].holiday_date) {
-              this.numberleave = dayleave - 1
-            }
-          }
-          if (LeaveDateStart = LeaveDateLast) {
-            this.numberleave = dayleave -= 0.5
-
-          }
-          if (this.numberleave == 0 || this.numberleave < 0) {
-            Swal.fire({
-              icon: 'error',
-              title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
-              text: '',
-              footer: ''
-            })
-          }
-        }
-
-        if (Leave_characteristics_dateStart == "เต็มวัน" && Leave_characteristics_dateLast == "เต็มวัน") {
-          for (var i = 0; i < this.show_holiday.length; i++) {
-            if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
-              this.numberleave = dayleave -= 1
-            }
-            if (LeaveDateStart != this.show_holiday[i].holiday_date) {
-              this.numberleave = dayleave
-            }
-          }
-          if (this.numberleave == 0 || this.numberleave < 0) {
-            Swal.fire({
-              icon: 'error',
-              title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
-              text: '',
-              footer: ''
-            })
-          }
-        }
-      },
-      (error: any) => {
-
+    if (LeaveDateStart.length > 0 && !moment(LeaveDateStart).isBusinessDay()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'คุณเลือกวันลาตรงกับวันหยุดราชการ',
+        text: '',
+        footer: ''
+      })
+      this.numberleave = 0;
+      this.LeaveDateStart = new FormControl('');
+    }
+    else if (LeaveDateLast.length > 0 && !moment(LeaveDateLast).isBusinessDay()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'คุณเลือกวันลาตรงกับวันหยุดราชการ',
+        text: '',
+        footer: ''
+      })
+      this.numberleave = 0;
+      this.LeaveDateLast = new FormControl('');
+    }
+    else {
+      if (LeaveDateStart.length > 0) {
+        this.btnDisable_start = false;
 
       }
-    )
+      if (LeaveDateLast.length > 0) {
+        this.btnDisable_last = false;
+        this.invalid_Last = "is-valid"
+      }
+      this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
+        (data: any) => {
+          this.show_holiday = data
+          console.log(this.show_holiday);
+          if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && Leave_characteristics_dateLast == "เต็มวัน"
+            || Leave_characteristics_dateStart == "เต็มวัน" && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+            for (var i = 0; i < this.show_holiday.length; i++) {
+              if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+                this.numberleave = dayleave -= 1
+              }
+              if (LeaveDateStart != this.show_holiday[i].holiday_date) {
+                this.numberleave = dayleave - 0.5
+              }
+            }
+            if (this.numberleave < 0) {
+              Swal.fire({
+                icon: 'error',
+                title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                text: '',
+                footer: ''
+              }).then(() => {
+                this.numberleave = 0
+              })
+            }
+          }
 
+
+          if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+            for (var i = 0; i < this.show_holiday.length; i++) {
+              if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+                this.numberleave = dayleave -= 1
+              }
+              if (LeaveDateStart != this.show_holiday[i].holiday_date) {
+                this.numberleave = dayleave - 1
+              }
+            }
+            if (LeaveDateStart = LeaveDateLast) {
+              this.numberleave = dayleave -= 0.5
+
+            }
+            if (this.numberleave < 0) {
+              Swal.fire({
+                icon: 'error',
+                title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                text: '',
+                footer: ''
+              })
+              this.numberleave = 0
+
+            }
+          }
+
+          if (Leave_characteristics_dateStart == "เต็มวัน" && Leave_characteristics_dateLast == "เต็มวัน") {
+            for (var i = 0; i < this.show_holiday.length; i++) {
+              if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+                this.numberleave = dayleave -= 1
+              }
+              if (LeaveDateStart != this.show_holiday[i].holiday_date || LeaveDateLast != this.show_holiday[i].holiday_date) {
+                this.numberleave = dayleave
+              }
+            }
+            if (this.numberleave < 0) {
+              Swal.fire({
+                icon: 'error',
+                title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                text: '',
+                footer: ''
+              })
+              this.numberleave = 0
+
+            }
+          }
+          if (Leave_characteristics_dateStart == " " || Leave_characteristics_dateLast == " ") {
+            Swal.fire({
+              icon: 'error',
+              title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+              text: '',
+              footer: ''
+            })
+          }
+        },
+        (error: any) => {
+          // console.log(error);
+
+        }
+      )
+    }
   }
+
 
 
 }

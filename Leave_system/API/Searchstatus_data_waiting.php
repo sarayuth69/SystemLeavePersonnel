@@ -13,8 +13,8 @@
    LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
    LEFT JOIN sector ON sector.Sector_ID = employee.Sector_ID
    WHERE
-   Emp_ID LIKE '%{$_GET['Emp_ID']}%' AND employee.status_data = 'Y' OR EmpName LIKE '%{$_GET['Emp_ID']}%' AND employee.status_data = 'Y' 
-       OR EmpLastName LIKE '%{$_GET['Emp_ID']}%' AND employee.status_data = 'Y'
+   employee.status_data = 'W' OR employee.status_data = 'N'
+   ORDER BY employee.status_data DESC
         ";
             $result = mysqli_query($conn,$sql); 
             $myArray = array();

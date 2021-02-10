@@ -17,7 +17,7 @@
     ,`ID_card`='".$_POST['ID_card']."',`Address`='".$_POST['Address']."',`Tel`='".$_POST['Tel']."'
     ,`Work_day`='".$_POST['Work_day']."',`Duration_work`='".$_POST['Duration_work']."',`status_data`='".$_POST['status_data']."'
     ,`Empstatus_ID`='".$_POST['Empstatus_ID']."',`Position_ID`='".$_POST['Position_ID']."'
-    ,`Dept_ID`='".$_POST['Dept_ID']."',`Sector_ID`='".$_POST['Sector_ID']."'
+    ,`Dept_ID`='".$_POST['Dept_ID']."',`Sector_ID`='".$_POST['Sector_ID']."',`privilege`='".$_POST['privilege']."'
     WHERE  `employee`.`Emp_ID` = '".$_POST['Emp_ID']."'";
 
 if ($conn->query($sql) === TRUE) {

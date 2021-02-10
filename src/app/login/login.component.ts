@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.route.queryParams.subscribe((value: any) => {
       console.log(value);
       if (value.length < 0) {
-    
+
         alert("1")
         this.router.navigate(['/login']);
         localStorage.clear();
@@ -221,29 +221,14 @@ export class LoginComponent implements OnInit {
                           // }
                         },
                         (error: any) => {
-                          console.log(error);
-                          Swal.fire({
-                            title: 'เรียบร้อย',
-                            text: "ส่งคำร้องขอใช้งานระบบเรียบร้อย รอผู้ดูแลระบบอนุญาต",
-                            icon: 'warning',
-                            confirmButtonText: 'บันทึก',
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonText: 'ยกเลิก',
-                            showCancelButton: true,
-                            cancelButtonColor: '#d33',
-                          }).then((result) => {
-                            if (result.isConfirmed) {
-                              Swal.fire(
-                                'รอใช้งานระบบ',
-                                '',
-                                'success'
-                              )
-                              setTimeout(() => {
-                                this.logoutsso();
-                              }, 2000);
-
-                            }
-                          })
+                          Swal.fire(
+                            'รออนุญาตให้ใช้งานระบบ',
+                            '',
+                            'success'
+                          )
+                          setTimeout(() => {
+                            this.logoutsso();
+                          }, 2000);
                         }
                       );
                   }
@@ -503,7 +488,7 @@ export class LoginComponent implements OnInit {
 
   }
   public logoutsso = async () => {
-   
+
     window.location.replace(environment.ssoLogout);
   }
 

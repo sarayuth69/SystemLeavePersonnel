@@ -2,7 +2,7 @@
  header("Access-Control-Allow-Origin: *");
  header('Control-type: application/json',true);
  require 'connect_DB.php' ;
-if ($_POST['Role'] ==="5" || $_POST['Role'] ==="6"){
+if ($_POST['Role'] ==="5" ){
     $sql  = "SELECT
     * FROM employee
 LEFT JOIN position ON employee.Position_ID = position.Position_ID
@@ -21,7 +21,7 @@ LEFT JOIN sector ON sector.Sector_ID = employee.Sector_ID
 LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
 WHERE sector.Sector_ID =  '".$_POST["Sector_ID"]."' AND `position`.`Role`< '".$_POST["Role"]."'
 GROUP BY `employee`.`Emp_ID`
-ORDER BY ABS(`employee`.`Emp_ID`) ASC";
+ORDER BY ABS(employee.Empstatus_ID) ASC";
 }
 else{
     $sql  = "SELECT
@@ -31,7 +31,7 @@ LEFT JOIN department ON employee.Dept_ID = department.Dept_ID
 LEFT JOIN employeestatus ON employee.Empstatus_ID = employeestatus.Empstatus_ID
 WHERE `employee`.`Dept_ID` = '".$_POST["Dept_ID"]."' AND `position`.`Role`< '".$_POST["Role"]."'
 GROUP BY `employee`.`Emp_ID`
-ORDER BY ABS(`employee`.`Emp_ID`) ASC";
+ORDER BY ABS(employee.Empstatus_ID) ASC";
 }
     
       $result = mysqli_query($conn,$sql); 

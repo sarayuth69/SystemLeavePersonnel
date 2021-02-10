@@ -199,7 +199,7 @@
 
           <li class="sidebar-dropdown">
             <a>
-          <i class="fa fa-cog" aria-hidden="true"></i>
+              <i class="fa fa-cog" aria-hidden="true"></i>
               จัดการ
 
             </a>
@@ -264,18 +264,20 @@
 
                 <li>
                   <a [routerLink]="['/checkleaveinfo-admin']">การลางานของบุคลากร</a>
+                  <a [routerLink]="['/checkleaveinfo-admin']">ใบลางาน</a>
+
                 </li>
               </ul>
             </div>
           </li>
-         
+
           <li>
             <a [routerLink]="['/sumleave']">
               <i class="fa fa-bar-chart" aria-hidden="true"></i>
               <span>สรุปการลา</span>
             </a>
           </li>
-         
+
         </ul>
         <ul>
           <li class="header-menu">
@@ -290,11 +292,12 @@
           <li>
             <a [routerLink]="['/leavelist']">
               <i class='fa fa-book'></i> รายการลา
-        
+
             </a>
           </li>
           <li class="sidebar">
-            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square" aria-hidden="true"></i>
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square"
+                aria-hidden="true"></i>
               ตรวจสอบจำนวนวันลา
             </a>
           </li>
@@ -307,7 +310,7 @@
               <span>ออกจากระบบ</span>
             </a>
           </li>
-        
+
         </ul>
       </div>
       <!-- sidebar-menu  -->
@@ -374,7 +377,7 @@
 
           <li class="sidebar-dropdown">
             <a>
-            <i class="fa fa-cog" aria-hidden="true"></i>
+              <i class="fa fa-cog" aria-hidden="true"></i>
               จัดการ
 
             </a>
@@ -439,6 +442,8 @@
 
                 <li>
                   <a [routerLink]="['/checkleaveinfo-admin']">การลางานของบุคลากร</a>
+                  <a [routerLink]="['/checkleaveinfo-admin']">ใบลางาน</a>
+
                 </li>
               </ul>
             </div>
@@ -465,11 +470,12 @@
           <li>
             <a [routerLink]="['/leavelist']">
               <i class='fa fa-book'></i> รายการลา
-        
+
             </a>
           </li>
           <li class="sidebar">
-            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square" aria-hidden="true"></i>
+            <a class="nav-link toggle" [routerLink]="['/checkleave']"><i class="fa fa-check-square"
+                aria-hidden="true"></i>
               ตรวจสอบจำนวนวันลา
             </a>
           </li>
@@ -477,7 +483,7 @@
             <a>
               <i class="fa fa-tachometer-alt"></i>
               บุลคากร/การลา
-        
+
             </a>
             <div class="sidebar-submenu">
               <ul>
@@ -488,6 +494,8 @@
                 </li>
                 <li>
                   <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+                 
+
                 </li>
               </ul>
             </div>
@@ -496,7 +504,8 @@
             <a [routerLink]="['/leavetowaiting']">
               <i class="fa fa-hourglass"></i>
               การลาที่รอรับรอง
-              <span class="badge badge-pill badge-warning" *ngIf="show_count_lavel2">{{countleave_toDepartmenthead}}</span>
+              <span class="badge badge-pill badge-warning"
+                *ngIf="show_count_lavel2">{{countleave_toDepartmenthead}}</span>
             </a>
           </li>
           <li class="header-menu">
@@ -508,7 +517,7 @@
               <span>ออกจากระบบ</span>
             </a>
           </li>
-        
+
         </ul>
       </div>
       <!-- sidebar-menu  -->
@@ -643,6 +652,8 @@
 
                 <li>
                   <a [routerLink]="['/checkleaveinfo-admin']">การลางานของบุคลากร</a>
+                  <a [routerLink]="['/checkleaveinfo-admin']">ใบลางาน</a>
+
                 </li>
               </ul>
             </div>
@@ -693,17 +704,18 @@
                 </li>
                 <li>
                   <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+
                 </li>
               </ul>
             </div>
           </li>
-            <li>
-              <a [routerLink]="['/leavetowaiting']">
-                <i class="fa fa-hourglass"></i>
-                การลาที่รอรับรอง
-                <span class="badge badge-pill badge-warning" *ngIf="show_count_lavel3">{{countleave_toSupervisor}}</span>
-              </a>
-            </li>
+          <li>
+            <a [routerLink]="['/leavetowaiting']">
+              <i class="fa fa-hourglass"></i>
+              การลาที่รอรับรอง
+              <span class="badge badge-pill badge-warning" *ngIf="show_count_lavel3">{{countleave_toSupervisor}}</span>
+            </a>
+          </li>
           <li class="header-menu">
             <span style="color:dodgerblue;">Logout</span>
           </li>
@@ -847,6 +859,8 @@
 
                 <li>
                   <a [routerLink]="['/checkleaveinfo-admin']">การลางานของบุคลากร</a>
+                  <a [routerLink]="['/checkleaveinfo-admin']">ใบลางาน</a>
+
                 </li>
               </ul>
             </div>
@@ -897,6 +911,7 @@
                 </li>
                 <li>
                   <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+
                 </li>
               </ul>
             </div>
@@ -905,7 +920,8 @@
             <a [routerLink]="['/leavetowaiting']">
               <i class="fa fa-hourglass"></i>
               การลาที่รอรับรอง
-              <span class="badge badge-pill badge-warning" *ngIf="show_count_lavel4">{{countleave_toDeputyleader}}</span>
+              <span class="badge badge-pill badge-warning"
+                *ngIf="show_count_lavel4">{{countleave_toDeputyleader}}</span>
             </a>
           </li>
           <li class="header-menu">
@@ -1054,6 +1070,8 @@
 
                 <li>
                   <a [routerLink]="['/checkleaveinfo-admin']">การลางานของบุคลากร</a>
+                  <a [routerLink]="['/checkleaveinfo-admin']">ใบลางาน</a>
+
                 </li>
               </ul>
             </div>
@@ -1077,12 +1095,12 @@
               <span class="badge badge-pill badge-warning" *ngIf="show_count_lavel5">{{countleave_toperson}}</span>
             </a>
           </li>
-        
+
           <li class="sidebar-dropdown">
             <a>
               <i class="fa fa-tachometer-alt"></i>
               บุคลากร/การลา
-        
+
             </a>
             <div class="sidebar-submenu">
               <ul>
@@ -1093,6 +1111,7 @@
                 </li>
                 <li>
                   <a [routerLink]="['/checkleaveinfo']">การลางานของบุคลากร</a>
+
                 </li>
               </ul>
             </div>
@@ -1112,7 +1131,7 @@
               <span>ออกจากระบบ</span>
             </a>
           </li>
-        
+
         </ul>
       </div>
       <!-- sidebar-menu  -->

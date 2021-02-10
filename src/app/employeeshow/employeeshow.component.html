@@ -188,7 +188,7 @@
                                                             data-target="#exampleModal"
                                                             (click)="updateEmp(item.Emp_ID,item.EmpName,item.EmpLastName,item.Sex,
                                                                         item.Birthday,item.ID_card,item.Age,item.Tel,item.Address,item.Work_day,item.Duration_work
-                                                                        ,item.Empstatus_ID,item.Position_ID,item.Dept_ID,item.Sector_ID,item.status_data)"><i
+                                                                        ,item.Empstatus_ID,item.Position_ID,item.Dept_ID,item.Sector_ID,item.status_data,item.privilege_chack)"><i
                                                                 class="fa fa-pencil-square-o"
                                                                 aria-hidden="true"></i></button>
                                                         &nbsp;
@@ -574,16 +574,22 @@
                                         <b style="color: mediumblue;"> ยื่นการลา</b>
                                     </div>
                                     <br>
-
                                     <div class="col-sm">
+                                        <label>เลือกรอบการประเมิน</label>
+                                        <select class="custom-select {{invalid_limit}}" [formControl]="limit_ID"
+                                            (change)="change_limit($event.target.value)">
+                                            <option *ngFor="let item of showleave_limit " value="{{item.limit_ID}}">
+                                                {{item.Name_limit}}</option>
+                                        </select>
                                         <label>ประเภทการลา</label>
                                         <select [formControl]="LType_ID" (ngModelChange)="dataChanged($event)"
-                                            name="data" id="type_leave" class="custom-select  {{invalid_type}}">
+                                            name="data" id="type_leave" class="custom-select {{invalid_type}}">
                                             <option *ngFor="let currentData of leavetypeUser" [ngValue]="currentData">
                                                 {{currentData.LTypeName}}
                                             </option>
                                         </select>
                                     </div>
+
                                     <br>
                                     <div class="container">
                                         <div class="form-row">
@@ -660,8 +666,8 @@
                                             </div>
                                             <div class="col-sm">
                                                 <label> วันลาเกิน</label><br>
-                                                <input type="text" id="LType_limit_check" value="{{LType_limit_check}}"
-                                                    #limit_type style="width: 50%;" readonly>
+                                                <input type="text" id="LType_limit_check" value="{{Remain_over_check}}"
+                                                    #Remain_over style="width: 50%;" readonly>
                                             </div>
                                             <div class="col-sm">
                                                 <div class="custom-control custom-checkbox">
@@ -725,7 +731,7 @@
                                             <div class="card text-white  mb-3" style="max-width: 18rem;">
                                                 <div class="card-header bg-primary">วันที่ลา</div>
                                                 <div class="card-body text-primary">
-                                                    <input type="date" class="form-control" id="LeaveDateStart"
+                                                    <input type="date" class="form-control " id="LeaveDateStart"
                                                         [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
                                                         (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
                                                         required>
@@ -740,23 +746,17 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <!-- <label for="validationDefault04">วันที่ลา</label>
-                                                                    <input type="date" class="form-control" id="LeaveDateStart"
-                                                                        [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
-                                                                        data-date-format="DD MMMM YYYY" required>
-                                                                    <select class="form-control">
-                                                                        <option>Default select</option>
-                                                                    </select> -->
                                         </div>
 
                                         <div class="col-sm">
                                             <div class="card text-white  mb-3" style="max-width: 18rem;">
                                                 <div class="card-header bg-danger ">ถึงวันที่</div>
                                                 <div class="card-body text-primary">
-                                                    <input type="date" class="form-control" id="LeaveDateLast"
+                                                    <input type="date" class="form-control " id="LeaveDateLast"
                                                         (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)"
                                                         [formControl]="LeaveDateLast" [max]="maxDate"
                                                         data-date-format="DD MMMM YYYY" required>
+
                                                     <h6>ประเภทวันลา</h6>
                                                     <select class="custom-select" id="Leave_characteristics_dateLast"
                                                         [disabled]="btnDisable_last" #Leave_characteristics_dateLast
@@ -767,14 +767,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <!-- <label>ถึงวันที่</label> -->
-                                            <!-- <input type="date" class="form-control" id="LeaveDateLast"
-                                                                        (change)="test_date(LeaveDateStart.value,LeaveDateLast.value)"
-                                                                        [formControl]="LeaveDateLast" [max]="maxDate" data-date=""
-                                                                        data-date-format="DD MMMM YYYY" required>
-                                                                    <select class="form-control">
-                                                                        <option>Default select</option>
-                                                                    </select> -->
                                         </div>
 
                                         <div class="col-md-2 mb-2">
@@ -790,12 +782,7 @@
                                                 <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
                                                 <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
                                             </select>
-                                            <label>เลือกรอบการประเมิน</label>
-                                            <select class="custom-select {{invalid_limit}}" [formControl]="limit_ID"
-                                                (change)="change_limit($event)">
-                                                <option *ngFor="let item of showleave_limit " value="{{item.limit_ID}}">
-                                                    {{item.Name_limit}}</option>
-                                            </select>
+
                                         </div>
 
                                         <form>
@@ -839,7 +826,7 @@
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="AddLeave()">save</button> -->
 
                     <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}`
-                        (click)="AddLeave(LeaveTotal.value,check_number.value,limit_type.value,Name_Leave.value,To_Person.value,Role_chack.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">ยืนยัน</button>
+                        (click)="AddLeave(LeaveTotal.value,check_number.value,Remain_over.value,Name_Leave.value,To_Person.value,Role_chack.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">ยืนยัน</button>
 
                 </div>
             </div>

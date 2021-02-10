@@ -37,8 +37,8 @@
        FROM `employee`
         JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
         JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
-       WHERE  `leave`.`LeaveDateStart`  BETWEEN '$day_leave_start' AND '$day_leave_last' 
-         OR `leave`.`LeaveDateLast`  BETWEEN '$day_leave_start' AND '$day_leave_last'
+       WHERE  `leave`.`LeaveDateStart`  BETWEEN '$day_leave_start' AND '$day_leave_last' AND leave.LeaveStatus_ID = '5' 
+         OR `leave`.`LeaveDateLast`  BETWEEN '$day_leave_start' AND '$day_leave_last' AND leave.LeaveStatus_ID = '5'
          ORDER BY `leave`.`LeaveDateStart` DESC";
             $result = mysqli_query($conn,$sql); 
             $myArray = array();

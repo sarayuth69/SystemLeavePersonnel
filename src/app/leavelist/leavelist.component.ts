@@ -55,7 +55,7 @@ export class LeavelistComponent implements OnInit {
   public leavetypeUser;
   public leavetype106;
   public addLeave;
-  public numberleave = 0;
+  public numberleave;
   leave106: boolean;
   leave105: boolean;
   leave104: boolean;
@@ -118,6 +118,8 @@ export class LeavelistComponent implements OnInit {
   PositionName = new FormControl('');
   DeptName = new FormControl('');
   Sector = new FormControl('');
+  date_chack_limit_leave = new FormControl('');
+
   marked = false;
   check_Remain: any;
   LType_ID_check: any;
@@ -137,6 +139,7 @@ export class LeavelistComponent implements OnInit {
   date_chack
   public showleave_limit: any;
   showcancel_allow
+  date_chack_leave;
   ngOnInit() {
     this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
       (data: any) => {
@@ -540,9 +543,18 @@ export class LeavelistComponent implements OnInit {
 
     if (this.text_chack.test(newObj.LTypeName)) {
       this.maxDate = moment(new Date()).format('YYYY-MM-DD')
+      this.date_chack_leave = ''
+      this.LeaveDateLast = new FormControl('');
+      this.LeaveDateStart = new FormControl('');
+
     }
     else if (newObj.LTypeName !== "ลาป่วย") {
       this.maxDate = ""
+      this.date_chack_leave = moment(new Date()).format('YYYY-MM-DD')
+      this.LeaveDateLast = new FormControl('');
+      this.LeaveDateStart = new FormControl('');
+
+
     }
 
   }
@@ -614,13 +626,23 @@ export class LeavelistComponent implements OnInit {
     console.log(this.selectedFile);
 
 
+    if (!this.LType_ID.value && !this.limit_ID.value && !this.LeaveStatus_Document.value) {
+      this.invalid_type = "is-invalid"
+      this.invalid_doc = "is-invalid"
+      this.invalid_limit = "is-invalid"
+      Swal.fire({
+        icon: 'error',
+        title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
+      })
+    }
     if (!this.LType_ID.value) {
       this.invalid_type = "is-invalid"
       Swal.fire({
         icon: 'error',
-        title: 'กรุณาเลือกประเภทการลา',
+        title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
       })
     }
+
 
     else if (+LeaveTotal > +check_number) {
       Swal.fire({
@@ -659,7 +681,8 @@ export class LeavelistComponent implements OnInit {
             }
 
 
-            else {
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
+
               this.Add_leave_level_1(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
 
             }
@@ -687,7 +710,8 @@ export class LeavelistComponent implements OnInit {
             }
 
 
-            else {
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
+
               this.Add_leave_level_2(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
 
             }
@@ -715,7 +739,8 @@ export class LeavelistComponent implements OnInit {
             }
 
 
-            else {
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
+
               this.Add_leave_level_3(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
 
             }
@@ -743,7 +768,8 @@ export class LeavelistComponent implements OnInit {
             }
 
 
-            else {
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
+
               this.Add_leave_level_4(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
 
             }
@@ -786,8 +812,8 @@ export class LeavelistComponent implements OnInit {
           if (!this.limit_ID.value) {
             this.invalid_limit = "is-invalid"
           }
+          else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
 
-          else {
             this.Add_leave_level_1(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
 
           }
@@ -814,7 +840,8 @@ export class LeavelistComponent implements OnInit {
             this.invalid_limit = "is-invalid"
           }
 
-          else {
+          else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
+
             this.Add_leave_level_2(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
 
           }
@@ -841,7 +868,8 @@ export class LeavelistComponent implements OnInit {
             this.invalid_limit = "is-invalid"
           }
 
-          else {
+          else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
+
             this.Add_leave_level_3(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
 
           }
@@ -868,7 +896,8 @@ export class LeavelistComponent implements OnInit {
             this.invalid_limit = "is-invalid"
           }
 
-          else {
+          else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
+
             this.Add_leave_level_4(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
 
           }
@@ -1898,41 +1927,51 @@ export class LeavelistComponent implements OnInit {
   leave_ID = new FormControl('');
   Leave_ID_cancel_show
   allow_cancel_leave(cencel_total, Leave_ID_cancel) {
-    this.cancel_total = cencel_total
-    this.Leave_ID_cancel_show = Leave_ID_cancel
-    const body = "cancel_id=" + 0
-      + "&cancel_data=" + this.cancel_data.value
-      + "&cancel_date_start=" + this.cancel_date_start.value
-      + "&cancel_date_stop=" + this.cancel_date_stop.value
-      + "&cancel_total=" + this.cancel_total
-      + "&cancel_status=" + "10"
-      + "&leave_ID=" + this.Leave_ID_cancel_show
-    // console.log(body);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post(`${this.baseUrl}allow_cancel_leave.php`, body, {
-        headers: headers
+    if (!cencel_total) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณาเลือกวันที่ต้องการจะยกเลิก',
       })
-      .subscribe(
-        (data: any) => {
-          console.log(data);
+    }
+    else {
+      this.cancel_total = cencel_total
+      this.Leave_ID_cancel_show = Leave_ID_cancel
+      const body = "cancel_id=" + 0
+        + "&cancel_data=" + this.cancel_data.value
+        + "&cancel_date_start=" + this.cancel_date_start.value
+        + "&cancel_date_stop=" + this.cancel_date_stop.value
+        + "&cancel_total=" + this.cancel_total
+        + "&cancel_status=" + "10"
+        + "&leave_ID=" + this.Leave_ID_cancel_show
+      // console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}allow_cancel_leave.php`, body, {
+          headers: headers
+        })
+        .subscribe(
+          (data: any) => {
+            console.log(data);
 
-        },
-        (error: any) => {
-          // console.log(error);
-        }
-      );
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'ขออนุญาตยกเลิกการลาเรียบร้อย',
-      showConfirmButton: false,
-      timer: 1500
-    }).then(() => {
-      window.location.reload()
-    })
+          },
+          (error: any) => {
+            // console.log(error);
+          }
+        );
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'ขออนุญาตยกเลิกการลาเรียบร้อย',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => {
+        window.location.reload()
+      })
+
+    }
+
   }
   date_chack_start = /ครึ่งวัน/i
   date_chack_Last = /ครึ่งวัน/i
@@ -1960,123 +1999,338 @@ export class LeavelistComponent implements OnInit {
   // }
 
 
-  onseletday(LeaveDateStart, LeaveDateLast, Leave_characteristics_dateStart, Leave_characteristics_dateLast) {
+  onseletday(LeaveDateStart, LeaveDateLast, Leave_characteristics_dateStart, Leave_characteristics_dateLast, date_chack) {
     var moment = require('moment-business-days');
-    if (LeaveDateStart.length > 0 && !moment(LeaveDateStart).isBusinessDay()) {
-      Swal.fire({
-        icon: 'error',
-        title: 'คุณเลือกวันลาตรงกับวันหยุดราชการ',
-        text: '',
-        footer: ''
-      })
-      this.numberleave = 0;
+    var dayleave = moment(LeaveDateLast).startOf('day').businessDiff(moment(LeaveDateStart).startOf('day'), 'day') + 1;
+
+    // console.log(moment(LeaveDateStart).startOf('day').businessDiff(moment(date_chack).startOf('day'), 'day') + 1);
+
+    // console.log(date_chack.length);
+
+    if (date_chack.length <= 0) {
+      const body = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+      // console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getLeave.php`, body, {
+          headers: headers
+        }).subscribe(
+          (data: any) => {
+            this.leave = data;
+            for (let i = 0; i < this.leave.length; i++) {
+              const element = this.leave[i];
+              console.log(element.LeaveDateStart, element.LeaveDateLast);
+              if (LeaveDateStart >= element.LeaveDateStart && LeaveDateStart <= element.LeaveDateLast) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'ไม่สามารถลาได้เนื่องจากคุณลาวันนี้ไปแล้ว',
+                })
+                this.LeaveDateStart = new FormControl('');
+                this.btnDisable_start = true;
+                this.numberleave = dayleave = 0;
+                break;
+              }
+              else if (LeaveDateLast >= element.LeaveDateStart && LeaveDateLast <= element.LeaveDateLast) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'ไม่สามารถลาได้เนื่องจากคุณลาวันนี้ไปแล้ว',
+                })
+                this.LeaveDateLast = new FormControl('');
+                this.btnDisable_last = true;
+                break;
+              }
+
+            }
+          },
+          (error: any) => {
+          }
+        )
+
+      if (LeaveDateStart.length > 0 && !moment(LeaveDateStart).isBusinessDay()) {
+        Swal.fire({
+          icon: 'error',
+          title: 'คุณเลือกวันลาตรงกับวันหยุดราชการ',
+          text: '',
+          footer: ''
+        })
+        this.numberleave = 0;
+        this.LeaveDateStart = new FormControl('');
+      }
+      else if (LeaveDateLast.length > 0 && !moment(LeaveDateLast).isBusinessDay()) {
+        Swal.fire({
+          icon: 'error',
+          title: 'คุณเลือกวันลาตรงกับวันหยุดราชการ',
+          text: '',
+          footer: ''
+        })
+        this.numberleave = 0;
+        this.LeaveDateLast = new FormControl('');
+      }
+      else {
+        if (LeaveDateStart.length > 0) {
+          this.btnDisable_start = false;
+        }
+        if (LeaveDateLast.length > 0) {
+          this.btnDisable_last = false;
+          this.invalid_Last = "is-valid"
+        }
+        this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
+          (data: any) => {
+            this.show_holiday = data
+            console.log(this.show_holiday);
+            if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && Leave_characteristics_dateLast == "เต็มวัน"
+              || Leave_characteristics_dateStart == "เต็มวัน" && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+              for (var i = 0; i < this.show_holiday.length; i++) {
+                if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave -= 1
+                }
+                if (LeaveDateStart != this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave - 0.5
+                }
+              }
+              if (this.numberleave < 0) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                  text: '',
+                  footer: ''
+                }).then(() => {
+                  this.numberleave = 0
+                })
+              }
+            }
+            if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+              for (var i = 0; i < this.show_holiday.length; i++) {
+                if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave -= 1
+                }
+                if (LeaveDateStart != this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave - 1
+                }
+              }
+              if (LeaveDateStart = LeaveDateLast) {
+                this.numberleave = dayleave -= 0.5
+              }
+              if (this.numberleave < 0) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                  text: '',
+                  footer: ''
+                })
+                this.numberleave = 0
+              }
+            }
+            if (Leave_characteristics_dateStart == "เต็มวัน" && Leave_characteristics_dateLast == "เต็มวัน") {
+              for (var i = 0; i < this.show_holiday.length; i++) {
+                if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave -= 1
+                }
+                if (LeaveDateStart != this.show_holiday[i].holiday_date || LeaveDateLast != this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave
+                }
+              }
+              if (this.numberleave < 0) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                  text: '',
+                  footer: ''
+                })
+                this.numberleave = 0
+              }
+            }
+            if (Leave_characteristics_dateStart == " " || Leave_characteristics_dateLast == " ") {
+              Swal.fire({
+                icon: 'error',
+                title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                text: '',
+                footer: ''
+              })
+            }
+          },
+          (error: any) => {
+            // console.log(error);
+
+          }
+        )
+      }
     }
-    else if (LeaveDateLast.length > 0 && !moment(LeaveDateLast).isBusinessDay()) {
-      Swal.fire({
-        icon: 'error',
-        title: 'คุณเลือกวันลาตรงกับวันหยุดราชการ',
-        text: '',
-        footer: ''
-      })
-      this.numberleave = 0;
+    else if (moment(LeaveDateStart).startOf('day').businessDiff(moment(date_chack).startOf('day'), 'day') + 1 >= 5 && date_chack.length > 1) {
+      const body = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+      // console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getLeave.php`, body, {
+          headers: headers
+        }).subscribe(
+          (data: any) => {
+            this.leave = data;
+            for (let i = 0; i < this.leave.length; i++) {
+              const element = this.leave[i];
+              console.log(element.LeaveDateStart, element.LeaveDateLast);
+              if (LeaveDateStart >= element.LeaveDateStart && LeaveDateStart <= element.LeaveDateLast) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'ไม่สามารถลาได้เนื่องจากคุณลาวันนี้ไปแล้ว',
+                })
+                this.LeaveDateStart = new FormControl('');
+                this.btnDisable_start = true;
+                this.numberleave = dayleave = 0;
+                break;
+              }
+              else if (LeaveDateStart < element.LeaveDateStart && LeaveDateLast > element.LeaveDateStart) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'ไม่สามารถลาได้เนื่องจากคุณลาวันนี้ไปแล้ว',
+                })
+                this.LeaveDateStart = new FormControl('');
+                this.btnDisable_start = true;
+                this.LeaveDateLast = new FormControl('');
+                this.btnDisable_last = true;
+                this.numberleave = dayleave = 0;
+                break;
+              }
+              else if (LeaveDateLast >= element.LeaveDateStart && LeaveDateLast <= element.LeaveDateLast) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'ไม่สามารถลาได้เนื่องจากคุณลาวันนี้ไปแล้ว',
+                })
+                this.LeaveDateLast = new FormControl('');
+                this.btnDisable_last = true;
+                break;
+              }
+
+            }
+          },
+          (error: any) => {
+          }
+        )
+
+      if (LeaveDateStart.length > 0 && !moment(LeaveDateStart).isBusinessDay()) {
+        Swal.fire({
+          icon: 'error',
+          title: 'คุณเลือกวันลาตรงกับวันหยุดราชการ',
+          text: '',
+          footer: ''
+        })
+        this.numberleave = 0;
+        this.LeaveDateStart = new FormControl('');
+      }
+      else if (LeaveDateLast.length > 0 && !moment(LeaveDateLast).isBusinessDay()) {
+        Swal.fire({
+          icon: 'error',
+          title: 'คุณเลือกวันลาตรงกับวันหยุดราชการ',
+          text: '',
+          footer: ''
+        })
+        this.numberleave = 0;
+        this.LeaveDateLast = new FormControl('');
+      }
+      else {
+        if (LeaveDateStart.length > 0) {
+          this.btnDisable_start = false;
+        }
+        if (LeaveDateLast.length > 0) {
+          this.btnDisable_last = false;
+          this.invalid_Last = "is-valid"
+        }
+        this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
+          (data: any) => {
+            this.show_holiday = data
+            console.log(this.show_holiday);
+            if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && Leave_characteristics_dateLast == "เต็มวัน"
+              || Leave_characteristics_dateStart == "เต็มวัน" && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+              for (var i = 0; i < this.show_holiday.length; i++) {
+                if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave -= 1
+                }
+                if (LeaveDateStart != this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave - 0.5
+                }
+              }
+              if (this.numberleave < 0) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                  text: '',
+                  footer: ''
+                }).then(() => {
+                  this.numberleave = 0
+                })
+              }
+            }
+            if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
+              for (var i = 0; i < this.show_holiday.length; i++) {
+                if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave -= 1
+                }
+                if (LeaveDateStart != this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave - 1
+                }
+              }
+              if (LeaveDateStart = LeaveDateLast) {
+                this.numberleave = dayleave -= 0.5
+              }
+              if (this.numberleave < 0) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                  text: '',
+                  footer: ''
+                })
+                this.numberleave = 0
+              }
+            }
+            if (Leave_characteristics_dateStart == "เต็มวัน" && Leave_characteristics_dateLast == "เต็มวัน") {
+              for (var i = 0; i < this.show_holiday.length; i++) {
+                if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave -= 1
+                }
+                if (LeaveDateStart != this.show_holiday[i].holiday_date || LeaveDateLast != this.show_holiday[i].holiday_date) {
+                  this.numberleave = dayleave
+                }
+              }
+              if (this.numberleave < 0) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                  text: '',
+                  footer: ''
+                })
+                this.numberleave = 0
+              }
+            }
+            if (Leave_characteristics_dateStart == " " || Leave_characteristics_dateLast == " ") {
+              Swal.fire({
+                icon: 'error',
+                title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
+                text: '',
+                footer: ''
+              })
+            }
+          },
+          (error: any) => {
+            // console.log(error);
+
+          }
+        )
+      }
     }
     else {
-      if (LeaveDateStart.length > 0) {
-        this.btnDisable_start = false;
-
-      }
-      if (LeaveDateLast.length > 0) {
-        this.btnDisable_last = false;
-        this.invalid_Last = "is-valid"
-      }
-      this.http.get(`${this.baseUrl}show_holiday.php`).subscribe(
-        (data: any) => {
-          this.show_holiday = data
-          console.log(this.show_holiday);
-          var dayleave = moment(LeaveDateLast).startOf('day').businessDiff(moment(LeaveDateStart).startOf('day'), 'day') + 1;
-          if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && Leave_characteristics_dateLast == "เต็มวัน"
-            || Leave_characteristics_dateStart == "เต็มวัน" && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
-            for (var i = 0; i < this.show_holiday.length; i++) {
-              if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
-                this.numberleave = dayleave -= 1
-              }
-              if (LeaveDateStart != this.show_holiday[i].holiday_date) {
-                this.numberleave = dayleave - 0.5
-              }
-            }
-            if (this.numberleave == 0 || this.numberleave < 0) {
-              Swal.fire({
-                icon: 'error',
-                title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
-                text: '',
-                footer: ''
-              }).then(() => {
-                this.numberleave = 0
-              })
-            }
-          }
-
-
-          if (this.date_chack_start.test(Leave_characteristics_dateStart) == true && this.date_chack_Last.test(Leave_characteristics_dateLast) == true) {
-            for (var i = 0; i < this.show_holiday.length; i++) {
-              if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
-                this.numberleave = dayleave -= 1
-              }
-              if (LeaveDateStart != this.show_holiday[i].holiday_date) {
-                this.numberleave = dayleave - 1
-              }
-            }
-            if (LeaveDateStart = LeaveDateLast) {
-              this.numberleave = dayleave -= 0.5
-
-            }
-            if (this.numberleave == 0 || this.numberleave < 0) {
-              Swal.fire({
-                icon: 'error',
-                title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
-                text: '',
-                footer: ''
-              })
-              this.numberleave = 0
-
-            }
-          }
-
-          if (Leave_characteristics_dateStart == "เต็มวัน" && Leave_characteristics_dateLast == "เต็มวัน") {
-            for (var i = 0; i < this.show_holiday.length; i++) {
-              if (LeaveDateStart <= this.show_holiday[i].holiday_date && LeaveDateLast >= this.show_holiday[i].holiday_date) {
-                this.numberleave = dayleave -= 1
-              }
-              if (LeaveDateStart != this.show_holiday[i].holiday_date) {
-                this.numberleave = dayleave
-              }
-            }
-            if (this.numberleave == 0 || this.numberleave < 0) {
-              Swal.fire({
-                icon: 'error',
-                title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
-                text: '',
-                footer: ''
-              })
-              this.numberleave = 0
-
-            }
-          }
-          if (Leave_characteristics_dateStart == " " || Leave_characteristics_dateLast == " ") {
-            Swal.fire({
-              icon: 'error',
-              title: 'กรุณาเลือกวันลาไห้ถูกต้อง',
-              text: '',
-              footer: ''
-            })
-          }
-        },
-        (error: any) => {
-          // console.log(error);
-
-        }
-      )
+      Swal.fire({
+        icon: 'warning',
+        title: 'ต้องลาล่วงหน้าอย่างน้อย 5-7 วัน',
+      })
+      this.LeaveDateStart = new FormControl('');
+      this.numberleave = ""
+      this.btnDisable_start = true;
     }
+
 
 
   }
@@ -2692,6 +2946,7 @@ export class LeavelistComponent implements OnInit {
       };
       pdfMake.createPdf(docDefinition2).open()
     }
+
 
 
   }

@@ -28,7 +28,7 @@
      employee
      LEFT JOIN leavetype ON leavetype.Empstatus_ID = employee.Empstatus_ID
      LEFT JOIN employeestatus ON employeestatus.Empstatus_ID = employee.Empstatus_ID
-     LEFT JOIN (SELECT * FROM `leave` WHERE  LeaveStatus_ID = 5 )AS `leave` ON `leave`.Emp_ID = employee.Emp_ID 
+     LEFT JOIN (SELECT * FROM `leave` WHERE  LeaveStatus_ID = 5 AND YEAR(`leave`.LeaveDateStart)  = YEAR(NOW()) AND YEAR(`leave`.LeaveDateLast) = YEAR(NOW()) )AS `leave` ON `leave`.Emp_ID = employee.Emp_ID 
      -- AND `leave`.LeaveDateStart BETWEEN '2020-01-01' AND ADDDATE('2020-01-01',INTERVAL 2  MONTH)
      AND `leave`.LType_ID = leavetype.LType_ID
  WHERE 

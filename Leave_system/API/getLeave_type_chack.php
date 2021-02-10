@@ -110,7 +110,7 @@
         -- AND `leave`.LeaveDateStart BETWEEN `leave_limit`.Date_start AND ADDDATE(`leave_limit`.Date_start,INTERVAL limit_date  MONTH)
         AND `leave`.LType_ID = leavetype.LType_ID 
     WHERE 
-      employee.Emp_ID ='".$_POST["Emp_ID"]."' AND leavetype.QuotaStatus = 'ลาได้'
+      employee.Emp_ID ='".$_POST["Emp_ID"]."' AND leavetype.QuotaStatus = 'ลาได้' AND leavetype.LType_ID = '".$_POST["LType_ID"]."' 
     GROUP BY
     employee.Emp_ID,
     `leave`.limit_ID,
