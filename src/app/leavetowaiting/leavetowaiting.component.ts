@@ -847,7 +847,7 @@ export class LeavetowaitingComponent implements OnInit {
       + '&cancel_status=' + 8
       + '&cancel_total=' + this.cancel_total
       + '&leave_ID=' + this.leave_ID
-      + '&Name_Leave=' + this.Name_Leave + " / ขออนุญาตยกเลิก"
+      // + '&Name_Leave=' + this.Name_Leave + " / ขออนุญาตยกเลิก"
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -872,7 +872,7 @@ export class LeavetowaitingComponent implements OnInit {
 
         const body = '&cancel_total=' + this.cancel_total
           + '&leave_ID=' + this.leave_ID
-          + '&Name_Leave=' + this.Name_Leave + " / ขออนุญาตยกเลิก"
+          // + '&Name_Leave=' + this.Name_Leave + " / ขออนุญาตยกเลิก"
         console.log(body);
         const headers = new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded'

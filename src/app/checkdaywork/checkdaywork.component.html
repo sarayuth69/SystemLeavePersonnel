@@ -1,103 +1,110 @@
-
 <div class="table-responsive-xl" style="padding: 1%;">
-    <div class="card">
+  <div class="card">
 
-        <div class="container">
-            <div class="row">
-              <div class="col-sm">
-                เดือน  วัน ปี 
-                <input type="date" class="form-control"  [max]="maxDate" #Day_Work>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          เดือน วัน ปี
+          <input type="date" class="form-control" [max]="maxDate" value="{{date}}" #Day_Work
+            (change)='onOptionsSelected(Day_Work.value)'>
 
+
+        </div>
+
+        <div class="col-sm">
+
+        </div>
+        <div class="col-sm">
+          <div class="card-body">
+            <form class="form-inline ml-auto">
+              <div class="form-group has-white">
+                <input type="text" class="form-control" placeholder="Search">
+                <!-- <button type="button" class="btn btn-success">ค้นหา</button> -->
+                <button type="submit" class="btn btn-outline-primary">
+                  <img src="assets\images\magnifying-glass.png" width="20" height="20px" id="icon" alt="User Icon" />
+                </button>
               </div>
 
-              <div class="col-sm">
-               
-              </div>
-              <div class="col-sm">
-                <div class="card-body">
-                    <form class="form-inline ml-auto">
-                        <div class="form-group has-white">
-                          <input type="text" class="form-control" placeholder="Search">
-                          <!-- <button type="button" class="btn btn-success">ค้นหา</button> -->
-                          <button type="submit" class="btn btn-outline-primary">
-                            <img src="assets\images\magnifying-glass.png" width="20" height="20px" id="icon" alt="User Icon" />
-                        </button>
-                        </div>
-                       
-                    </form>
-                </div>
-              </div>
-            </div>
+            </form>
           </div>
-      
+        </div>
       </div>
-      <br>
-<table class="table">
-    <thead class="text-primary">
-        <th>
-          <b>ลำดับ</b>  
-        </th>
-      
-        <th>
-          <b>ชื่อ-นามสกุล</b>  
-        </th>
-        <th>
-          <b>สถานะ (
-            <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" id="allcomin" name="all" (click)="checkall()" class="custom-control-input">
-           <label class="custom-control-label" for="allcomin">&nbsp;  &nbsp;&nbsp;  &nbsp;  มาทำงานทั้งหมด</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" id="notallcomin" name="all" (click)="checknotall()" class="custom-control-input">
-                <label class="custom-control-label" for="notallcomin">&nbsp;  &nbsp;&nbsp;  &nbsp;  ไม่มาทำงานทั้งหมด )</label>
-            </div>
-          </b>  
-        
-        </th>
-        <th>
-          <b>สาเหตุ</b>  
-        </th>
-      
-        <th >
-           <!-- <b > จัดการ</b>  -->
-           <button type="button" class="btn btn-primary" (click)="checkradio(Day_Work.value)">บันทึก</button> 
+    </div>
 
-        </th>
-       
+  </div>
+  <br>
+  <table class="table">
+    <thead class="text-primary">
+      <th>
+        <b>ลำดับ</b>
+      </th>
+
+      <th>
+        <b>ชื่อ-นามสกุล</b>
+      </th>
+      <th>
+        <b>สถานะ (
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="allcomin" name="all" (click)="checkall()" class="custom-control-input">
+            <label class="custom-control-label" for="allcomin">&nbsp; มาทำงานทั้งหมด</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="notallcomin" name="all" (click)="checknotall()" class="custom-control-input">
+            <label class="custom-control-label" for="notallcomin">&nbsp; ไม่มาทำงานทั้งหมด )</label>
+          </div>
+        </b>
+
+      </th>
+      <th>
+        <b>สาเหตุ</b>
+      </th>
+
+      <th>
+        <!-- <b > จัดการ</b>  -->
+        <button type="button" class="btn btn-primary" (click)="checkradio(Day_Work.value)">บันทึก</button>
+
+      </th>
+
     </thead>
     <tbody *ngFor="let item of Employee; let i = index">
-        <td> 
-          <p ng-repeat="i in range(1, 5)">
+      <td>
+        <p ng-repeat="i in range(1, 5)">
           {{ i+1 }}
         </p>
       </td>
-        <input type="hidden" id="{{'Emp_ID' + i}}"   class="custom-control-input" value="{{item.Emp_ID}}">
-        <input type="hidden" id="{{'Status_Work' + i}}"   class="custom-control-input" value="{{item.Status_Work}}">
-        <!-- <input type="hidden" id="{{'Day_Work' + i}}"   class="custom-control-input" value="{{item.Day_Work}}"> -->
+      <input type="hidden" id="{{'Emp_ID' + i}}" class="custom-control-input" value="{{item.Emp_ID}}">
+      <input type="hidden" id="{{'Status_Work' + i}}" class="custom-control-input" value="{{item.Status_Work}}">
+      <!-- <input type="hidden" id="{{'Day_Work' + i}}"   class="custom-control-input" value="{{item.Day_Work}}"> -->
 
-        <td>{{item.EmpName}} {{item.EmpLastName}}</td>
-        <td>
-          
-          <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="{{'comin' + i}}" name="{{'radio' + i}}" #radio  class="custom-control-input" value="มาทำงาน">
-         <label class="custom-control-label" for="{{'comin' + i}}" >&nbsp;  &nbsp;&nbsp;  &nbsp;   มาทำงาน</label>
+      <td>{{item.EmpName}} {{item.EmpLastName}}</td>
+      <td>
+
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="{{'comin' + i}}" name="{{'radio' + i}}" #radio class="custom-control-input"
+            value="มาทำงาน">
+          <label class="custom-control-label" for="{{'comin' + i}}">&nbsp; มาทำงาน</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="{{'notcomin' + i}}" name="{{'radio' + i}}" #radio1  class="custom-control-input" value="ไม่มาทำงาน">
-            <label class="custom-control-label" for="{{'notcomin' + i}}" >&nbsp;  &nbsp;&nbsp;  &nbsp;  ไม่มาทำงาน</label>
+          <input type="radio" id="{{'notcomin' + i}}" name="{{'radio' + i}}" #radio1 class="custom-control-input"
+            value="ไม่มาทำงาน">
+          <!-- <input type="text" id="{{'test'+i}}" value="{{text_test}}" class="form-control"> -->
+
+          <label class="custom-control-label" for="{{'notcomin' + i}}">&nbsp; ไม่มาทำงาน</label>
         </div>
+
+
       </td>
-        <!-- <td>{{item.Status_Work}}</td> -->
+      <!-- <td>{{item.Status_Work}}</td> -->
 
-        <td >
-          <input type="text" id="{{'textdata' + i}}"   class="form-control" #textdata >
+      <td>
+        <input type="text" id="{{'textdata' + i}}" value="{{item.LTypeName}}" class="form-control" #textdata>
 
-        </td>
-        <td >
-         
-        </td>
-        
+      </td>
+      <td>
+
+      </td>
+
     </tbody>
-</table>
+  </table>
 
 </div>

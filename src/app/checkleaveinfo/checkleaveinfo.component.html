@@ -94,7 +94,9 @@
                                     <td class="text-center">{{item.Name_Leave}}</td>
                                     <td class="text-center"> {{item.LeaveDateStart_month}} <br> ถึงวันที่ <br>
                                         {{item.LeaveDateLast_month}}</td>
-                                    <td class="text-center"> {{item.LeaveTotal}}</td>
+                                    <td class="text-center"> {{item.LeaveTotal}}
+                                        <p *ngIf="item.LeaveTotal == 0" style="color: red;">ขออนุญาตยกเลิก</p>
+                                    </td>
                                     <!-- <td> </td> -->
                                     <td class="text-center">{{item.LeaveStatus_Document}} </td>
                                     <div *ngIf="item.LeaveStatus_ID == 6 || item.LeaveStatus_ID == 7"

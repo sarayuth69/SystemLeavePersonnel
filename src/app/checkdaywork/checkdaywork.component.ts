@@ -28,97 +28,80 @@ export class CheckdayworkComponent implements OnInit {
   textdata = new FormControl('');
   message
   maxDate
+  date = moment(new Date()).format('YYYY-MM-DD')
+  text_test
   constructor(
     public http: HttpClient,
     // private baseUrl: baseUrl
   ) { }
 
   ngOnInit() {
- 
+
     this.maxDate = moment(new Date()).format('YYYY-MM-DD')
-    this.http.get(`${this.baseUrl}getEmployee_daywork.php`).subscribe(
-      (data: any) => {
-       
-        this.Employee = data;
-      },
-      (error: any) => {
-        
-      }
-    );
+    const body = 'Day_Work=' + this.maxDate
+    console.log(body);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getEmployee_daywork.php`, body, {
+        headers: headers
+      }).subscribe(
+        (data: any) => {
+          try {
+            this.Employee = data;
+            for (let index = 0; index <= this.Employee.length; index++) {
+              if (this.Employee[index].LTypeName.length >= 0) {
+                const notcomin = document.getElementById(`notcomin${index}`) as HTMLInputElement;
+                notcomin.checked = true;
+
+              }
+            }
+          } catch (e) {
+
+          }
+
+
+        },
+        (error: any) => {
+
+        }
+      )
+
   }
+  onOptionsSelected(value: string) {
+    const body = 'Day_Work=' + value
+    console.log(body);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getEmployee_daywork.php`, body, {
+        headers: headers
+      }).subscribe(
+        (data: any) => {
+          try {
+            this.Employee = data;
+            for (let index = 0; index <= this.Employee.length; index++) {
+              if (this.Employee[index].LTypeName != ' ') {
+                this.text_test = "ไม่มาทำงาน"
+                const notcomin = document.getElementById(`notcomin`) as HTMLInputElement;
+                notcomin.checked = true;
+              }
+            }
+          } catch (e) {
+
+          }
 
 
-  //   chackwork(Emp_ID){
-  //     this.Emp_IDshow = Emp_ID
-  //     console.log(Emp_ID)
-  //     this.http
-  //       .get(
-  //         'http://localhost/Leavewebservice/API/Chackwork.php?Emp_ID=' + this.Emp_IDshow
-  //       )
-  //       .subscribe(
-  //         (data: any) => {
-  //          
-  //           this.chack = data;
-  //         },
-  //         (error: any) => {
-  //           
-  //         }
+        },
+        (error: any) => {
 
-  //       );
-  //       Swal.fire({
-  //         position: 'center',
-  //         icon: 'success',
-  //         title: 'แก้ไขเรียบร้อย',
-  //         showConfirmButton: false,
-  //         timer: 1000
-  //       }).then(
-  //         this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
-  //           (data: any) => {
-  //            
-  //             this.Employee = data;
-  //           },
-  //           (error: any) => {
-  //             
-  //           }
-  //         )
-  //       )
-  // }
-
-  // chack_No(Emp_ID){
-  //   this.Emp_IDshow = Emp_ID
-  //   console.log(Emp_ID)
-  //   this.http
-  //     .get(
-  //       'http://localhost/Leavewebservice/API/Chackwork_No.php?Emp_ID=' + this.Emp_IDshow
-  //     )
-  //     .subscribe(
-  //       (data: any) => {
-  //        
-  //         this.chack = data;
-  //       },
-  //       (error: any) => {
-  //         
-  //       }
-
-  //     );
-  //     Swal.fire({
-  //       position: 'center',
-  //       icon: 'success',
-  //       title: 'แก้ไขเรียบร้อย',
-  //       showConfirmButton: false,
-  //       timer: 1000
-  //     }).then(
-  //       this.http.get('http://localhost/Leavewebservice/API/getEmployee.php').subscribe(
-  //         (data: any) => {
-  //          
-  //           this.Employee = data;
-  //         },
-  //         (error: any) => {
-  //           
-  //         }
-  //       )
-  //     )
-  // }
+        }
+      )
+  }
 
 
   Add_daywork(E, S, D, T) {
@@ -127,20 +110,19 @@ export class CheckdayworkComponent implements OnInit {
     if (S === "มาทำงาน") {
       this.message = 1
     }
-    else if (S === "ไม่มาทำงาน") {
+    else if (S === "ไม่มาทำงาน" && T.length > 0) {
+      this.message = 1
+    }
+    else if (S === "ไม่มาทำงาน" && T.length <= 0) {
       this.message = 0
     }
     this.Day_Work = D;
     this.textdata = T;
-    // console.log(this.Emp_ID);
-    // console.log(this.Status_Work);
-    // console.log(this.Day_Work);
-    // console.log(this.textdata);
     if (!D) {
       Swal.fire({
         icon: 'error',
         title: 'กรุณาเลือกวันที่'
-      
+
       })
     }
     else {
@@ -161,11 +143,10 @@ export class CheckdayworkComponent implements OnInit {
         })
         .subscribe(
           (data: any) => {
-            // console.log(data[0]);
-            // this.department = data[0];
+
           },
           (error: any) => {
-            
+
           }
         );
       Swal.fire({
@@ -175,19 +156,9 @@ export class CheckdayworkComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
-        // window.location.reload();
+        window.location.reload();
       })
-      // .then(()=>{
-      //   this.http.get('http://localhost/Leavewebservice/API/getDept.php').subscribe(
-      //     (data: any) => {
-      //      
 
-      //     },
-      //     (error: any) => {
-      //       
-      //     }
-      //   );
-      // })
     }
   }
 
@@ -200,17 +171,15 @@ export class CheckdayworkComponent implements OnInit {
       a = "ไม่มาทำงาน"
     }
     else if (a === null) {
-      // console.log("asdasdsa");
 
     }
-    // console.log(a);
+
 
   }
   checkall() {
     for (let index = 0; index < this.Employee.length; index++) {
       const comin = document.getElementById(`comin${index}`) as HTMLInputElement;
       comin.checked = true;
-      // document.getElementById(`comin${index}`).checked = true;
 
     }
   }
@@ -218,7 +187,6 @@ export class CheckdayworkComponent implements OnInit {
     for (let index = 0; index < this.Employee.length; index++) {
       const notcomin = document.getElementById(`notcomin${index}`) as HTMLInputElement;
       notcomin.checked = true;
-      // document.getElementById(`notcomin${index}`).checked = true;
 
     }
   }
@@ -229,20 +197,13 @@ export class CheckdayworkComponent implements OnInit {
     for (let index = 0; index < this.Employee.length; index++) {
       const Emp_ID = document.getElementById(`Emp_ID${index}`) as HTMLInputElement;
       Emp_ID.value;
-      //  console.log(Emp_ID.value);
+
       const textdata = document.getElementById(`textdata${index}`) as HTMLInputElement;
       textdata.value;
-      // console.log(textdata.value);
-
-
-      // var Emp_ID = document.getElementById(`Emp_ID${index}`).value;
 
       const Status_Work = document.getElementsByName(`radio${index}`)[0] as HTMLInputElement;
       const s = Status_Work.checked ? "มาทำงาน" : "ไม่มาทำงาน";
-      // var Status_Work = document.getElementsByName(`radio${index}`)[0].checked ? "มาทำงาน" : "ไม่มาทำงาน";
-      // console.log('s',Status_Work);
 
-      // var Day_Work =  document.getElementById(`Day_Work${index}`).value;
       this.Add_daywork(Emp_ID.value, s, Day_Work, textdata.value);
     }
 
@@ -264,12 +225,10 @@ export class CheckdayworkComponent implements OnInit {
       for (let index = 0; index < this.Employee.length; index++) {
 
         const comin = document.getElementById(`comin${index}`) as HTMLInputElement;
-        // comin.checked ;
-        // console.log(comin.checked);
+
 
         const notcomin = document.getElementById(`notcomin${index}`) as HTMLInputElement;
-        // notcomin.checked ;
-        // console.log(notcomin.checked);
+
         if (comin.checked == false && notcomin.checked == false) {
           console.log(this.Employee.length);
           console.log(index);
@@ -296,33 +255,7 @@ export class CheckdayworkComponent implements OnInit {
     }
 
 
-    // var radiocheck =0;
-    // for (let index = 0; index < this.Employee.length; index++) {
-    //   // console.log(document.getElementById(`comin${index}`).checked);
-    //   try{
-    //     if(( document.getElementById(`comin${index}`).checked === true && document.getElementById(`notallcomin${index}`).checked === false)
-    //     || ( document.getElementById(`comin${index}`).checked === false && document.getElementById(`notallcomin${index}`).checked === true) ){
-    //       // radiocheck++;
-    //      console.log(document.getElementById(`comin${index}`).checked  , document.getElementById(`notallcomin${index}`).checked );
 
-    //     }
-
-
-    //   if(this.Employee.length+1 === index){
-    //     if(radiocheck==0){
-    //       this.add_all(Day_Work);
-    //     }
-    //   }
-    // }catch{
-
-    //   console.log('t',radiocheck);
-    //   radiocheck++;
-    // }
-    //   console.log(document.getElementById(`comin${index}`).value  , document.getElementById(`notallcomin${index}`).value );
-
-
-
-    // }
 
   }
 }
