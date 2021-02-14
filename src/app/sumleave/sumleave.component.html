@@ -43,6 +43,11 @@
                   </div>
                 </div>
                 <div class="col">
+                  <!-- <div class="card border-primary mb-3" style="max-width: 25rem;height: auto">
+                    <div class="card-body">
+                      <canvas id="myChart" width="500" height="300"></canvas>
+                    </div>
+                  </div> -->
                   <canvas id="myChart" width="500" height="300"></canvas>
 
                 </div>
@@ -175,29 +180,48 @@
             <table class="table table-borderless">
               <thead>
                 <tr>
-                  <th scope="col">ลำดับ</th>
-                  <th scope="col">ชื่อ-นามสกุล</th>
-                  <th scope="col">สถานะ</th>
-                  <th scope="col">จำนวนวันลา</th>
-                  <th scope="col">วันลา</th>
-                  <th scope="col">ถึงวัน</th>
+                  <th scope="col" class="text-center">ลำดับ</th>
+                  <th scope="col" class="text-center">ชื่อ-นามสกุล</th>
+                  <th scope="col" class="text-center">สถานะ</th>
+                  <th scope="col" class="text-center">จำนวนวันลา</th>
+                  <th scope="col" class="text-center">วันลา</th>
+                  <th scope="col" class="text-center">ถึงวัน</th>
+                  <th scope="col" class="text-center">สถานะใบลา</th>
+                  <th scope="col" class="text-center">จัดการ</th>
+
 
                 </tr>
               </thead>
               <tbody *ngFor="let item of searchdayleave; let i = index">
                 <tr>
-                  <td>
+                  <td class="text-center">
                     <p ng-repeat="i in range(1, 5)">
                       {{ i+1 }}
                     </p>
                   </td>
 
                   <td> {{item.EmpName}} {{item.EmpLastName}} </td>
-                  <td> {{item.Name_Leave}} </td>
-                  <td> {{item.LeaveTotal}} <p *ngIf="item.LeaveTotal == 0" style="color: red;">ขออนุญาตยกเลิก</p>
+                  <td class="text-center"> {{item.Name_Leave}} </td>
+                  <td class="text-center"> {{item.LeaveTotal}} <p *ngIf="item.LeaveTotal == 0" style="color: red;">
+                      ขออนุญาตยกเลิก</p>
                   </td>
-                  <td> {{item.LeaveDateStart}} </td>
-                  <td> {{item.LeaveDateLast}} </td>
+                  <td class="text-center"> {{item.LeaveDateStart}} </td>
+                  <td class="text-center"> {{item.LeaveDateLast}} </td>
+                  <td class="text-center">
+                    <p style="color: blue;" *ngIf="item.LeaveStatus_Document=='ส่งใบลาฉบับจริงแล้ว'">
+                      {{item.LeaveStatus_Document}}</p>
+                    <p style="color: red;" *ngIf="item.LeaveStatus_Document=='ยังไม่ส่งใบลาฉบับจริง'">
+                      {{item.LeaveStatus_Document}}</p>
+                  </td>
+
+                  <td class="text-center">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal"
+                      (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+                                                  item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
+                                                  item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,
+                                                item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names)"><i
+                        class="fa fa-cog" aria-hidden="true"></i></button>
+                  </td>
                 </tr>
 
               </tbody>
@@ -208,6 +232,167 @@
 
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ข้อมูลการลา</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="card-header text-left">
+            <b style="color: mediumblue;"> ยื่นการลา</b>
+          </div>
+          <br>
+          <div class="container">
+            <h6>เรื่อง : {{Name_Leave_show}}</h6>
+            <br>
+            <h6>เรียน : {{To_Person_show}}</h6>
+          </div>
+          &nbsp;&nbsp;
+          <div class="card-header text-left">
+            <b style="color: mediumblue;">ข้อมุลบุคลากร</b>
+          </div>
+          &nbsp;
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <h6>รหัส </h6>
+                <input type="text" class="EmpName_show" value="{{Emp_ID_show}}" readonly>
+
+              </div>
+              <div class="col-sm">
+                <h6> ชื่อ </h6>
+                <input type="text" class="EmpName_show" #EmpName value="{{EmpName_show}}" readonly>
+              </div>
+              <div class="col-sm">
+                <h6> นามสกุล </h6>
+                <input type="text" class="EmpLastName__show" #EmpLastName value="{{EmpLastName_show}}" readonly>
+
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <input type="text" class="Leave_ID_show" style="display: none;" #Leave_ID value="{{Leave_ID_show}}"
+                  readonly>
+                <h6>ตำแหน่ง </h6>
+                <input type="text" class="EmpName_show" value="{{PositionName_show}}" readonly>
+
+              </div>
+              <div class="col-sm">
+                <h6>แผนก </h6>
+                <input type="text" class="EmpName_show" value="{{DeptName_show}}" readonly>
+
+              </div>
+              <div class="col-sm">
+                <h6> ฝ่าย </h6>
+                <input type="text" class="EmpName_show" value="{{SectorName_show}}" readonly>
+
+              </div>
+            </div>
+          </div>
+          <div class="card-header text-left">
+            <b style="color: mediumblue;"> ข้อมูลการลา</b>
+          </div>
+          <br>
+          <div class="container">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">หัวข้อ</th>
+                  <th scope="col">รายละเอียด</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">ประเภทการลา :</th>
+                  <td>
+                    <input type="text" class="form-control" style="display: none;" value="{{LTypeName_show}}" #LTypeName
+                      readonly>
+                    {{LTypeName_show}}
+                  </td>
+                </tr>
+
+                <tr>
+                  <th scope="row">มีผู้รับผิดชอบงานแทน :</th>
+                  <td>{{employee_show}}</td>
+                </tr>
+
+
+                <tr>
+                  <th scope="row">ขอลาเนื่องจาก :</th>
+                  <td> {{LeaveData_show}}</td>
+
+                </tr>
+                <tr>
+                  <th scope="row">ข้อมูลการติดต่อ :</th>
+                  <td> {{ContactInformation_show}}</td>
+
+                </tr>
+                <tr>
+                  <th scope="row">วันที่ลา :</th>
+                  <td> {{LeaveDateStart_show}} / {{Leave_characteristics_dateStart_show}}</td>
+
+                </tr>
+                <tr>
+                  <th scope="row">ถึงวันที่ :</th>
+                  <td> {{LeaveDateLast_show}} / {{Leave_characteristics_dateLast_show}} </td>
+
+                </tr>
+                <tr>
+                  <th scope="row">จำนวนวันลา :</th>
+                  <td> {{LeaveTotal_show}} <p *ngIf="LeaveTotal_show == 0" style="color: red;">
+                      ขออนุญาตยกเลิก</p>
+                  </td>
+
+                </tr>
+                <tr>
+                  <th scope="row">แนปไฟล์ :</th>
+                  <td><a
+                      href="http://cpe.rmuti.ac.th/project/Leave_system/upload/{{file_names_show}}">{{file_names_show}}</a>
+                  </td>
+
+                </tr>
+                <tr>
+                  <th scope="row">สถานะการลา :</th>
+                  <td style="color: rgb(12, 48, 206);"> {{LeaveStatus_Name_show}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">สถานะการส่งใบลาฉบับจริง :</th>
+
+                  <td>
+                    <!-- <input class="leave" type="text" value="{{Leave_ID_show}}"> -->
+                    <select class="form-control" title="สำหรับผู้ดูแลระบบเท่านั้น" #LeaveStatus_Document
+                      [disabled]="btnDisable_Doc" value="{{LeaveStatus_Document_show}}">
+                      <option value="ส่งใบลาฉบับจริงแล้ว">ส่งใบลาฉบับจริงแล้ว</option>
+                      <option value="ยังไม่ส่งใบลาฉบับจริง">ยังไม่ส่งใบลาฉบับจริง</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"
+          (click)="delete_leave(Leave_ID.value,EmpName.value,EmpLastName.value,LTypeName.value)"
+          *ngIf="btn_delete">ลบ</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"
+          (click)="updateleave_status(LeaveStatus_Document.value)">บันทึก</button>
+      </div>
     </div>
   </div>
 </div>

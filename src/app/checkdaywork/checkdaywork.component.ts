@@ -51,13 +51,7 @@ export class CheckdayworkComponent implements OnInit {
         (data: any) => {
           try {
             this.Employee = data;
-            for (let index = 0; index <= this.Employee.length; index++) {
-              if (this.Employee[index].LTypeName.length >= 0) {
-                const notcomin = document.getElementById(`notcomin${index}`) as HTMLInputElement;
-                notcomin.checked = true;
 
-              }
-            }
           } catch (e) {
 
           }
@@ -73,7 +67,6 @@ export class CheckdayworkComponent implements OnInit {
   onOptionsSelected(value: string) {
     const body = 'Day_Work=' + value
     console.log(body);
-
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
@@ -85,20 +78,12 @@ export class CheckdayworkComponent implements OnInit {
           try {
             this.Employee = data;
             for (let index = 0; index <= this.Employee.length; index++) {
-              if (this.Employee[index].LTypeName != ' ') {
-                this.text_test = "ไม่มาทำงาน"
-                const notcomin = document.getElementById(`notcomin`) as HTMLInputElement;
-                notcomin.checked = true;
-              }
+              console.log(this.Employee[index].LTypeName);
             }
           } catch (e) {
-
           }
-
-
         },
         (error: any) => {
-
         }
       )
   }

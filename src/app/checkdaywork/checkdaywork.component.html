@@ -85,10 +85,8 @@
           <label class="custom-control-label" for="{{'comin' + i}}">&nbsp; มาทำงาน</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="{{'notcomin' + i}}" name="{{'radio' + i}}" #radio1 class="custom-control-input"
-            value="ไม่มาทำงาน">
-          <!-- <input type="text" id="{{'test'+i}}" value="{{text_test}}" class="form-control"> -->
-
+          <input type="radio" id="{{'notcomin' + i}}" name="{{'radio' + i}}" *ngIf="item.LTypeName !=''"
+            [checked]="true" #radio1 class="custom-control-input" value="ไม่มาทำงาน">
           <label class="custom-control-label" for="{{'notcomin' + i}}">&nbsp; ไม่มาทำงาน</label>
         </div>
 

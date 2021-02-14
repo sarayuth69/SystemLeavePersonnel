@@ -123,9 +123,9 @@
                                                     class="fa fa-calendar-times" aria-hidden="true"></i> </button>
 
                                             <!-- Button trigger modal -->
-                                            <!--  -->
+                                            <!--   -->
                                             <button
-                                                *ngIf="item.LeaveStatus_ID==5 && item.LeaveTotal > 0 && item.LTypeName != 'ลาป่วย' && item.LeaveDateLast_month < date_dissable_btn  "
+                                                *ngIf="item.LeaveStatus_ID == 5 && item.LeaveTotal > 0 && item.LTypeName != 'ลาป่วย' && item.LeaveDateStart > date_dissable_btn"
                                                 type="button" class="btn btn-primary btn-circle btn-xl"
                                                 data-toggle="modal" data-target="#exampleModal_cancel"
                                                 title="ขออนุญาติยกเลิกการลา"
@@ -212,12 +212,14 @@
                                     <tr class="text-center">
                                         <th scope="col">ชื่อพนักงาน</th>
                                         <th scope="col">ประเภท</th>
-                                        <th scope="col">วันที่ลา</th>
+                                        <!-- <th scope="col">วันที่ลา</th> -->
+                                        <th scope="col">วันที่ยกเลิก</th>
+
                                         <th scope="col">จำนวน/วัน</th>
                                         <!-- <th scope="col">ไฟล์แนบ</th> -->
                                         <th scope="col">สถานะ</th>
                                         <!-- <th scope="col">ปริ้นใบยกเลิก</th> -->
-                                        <th scope="col">ตรวจสอบ</th>
+                                        <th scope="col">ปริ้น</th>
                                     </tr>
                                 </thead>
                                 <tbody
@@ -235,6 +237,8 @@
                                         </td>
 
                                         <td class="text-center">{{item.LTypeName}}</td>
+                                        <!-- <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่
+                                            {{item.LeaveDateLast}}</td> -->
                                         <td class="text-center"> {{item.cancel_date_start}} ถึงวันที่
                                             {{item.cancel_date_stop}}</td>
                                         <td class="text-center"> {{item.cancel_total}}</td>
@@ -255,13 +259,17 @@
                     
                                                             </td> -->
                                         <td class="text-center">
-                                            &nbsp;
+                                            <!-- &nbsp;
                                             <button *ngIf="item.cancel_status == 10" type="button" data-toggle="tooltip"
                                                 data-placement="top" title="ยกเลิกการอนุญาตการลา"
                                                 class="btn btn-danger btn-circle btn-xl"><i
-                                                    class="fa fa-calendar-times-o" aria-hidden="true"></i> </button>
+                                                    class="fa fa-calendar-times-o" aria-hidden="true"></i> </button> -->
 
-
+                                            <button type="button" class="btn btn-success btn-circle btn-xl" (click)="printDocument_cancel(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+                               item.Prefix, item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
+                                item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
+                              item.LeaveStatus_Name, item.LeaveStatus_Document,item.cancel_status )"><i class="fa fa-print"
+                                                    aria-hidden="true"></i></button>
 
                                         </td>
                                     </tr>
@@ -712,8 +720,7 @@
                                                     id="date_chack" #date_chack style="display: none;">
 
                                                 <input type="date" class="form-control" id="LeaveDateStart"
-                                                    [formControl]="LeaveDateStart" [max]="maxDate"
-                                                    data-date=""
+                                                    [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
                                                     (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)"
                                                     required>
                                                 <h6>ประเภทวันลา</h6>
