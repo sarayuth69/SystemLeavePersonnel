@@ -51,9 +51,9 @@ export class EmployeestatusComponent implements OnInit {
   }
 
   AddStatus() {
-    const body = 'Empstatus_ID=' + this.Empstatus_ID.value
+    const body = 'Empstatus_ID=' + 0
       + '&EmpstatusName=' + this.EmpstatusName.value
-    if (this.Empstatus_ID.value === "" || this.EmpstatusName.value === "") {
+    if ( this.EmpstatusName.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
         '',

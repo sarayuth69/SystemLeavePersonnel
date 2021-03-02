@@ -64,12 +64,12 @@ export class DepartmentComponent implements OnInit {
   AddDept() {
 
 
-    const body = 'Dept_ID=' + this.Dept_ID.value
+    const body = 'Dept_ID=' + 0
       + '&DeptName=' + this.DeptName.value
     // + '&Sector_ID=' + this.Sector_ID
 
     console.log(body);
-    if (this.Dept_ID.value === "" || this.DeptName.value === "") {
+    if ( this.DeptName.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
         '',

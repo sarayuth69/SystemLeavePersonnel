@@ -25,25 +25,6 @@ export class EmployeeComponent implements OnInit {
   table3: boolean;
   table4: boolean;
   table5: boolean;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   public Employee;
   public Emp_ID_show;
   public EmpName_show;

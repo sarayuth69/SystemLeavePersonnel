@@ -1,36 +1,38 @@
 <div class="table-responsive-xl" style="padding: 1%;">
-  <div class="card">
+  <div style="padding-left: 15%;padding-right: 2%;">
+    <div class="card w-75">
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm">
-          เดือน วัน ปี
-          <input type="date" class="form-control" [max]="maxDate" value="{{date}}" #Day_Work
-            (change)='onOptionsSelected(Day_Work.value)'>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <p style="font-size: 15px;"> เดือน วัน ปี </p>
+            <input type="date" class="form-control" [max]="maxDate" [formControl]="date_BusinessDay" value="{{date}}"
+              #Day_Work (change)='onOptionsSelected(Day_Work.value)'>
 
 
-        </div>
 
-        <div class="col-sm">
+          </div>
 
-        </div>
-        <div class="col-sm">
-          <div class="card-body">
-            <form class="form-inline ml-auto">
-              <div class="form-group has-white">
-                <input type="text" class="form-control" placeholder="Search">
-                <!-- <button type="button" class="btn btn-success">ค้นหา</button> -->
-                <button type="submit" class="btn btn-outline-primary">
-                  <img src="assets\images\magnifying-glass.png" width="20" height="20px" id="icon" alt="User Icon" />
-                </button>
-              </div>
+          <div class="col-sm">
+            <br>
+            <br>
 
-            </form>
+            <i class="fa fa-check fa-2x" style="color:rgba(35, 231, 17, 0.863);" *ngIf="chack_day_save">
+              <b>บันทึกแล้ว</b>
+            </i>
+            <i class="fa fa-times fa-2x" style="color:rgba(231, 49, 17, 0.863);" *ngIf="chack_day_nosave">
+              <b>ยังไม่บันทึก</b>
+            </i>
+          </div>
+          <div class="col-sm">
+            <div class="card-body">
+
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
   <br>
   <table class="table">
@@ -61,7 +63,7 @@
 
       <th>
         <!-- <b > จัดการ</b>  -->
-        <button type="button" class="btn btn-primary" (click)="checkradio(Day_Work.value)">บันทึก</button>
+        <button type="button" class="btn btn-primary" (click)="add(Day_Work.value)">บันทึก</button>
 
       </th>
 
@@ -80,13 +82,20 @@
       <td>
 
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="{{'comin' + i}}" name="{{'radio' + i}}" #radio class="custom-control-input"
-            value="มาทำงาน">
+          <input type="radio" id="{{'comin' + i}}" name="{{'radio' + i}}" #radio
+            *ngIf="item.off_Status_Work ==='มาทำงาน'" [checked]="true" class="custom-control-input" value="มาทำงาน">
+          <input type="radio" id="{{'comin' + i}}" name="{{'radio' + i}}" #radio
+            *ngIf="item.off_Status_Work !='มาทำงาน'" [checked]="false" class="custom-control-input" value="มาทำงาน">
           <label class="custom-control-label" for="{{'comin' + i}}">&nbsp; มาทำงาน</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="{{'notcomin' + i}}" name="{{'radio' + i}}"
+            *ngIf="item.off_Status_Work ==='ไม่มาทำงาน' " [checked]="true" #radio1 class="custom-control-input"
+            value="ไม่มาทำงาน">
           <input type="radio" id="{{'notcomin' + i}}" name="{{'radio' + i}}" *ngIf="item.LTypeName !=''"
             [checked]="true" #radio1 class="custom-control-input" value="ไม่มาทำงาน">
+          <input type="radio" id="{{'notcomin' + i}}" name="{{'radio' + i}}" *ngIf="item.LTypeName ==''"
+            [checked]="false" #radio1 class="custom-control-input" value="ไม่มาทำงาน">
           <label class="custom-control-label" for="{{'notcomin' + i}}">&nbsp; ไม่มาทำงาน</label>
         </div>
 

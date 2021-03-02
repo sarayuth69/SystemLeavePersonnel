@@ -1,9 +1,11 @@
 <?php
  header("Access-Control-Allow-Origin: *");
  header('Control-type: application/json',true);
-require 'connect_DB.php' ;
+ require 'connect_DB.php' ;
 
-    $sql = "SELECT COUNT(*)AS count_data FROM officiate_day WHERE Emp_ID = '".$_POST['Emp_ID']."'  AND Status_Work = 'ไม่มาทำงาน' AND message = 0 AND LENGTH(officiate_day.`Data`) = 0";
+
+    $sql = "SELECT Day_Work FROM `officiate_day`
+    GROUP BY Day_Work";
        $result = mysqli_query($conn,$sql); 
        $myArray = array();
        if ($result->num_rows > 0) {

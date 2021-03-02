@@ -33,9 +33,9 @@
      when(Month(Date_stop))='11' then 'พ.ย.'
      when(Month(Date_stop))='12' then 'ธ.ค.'
      else cast(Date_stop as date)
-     end,'/',year(Date_stop)+543) AS Date_stop_format,
-     ROUND(DATEDIFF(leave_limit.Date_stop,leave_limit.Date_start)/30,0) AS date_diff 
-    FROM leave_limit";
+     end,'/',year(Date_stop)+543) AS Date_stop_format
+    FROM leave_limit where 
+    leave_limit.limit_ID ='".$_GET['limit_ID']."'";
 $result = mysqli_query($conn,$sql); 
         $myArray = array();
         if ($result->num_rows > 0) {

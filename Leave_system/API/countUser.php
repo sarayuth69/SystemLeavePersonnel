@@ -7,7 +7,7 @@
     $sql  = "SELECT
     COUNT(`employee`.`Emp_ID`) AS countUser
     FROM employee
-  WHERE 1";
+  WHERE employee.status_data = 'Y'";
 
   $result = mysqli_query($conn,$sql); 
 $myArray = array();

@@ -20,14 +20,38 @@
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="Year" role="tabpanel" aria-labelledby="Year-tab">
           <div style="padding-left: 5%;padding-right: 5%;">
+            <br>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <h6 class="m-0 font-weight-bold text-primary">เลือกบุคลากร</h6>
+                  <select id="Emp_ID" class="form-control form-control-lg" #Emp_ID>
+                    <option *ngFor="let item of Employee; let i = index" value="{{item.Emp_ID}}">{{item.Prefix}}
+                      {{item.EmpName}} {{item.EmpLastName}}</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+                      <h6 class="m-0 font-weight-bold text-primary">เลือกรอบการประเมิน</h6>
+                      <select class="form-control form-control-lg" id="limit_ID" #limit_ID>
+                        <option>เลือกรอบการประเมิน</option>
+                        <option *ngFor="let item of showleave_limit; let i = index" value="{{item.limit_ID}}">
+                          {{item.Name_limit}}</option>
+                      </select>
+                    </div>
+                    <div class="col">
 
-            <h6 class="m-0 font-weight-bold text-primary">เลือกบุคลากร</h6>
+                      <button type="button" title="ค้นหา" (click)="sumleave_show(Emp_ID.value,limit_ID.value)"
+                        class="btn btn-success btn-circle btn-xl"><i class="fa fa-search fa-4x"
+                          aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+                </div>
 
+              </div>
 
-            <select id="inputState" class="form-control form-control-lg" (change)="sumleave_show($event.target.value)">
-              <option *ngFor="let item of Employee; let i = index" value="{{item.Emp_ID}}">{{item.Prefix}}
-                {{item.EmpName}} {{item.EmpLastName}}</option>
-            </select>
+            </div>
             <h6 class="m-0 font-weight-bold text-primary">สถิติการลา</h6><br>
 
             <div class="container">
@@ -43,12 +67,10 @@
                   </div>
                 </div>
                 <div class="col">
-                  <!-- <div class="card border-primary mb-3" style="max-width: 25rem;height: auto">
-                    <div class="card-body">
-                      <canvas id="myChart" width="500" height="300"></canvas>
-                    </div>
-                  </div> -->
                   <canvas id="myChart" width="500" height="300"></canvas>
+                  <br>
+                  <br>
+                  <br>
 
                 </div>
               </div>
@@ -124,16 +146,6 @@
             </table>
           </div> -->
         </div>
-        <div class="tab-pane fade" id="Month" role="tabpanel" aria-labelledby="Month-tab">
-
-
-
-
-
-
-        </div>
-
-
 
 
         <div class="tab-pane fade" id="Day" role="tabpanel" aria-labelledby="Day-tab">
@@ -141,12 +153,7 @@
 
           <div class="container">
             <div class="row">
-              <!-- <div class="col-sm">
-                    เดือน วัน ปี
-                    <input type="date" class="form-control" placeholder="Search" #Day_leave>
-                    <button type="button" class="btn btn-success"
-                      (click)="getsearchdayleave(Day_leave.value)">ค้นหา</button>
-                  </div> -->
+
               <div class="container">
                 <div class="row">
                   <div class="col-sm">
@@ -166,8 +173,9 @@
                     <br>
                     <br>
                     <br>
-                    <button class="btn btn-success my-2 my-sm-0"
-                      (click)="getsearchdayleave(Day_leave_start.value,Day_leave_last.value)">ค้นหา</button>
+                    <button (click)="getsearchdayleave(Day_leave_start.value,Day_leave_last.value)"
+                      class="btn btn-success btn-circle btn-xl"><i class="fa fa-search fa-4x" aria-hidden="true"></i>
+                    </button>
                   </div>
                 </div>
               </div>

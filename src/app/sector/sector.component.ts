@@ -39,9 +39,9 @@ export class SectorComponent implements OnInit {
   }
 
   Addsector() {
-    const body = 'Sector_ID=' + this.Sector_ID.value
+    const body = 'Sector_ID=' + 0
       + '&SectorName=' + this.SectorName.value
-    if (this.Sector_ID.value === "" || this.SectorName.value === "") {
+    if (this.SectorName.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
         '',

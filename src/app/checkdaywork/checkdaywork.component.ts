@@ -26,10 +26,12 @@ export class CheckdayworkComponent implements OnInit {
   Emp_ID = new FormControl('');
   Day_Work = new FormControl('');
   textdata = new FormControl('');
+  date_BusinessDay = new FormControl('');
   message
   maxDate
   date = moment(new Date()).format('YYYY-MM-DD')
   text_test
+  getdaywork_chack
   constructor(
     public http: HttpClient,
     // private baseUrl: baseUrl
@@ -40,7 +42,6 @@ export class CheckdayworkComponent implements OnInit {
     this.maxDate = moment(new Date()).format('YYYY-MM-DD')
     const body = 'Day_Work=' + this.maxDate
     console.log(body);
-
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
@@ -51,34 +52,18 @@ export class CheckdayworkComponent implements OnInit {
         (data: any) => {
           try {
             this.Employee = data;
-
-          } catch (e) {
-
-          }
-
-
-        },
-        (error: any) => {
-
-        }
-      )
-
-  }
-  onOptionsSelected(value: string) {
-    const body = 'Day_Work=' + value
-    console.log(body);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post(`${this.baseUrl}getEmployee_daywork.php`, body, {
-        headers: headers
-      }).subscribe(
-        (data: any) => {
-          try {
-            this.Employee = data;
+            console.log(this.Employee.officiate_Day_Work);
+            if (this.Employee[0].officiate_Day_Work.length > 0) {
+              this.chack_day_save = true
+              this.chack_day_nosave = false
+            }
+            else {
+              this.chack_day_save = false
+              this.chack_day_nosave = true
+            }
+            // officiate_Day_Work
             for (let index = 0; index <= this.Employee.length; index++) {
-              console.log(this.Employee[index].LTypeName);
+              console.log(this.Employee[index].LTypeName.length);
             }
           } catch (e) {
           }
@@ -86,10 +71,78 @@ export class CheckdayworkComponent implements OnInit {
         (error: any) => {
         }
       )
+
+  }
+  chack_day_save: boolean;
+  chack_day_nosave: boolean;
+  onOptionsSelected(value) {
+    var moment = require('moment-business-days');
+    if (!moment(value).isBusinessDay()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'ไม่สามารถบันทึกตรงกับวันหยุดราชการได้',
+        text: '',
+
+      })
+      this.date_BusinessDay = new FormControl('')
+    } else {
+
+      const body = 'Day_Work=' + value
+      console.log(body);
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getEmployee_daywork.php`, body, {
+          headers: headers
+        }).subscribe(
+          (data: any) => {
+            try {
+              this.Employee = data;
+              console.log(this.Employee);
+
+              console.log(this.Employee.officiate_Day_Work);
+              if (this.Employee[0].officiate_Day_Work.length > 0) {
+                this.chack_day_save = true
+                this.chack_day_nosave = false
+              }
+              else {
+                this.chack_day_save = false
+                this.chack_day_nosave = true
+              }
+
+            } catch (e) {
+            }
+          },
+          (error: any) => {
+          }
+        )
+    }
+
   }
 
+  add(Day_Work) {
 
+    this.http.get(`${this.baseUrl}countdaywork.php?day_work=` + Day_Work).subscribe((data: any) => {
+      console.log(data[0]);
+      if (data[0].count_data > 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'ไม่สามารถบันทึกวันมาทำงานซ้ำกันได้'
+
+        })
+      } else {
+        this.checkradio(Day_Work)
+      }
+
+    }, (error: any) => {
+      console.log(error);
+
+    })
+
+  }
   Add_daywork(E, S, D, T) {
+
     this.Emp_ID = E;
     this.Status_Work = S;
     if (S === "มาทำงาน") {
@@ -111,7 +164,6 @@ export class CheckdayworkComponent implements OnInit {
       })
     }
     else {
-
       const body = 'Emp_ID=' + this.Emp_ID
         + '&Status_Work=' + this.Status_Work
         + '&Day_Work=' + this.Day_Work
@@ -143,7 +195,6 @@ export class CheckdayworkComponent implements OnInit {
       }).then(() => {
         window.location.reload();
       })
-
     }
   }
 
@@ -205,28 +256,17 @@ export class CheckdayworkComponent implements OnInit {
     }
     else {
       var radiocheck = 0;
-
-
       for (let index = 0; index < this.Employee.length; index++) {
-
         const comin = document.getElementById(`comin${index}`) as HTMLInputElement;
-
-
         const notcomin = document.getElementById(`notcomin${index}`) as HTMLInputElement;
-
         if (comin.checked == false && notcomin.checked == false) {
           console.log(this.Employee.length);
           console.log(index);
           radiocheck++;
         }
-
-
         if (this.Employee.length - 1 == index) {
-
-
           if (radiocheck == 0) {
             this.add_all(Day_Work);
-
           }
           else {
             Swal.fire({

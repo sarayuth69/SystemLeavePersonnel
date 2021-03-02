@@ -88,6 +88,7 @@ export class LoginComponent implements OnInit {
                     localStorage.setItem('Sector_ID', data[0].Sector_ID);
                     localStorage.setItem('SectorName', data[0].SectorName);
                     localStorage.setItem('privilege', data[0].privilege);
+                    localStorage.setItem('Work_day', data[0].Work_day);
 
                     console.log(localStorage.getItem('Emp_ID'));
                     console.log(localStorage.getItem('EmpName'));
@@ -100,6 +101,7 @@ export class LoginComponent implements OnInit {
                     console.log(localStorage.getItem('Dept_ID'));
                     console.log(localStorage.getItem('Sector_ID'));
                     console.log(localStorage.getItem('SectorName'));
+                    console.log(localStorage.getItem('Work_day'));
                     // Swal.fire({
                     //   position: 'center',
                     //   icon: 'success',
@@ -108,7 +110,7 @@ export class LoginComponent implements OnInit {
                     //   timer: 1000
                     // }).then(() => {
                     if (data[0].privilege == "A") {
-                      this.router.navigate(['/home']);
+                      this.router.navigate(['/employeeshow']);
                     }
                     else if (data[0].Role == "5" && data[0].privilege == "U") {
                       this.router.navigate(['/leavetowaiting']);
@@ -171,6 +173,7 @@ export class LoginComponent implements OnInit {
                           localStorage.setItem('Sector_ID', data[0].Sector_ID);
                           localStorage.setItem('SectorName', data[0].SectorName);
                           localStorage.setItem('privilege', data[0].privilege);
+                          localStorage.setItem('Work_day', data[0].Work_day);
 
                           console.log(localStorage.getItem('Emp_ID'));
                           console.log(localStorage.getItem('EmpName'));
@@ -184,6 +187,7 @@ export class LoginComponent implements OnInit {
                           console.log(localStorage.getItem('Sector_ID'));
                           console.log(localStorage.getItem('SectorName'));
                           console.log(localStorage.getItem('privilege'));
+                          console.log(localStorage.getItem('Work_day'));
 
                           // Swal.fire({
                           //   position: 'center',

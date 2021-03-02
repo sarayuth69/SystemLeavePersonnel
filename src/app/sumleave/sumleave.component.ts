@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { style } from '@angular/animations';
 
 import * as Chart from 'chart.js'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-sumleave',
@@ -34,6 +35,7 @@ export class SumleaveComponent implements OnInit {
   show_char: boolean;
   seachleave: any;
   btnDisable_Doc: boolean = true
+  showleave_limit
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -46,7 +48,14 @@ export class SumleaveComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+      (data: any) => {
+        this.showleave_limit = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
     this.http.get(`${this.baseUrl}getEmployee.php`).subscribe(
       (data: any) => {
         console.log(data);
@@ -58,6 +67,7 @@ export class SumleaveComponent implements OnInit {
     );
 
 
+
   }
   canvas: any;
 
@@ -65,7 +75,6 @@ export class SumleaveComponent implements OnInit {
   test2 = []
 
   ngAfterViewInit(sumleave) {
-    // this.chart_show = chart
     try {
       this.test1.forEach(element => {
         this.test1.splice(element.LTypeName)
@@ -92,71 +101,110 @@ export class SumleaveComponent implements OnInit {
 
     }
     this.canvas = document.getElementById('myChart');
-    var myChart = new Chart(this.canvas, {
-      type: 'pie',
-      data: {
-        labels: this.test1,
-        datasets: [{
-          data: this.test2,
-          backgroundColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(100, 180, 50, 1)',
-            'rgba(97, 106, 107, 1)',
-            'rgba(72, 140, 19, 1)',
-            'rgba(231, 76, 60, 1)',
-            'rgba(178, 186, 187, 1)',
-            'rgba(23, 32, 42, 1)',
-            'rgba(125, 102, 8, 1)',
-            'rgba(54, 70, 90, 1)',
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        legend: {
-          responsive: true,
-          display: true
-        }
-      },
+    if (this.test1.length > 1 && this.test2.length > 1) {
+      var myChart = new Chart(this.canvas, {
+        type: 'pie',
+        data: {
+          labels: this.test1,
+          datasets: [{
+            data: this.test2,
+            backgroundColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(100, 180, 50, 1)',
+              'rgba(97, 106, 107, 1)',
+              'rgba(72, 140, 19, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(178, 186, 187, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(125, 102, 8, 1)',
+              'rgba(54, 70, 90, 1)',
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          legend: {
+            responsive: true,
+            display: true.valueOf,
+            maintainAspectRatio: false
+          }
+        },
 
+      }
+      );
     }
-    );
+    else {
+      this.canvas = document.getElementById('123');
+    }
 
   }
 
-
-  filterChanged(selectedValue: string) {
-    console.log('value is ', selectedValue);
-
-  }
   chart: any;
   chart_show: any;
-  sumleave_show(Emp_ID) {
-
-    this.Emp_ID_show = Emp_ID
-    console.log(Emp_ID);
-
-    this.http.get(`${this.baseUrl}getSumleave.php?Emp_ID=${this.Emp_ID_show}`).subscribe(
+  maxDate
+  limit
+  Empstatus_ID
+  Employee_chack
+  sumleave_show(Emp_ID, limit_ID) {
+    this.maxDate = moment(new Date()).format('YYYY-MM-DD')
+    this.http.get(`${this.baseUrl}getEmployee copy.php?Emp_ID=` + Emp_ID).subscribe(
       (data: any) => {
         console.log(data);
-        this.sumleave = data;
-        // this.chart = "2d"
-        this.ngAfterViewInit(this.sumleave)
+        try {
+          this.Employee_chack = data;
+          this.Empstatus_ID = data[0].Empstatus_ID
+          var day_work_month = moment(this.maxDate).startOf('day').diff(moment(this.Employee_chack[0].Work_day).startOf('day'), 'months');
+          console.log(day_work_month);
+          const tpyeUser = 'Emp_ID=' + Emp_ID
+            + '&limit_ID=' + limit_ID
+            + '&Empstatus_ID=' + this.Empstatus_ID
+            + '&Work_day=' + day_work_month
+          const headers1 = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+          });
+          this.http
+            .post(`${this.baseUrl}getSumleave.php`, tpyeUser, {
+              headers: headers1
+            }).subscribe(
+              (data: any) => {
+                this.sumleave = data
+                this.ngAfterViewInit(this.sumleave)
+              },
+              (error: any) => {
+              }
+            )
+        } catch (e) {
+        }
+
       },
       (error: any) => {
         console.log(error);
       }
     );
+
+
+    // this.http.get(`${this.baseUrl}getSumleave.php?Emp_ID=${this.Emp_ID_show}`).subscribe(
+    //   (data: any) => {
+    //     console.log(data);
+    //     this.sumleave = data;
+    //     // this.chart = "2d"
+    //     this.ngAfterViewInit(this.sumleave)
+    //   },
+    //   (error: any) => {
+    //     console.log(error);
+    //   }
+    // );
   }
+
   getsearchdayleave(Day_leave_start, Day_leave_last) {
     this.Day_leave_start_chack = Day_leave_start
     this.Day_leave_last_chack = Day_leave_last
-  
+
     if (!Day_leave_start) {
       Swal.fire({
         icon: 'error',

@@ -33,7 +33,37 @@
     when(Month(cancel_date_stop))='11' then 'พ.ย.'
     when(Month(cancel_date_stop))='12' then 'ธ.ค.'
     else cast(cancel_date_stop as date)
-    end,'/',year(cancel_date_stop)+543) AS cancel_date_stop
+    end,'/',year(cancel_date_stop)+543) AS cancel_date_stop,
+     concat(day(LeaveDateStart),'/',
+	  case when(Month(LeaveDateStart))='1' then 'ม.ค.'
+    when(Month(LeaveDateStart))='2' then 'ก.พ.'
+    when(Month(LeaveDateStart))='3' then 'มี.ค'
+    when(Month(LeaveDateStart))='4' then 'เม.ย.'
+    when(Month(LeaveDateStart))='5' then 'พ.ค'
+    when(Month(LeaveDateStart))='6' then 'มิ.ย.'
+    when(Month(LeaveDateStart))='7' then 'ก.ค.'
+    when(Month(LeaveDateStart))='8' then 'ส.ค.'
+    when(Month(LeaveDateStart))='9' then 'ก.ย.'
+    when(Month(LeaveDateStart))='10' then 'ต.ค.'
+    when(Month(LeaveDateStart))='11' then 'พ.ย.'
+    when(Month(LeaveDateStart))='12' then 'ธ.ค.'
+    else cast(LeaveDateStart as date)
+    end,'/',year(LeaveDateStart)+543) AS LeaveDateStart_month,
+    concat(day(LeaveDateLast),'/',
+    case when(Month(LeaveDateLast))='1' then 'ม.ค.'
+    when(Month(LeaveDateLast))='2' then 'ก.พ.'
+    when(Month(LeaveDateLast))='3' then 'มี.ค'
+    when(Month(LeaveDateLast))='4' then 'เม.ย.'
+    when(Month(LeaveDateLast))='5' then 'พ.ค'
+    when(Month(LeaveDateLast))='6' then 'มิ.ย.'
+    when(Month(LeaveDateLast))='7' then 'ก.ค.'
+    when(Month(LeaveDateLast))='8' then 'ส.ค.'
+    when(Month(LeaveDateLast))='9' then 'ก.ย.'
+    when(Month(LeaveDateLast))='10' then 'ต.ค.'
+    when(Month(LeaveDateLast))='11' then 'พ.ย.'
+    when(Month(LeaveDateLast))='12' then 'ธ.ค.'
+    else cast(LeaveDateLast as date)
+    end,'/',year(LeaveDateLast)+543) AS LeaveDateLast_month
 FROM  
  `leave`
 JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
@@ -41,6 +71,8 @@ JOIN `department`ON `employee`.`Dept_ID` = `department`.`Dept_ID`
 JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
 JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
 JOIN  `cancel_leave` ON `leave`.`leave_ID` = `cancel_leave`.leave_ID
+JOIN position ON position.Position_ID = employee.Position_ID
+JOIN sector ON sector.Sector_ID = employee.Sector_ID
 WHERE  
 leave.Emp_ID = '".$_POST["Emp_ID"]."' 
 ORDER BY `leave`.`LeaveDateStart` DESC

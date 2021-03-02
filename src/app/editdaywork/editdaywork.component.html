@@ -1,16 +1,20 @@
 <div style="padding: 1%;">
-  <div class="card">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm">
-          เลือกวันที่
-          <div class="container">
-            <div class="row">
-              <div class="col-sm">
-                <input type="date" class="form-control" placeholder="Search" value="{{date}}" #Day_Work>
-              </div>
-              <div class="col-sm">
-                <button type="button" class="btn btn-success" (click)="getsearchDay_Work(Day_Work.value)">ค้นหา</button>
+  <div style="padding-left: 15%;padding-right: 2%;">
+    <div class="card w-75">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+
+            <p style="font-size: 15px;"> เลือกวันที่ </p>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  <input type="date" class="form-control" placeholder="Search" value="{{date}}" #Day_Work>
+                </div>
+                <div class="col-sm">
+                  <button type="button" class="btn btn-success"
+                    (click)="getsearchDay_Work(Day_Work.value)">ค้นหา</button>
+                </div>
               </div>
             </div>
           </div>

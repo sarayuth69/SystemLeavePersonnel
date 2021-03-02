@@ -66,7 +66,7 @@ export class CheckleaveinfoComponent implements OnInit {
         console.log(error);
       }
     )
-   
+
     if (localStorage.getItem('Role') === "5") {
       const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
         + '&Role=' + localStorage.getItem("Role")
@@ -88,7 +88,7 @@ export class CheckleaveinfoComponent implements OnInit {
           }
         )
     }
-     if (localStorage.getItem('Role') === "4") {
+    if (localStorage.getItem('Role') === "4") {
       const body = 'Dept_ID=' + localStorage.getItem("Dept_ID")
         + '&Role=' + localStorage.getItem("Role")
         + '&Sector_ID=' + localStorage.getItem("Sector_ID")
@@ -129,9 +129,17 @@ export class CheckleaveinfoComponent implements OnInit {
     }
 
   }
+
+  leavetypeUser_copy
   getlleave_user(event) {
     console.log(event);
     this.limit = event
+
+
+
+
+
+
 
     const tpyeUser = 'Emp_ID=' + this.Emp_ID_show
       + '&limit_ID=' + this.limit
@@ -146,7 +154,26 @@ export class CheckleaveinfoComponent implements OnInit {
         (data: any) => {
           this.leavetypeUser = data;
           console.log(this.leavetypeUser);
+        },
+        (error: any) => {
+          console.log(error);
+        }
 
+      )
+
+
+    const tpyeUser_copy = 'Emp_ID=' + this.Emp_ID_show
+    console.log(tpyeUser_copy);
+    const headers2 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getLeave_type_User copy.php`, tpyeUser, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.leavetypeUser_copy = data;
+          console.log(this.leavetypeUser_copy);
         },
         (error: any) => {
           console.log(error);
@@ -188,7 +215,28 @@ export class CheckleaveinfoComponent implements OnInit {
           })
         }
       );
+      // const tpyeUser = 'Emp_ID=' + Emp_ID_search
+      // const headers1 = new HttpHeaders({
+      //   'Content-Type': 'application/x-www-form-urlencoded'
+      // });
+      // this.http
+      //   .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
+      //     headers: headers1
+      //   }).subscribe(
+      //     (data: any) => {
+      //       this.leavetypeUser = data;
+
+      //     },
+      //     (error: any) => {
+
+      //     }
+
+      // )
+      
+
       const tpyeUser = 'Emp_ID=' + Emp_ID_search
+     
+      console.log(tpyeUser);
       const headers1 = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       });
@@ -198,10 +246,30 @@ export class CheckleaveinfoComponent implements OnInit {
         }).subscribe(
           (data: any) => {
             this.leavetypeUser = data;
-
+            console.log(this.leavetypeUser);
           },
           (error: any) => {
+            console.log(error);
+          }
 
+        )
+
+
+      const tpyeUser_copy = 'Emp_ID=' + this.Emp_ID_show
+      console.log(tpyeUser_copy);
+      const headers2 = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getLeave_type_User copy.php`, tpyeUser, {
+          headers: headers1
+        }).subscribe(
+          (data: any) => {
+            this.leavetypeUser_copy = data;
+            console.log(this.leavetypeUser_copy);
+          },
+          (error: any) => {
+            console.log(error);
           }
 
         )
@@ -256,7 +324,7 @@ export class CheckleaveinfoComponent implements OnInit {
     this.Leave_characteristics_dateStart_show = Leave_characteristics_dateStart
     this.Leave_characteristics_dateLast_show = Leave_characteristics_dateLast
     this.file_names_show = file_names
-   
+
 
   }
 

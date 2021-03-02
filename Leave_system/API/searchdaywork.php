@@ -10,6 +10,7 @@ FROM
 employee
 LEFT JOIN officiate_day ON employee.Emp_ID = officiate_day.Emp_ID
 WHERE employee.status_data = 'Y' AND DATE(Day_Work) = DATE('$day_work') 
+GROUP BY employee.Emp_ID
      ";
       $result = mysqli_query($conn,$sql); 
       $myArray = array();

@@ -17,6 +17,7 @@ export class EditdayworkComponent implements OnInit {
   public baseUrl = GlobalVariable.BASE_API_URL;
   date = moment(new Date()).format('YYYY-MM-DD')
   public searchdaywork;
+  show_searchdaywork
   public Empployee;
   public getdaywork;
   Day_Work: any;
@@ -68,7 +69,8 @@ export class EditdayworkComponent implements OnInit {
       this.http.get(`${this.baseUrl}searchdaywork.php?Day_Work=` + Day_Work).subscribe(
         (data: any) => {
           console.log(data);
-          if (data.length === 0) {
+          if (!data) {
+            this.searchdaywork = data;
             Swal.fire({
               icon: 'error',
               title: 'ไม่พบข้อมูล',
@@ -80,12 +82,13 @@ export class EditdayworkComponent implements OnInit {
           }
         },
         (error: any) => {
-        
+          this.searchdaywork = error
           Swal.fire({
             icon: 'error',
-            title: 'ไม่พบข้อมูล',
+            title: 'ไม่พบข้อมูล1',
             text: ''
           })
+
         }
       );
     }
@@ -118,12 +121,12 @@ export class EditdayworkComponent implements OnInit {
 
   }
   public updateworktime() {
-        const body = 'Day_ID=' + this.Day_ID.value
+    const body = 'Day_ID=' + this.Day_ID.value
       // + '&EmpName=' + this.EmpName.value
       // + '&EmpLastName=' + this.EmpLastName.value
       + '&Status_Work=' + this.Status_Work.value
       + '&Data=' + this.Data.value
-    + '&message=' + this.message_edit
+      + '&message=' + this.message_edit
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'

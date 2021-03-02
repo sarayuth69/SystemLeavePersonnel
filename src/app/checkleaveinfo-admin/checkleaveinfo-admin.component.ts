@@ -91,9 +91,10 @@ export class CheckleaveinfoAdminComponent implements OnInit {
         )
     }
 
-   
+
 
   }
+  leavetypeUser_copy
   getlleave_user(event) {
     console.log(event);
     this.limit = event
@@ -111,7 +112,26 @@ export class CheckleaveinfoAdminComponent implements OnInit {
         (data: any) => {
           this.leavetypeUser = data;
           console.log(this.leavetypeUser);
+        },
+        (error: any) => {
+          console.log(error);
+        }
 
+      )
+
+
+    const tpyeUser_copy = 'Emp_ID=' + this.Emp_ID_show
+    console.log(tpyeUser_copy);
+    const headers2 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getLeave_type_User copy.php`, tpyeUser, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.leavetypeUser_copy = data;
+          console.log(this.leavetypeUser_copy);
         },
         (error: any) => {
           console.log(error);
@@ -153,7 +173,27 @@ export class CheckleaveinfoAdminComponent implements OnInit {
           })
         }
       );
+      // const tpyeUser = 'Emp_ID=' + Emp_ID_search
+      // const headers1 = new HttpHeaders({
+      //   'Content-Type': 'application/x-www-form-urlencoded'
+      // });
+      // this.http
+      //   .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
+      //     headers: headers1
+      //   }).subscribe(
+      //     (data: any) => {
+      //       this.leavetypeUser = data;
+
+      //     },
+      //     (error: any) => {
+
+      //     }
+
+      // )
+
       const tpyeUser = 'Emp_ID=' + Emp_ID_search
+
+      console.log(tpyeUser);
       const headers1 = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       });
@@ -163,10 +203,30 @@ export class CheckleaveinfoAdminComponent implements OnInit {
         }).subscribe(
           (data: any) => {
             this.leavetypeUser = data;
-
+            console.log(this.leavetypeUser);
           },
           (error: any) => {
+            console.log(error);
+          }
 
+        )
+
+
+      const tpyeUser_copy = 'Emp_ID=' + this.Emp_ID_show
+      console.log(tpyeUser_copy);
+      const headers2 = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      this.http
+        .post(`${this.baseUrl}getLeave_type_User copy.php`, tpyeUser, {
+          headers: headers1
+        }).subscribe(
+          (data: any) => {
+            this.leavetypeUser_copy = data;
+            console.log(this.leavetypeUser_copy);
+          },
+          (error: any) => {
+            console.log(error);
           }
 
         )

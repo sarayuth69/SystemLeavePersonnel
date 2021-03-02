@@ -69,9 +69,6 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive-xl">
-
-
-
                         <table class="table table-hover">
                             <thead>
                                 <tr class="text-center">
@@ -128,17 +125,16 @@
 
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
             <div class="card">
+
                 <div class="card-body">
                     <label for="" style="font-size: 16px;">เลือกรอบการประเมิน</label>
                     <select class="form-control" (change)="getlleave_user($event.target.value)">
                         <option>เลือกรอบการประเมิน</option>
                         <option *ngFor="let item of showleave_limit; let i = index" value="{{item.limit_ID}}">
-                            {{item.Name_limit}}
-                        </option>
+                            {{item.Name_limit}}</option>
                     </select>
-                    <div class="table-responsive-lg">
+                    <div class="table-responsive-xl">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -180,7 +176,35 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <div class="card">
 
+                <div class="card-body">
+                    <div class="table-responsive-xl">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ชื่อประเภท</th>
+                                    <th scope="col">เกณฑ์วันลา</th>
+                                    <th scope="col">คงเหลือ</th>
+                                    <th scope="col">แจ้งล่วงหน้า</th>
+                                    <th scope="col">สถานะบุคลากร</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of leavetypeUser_copy ; let i = index">
+                                <tr>
+                                    <td>{{item.LTypeName}}</td>
+                                    <td>{{item.Number}} /วัน</td>
+                                    <td>{{item.Remain}} /วัน</td>
+                                    <td>{{item.AdvanceNotice}} /วัน</td>
+                                    <td>{{item.EmpstatusName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br>
 
         </div>
 

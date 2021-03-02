@@ -2,11 +2,12 @@
     <div class="tab-pane fade show active">
 
         <div *ngIf="table6">
-            <div style="padding-left: 1%;padding-right: 2%;">
-                <div class="card">
+
+            <div style="padding-left: 15%;padding-right: 2%;">
+                <div class="card w-75 ">
                     <!-- <div class="container"> -->
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="card-counter success">
                                 <i class="fa fa-users"></i>
                                 <span class="count-numbers" *ngFor="let item of countUser">จำนวน
@@ -14,7 +15,7 @@
                                 <span class="count-name">บุคลากร</span>
                             </div>
                         </div>
-                        <div class="col"></div>
+                      
                         <div class="col">
                             <form class="form-inline">
                                 <input type="text" class="form-control" (keyup)="getsearch(Emp_ID.value)" #Emp_ID
@@ -66,7 +67,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr
-                                                    *ngFor="let item of seach | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
+                                                    *ngFor="let item of seach | paginate: { id: 'seach_page', itemsPerPage: 10, currentPage: pageActual}; let i = index">
                                                     <!-- <td></td> -->
                                                     <td class="text-center">
                                                         <p ng-repeat="i in range(1, 5)">
@@ -86,10 +87,11 @@
                                                     <td class="Role">{{item.Role}}</td>
                                                     <td class="text-center" *ngIf="item.status_data == 'Y'">
                                                         <button class="btn btn-secondary btn-circle btn-xl"
-                                                            type="button" id="Leavelistadmin" title="ยื่นขอลา"
-                                                            data-toggle="modal" data-target="#exampleModal1"
+                                                            *ngIf="item.Role < 5" type="button" id="Leavelistadmin"
+                                                            title="ยื่นขอลา" data-toggle="modal"
+                                                            data-target="#exampleModal1"
                                                             (click)="LeaveEmp(item.Emp_ID,item.EmpName,item.EmpLastName
-                                                ,item.PositionName,item.DeptName,item.SectorName,item.Role,item.Empstatus_ID)">
+                                                ,item.PositionName,item.DeptName,item.SectorName,item.Role,item.Empstatus_ID,item.Work_day)">
                                                             <i class="fa fa-envelope" aria-hidden="true"></i>
                                                         </button>
                                                     </td>
@@ -112,22 +114,22 @@
                                                                 class="fa fa-pencil-square-o"
                                                                 aria-hidden="true"></i></button>
                                                         &nbsp;
-
                                                         <button title="ลบข้อมูล"
                                                             class="btn btn-danger btn-circle btn-xl"
                                                             (click)="deleteEmp(item.Emp_ID,item.EmpName)">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                         </button>
-
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <pagination-controls id="seach_page" (pageChange)="pageActual = $event">
+                                        </pagination-controls>
                                     </div>
-                                    <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
-
                                 </div>
+
                             </div>
+
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
                                 <div class="card">
@@ -146,7 +148,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr
-                                                    *ngFor="let item of seach_waiting | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
+                                                    *ngFor="let item of seach_waiting | paginate: {id: 'seach_waiting_page', itemsPerPage: 10, currentPage: pageActual}; let i = index">
                                                     <!-- <td></td> -->
                                                     <td class="text-center">
                                                         <p ng-repeat="i in range(1, 5)">
@@ -169,7 +171,7 @@
                                                             type="button" id="Leavelistadmin" title="ยื่นขอลา"
                                                             data-toggle="modal" data-target="#exampleModal1"
                                                             (click)="LeaveEmp(item.Emp_ID,item.EmpName,item.EmpLastName
-                                                                            ,item.PositionName,item.DeptName,item.SectorName,item.Role,item.Empstatus_ID)">
+                                                                            ,item.PositionName,item.DeptName,item.SectorName,item.Role,item.Empstatus_ID,item.Work_day)">
                                                             <i class="fa fa-envelope" aria-hidden="true"></i>
                                                         </button>
                                                     </td>
@@ -204,7 +206,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                                    <pagination-controls id="seach_waiting_page" (pageChange)="pageActual = $event">
+                                    </pagination-controls>
 
                                 </div>
                             </div>
@@ -469,12 +472,12 @@
                             <div class="col-md-3 mb-3">
                                 <label>วันเริ่มทำงาน</label>
                                 <input type="date" class="form-control" [formControl]="Work_day"
-                                    id="validationDefault08">
+                                    (change)="check_work_day(Work_day.value)" id="validationDefault08">
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label>อายุงาน</label>
-                                <input type="text" class="form-control" [formControl]="Duration_work"
-                                    id="validationDefault09">
+                                <input type="text" class="form-control" #Duration_work value="{{day_work_show}}"
+                                    id="Duration_work" readonly>
                             </div>
 
                             <div class="container">
@@ -545,7 +548,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        (click)="updateEmployee()">บันทึก</button>
+                        (click)="updateEmployee(Duration_work.value)">บันทึก</button>
                 </div>
             </div>
         </div>
@@ -670,6 +673,12 @@
                                                     #Remain_over style="width: 50%;" readonly>
                                             </div>
                                             <div class="col-sm">
+                                                <label> จำนวนครั้ง</label><br>
+                                                <input type="text" id="number_leave" class="form-control"
+                                                    value="{{number_leave_check}}" #number_leave style="width: 50%;"
+                                                    readonly>
+                                            </div>
+                                            <div class="col-sm">
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input" type="checkbox"
                                                         id="inlineCheckbox1" (change)="toggleVisibility($event)">
@@ -736,7 +745,8 @@
 
 
                                                     <input type="date" class="form-control " id="LeaveDateStart"
-                                                        [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
+                                                        [formControl]="LeaveDateStart" [min]="minDate" [max]="maxDate"
+                                                        data-date=""
                                                         (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)"
                                                         required>
                                                     <h6>ประเภทวันลา</h6>
@@ -758,7 +768,7 @@
                                                 <div class="card-body text-primary">
                                                     <input type="date" class="form-control " id="LeaveDateLast"
                                                         (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)"
-                                                        [formControl]="LeaveDateLast" [max]="maxDate"
+                                                        [formControl]="LeaveDateLast" [min]="minDate" [max]="maxDate"
                                                         data-date-format="DD MMMM YYYY" required>
 
                                                     <h6>ประเภทวันลา</h6>
@@ -829,8 +839,9 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="AddLeave()">save</button> -->
 
-                    <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}`
-                        (click)="AddLeave(LeaveTotal.value,check_number.value,Remain_over.value,Name_Leave.value,To_Person.value,Role_chack.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">ยืนยัน</button>
+                    <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}` (click)="AddLeave(LeaveTotal.value,check_number.value,Remain_over.value,
+                        Name_Leave.value,To_Person.value,Role_chack.value,Leave_characteristics_dateStart.value,
+                        Leave_characteristics_dateLast.value,number_leave.value)">ยืนยัน</button>
 
                 </div>
             </div>

@@ -72,14 +72,14 @@
                                     </tr>
                                 </thead>
                                 <tbody
-                                    *ngFor="let item of leave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                                    *ngFor="let item of leave | paginate: { id: 'leave_page',itemsPerPage: 5, currentPage: pageActual}">
                                     <tr>
                                         <td class="text"> <a style="color:rgb(80, 80, 246);" data-toggle="modal"
                                                 data-target="#exampleModal"
                                                 (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                 item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                 item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
-                              item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names)">
+                                item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names)">
                                                 <u> {{item.EmpName}}
                                                     {{item.EmpLastName}}</u></a>
                                             <p> {{item.DeptName}}</p>
@@ -91,25 +91,26 @@
                                                 style="color: red;">ขออนุญาตยกเลิก</p>
                                         </td>
                                         <!-- <td class="text-center"> {{item.file_names}}</td> -->
-
-
                                         <!-- <div *ngIf="item.LeaveStatus_ID == 6" style="color:rgb(240, 8, 8);" class="text-center">
                                             <td class="text-center">
                                                 {{item.LeaveStatus_Name}} </td>
                                         </div> -->
-
-                                        <td class="text-center" style="color:rgb(80, 80, 246);">
+                                        <td class="text-center" style="color:rgb(80, 80, 246);"
+                                            *ngIf="item.LeaveStatus_ID < 5">
                                             {{item.LeaveStatus_Name}} </td>
-
-
-
-
+                                        <td class="text-center" style="color:rgb(10, 216, 3);"
+                                            *ngIf="item.LeaveStatus_ID === '5'">
+                                            {{item.LeaveStatus_Name}} </td>
+                                        <td class="text-center" style="color:rgb(228, 22, 22);"
+                                            *ngIf="item.LeaveStatus_ID === '6'">
+                                            {{item.LeaveStatus_Name}} </td>
                                         <td class="text">
-                                            <button type="button" class="btn btn-success btn-circle btn-xl" (click)="printDocument(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
-                               item.Prefix, item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
+                                            <button type="button" *ngIf="item.LeaveStatus_ID === '6'"
+                                                class="btn btn-success btn-circle btn-xl" (click)="printDocument(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+                                item.Prefix, item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                 item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
-                              item.LeaveStatus_Name, item.LeaveStatus_Document)"><i class="fa fa-print"
-                                                    aria-hidden="true"></i></button>
+                                item.LeaveStatus_Name, item.LeaveStatus_Document,item.LType_ID,item.limit_ID,item.LeaveStatus_ID,item.LeaveDateStart,
+                                item.LeaveDateLast)"><i class="fa fa-print" aria-hidden="true"></i></button>
                                             <!-- <a routerLink="/FilelaeveprintComponent">ปริ้น</a>  -->
                                         </td>
                                         <!-- item.LeaveStatus_ID < 5 && item.LeaveTotal> 0 || -->
@@ -137,7 +138,8 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                            <pagination-controls id="leave_page" (pageChange)="pageActual = $event">
+                            </pagination-controls>
                         </div>
                     </div>
 
@@ -157,11 +159,11 @@
                                         <!-- <th scope="col">ไฟล์แนบ</th> -->
                                         <th scope="col">สถานะ</th>
                                         <!-- <th scope="col">ปริ้นใบยกเลิก</th> -->
-                                        <th scope="col">ตรวจสอบ</th>
+                                        <!-- <th scope="col">ตรวจสอบ</th> -->
                                     </tr>
                                 </thead>
                                 <tbody
-                                    *ngFor="let item of showcancel | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                                    *ngFor="let item of showcancel | paginate: { id: 'showcancel_page',itemsPerPage: 10, currentPage: pageActual};">
                                     <tr>
                                         <td class="text"> <a style="color:rgb(80, 80, 246);" data-toggle="modal"
                                                 data-target="#exampleModal" (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
@@ -190,7 +192,7 @@
                                         </td> -->
                                         <td class="text-center">
                                             &nbsp;
-                                            <button type="button" class="btn btn-primary">ตรวจสอบ</button>
+                                            <!-- <button type="button" class="btn btn-primary">ตรวจสอบ</button> -->
 
 
                                         </td>
@@ -198,7 +200,8 @@
 
                                 </tbody>
                             </table>
-                            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                            <pagination-controls id="showcancel_page" (pageChange)="pageActual = $event">
+                            </pagination-controls>
                         </div>
                     </div>
 
@@ -223,7 +226,7 @@
                                     </tr>
                                 </thead>
                                 <tbody
-                                    *ngFor="let item of showcancel_allow | paginate: { itemsPerPage: 10, currentPage: pageActual};">
+                                    *ngFor="let item of showcancel_allow | paginate: { id: 'showcancel_allow_page', itemsPerPage: 10, currentPage: pageActual};">
                                     <tr>
                                         <td class="text"> <a style="color:rgb(80, 80, 246);" data-toggle="modal"
                                                 data-target="#exampleModal"
@@ -265,18 +268,20 @@
                                                 class="btn btn-danger btn-circle btn-xl"><i
                                                     class="fa fa-calendar-times-o" aria-hidden="true"></i> </button> -->
 
-                                            <button type="button" class="btn btn-success btn-circle btn-xl" (click)="printDocument_cancel(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
+                                            <button type="button" class="btn btn-success btn-circle btn-xl"
+                                                (click)="printDocument_cancel(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                item.Prefix, item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                 item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
-                              item.LeaveStatus_Name, item.LeaveStatus_Document,item.cancel_status )"><i class="fa fa-print"
-                                                    aria-hidden="true"></i></button>
+                              item.LeaveStatus_Name, item.LeaveStatus_Document,item.cancel_status,item.cancel_data,item.cancel_total,item.cancel_date_start,item.cancel_date_stop )"><i
+                                                    class="fa fa-print" aria-hidden="true"></i></button>
 
                                         </td>
                                     </tr>
 
                                 </tbody>
                             </table>
-                            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                            <pagination-controls id="showcancel_allow_page" (pageChange)="pageActual = $event">
+                            </pagination-controls>
                         </div>
                     </div>
 
@@ -668,6 +673,13 @@
                                             <input type="text" id="LType_limit_check" class="form-control"
                                                 value="{{Remain_over_check}}" #Remain_over style="width: 50%;" readonly>
                                         </div>
+
+                                        <div class="col-sm">
+                                            <label> จำนวนครั้ง</label><br>
+                                            <input type="text" id="number_leave" class="form-control"
+                                                value="{{number_leave_check}}" #number_leave style="width: 50%;"
+                                                readonly>
+                                        </div>
                                         <div class="col-sm">
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input" type="checkbox" id="inlineCheckbox1"
@@ -804,7 +816,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                 <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}`
-                    (click)="AddLeave(LeaveTotal.value,check_number.value,Remain_over.value,Name_Leave.value,To_Person.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value)">ยืนยัน</button>
+                    (click)="AddLeave(LeaveTotal.value,check_number.value,Remain_over.value,Name_Leave.value,
+                    To_Person.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,number_leave.value)">ยืนยัน</button>
 
             </div>
         </div>

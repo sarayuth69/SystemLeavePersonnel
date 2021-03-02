@@ -32,8 +32,6 @@
 
 <div class="card-body">
   <div class="table-responsive-xl">
-
-
     <table class="table table-hover">
       <thead>
         <tr class="text-center">
@@ -43,7 +41,7 @@
           <th scope="col">จัดการ</th>
         </tr>
       </thead>
-      <tbody *ngFor="let item of positionEmp | paginate: { itemsPerPage: 5, currentPage: pageActual}; let i = index">
+      <tbody *ngFor="let item of positionEmp | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
         <tr>
           <td class="text-center">{{item.Position_ID}}</td>
           <td>{{item.PositionName}}</td>
@@ -102,7 +100,7 @@
           </div>
           <div class="form-group">
             <label for="EmployeepositionInput3">ระดับสิทธิการเข้าใช้</label>
-            <select class="form-control" id="PositionInput99" [formControl]="Role">
+            <select class="form-control form-control-lg" id="PositionInput99" [formControl]="Role">
               <option value="1">บุคลากรทั่วไป</option>
               <option value="2">หัวหน้าแผนก</option>
               <option value="3">หัวหน้างาน</option>
@@ -134,7 +132,7 @@
       </div>
       <div class="modal-body">
         <form>
-          <div class="form-group">
+          <div class="form-group" style="display: none;">
             <label for="PositionInput">รหัสตำแหน่ง</label>
             <input type="text" class="form-control" id="PositionInput" [formControl]="Position_ID"
               placeholder="รหัสตำแหน่ง">
@@ -146,7 +144,7 @@
           </div>
           <div class="form-group">
             <label for="PositionInput1">ระดับสิทธิการเข้าใช้</label>
-            <select class="form-control" id="PositionInput99" [formControl]="Role">
+            <select class="form-control form-control-lg" id="PositionInput99" [formControl]="Role">
               <option value="1">บุคลากรทั่วไป</option>
               <option value="2">หัวหน้าแผนก</option>
               <option value="3">หัวหน้างาน</option>

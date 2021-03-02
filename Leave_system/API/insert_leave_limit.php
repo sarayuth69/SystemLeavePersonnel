@@ -3,13 +3,14 @@
  header('Control-type: application/json',true);
  require 'connect_DB.php' ;
 
-    $sql  = "INSERT INTO `leave_limit` (`limit_ID`,`Name_limit`, `Date_start`, `limit_date`) VALUES 
+    $sql  = "INSERT INTO `leave_limit` (`limit_ID`,`Name_limit`, `Date_start`, `Date_stop`,`date_limit`) VALUES 
     (
 
     '".$_POST['limit_ID']."',
     '".$_POST['Name_limit']."',
     '".$_POST['Date_start']."',
-    '".$_POST['limit_date']."'
+    '".$_POST['Date_stop']."',
+    '".$_POST['date_limit']."'
     )
     ";
    

@@ -41,6 +41,7 @@ export class LeavetypeComponent implements OnInit {
   Empstatus_ID = new FormControl('');
   limit_date = new FormControl('');
   Date_start = new FormControl('');
+  Date_stop = new FormControl('');
   limit_ID = new FormControl('');
   Name_limit = new FormControl('');
 
@@ -454,27 +455,21 @@ export class LeavetypeComponent implements OnInit {
 
   // }
   text = new Date().getDate();
-
+  date_limit
   add_leave_limit() {
+    const notcomin = document.getElementById(`inlineRadio1`) as HTMLInputElement;
+    console.log(notcomin);
+    if (notcomin.checked == false) {
+      this.date_limit = 0
 
-    // console.log(body);
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/x-www-form-urlencoded'
-    // });
-    // this.http
-    //   .post(`${this.baseUrl}insert_leave_limit.php`, body, {
-    //     headers: headers
-    //   })
-    //   .subscribe(
-    //     (data: any) => {
-    //       console.log(data);
-    //       this.leave_limit = data;
-    //     },
-    //     (error: any) => {
-    //       console.log(error);
-    //     }
-    //   );
-    if (this.Date_start.value === "" || this.limit_date.value === "") {
+    }
+    else {
+      this.date_limit = 1
+
+    }
+
+
+    if (this.Date_start.value === "" || this.Date_stop.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
         '',
@@ -483,28 +478,11 @@ export class LeavetypeComponent implements OnInit {
     } else {
 
 
-      // this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
-      //   (data: any) => {
-
-      //     for (var i = 0; i <= data.length; i++) {
-      //       this.showleave_limit = data;
-      //       console.log(this.showleave_limit[i].Date_start);
-      //       this.showleave_limit.forEach(element => {
-      //         console.log(element.getdate())
-      //       });
-      //     }
-
-
-
-
-      //   }, (error: any) => {
-      //     console.log(error);
-      //   }
-      // )
       const body = 'limit_ID=' + 0
         + '&Name_limit=' + this.Name_limit.value
         + '&Date_start=' + this.Date_start.value
-        + '&limit_date=' + this.limit_date.value
+        + '&Date_stop=' + this.Date_stop.value
+        + '&date_limit=' + this.date_limit
       console.log(body);
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -542,6 +520,7 @@ export class LeavetypeComponent implements OnInit {
   }
   limit_ID_show
   Name_limit_show
+
   delete_leave_limit(limit_ID, Name_limit) {
     this.limit_ID_show = limit_ID;
     this.Name_limit_show = Name_limit;
@@ -573,6 +552,7 @@ export class LeavetypeComponent implements OnInit {
 
               },
               (error: any) => {
+                window.location.replace;
                 console.log(error);
               }
             );
@@ -730,19 +710,28 @@ export class LeavetypeComponent implements OnInit {
     })
   }
 
-  updatelimit(limit_ID, Name_limit, Date_start, limit_date) {
+  updatelimit(limit_ID, Name_limit, Date_start, Date_stop) {
     this.limit_ID = new FormControl(limit_ID);
     this.Name_limit = new FormControl(Name_limit);
     this.Date_start = new FormControl(Date_start);
-    this.limit_date = new FormControl(limit_date);
+    this.Date_stop = new FormControl(Date_stop);
   }
   updatelimit_to_database() {
-    const body =
-      'limit_ID=' + this.limit_ID.value
+    const notcomin = document.getElementById(`inlineRadio1`) as HTMLInputElement;
+    console.log(notcomin);
+    if (notcomin.checked == false) {
+      this.date_limit = 0
+
+    }
+    else {
+      this.date_limit = 1
+
+    }
+    const body = 'limit_ID=' + 0
       + '&Name_limit=' + this.Name_limit.value
       + '&Date_start=' + this.Date_start.value
-      + '&limit_date=' + this.limit_date.value
-
+      + '&Date_stop=' + this.Date_stop.value
+      + '&date_limit=' + this.date_limit
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -786,6 +775,8 @@ export class LeavetypeComponent implements OnInit {
     this.limit_ID = new FormControl(" ");
     this.Name_limit = new FormControl(" ");
     this.Date_start = new FormControl(" ");
-    this.limit_date = new FormControl(" ");
+    this.Date_stop = new FormControl(" ");
+    const notcomin = document.getElementById(`inlineRadio1`) as HTMLInputElement;
+    notcomin.checked = false
   }
 }

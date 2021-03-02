@@ -19,7 +19,7 @@ require 'connect_DB.php' ;
     when(Month(Day_Work))='12' then 'ธันวาคม'
     else cast(Day_Work as date)
     end,'/',year(Day_Work)+543) AS Day_Work
-     FROM officiate_day WHERE Emp_ID = '".$_POST['Emp_ID']."'  AND Status_Work = 'ไม่มาทำงาน'
+     FROM officiate_day WHERE Emp_ID = '".$_POST['Emp_ID']."'  AND Status_Work = 'ไม่มาทำงาน' AND LENGTH(officiate_day.`Data`) = 0
      ORDER BY day(Day_Work) DESC
      ";
        $result = mysqli_query($conn,$sql); 

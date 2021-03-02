@@ -9,8 +9,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { GlobalVariable } from '../baseUrl';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @Component({
@@ -32,11 +32,10 @@ export class EmployeeshowComponent implements OnInit {
   public leave2;
   public Role;
   public seach;
-  public numberleave ;
+  public numberleave;
   public positionEmp;
   public dep;
   public status;
-
   public countUser;
   // public SectorName;
   table_Emp: boolean;
@@ -120,6 +119,8 @@ export class EmployeeshowComponent implements OnInit {
   invalid_limit: any;
   seach_waiting
   emp_waiting: boolean;
+  seach_copy
+  date_chack_work_date = moment(new Date()).format('YYYY-MM-DD');
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -133,7 +134,6 @@ export class EmployeeshowComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.Local_SectorName);
     try {
       this.Local_Emp_ID
       this.Local_EmpName
@@ -141,9 +141,12 @@ export class EmployeeshowComponent implements OnInit {
       this.Local_PositionName
       this.Local_DeptName
       this.Local_SectorName
+      this.date_now = moment(new Date()).format('YYYY-MM-DD')
+
     } catch (e) {
 
     }
+
 
     if (localStorage.getItem('Role') === "4") {
       const body1 = 'Dept_ID=' + localStorage.getItem("Dept_ID")
@@ -242,6 +245,7 @@ export class EmployeeshowComponent implements OnInit {
 
       }
     );
+
 
     this.http.get(`${this.baseUrl}Searchstatus_data_waiting.php`).subscribe(
       (data: any) => {
@@ -354,15 +358,30 @@ export class EmployeeshowComponent implements OnInit {
     }
 
   }
-  click_a() {
+
+  day_work_show
+  check_work_day(Work_day) {
+    console.log(Work_day);
+    var moment = require('moment-business-days');
+    var day_work = moment(this.date_chack_work_date).startOf('day').diff(moment(Work_day).startOf('day'), 'years');
+    if (day_work > 0) {
+      this.day_work_show = day_work + '' + 'ปี'
+
+    }
+    else if (day_work <= 0) {
+      var day_work_month = moment(this.date_chack_work_date).startOf('day').diff(moment(Work_day).startOf('day'), 'months');
+      this.day_work_show = day_work_month + '' + 'เดือน'
 
 
+    }
 
   }
   updateEmp(
     Emp_ID, EmpName, EmpLastName, Sex, Birthday, ID_card, Age, Tel, Address, Work_day, Duration_work, Empstatus_ID, Position_ID
     , Dept_ID, Sector_ID, status_data, privilege_chack
   ) {
+    console.log(Duration_work);
+
     this.Emp_ID = new FormControl(Emp_ID);
     // this.Prefix = new FormControl(Prefix);
     this.EmpName = new FormControl(EmpName);
@@ -374,7 +393,7 @@ export class EmployeeshowComponent implements OnInit {
     this.Address = new FormControl(Address);
     this.Tel = new FormControl(Tel);
     this.Work_day = new FormControl(Work_day);
-    this.Duration_work = new FormControl(Duration_work);
+    this.day_work_show = Duration_work
     this.Empstatus_ID = new FormControl(Empstatus_ID);
     this.Position_ID = new FormControl(Position_ID);
     this.Dept_ID = new FormControl(Dept_ID);
@@ -390,7 +409,7 @@ export class EmployeeshowComponent implements OnInit {
       ele.checked = true
     }
   }
-  public updateEmployee() {
+  public updateEmployee(Duration_work) {
     const ele = document.getElementById("inlineRadio1") as HTMLInputElement;
     if (ele.checked === true) {
       this.privilege = "A"
@@ -409,7 +428,7 @@ export class EmployeeshowComponent implements OnInit {
       + '&Address=' + this.Address.value
       + '&Tel=' + this.Tel.value
       + '&Work_day=' + this.Work_day.value
-      + '&Duration_work=' + this.Duration_work.value
+      + '&Duration_work=' + Duration_work
       + '&status_data=' + this.status_data.value
       + '&Empstatus_ID=' + this.Empstatus_ID.value
       + '&Position_ID=' + this.Position_ID.value
@@ -508,7 +527,6 @@ export class EmployeeshowComponent implements OnInit {
 
   getsearch(Emp_ID) {
     console.log(Emp_ID);
-    this.seach = [];
     if (this.Emp_ID.value.length === "0") {
       Swal.fire({
         icon: 'error',
@@ -519,7 +537,6 @@ export class EmployeeshowComponent implements OnInit {
       this.http.get(`${this.baseUrl}Search.php?Emp_ID=` + Emp_ID).subscribe(
         (data: any) => {
           this.seach = data;
-
         },
         (error: any) => {
 
@@ -528,10 +545,13 @@ export class EmployeeshowComponent implements OnInit {
     }
 
   }
+  date_now
+  date_chack_work_day
   LeaveEmp(
-    Emp_ID, EmpName, EmpLastName, PositionName, DeptName, SectorName, Role, Empstatus_ID
+    Emp_ID, EmpName, EmpLastName, PositionName, DeptName, SectorName, Role, Empstatus_ID, Work_day
   ) {
 
+    this.LType_ID = new FormControl('');
     this.Emp_ID = new FormControl(Emp_ID);
     this.EmpName = new FormControl(EmpName);
     this.EmpLastName = new FormControl(EmpLastName);
@@ -540,47 +560,35 @@ export class EmployeeshowComponent implements OnInit {
     this.SectorName = new FormControl(SectorName);
     this.Role = new FormControl(Role);
     this.Empstatus_ID = new FormControl(Empstatus_ID);
+    var day_work_month = moment(this.date_now).startOf('day').diff(moment(Work_day).startOf('day'), 'months');
+    this.date_chack_work_day = day_work_month
 
-    const body = 'Empstatus_ID=' + this.Empstatus_ID.value
-    console.log(body);
-    const headers = new HttpHeaders({
+    const tpyeUser2 = 'Emp_ID=' + Emp_ID
+      + '&limit_ID=' + this.limit
+      + '&Empstatus_ID=' + Empstatus_ID
+      + '&Work_day=' + this.date_chack_work_day
+    console.log(tpyeUser2);
+    const headers2 = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post(`${this.baseUrl}getLtype.php`, body, {
-        headers: headers
+      .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser2, {
+        headers: headers2
       }).subscribe(
         (data: any) => {
-          this.leavetype = data;
-        },
-        (error: any) => {
-
-        }
-      )
-    const tpyeUser = 'Emp_ID=' + Emp_ID
-    console.log(tpyeUser);
-    const headers3 = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
-        headers: headers3
-      }).subscribe(
-        (data: any) => {
-          try {
-            this.leavetypeUser = data;
-          } catch (error) {
-
-          }
-
-
+          this.leavetypeUser = data;
+          console.log(this.leavetypeUser);
 
         },
         (error: any) => {
-
+          console.log(error);
         }
-
       )
+
+
+
+
+
   }
   toggleVisibility(e) {
     this.marked = e.target.checked;
@@ -588,58 +596,173 @@ export class EmployeeshowComponent implements OnInit {
   maxDate: any;
   text_chack = /(ลาป่วย)/g;
   leavetypeUser_chack
-  Remain_over_check: Number;
+  Remain_over_check: any;
   limit
 
-  dataChanged(newObj) {
-    console.log(newObj);
-    console.log(newObj.LTypeName.length);
-    this.invalid_type = "is-valid"
-    const tpyeUser = 'Emp_ID=' + this.Emp_ID.value
-      + '&limit_ID=' + this.limit
-      + '&LType_ID=' + newObj.LType_ID
-    console.log(tpyeUser);
-    const headers1 = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post(`${this.baseUrl}getLeave_type_chack.php`, tpyeUser, {
-        headers: headers1
-      }).subscribe(
-        (data: any) => {
-          this.leavetypeUser_chack = data;
-          console.log(this.leavetypeUser_chack);
-          this.check_Remain = this.leavetypeUser_chack[0].Remain
-          this.LType_ID_check = this.leavetypeUser_chack[0].LType_ID
-          this.Remain_over_check = this.leavetypeUser_chack[0].Remain_over
-          console.log(this.check_Remain, this.Remain_over_check);
+  leave_chack = /(ลาคลอด)/g;
+  leave_chack_1 = /(ลาอุปสมบท)/g;
+  LTypeNamechack = /(ลาพักผ่อน)/g
 
-        }
-        ,
-        (error: any) => {
-          // console.log(error);
-        })
-    if (newObj.LTypeName.length > 0) {
-      this.LTypeName_check = `การ${newObj.LTypeName}`
+  Prefix_chack_man = /(นาย)/g
+  Prefix_chack_woman = /(นาง)/g
+  EmpstatusNamechack = /(ลูกจ้างเงินรายได้)/g
+  leavetypeUser_copy
+  show_leave_type
+  LOrdinal_leave_check
+  number_leave_check
+  dataChanged(newObj) {
+
+    var moment = require('moment-business-days');
+    var day_work_month = moment(this.date_chack_work_date).startOf('day').diff(moment(newObj.Work_day).startOf('day'), 'months');
+    if (newObj.LTypeName === 'ลาพักผ่อน' && day_work_month < 6 && newObj.EmpstatusName === 'ลูกจ้างเงินรายได้') {
+      Swal.fire({
+        icon: 'error',
+        title: 'ไม่สามารถลาได้เนื่องจากอายุงานไม่ถึง 6 เดือน',
+      })
+      this.LeaveDateStart = new FormControl('');
+      this.LeaveDateLast = new FormControl('');
+      this.btnDisable_start = true;
+      this.btnDisable_last = true;
+      this.numberleave = " ";
+      this.LType_ID = new FormControl('');
+      this.invalid_type = "is-invalid"
+      this.LTypeName_check = ''
+      this.check_Remain = ''
+      this.LType_ID_check = ''
+      this.Remain_over_check = ''
     }
+    else if (newObj.Prefix === 'นาย' && newObj.LTypeName === 'ลาคลอดบุตร') {
+      Swal.fire({
+        icon: 'error',
+        title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
+      })
+      this.LeaveDateStart = new FormControl('');
+      this.LeaveDateLast = new FormControl('');
+      this.btnDisable_start = true;
+      this.btnDisable_last = true;
+      this.numberleave = " ";
+      this.LType_ID = new FormControl('');
+      this.invalid_type = "is-invalid"
+      this.LTypeName_check = ''
+      this.check_Remain = ''
+      this.LType_ID_check = ''
+      this.Remain_over_check = ''
+
+    }
+    else {
+      if (newObj.LTypeName === 'ลาพักผ่อน') {
+        this.invalid_type = "is-valid"
+        const tpyeUser_copy = 'Emp_ID=' + this.Emp_ID.value
+        console.log(tpyeUser_copy);
+        const headers2 = new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        this.http
+          .post(`${this.baseUrl}getLeave_type_User_holiday.php`, tpyeUser_copy, {
+            headers: headers2
+          }).subscribe(
+            (data: any) => {
+              this.leavetypeUser_copy = data;
+
+              this.check_Remain = this.leavetypeUser_copy[0].Remain
+              this.LType_ID_check = this.leavetypeUser_copy[0].LType_ID
+              this.Remain_over_check = this.leavetypeUser_copy[0].Remain_over
+              // console.log(this.check_Remain);
+              // const leave_type = [...this.leavetypeUser, ...this.leavetypeUser_copy]
+
+              // console.log(leave_type);
+              // this.show_leave_type = leave_type
+            },
+            (error: any) => {
+              console.log(error);
+            }
+
+          )
+        this.LeaveDateStart = new FormControl('');
+        this.LeaveDateLast = new FormControl('');
+        this.btnDisable_start = true;
+        this.btnDisable_last = true;
+        this.numberleave = " ";
+      }
+      else if (newObj.LTypeName != 'ลาพักผ่อน') {
+
+        this.invalid_type = "is-valid"
+        var day_work_month = moment(this.date_now).startOf('day').diff(moment(newObj.Work_day).startOf('day'), 'months');
+
+        const tpyeUser = 'Emp_ID=' + newObj.Emp_ID
+          + '&limit_ID=' + this.limit
+          + '&Empstatus_ID=' + newObj.Empstatus_ID
+          + '&Work_day=' + day_work_month
+          + '&LType_ID=' + newObj.LType_ID
+        console.log(tpyeUser);
+        const headers1 = new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        this.http
+          .post(`${this.baseUrl}getLeave_type_chack.php`, tpyeUser, {
+            headers: headers1
+          }).subscribe(
+            (data: any) => {
+              this.leavetypeUser_chack = data;
+              console.log(this.leavetypeUser_chack);
+              this.check_Remain = this.leavetypeUser_chack[0].Remain
+              this.LType_ID_check = this.leavetypeUser_chack[0].LType_ID
+              this.Remain_over_check = this.leavetypeUser_chack[0].Remain_over
+              this.LOrdinal_leave_check = this.leavetypeUser_chack[0].LOrdinal
+              this.number_leave_check = this.leavetypeUser_chack[0].number_leave_show
+              console.log(this.check_Remain, this.Remain_over_check);
+
+            }
+            ,
+            (error: any) => {
+              // console.log(error);
+            })
+        this.LeaveDateStart = new FormControl('');
+        this.LeaveDateLast = new FormControl('');
+        this.btnDisable_start = true;
+        this.btnDisable_last = true;
+        this.numberleave = " ";
+      }
+
+
+
+    }
+
+    if (newObj.LTypeName.length > 0 && this.leave_chack.test(newObj.LTypeName) != true && this.Prefix_chack_man.test(newObj.Prefix) != true
+    ) {
+      this.LTypeName_check = `การ${newObj.LTypeName}`
+      console.log(this.LTypeName_check);
+
+    }
+
+    if (newObj.LTypeName.length > 0 && this.Prefix_chack_woman.test(newObj.Prefix) === true || this.leave_chack.test(newObj.LTypeName) != true
+    ) {
+      this.LTypeName_check = `การ${newObj.LTypeName}`
+      console.log(this.LTypeName_check);
+
+    }
+
+
     else {
       this.LTypeName_check = " "
     }
 
     if (this.text_chack.test(newObj.LTypeName)) {
       this.maxDate = moment(new Date()).format('YYYY-MM-DD')
+
+
       this.date_chack_leave = ''
       this.LeaveDateLast = new FormControl('');
       this.LeaveDateStart = new FormControl('');
+
     }
     else if (newObj.LTypeName !== "ลาป่วย") {
       this.date_chack_leave = moment(new Date()).format('YYYY-MM-DD')
       this.LeaveDateLast = new FormControl('');
       this.LeaveDateStart = new FormControl('');
 
-      this.maxDate = ""
-    }
 
+    }
 
   }
   selectedFile: File;
@@ -659,10 +782,34 @@ export class EmployeeshowComponent implements OnInit {
     this.invalid_doc = "is-valid"
 
   }
+  minDate
   change_limit(e) {
     this.invalid_limit = "is-valid"
     console.log(e);
     this.limit = e
+    const tpyeUser2 = 'Emp_ID=' + this.Emp_ID
+      + '&limit_ID=' + this.limit
+      + '&Empstatus_ID=' + this.Empstatus_ID
+      + '&Work_day=' + this.date_chack_work_day
+    console.log(tpyeUser2);
+    const headers2 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser2, {
+        headers: headers2
+      }).subscribe(
+        (data: any) => {
+          this.leavetypeUser = data;
+          console.log(this.leavetypeUser);
+
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      )
+
+
     const tpyeUser = 'Emp_ID=' + this.Emp_ID.value
       + '&limit_ID=' + this.limit
       + '&LType_ID=' + this.LType_ID_check
@@ -680,25 +827,30 @@ export class EmployeeshowComponent implements OnInit {
           this.check_Remain = this.leavetypeUser_chack[0].Remain
           this.LType_ID_check = this.leavetypeUser_chack[0].LType_ID
           this.Remain_over_check = this.leavetypeUser_chack[0].Remain_over
-          console.log(this.check_Remain, this.Remain_over_check);
+          this.LOrdinal_leave_check = this.leavetypeUser_chack[0].LOrdinal
+          this.number_leave_check = this.leavetypeUser_chack[0].number_leave_show
+
 
         }
         ,
         (error: any) => {
           // console.log(error);
         })
+    this.http.get(`${this.baseUrl}getlimit_chake.php?limit_ID=` + this.limit).subscribe(data => {
+      this.minDate = data[0].Date_start
+      this.maxDate = data[0].Date_stop
+      console.log(this.minDate, this.maxDate);
+
+    }, (error => {
+      console.log(error);
+
+    }))
+
+
   }
 
-  AddLeave(LeaveTotal, check_number, Remain_over, Name_Leave, To_Person, Role_chack, Leave_characteristics_dateStart, Leave_characteristics_dateLast) {
-
-    console.log(+check_number);
-    console.log(+LeaveTotal);
-    console.log(Remain_over);
-    console.log(Name_Leave);
-    console.log(To_Person);
-    console.log(this.selectedFile);
-
-
+  AddLeave(LeaveTotal, check_number, Remain_over, Name_Leave, To_Person, Role_chack,
+    Leave_characteristics_dateStart, Leave_characteristics_dateLast, number_leave) {
 
     if (!this.LType_ID.value && !this.limit_ID.value && !this.LeaveStatus_Document.value) {
       this.invalid_type = "is-invalid"
@@ -717,7 +869,7 @@ export class EmployeeshowComponent implements OnInit {
       })
     }
 
-    else if (+LeaveTotal > +check_number) {
+    else if (+LeaveTotal > +check_number || +number_leave > this.LOrdinal_leave_check) {
       Swal.fire({
         title: 'คุณลาเกินกำหนดแล้ว ยินยอมให้หักเงินเดือนหรือไม่',
         text: "",
@@ -734,15 +886,11 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_doc = "is-invalid"
               this.invalid_limit = "is-invalid"
             }
-
-
             if (!this.LeaveDateLast.value) {
-
               Swal.fire({
                 icon: 'error',
                 title: 'กรุณาเลือกวันลาให้ถูกต้อง',
               })
-
             }
             if (!this.LeaveStatus_Document.value) {
               this.invalid_doc = "is-invalid"
@@ -750,9 +898,7 @@ export class EmployeeshowComponent implements OnInit {
             if (!this.limit_ID.value) {
               this.invalid_limit = "is-invalid"
             }
-
-            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
-
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
               this.Add_leave_level_1(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
             }
           }
@@ -761,15 +907,11 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_doc = "is-invalid"
               this.invalid_limit = "is-invalid"
             }
-
-
             if (!this.LeaveDateLast.value) {
-
               Swal.fire({
                 icon: 'error',
                 title: 'กรุณาเลือกวันลาให้ถูกต้อง',
               })
-
             }
             if (!this.LeaveStatus_Document.value) {
               this.invalid_doc = "is-invalid"
@@ -777,11 +919,8 @@ export class EmployeeshowComponent implements OnInit {
             if (!this.limit_ID.value) {
               this.invalid_limit = "is-invalid"
             }
-
-            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
-
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
               this.Add_leave_level_2(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
-
             }
           }
           else if (Role_chack === "3") {
@@ -789,10 +928,7 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_doc = "is-invalid"
               this.invalid_limit = "is-invalid"
             }
-
-
             if (!this.LeaveDateLast.value) {
-
               Swal.fire({
                 icon: 'error',
                 title: 'กรุณาเลือกวันลาให้ถูกต้อง',
@@ -805,9 +941,7 @@ export class EmployeeshowComponent implements OnInit {
             if (!this.limit_ID.value) {
               this.invalid_limit = "is-invalid"
             }
-
-            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
-
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
               this.Add_leave_level_3(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
             }
           }
@@ -816,15 +950,11 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_doc = "is-invalid"
               this.invalid_limit = "is-invalid"
             }
-
-
             if (!this.LeaveDateLast.value) {
-
               Swal.fire({
                 icon: 'error',
                 title: 'กรุณาเลือกวันลาให้ถูกต้อง',
               })
-
             }
             if (!this.LeaveStatus_Document.value) {
               this.invalid_doc = "is-invalid"
@@ -833,7 +963,7 @@ export class EmployeeshowComponent implements OnInit {
               this.invalid_limit = "is-invalid"
             }
 
-            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+            else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
 
               this.Add_leave_level_4(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
             }
@@ -878,7 +1008,7 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_limit = "is-invalid"
         }
 
-        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
 
           this.Add_leave_level_1(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
@@ -905,7 +1035,7 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_limit = "is-invalid"
         }
 
-        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
 
           this.Add_leave_level_2(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
@@ -932,7 +1062,7 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_limit = "is-invalid"
         }
 
-        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
 
           this.Add_leave_level_3(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
@@ -959,7 +1089,7 @@ export class EmployeeshowComponent implements OnInit {
           this.invalid_limit = "is-invalid"
         }
 
-        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0 ) {
+        else if (this.LeaveStatus_Document.value.length > 0 && this.limit_ID.value.length > 0) {
 
           this.Add_leave_level_4(check_number, LeaveTotal, Name_Leave, To_Person, Leave_characteristics_dateStart, Leave_characteristics_dateLast)
         }
@@ -1900,7 +2030,7 @@ export class EmployeeshowComponent implements OnInit {
 
       else {
 
-        const body = 'Emp_ID=' + localStorage.getItem("Emp_ID")
+        const body = 'Emp_ID=' + this.Emp_ID.value
         const headers = new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded'
         });
@@ -1930,9 +2060,24 @@ export class EmployeeshowComponent implements OnInit {
                   })
                   this.LeaveDateLast = new FormControl('');
                   this.btnDisable_last = true;
+                  this.numberleave = dayleave = 0;
                   break;
                 }
+                else if (LeaveDateStart <= element.LeaveDateStart && LeaveDateLast >= element.LeaveDateStart) {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'ไม่สามารถลาได้เนื่องจากคุณลาวันนี้ไปแล้ว',
+                  })
+                  console.log(123);
 
+                  this.LeaveDateLast = new FormControl('');
+                  this.btnDisable_last = true;
+                  this.numberleave = 0;
+                  this.LeaveDateStart = new FormControl('');
+                  this.btnDisable_start = true;
+                  this.numberleave = dayleave = 0;
+                  break;
+                }
               }
             },
             (error: any) => {
@@ -2043,6 +2188,7 @@ export class EmployeeshowComponent implements OnInit {
                   text: '',
                   footer: ''
                 })
+                this.numberleave = 0;
               }
             },
             (error: any) => {
@@ -2101,7 +2247,7 @@ export class EmployeeshowComponent implements OnInit {
                 this.btnDisable_last = true;
                 break;
               }
-
+              this.numberleave = 0;
             }
           },
           (error: any) => {

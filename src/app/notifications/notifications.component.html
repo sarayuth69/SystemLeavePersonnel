@@ -1,14 +1,24 @@
 <div style="padding: 1%;">
-    <div class="card border-primary  mb-3" style="max-width: 100rem;"
-        *ngFor="let item of notifications_show; let i = index">
-        <div class="card-header">การแจ้งเตือนใหม่</div>
-        <div class="card-body text-primary ">
-            <h5 class="card-title">เนื่องจากคุณ ไม่มาทำงาน</h5>
-
-            <p class="card-text">วันที่ <b>{{item.Day_Work}}</b> โปรดแจ้งกลับไปที่ผู้ดูแลระบบเพื่อทำการแก้ไข
-                <i class="fa fa-check fa-2x" style="color:rgba(35, 231, 17, 0.863);" *ngIf="item.message == 1"></i>
-            </p>
-
-        </div>
+    <div class="alert alert-primary" role="alert">
+        <h6>การแจ้งเตือนเมื่อไม่มาทำงานหรือขาดงานไม่ทราบสาเหตุ</h6>
     </div>
+    <div class="alert alert-dismissible fade show" *ngFor="let item of notifications_show; let i = index" role="alert">
+        <div class="card border-primary  mb-3" style="max-width: 100rem;">
+            <div class="card-header">การแจ้งเตือนใหม่</div>
+            <div class="card-body text-primary ">
+                <h5 class="card-title">เนื่องจากคุณ ไม่มาทำงาน</h5>
+
+                <p class="card-text">วันที่ <b>{{item.Day_Work}}</b> โปรดแจ้งกลับไปที่ผู้ดูแลระบบเพื่อทำการแก้ไข
+                    <i class="fa fa-check fa-2x" style="color:rgba(35, 231, 17, 0.863);" *ngIf="item.message == 1"></i>
+                </p>
+
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+    </div>
+
+
 </div>

@@ -38,7 +38,6 @@ import { CheckleaveinfoAdminComponent } from './checkleaveinfo-admin/checkleavei
 
 
 
-
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'filelaeveprint', component: FilelaeveprintComponent },

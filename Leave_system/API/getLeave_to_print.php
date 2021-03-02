@@ -2,9 +2,8 @@
  header("Access-Control-Allow-Origin: *");
  header('Control-type: application/json',true);
  require 'connect_DB.php' ;
- $day_leave_start = $_GET['Day_leave_start'];
- $day_leave_last = $_GET['Day_leave_last'];
- $sql = "SELECT *,concat(day(LeaveDateStart),'/',
+
+ $sql  = "SELECT *,COUNT(*) AS count_data,concat(day(LeaveDateStart),'/',
  case when(Month(LeaveDateStart))='1' then 'ม.ค.'
     when(Month(LeaveDateStart))='2' then 'ก.พ.'
     when(Month(LeaveDateStart))='3' then 'มี.ค'
@@ -18,7 +17,7 @@
     when(Month(LeaveDateStart))='11' then 'พ.ย.'
     when(Month(LeaveDateStart))='12' then 'ธ.ค.'
     else cast(LeaveDateStart as date)
-    end,'/',year(LeaveDateStart)+543) AS LeaveDateStart,
+    end,'/',year(LeaveDateStart)+543) AS LeaveDateStart_month,
     concat(day(LeaveDateLast),'/',
     case when(Month(LeaveDateLast))='1' then 'ม.ค.'
     when(Month(LeaveDateLast))='2' then 'ก.พ.'
@@ -33,28 +32,30 @@
     when(Month(LeaveDateLast))='11' then 'พ.ย.'
     when(Month(LeaveDateLast))='12' then 'ธ.ค.'
     else cast(LeaveDateLast as date)
-    end,'/',year(LeaveDateLast)+543) AS LeaveDateLast
-       FROM `employee`
-       JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
-        JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
-        JOIN `position` ON employee.Position_ID = position.Position_ID
-        JOIN department ON employee.Dept_ID = department.Dept_ID
-        JOIN sector ON employee.Sector_ID = sector.Sector_ID
-        JOIN leavestatus ON `leave`.LeaveStatus_ID = leavestatus.LeaveStatus_ID
-       WHERE  `leave`.`LeaveDateStart`  BETWEEN '$day_leave_start' AND '$day_leave_last' AND leave.LeaveStatus_ID = '5' 
-         OR `leave`.`LeaveDateLast`  BETWEEN '$day_leave_start' AND '$day_leave_last' AND leave.LeaveStatus_ID = '5'
-         ORDER BY `leave`.`LeaveDateStart` DESC";
-            $result = mysqli_query($conn,$sql); 
-            $myArray = array();
-            if ($result->num_rows > 0) {
-            // output data of each row
-                while($row = $result->fetch_assoc()) {
-                    $myArray[] = $row;
-                }
-                print json_encode($myArray);
-                
-            } 
-            else 
-            {
-                echo  $sql;
-            } 
+    end,'/',year(LeaveDateLast)+543) AS LeaveDateLast_month
+    FROM `employee`
+    JOIN `leave` ON `employee`.`Emp_ID` = `leave`.`Emp_ID`
+    JOIN `leavetype` ON `leave`.`LType_ID` = `leavetype`.`LType_ID`
+    JOIN `leavestatus` ON `leavestatus`.`LeaveStatus_ID` = `leave`.`LeaveStatus_ID`
+    JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
+    JOIN `position` ON `employee`.`Position_ID` = `position`.`Position_ID`
+    JOIN `sector` ON `employee`.`Sector_ID` = `sector`.`Sector_ID`
+WHERE  
+leave.Emp_ID = '".$_POST['Emp_ID']."'  AND leave.LType_ID ='".$_POST['LType_ID']."' AND leave.LeaveDateStart < '".$_POST['LeaveDateStart']."' AND leave.LeaveDateLast < '".$_POST['LeaveDateLast']."'
+ORDER BY `leave`.LeaveDateStart DESC
+LIMIT 1 
+";
+
+$result = mysqli_query($conn,$sql); 
+        $myArray = array();
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                $myArray[] = $row;
+            }
+            print json_encode($myArray);
+        } 
+        else 
+        {
+            echo "0 results";
+        }

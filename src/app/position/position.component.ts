@@ -64,10 +64,10 @@ export class PositionComponent implements OnInit {
 
   AddPosition() {
 
-    const body = 'Position_ID=' + this.Position_ID.value +
-      '&PositionName=' + this.PositionName.value +
-      '&Role=' + this.Role.value
-    if (this.Position_ID.value === "" || this.PositionName.value === "" || this.Role.value === "") {
+    const body = 'Position_ID=' + 0
+      + '&PositionName=' + this.PositionName.value
+      + '&Role=' + this.Role.value
+    if ( this.PositionName.value === "" || this.Role.value === "") {
       Swal.fire(
         'กรุณากรอกข้อมูล',
         '',
