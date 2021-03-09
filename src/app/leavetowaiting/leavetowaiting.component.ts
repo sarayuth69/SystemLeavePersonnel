@@ -519,6 +519,7 @@ export class LeavetowaitingComponent implements OnInit {
   Leave_characteristics_dateStart_show: any;
   Leave_characteristics_dateLast_show: any;
   file_names_show: any;
+  show_file
   show_data(Leave_ID, Name_Leave, To_Person, Emp_ID, EmpName, EmpLastName, PositionName, DeptName,
     SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast,
     LeaveTotal,
@@ -547,7 +548,9 @@ export class LeavetowaitingComponent implements OnInit {
     this.Leave_characteristics_dateStart_show = Leave_characteristics_dateStart
     this.Leave_characteristics_dateLast_show = Leave_characteristics_dateLast
     this.file_names_show = file_names
-
+    this.http.get(`${this.baseUrl}getLeave_show_file.php?Leave_ID=${Leave_ID}`).subscribe(data => {
+      this.show_file = data
+    })
 
   }
 
@@ -847,7 +850,7 @@ export class LeavetowaitingComponent implements OnInit {
       + '&cancel_status=' + 8
       + '&cancel_total=' + this.cancel_total
       + '&leave_ID=' + this.leave_ID
-      // + '&Name_Leave=' + this.Name_Leave + " / ขออนุญาตยกเลิก"
+    // + '&Name_Leave=' + this.Name_Leave + " / ขออนุญาตยกเลิก"
     console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -872,7 +875,7 @@ export class LeavetowaitingComponent implements OnInit {
 
         const body = '&cancel_total=' + this.cancel_total
           + '&leave_ID=' + this.leave_ID
-          // + '&Name_Leave=' + this.Name_Leave + " / ขออนุญาตยกเลิก"
+        // + '&Name_Leave=' + this.Name_Leave + " / ขออนุญาตยกเลิก"
         console.log(body);
         const headers = new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded'

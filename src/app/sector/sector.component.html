@@ -36,9 +36,9 @@
           <div class="modal-body">
             <form>
               <div class="form-group" style="display: none;">
-                <label>รหัสฝ่ายงาน</label>
-                <input type="text" class="form-control" id="sectorInput" [formControl]="Sector_ID"
-                  placeholder="รหัสฝ่ายงาน">
+                <label style=" display: none;">รหัสฝ่ายงาน</label>
+                <input type="text" class="form-control" style=" display: none;" id="sectorInput"
+                  [formControl]="Sector_ID" placeholder="รหัสฝ่ายงาน">
               </div>
               <div class="form-group">
                 <label>ชื่อฝ่ายงาน</label>
@@ -58,19 +58,19 @@
   </div>
   <br>
   <div style="padding-left: 2%;padding-right: 2%;">
-    <div class="card">
+    <div>
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col" class="text-center">รหัส</th>
+              <!-- <th scope="col" class="text-center">รหัส</th> -->
               <th scope="col">ชื่อฝ่ายงาน</th>
               <th scope="col">จัดการ</th>
             </tr>
           </thead>
           <tbody *ngFor="let item of sector; let i = index">
             <tr>
-              <td class="text-center"> {{item.Sector_ID}} </td>
+              <!-- <td class="text-center"> {{item.Sector_ID}} </td> -->
               <td> {{item.SectorName}}</td>
               <td>
                 <!-- Button trigger modal -->
@@ -107,8 +107,8 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="sectorInput2">รหัสฝ่ายงาน</label>
-            <input type="text" class="form-control" id="sectorInput2" [formControl]="Sector_ID"
+            <label for="sectorInput2" style=" display: none;">รหัสฝ่ายงาน</label>
+            <input type="text" style=" display: none;" class="form-control" id="sectorInput2" [formControl]="Sector_ID"
               placeholder="รหัสฝ่ายงาน" style="background-color: rgb(226, 223, 223);">
           </div>
           <div class="form-group">

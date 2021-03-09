@@ -40,9 +40,9 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group" style="display: none;">
-                                <label for="DepartmentInput">รหัสแผนก</label>
-                                <input type="text" class="form-control" id="DepartmentInput" [formControl]="Dept_ID"
-                                    placeholder="รหัสแผนก">
+                                <label for="DepartmentInput" style=" display: none;">รหัสแผนก</label>
+                                <input type="text" style=" display: none;" class="form-control" id="DepartmentInput"
+                                    [formControl]="Dept_ID" placeholder="รหัสแผนก">
                             </div>
                             <div class="form-group">
                                 <label for="DepartmentInput1">ชื่อแผนก</label>
@@ -61,12 +61,12 @@
             </div>
         </div>
         <div style="padding-left: 2%;padding-right: 2%;">
-            <div class="card">
+            <div>
                 <div class="table-responsive-xl">
                     <table class="table table-hover">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col">รหัสแผนก</th>
+                                <!-- <th scope="col">รหัสแผนก</th> -->
                                 <th scope="col">ชื่อแผนก</th>
                                 <!-- <th scope="col">ฝ่ายงาน</th>
                             <th scope="col">จัดการ </th> -->
@@ -75,7 +75,7 @@
                         </thead>
                         <tbody *ngFor="let item of dep; let i = index">
                             <tr>
-                                <td class="text-center">{{item.Dept_ID}}</td>
+                                <!-- <td class="text-center">{{item.Dept_ID}}</td> -->
                                 <td>{{item.DeptName}}</td>
                                 <!-- <td>{{item.SectorName}}</td> -->
 
@@ -113,9 +113,9 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="DepartmentInput2">รหัสแผนก</label>
-                                <input type="text" class="form-control" id="DepartmentInput2"
-                                    style="background-color: rgb(226, 223, 223);" [formControl]="Dept_ID">
+                                <label for="DepartmentInput2" style=" display: none;">รหัสแผนก</label>
+                                <input type="text" class="form-control" id="DepartmentInput2" style=" display: none;"
+                                    [formControl]="Dept_ID">
                             </div>
                             <div class="form-group">
                                 <label for="DepartmentInput3">ชื่อแผนก</label>

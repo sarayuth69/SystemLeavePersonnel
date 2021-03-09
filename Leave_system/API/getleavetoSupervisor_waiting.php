@@ -36,22 +36,24 @@
         JOIN `employee` ON `leave`.`Emp_ID` = `employee`.`Emp_ID`
         JOIN `department` ON `employee`.`Dept_ID` = `department`.`Dept_ID`
     JOIN `position` ON `employee`.`Position_ID` = `position`.`Position_ID`
-    JOIN `sector` ON `sector`.Sector_ID = `employee`.Sector_ID
+    JOIN `sector` ON `employee`.`Sector_ID` = `sector`.`Sector_ID`
+
         JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
         JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
-        WHERE  `leave`.`LeaveStatus_ID` <= 6 AND sector.Sector_ID =  '".$_POST["Sector_ID"]."'
-        AND `position`.`Role` < 4 
-        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`,`leave`.`Leave_ID`";
-        $result = mysqli_query($conn,$sql); 
-        $myArray = array();
-        if ($result->num_rows > 0) {
-        // output data of each row
-            while($row = $result->fetch_assoc()) {
-                $myArray[] = $row;
-            }
-            print json_encode($myArray);
-        } 
-        else 
-        {
-            echo "0 results";
-        }
+        WHERE `employee`.`Dept_ID` = '".$_POST["Dept_ID"]."' AND `leave`.`LeaveStatus_ID` = 2 
+        AND `position`.`Role` < 3
+        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`,`leave`.`Leave_ID`
+        ";
+       $result = mysqli_query($conn,$sql); 
+       $myArray = array();
+       if ($result->num_rows > 0) {
+       // output data of each row
+           while($row = $result->fetch_assoc()) {
+               $myArray[] = $row;
+           }
+           print json_encode($myArray);
+       } 
+       else 
+       {
+           echo "0 results";
+       }

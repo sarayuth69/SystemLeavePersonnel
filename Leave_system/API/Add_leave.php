@@ -14,7 +14,7 @@
      `LeaveDateLast`,`Leave_characteristics_dateLast`, `LeaveData`,
     `ContactInformation`,`employee`,
      `LeaveTotal`,`number_leave`, `LeaveStatus_ID`,`LeaveStatus_Document`, 
-     `Response_Time`, `limit_ID`,`LType_ID`,`file_names`) 
+     `Response_Time`, `limit_ID`,`LType_ID`) 
       VALUES
      (
     '".$_POST['Leave_ID']."',
@@ -34,8 +34,7 @@
     '".$_POST['LeaveStatus_Document']."',
     NOW(),
     '".$_POST['limit_ID']."',
-    '".$_POST['LType_ID']."',
-    '".$target_file."'
+    '".$_POST['LType_ID']."'
     )"; 
 
   if ($conn->query($sql) === TRUE) {

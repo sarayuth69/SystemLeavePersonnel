@@ -42,8 +42,8 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group" style="display: none;">
-                                <label for="EmployeeStatusInput">รหัสสถานะบุคลากร</label>
-                                <input type="text" class="form-control" id="EmployeeStatusInput"
+                                <label for="EmployeeStatusInput" style=" display: none;">รหัสสถานะบุคลากร</label>
+                                <input type="text" class="form-control" id="EmployeeStatusInput" style=" display: none;"
                                     [formControl]="Empstatus_ID" placeholder="รหัสสถานะบุคลากร">
                             </div>
                             <div class="form-group">
@@ -62,19 +62,19 @@
             </div>
         </div>
         <div style="padding-left: 2%;padding-right: 2%;">
-            <div class="card">
+            <div >
                 <div class="table-responsive-xl">
                     <table class="table table-hover">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col">รหัสสถานะบุคลากร</th>
+                                <!-- <th scope="col">รหัสสถานะบุคลากร</th> -->
                                 <th scope="col">ชื่อสถานะบุคลากร</th>
                                 <th scope="col">จัดการ</th>
                             </tr>
                         </thead>
                         <tbody *ngFor="let item of status; let i = index">
                             <tr>
-                                <td class="text-center">{{item.Empstatus_ID}}</td>
+                                <!-- <td class="text-center">{{item.Empstatus_ID}}</td> -->
                                 <td>{{item.EmpstatusName}}</td>
                                 <td class="text-center">
                                     <!-- Button trigger modal -->
@@ -106,8 +106,8 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="form-group">
-                                        <label for="EmployeeStatusInput2">รหัสสถานะบุคลากร</label>
-                                        <input type="text" class="form-control" id="EmployeeStatusInput2"
+                                        <label for="EmployeeStatusInput2" style=" display: none;">รหัสสถานะบุคลากร</label>
+                                        <input type="text" class="form-control" style=" display: none;" id="EmployeeStatusInput2"
                                             [formControl]="Empstatus_ID" placeholder="รหัสสถานะบุคลากร"
                                             style="background-color: rgb(226, 223, 223);">
                                     </div>

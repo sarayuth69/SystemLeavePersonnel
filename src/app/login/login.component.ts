@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
       console.log(value);
       if (value.length < 0) {
 
-        alert("1")
         this.router.navigate(['/login']);
         localStorage.clear();
       }
@@ -66,15 +65,7 @@ export class LoginComponent implements OnInit {
                 .subscribe(
                   (data: any) => {
                     console.log(data);
-                    // if (data.status_data == "W") {
-                    //   Swal.fire({
-                    //     icon: 'warning',
-                    //     title: 'รออนุญาตให้ใช้ระบบ',
-                    //     text: 'Something went wrong!'
-                    //   })
-                    //   this.logoutsso()
-                    // }
-                    // else {
+
                     localStorage.setItem('Emp_ID', data[0].Emp_ID);
                     localStorage.setItem('EmpName', data[0].EmpName);
                     localStorage.setItem('EmpLastName', data[0].EmpLastName);
@@ -102,13 +93,7 @@ export class LoginComponent implements OnInit {
                     console.log(localStorage.getItem('Sector_ID'));
                     console.log(localStorage.getItem('SectorName'));
                     console.log(localStorage.getItem('Work_day'));
-                    // Swal.fire({
-                    //   position: 'center',
-                    //   icon: 'success',
-                    //   title: 'เข้าสู่ระบบสำเร็จ',
-                    //   showConfirmButton: false,
-                    //   timer: 1000
-                    // }).then(() => {
+
                     if (data[0].privilege == "A") {
                       this.router.navigate(['/employeeshow']);
                     }
@@ -151,15 +136,6 @@ export class LoginComponent implements OnInit {
                         (data: any) => {
                           console.log(data.status_data);
 
-                          // if (data.status_data == "W") {
-                          //   Swal.fire({
-                          //     icon: 'warning',
-                          //     title: 'รออนุญาตให้ใช้ระบบ',
-                          //     text: 'Something went wrong!'
-                          //   })
-                          //   this.logoutsso();
-                          // }
-                          // else {
                           localStorage.setItem('Emp_ID', data[0].Emp_ID);
                           localStorage.setItem('EmpName', data[0].EmpName);
                           localStorage.setItem('EmpLastName', data[0].EmpLastName);
@@ -189,13 +165,7 @@ export class LoginComponent implements OnInit {
                           console.log(localStorage.getItem('privilege'));
                           console.log(localStorage.getItem('Work_day'));
 
-                          // Swal.fire({
-                          //   position: 'center',
-                          //   icon: 'success',
-                          //   title: 'เข้าสู่ระบบสำเร็จ',
-                          //   showConfirmButton: false,
-                          //   timer: 1000
-                          // }).then(() => {
+
                           if (data[0].privilege == "A") {
                             this.router.navigate(['/leavelist']);
                           }
@@ -215,14 +185,10 @@ export class LoginComponent implements OnInit {
                           else if (data[0].Role == "1" && data[0].privilege == "U") {
                             this.router.navigate(['/leavelist']);
                           }
-                          // })
-                          //   .then(() => {
+
                           setTimeout(() => {
                             window.location.reload();
-
                           }, 60);
-                          //   })
-                          // }
                         },
                         (error: any) => {
                           Swal.fire(

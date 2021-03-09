@@ -40,9 +40,10 @@
 
         JOIN `leavetype` ON `leave`.`LType_ID` =`leavetype`.`LType_ID`
         JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
-        WHERE `employee`.`Dept_ID` = '".$_POST["Dept_ID"]."' AND `leave`.`LeaveStatus_ID` = '2' 
+        WHERE `employee`.`Dept_ID` = '".$_POST["Dept_ID"]."' AND `leave`.`LeaveStatus_ID` <= 6
+        AND `position`.`Role` < 3
         GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`,`leave`.`Leave_ID`
-        ";
+        ORDER BY  `leave`.`LeaveStatus_ID` ASC ";
        $result = mysqli_query($conn,$sql); 
        $myArray = array();
        if ($result->num_rows > 0) {

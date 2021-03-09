@@ -227,7 +227,7 @@
                       (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                                   item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                                   item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart,item.LeaveDateLast,item.LeaveTotal,
-                                                item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names)"><i
+                                                item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names,item.LeaveStatus_ID)"><i
                         class="fa fa-cog" aria-hidden="true"></i></button>
                   </td>
                 </tr>
@@ -273,8 +273,8 @@
           <div class="container">
             <div class="row">
               <div class="col-sm">
-                <h6>รหัส </h6>
-                <input type="text" class="EmpName_show" value="{{Emp_ID_show}}" readonly>
+                <h6 style="display: none;">รหัส </h6>
+                <input type="text" style="display: none;" class="EmpName_show" value="{{Emp_ID_show}}" readonly>
 
               </div>
               <div class="col-sm">

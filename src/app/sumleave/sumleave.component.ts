@@ -73,18 +73,19 @@ export class SumleaveComponent implements OnInit {
 
   test1 = []
   test2 = []
-
+  sum_total = []
+  LTypeName = []
   ngAfterViewInit(sumleave) {
     try {
-      this.test1.forEach(element => {
-        this.test1.splice(element.LTypeName)
+      this.LTypeName.forEach(element => {
+        this.LTypeName.splice(element.LTypeName)
       });
     } catch (error) {
 
     }
     try {
-      this.test2.forEach(element => {
-        this.test2.splice(element.sum_total)
+      this.sum_total.forEach(element => {
+        this.sum_total.splice(element.sum_total)
       });
 
     } catch (error) {
@@ -93,21 +94,22 @@ export class SumleaveComponent implements OnInit {
     try {
       sumleave.forEach(element => {
         console.log(element.sum_total);
-        this.test1.push(element.LTypeName)
-        this.test2.push(element.sum_total)
+        this.LTypeName.push(element.LTypeName)
+        this.sum_total.push(element.sum_total)
 
       });
     } catch (error) {
 
     }
     this.canvas = document.getElementById('myChart');
-    if (this.test1.length > 1 && this.test2.length > 1) {
+    if (this.LTypeName.length > 1 && this.sum_total.length > 1) {
       var myChart = new Chart(this.canvas, {
         type: 'pie',
         data: {
-          labels: this.test1,
+          labels: this.LTypeName,
           datasets: [{
-            data: this.test2,
+            data: this.sum_total,
+
             backgroundColor: [
               'rgba(255, 99, 132, 1)',
               'rgba(54, 162, 235, 1)',
@@ -125,7 +127,9 @@ export class SumleaveComponent implements OnInit {
               'rgba(54, 70, 90, 1)',
             ],
             borderWidth: 1
-          }]
+          },
+
+          ]
         },
         options: {
           legend: {
@@ -271,7 +275,7 @@ export class SumleaveComponent implements OnInit {
     SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart, LeaveDateLast,
     LeaveTotal,
     LeaveStatus_Name, LeaveStatus_Document,
-    Leave_characteristics_dateStart, Leave_characteristics_dateLast, file_names) {
+    Leave_characteristics_dateStart, Leave_characteristics_dateLast, file_names, LeaveStatus_ID) {
     this.Leave_ID_show = Leave_ID
     this.Name_Leave_show = Name_Leave
     this.To_Person_show = To_Person
@@ -293,7 +297,7 @@ export class SumleaveComponent implements OnInit {
     this.Leave_characteristics_dateStart_show = Leave_characteristics_dateStart
     this.Leave_characteristics_dateLast_show = Leave_characteristics_dateLast
     this.file_names_show = file_names
-    if (localStorage.getItem('privilege') === "A") {
+    if (localStorage.getItem('privilege') === "A" && LeaveStatus_ID < 5) {
       this.btn_delete = true
     }
     else {

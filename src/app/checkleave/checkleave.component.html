@@ -10,7 +10,7 @@
 
     <br>
     <div style="padding-left: 1%;padding-right: 2%;">
-        
+
         <div class="card">
 
             <div class="card-body">
@@ -20,6 +20,7 @@
                     <option *ngFor="let item of showleave_limit; let i = index" value="{{item.limit_ID}}">
                         {{item.Name_limit}}</option>
                 </select>
+
                 <div class="table-responsive-xl">
                     <table class="table table-hover">
                         <thead>
@@ -37,7 +38,7 @@
                                 <th scope="col">สถานะบุคลากร</th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let item of leavetypeUser ; let i = index">
+                        <tbody *ngFor="let item of leavetypeUser_day ; let i = index">
                             <tr>
                                 <td>{{item.LTypeName}}</td>
                                 <td>{{item.Number}} /วัน</td>
@@ -49,8 +50,6 @@
                                 <div *ngIf="item.Remain_over == 0 " style="color: black;">
                                     <td>{{item.Remain_over}} /วัน</td>
                                 </div>
-
-
                                 <!-- <td>{{item.Remain_limit}} /วัน</td> -->
                                 <td>{{item.AdvanceNotice}} /วัน</td>
                                 <td>{{item.number_leave_show}}</td>
@@ -63,7 +62,7 @@
             </div>
         </div>
         <br>
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-body">
                 <label for="" style="font-size: 16px;">เลือกรอบการประเมิน</label>
                 <select class="form-control" (change)="getlleave_user_holiday($event.target.value)">
@@ -98,7 +97,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> -->
         <br>
     </div>
 

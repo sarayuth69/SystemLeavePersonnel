@@ -9,8 +9,6 @@
             <input type="date" class="form-control" [max]="maxDate" [formControl]="date_BusinessDay" value="{{date}}"
               #Day_Work (change)='onOptionsSelected(Day_Work.value)'>
 
-
-
           </div>
 
           <div class="col-sm">
@@ -86,6 +84,8 @@
             *ngIf="item.off_Status_Work ==='มาทำงาน'" [checked]="true" class="custom-control-input" value="มาทำงาน">
           <input type="radio" id="{{'comin' + i}}" name="{{'radio' + i}}" #radio
             *ngIf="item.off_Status_Work !='มาทำงาน'" [checked]="false" class="custom-control-input" value="มาทำงาน">
+          <input type="radio" id="{{'comin' + i}}" name="{{'radio' + i}}" #radio *ngIf="item.off_Status_Work ==''"
+            [checked]="true" class="custom-control-input" value="มาทำงาน">
           <label class="custom-control-label" for="{{'comin' + i}}">&nbsp; มาทำงาน</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">

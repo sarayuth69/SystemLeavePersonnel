@@ -54,10 +54,10 @@ export class EditdayworkComponent implements OnInit {
     //   }
     // );
   }
-
+  date_chack
   getsearchDay_Work(Day_Work) {
     console.log(Day_Work);
-
+    this.date_chack = Day_Work
     if (!Day_Work) {
       Swal.fire({
         icon: 'error',
@@ -151,15 +151,16 @@ export class EditdayworkComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     }).then(() => {
-      this.http.get(`${this.baseUrl}getdaywork.php`).subscribe(
-        (data: any) => {
-          console.log(data);
-          this.getdaywork = data;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+      // this.http.get(`${this.baseUrl}getdaywork.php`).subscribe(
+      //   (data: any) => {
+      //     console.log(data);
+      //     this.getdaywork = data;
+      //   },
+      //   (error: any) => {
+      //     console.log(error);
+      //   }
+      // );
+      this.getsearchDay_Work(this.date_chack)
     })
 
 

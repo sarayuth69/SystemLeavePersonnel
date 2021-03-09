@@ -10,6 +10,7 @@
                             <div class="col-sm">
                                 <h3 class="card-title">รายการลา</h3>
 
+
                             </div>
                             <div class="col-sm">
 
@@ -30,8 +31,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 <br>
@@ -104,8 +103,11 @@
                                         <td class="text-center" style="color:rgb(228, 22, 22);"
                                             *ngIf="item.LeaveStatus_ID === '6'">
                                             {{item.LeaveStatus_Name}} </td>
+                                        <td class="text-center" style="color:rgb(246, 99, 80)"
+                                            *ngIf="item.LeaveStatus_ID === '11'">
+                                            {{item.LeaveStatus_Name}} </td>
                                         <td class="text">
-                                            <button type="button" *ngIf="item.LeaveStatus_ID === '6'"
+                                            <button type="button" *ngIf="item.LeaveStatus_ID <= 6"
                                                 class="btn btn-success btn-circle btn-xl" (click)="printDocument(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                 item.Prefix, item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                 item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
@@ -324,7 +326,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">
-                                <h6>รหัส : {{Emp_ID_show}} </h6>
+                                <h6 style="display: none;">รหัส : {{Emp_ID_show}} </h6>
                             </div>
                             <div class="col-sm">
                                 <h6> ชื่อ : {{EmpName_show}}</h6>
@@ -347,6 +349,7 @@
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div class="card-header text-left">
                         <b style="color: mediumblue;"> ข้อมูลการลา</b>
                     </div>
@@ -399,9 +402,14 @@
                                 <tr>
                                     <th scope="row">แนปไฟล์ :</th>
                                     <td>
-                                        <a
-                                            href="http://cpe.rmuti.ac.th/project/Leave_system/upload/{{file_names_show}}">{{file_names_show}}</a>
-                                    </td>
+                                <tr *ngFor="let item of show_file">
+                                    <a
+                                        href="http://cpe.rmuti.ac.th/project/Leave_system/upload/{{item.file_name}}">{{item.file_name}}</a>
+                                </tr>
+
+
+
+                                </td>
 
                                 </tr>
                                 <tr>
@@ -430,134 +438,6 @@
 
 
 
-
-
-<!-- </div> -->
-<!-- </div> -->
-<!-- <div class="tab-pane fade show active" *ngIf="list6">
-    &nbsp;&nbsp;&nbsp;
-    <div class="card">
-        <div class="card-header">
-            <div class="row-md-1">
-                <div class="row">
-                    <div class="col-md-4"> </div>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <h3> รายการลา </h3>
-                        </div>
-                        <div class="col-md-auto">
-                        </div>
-                        <div class="col col-lg-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card-body">
-            <table class="table table-hover">
-                <thead >
-                    <tr class="text-center">
-                        <th scope="col">ชื่อพนักงาน</th>
-                        <th scope="col">ประเภท</th>
-                        <th scope="col">วันที่ลา</th>
-                        <th scope="col">จำนวน/วัน</th>
-                        <th scope="col">ไฟล์แนบ</th>
-                        <th scope="col">สถานะ</th>
-                        <th scope="col">ปริ้นใบลา</th>
-                        <th scope="col">จัดการ</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let item of leave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
-                    <tr>
-                        <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
-                            <p>แผนก: {{item.DeptName}}</p>
-                        </td>
-                        <td class="text-center">{{item.LTypeName}}</td>
-                        <td class="text-center"> {{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
-                        <td class="text-center"> {{item.LeaveTotal}}</td>
-                        <td></td>
-                        <td class="text-center" style="color:rgb(80, 80, 246);"> {{item.LeaveStatus_Name}} </td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-success" (click)="nextpage(item)"><i
-                                    class="fa fa-print" aria-hidden="true"></i></button>
-                        </td>
-                        <td class="text-center">
-                            &nbsp;
-                            <button type="button" class="btn btn-danger">ยกเลิก</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
-        </div>
-    </div>
-</div> -->
-<!-- ----- -->
-
-
-
-<!-- ของผอ -->
-<!-- <br><br>
-<div class="tab-pane fade show active" *ngIf="list5">
-    &nbsp;&nbsp;&nbsp;
-    <div class="card">
-        <div class="card-header">
-            <div class="row-md-1">
-                <div class="col-md-4">
-                    รายการลา
-                    &nbsp;&nbsp;&nbsp;
-                </div>
-            </div>
-        </div>
-        <div class="card-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr class="text-center">
-                        <th scope="col">ชื่อพนักงาน</th>
-                        <th scope="col">ประเภท</th>
-                        <th scope="col">วันที่ลา</th>
-                        <th scope="col">จำนวนวัน</th>
-                        <th scope="col">ไฟล์แนบ</th>
-                        <th scope="col">สถานะ</th>
-                        <th scope="col">จัดการ</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let item of leave2 | paginate: { itemsPerPage: 10, currentPage: pageActual};">
-                    <tr>
-                        <td>ชื่อ: {{item.EmpName}}
-                            <p>แผนก: {{item.DeptName}} </p>
-                        </td>
-                        <td class="text-center"><span class="badge badge-pill badge-success">
-                                <h6>{{item.LTypeName}}</h6>
-                            </span>
-                        </td>
-
-
-                        <td class="text-center">{{item.LeaveDateStart}} ถึงวันที่ {{item.LeaveDateLast}}</td>
-                        <td class="text-center">{{item.LeaveTotal}}</td>
-                        <td></td>
-                        <td class="text-center" style="color:navy;">
-                            <h6>{{item.LeaveStatus_Name}}</h6>
-                        </td>
-                        <td class="text-center">
-                            
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#exampleModal">
-                                ตรวจสอบ
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
-        </div>
-    </div>
-
-
-</div> -->
-<!-- ----- -->
 <!-- Modal การลาของบุคลากร-->
 <div class="modal fade" id="exampleModalleave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -578,6 +458,8 @@
 
                                 <div class="card-header text-left">
                                     <b style="color: mediumblue;"> ยื่นการลา </b>
+                                    <input type="text" class="form-control " style="display: none;" id="leave_ID"
+                                        #leave_ID value="{{chack_ID}}" readonly>
                                 </div>
                                 <br>
 
@@ -589,6 +471,8 @@
                                             {{item.Name_limit}}</option>
                                     </select>
                                     <label>ประเภทการลา</label>
+                                    <!-- <p style="color: red;">*หากเป็นการลาอื่นๆ
+                                        นอกจากลาป่วยและลากิจระบบจะบันทึกข้อมูลให้แต่ระบบยังไม่สามารถนำมาคำนวณได้</p> -->
                                     <select [formControl]="LType_ID" (ngModelChange)="dataChanged($event)" name="data"
                                         id="type_leave" class="custom-select {{invalid_type}}">
                                         <option *ngFor="let currentData of leavetypeUser" [ngValue]="currentData">
@@ -690,14 +574,7 @@
                                                         id="employee_work" [formControl]="employee"></span>
 
                                             </div>
-                                            <!-- <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                                    (change)="toggleVisibility($event)">
-                                                <label class="custom-control-label"
-                                                    for="customCheck1">มีผู้รับผิดชอบงานแทน</label>
-                                                <span *ngIf="marked"><input type="text" id="employee_work"
-                                                        [formControl]="employee"></span>
-                                            </div> -->
+
                                         </div>
                                     </div>
                                 </div>
@@ -730,20 +607,17 @@
                                             <div class="card-body text-primary">
                                                 <input type="date" class="form-control" value="{{date_chack_leave}}"
                                                     id="date_chack" #date_chack style="display: none;">
-
                                                 <input type="date" class="form-control" id="LeaveDateStart"
-                                                    [formControl]="LeaveDateStart" [max]="maxDate" data-date=""
-                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)"
+                                                    #Leave_characteristics [formControl]="LeaveDateStart"
+                                                    [max]="maxDate" data-date=""
+                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics.value,date_chack.value)"
                                                     required>
-                                                <h6>ประเภทวันลา</h6>
-
-                                                <select class="custom-select" id="Leave_characteristics_dateStart"
-                                                    [disabled]="btnDisable_start" #Leave_characteristics_dateStart
-                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)">
+                                                <!-- <select class="custom-select" id="Leave_characteristics_dateLast"
+                                                    [disabled]="btnDisable_last" #Leave_characteristics_dateLast>
                                                     <option value="เต็มวัน">เต็มวัน</option>
                                                     <option value="ครึ่งวันเช้า">ครึ่งวันเช้า</option>
                                                     <option value="ครึ่งวันบ่าย">ครึ่งวันบ่าย</option>
-                                                </select>
+                                                </select> -->
                                             </div>
                                         </div>
 
@@ -754,23 +628,30 @@
                                             <div class="card-header bg-danger ">ถึงวันที่</div>
                                             <div class="card-body text-primary">
                                                 <input type="date" class="form-control " id="LeaveDateLast"
-                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)"
-                                                    [formControl]="LeaveDateLast" [max]="maxDate"
-                                                    data-date-format="DD MMMM YYYY" required>
-
-                                                <h6>ประเภทวันลา</h6>
-                                                <select class="custom-select" id="Leave_characteristics_dateLast"
-                                                    [disabled]="btnDisable_last" #Leave_characteristics_dateLast
-                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,date_chack.value)">
+                                                    #Leave_characteristics [formControl]="LeaveDateLast" [max]="maxDate"
+                                                    (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics.value,date_chack.value)"
+                                                    required>
+                                                <!-- <select class="custom-select" id="Leave_characteristics_dateStart"
+                                                    [disabled]="btnDisable_start" #Leave_characteristics_dateStart>
                                                     <option value="เต็มวัน">เต็มวัน</option>
                                                     <option value="ครึ่งวันเช้า">ครึ่งวันเช้า</option>
                                                     <option value="ครึ่งวันบ่าย">ครึ่งวันบ่าย</option>
-                                                </select>
+                                                </select> -->
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-2 " *ngIf="characteristics">
+                                        <label for="inputState">ประเภทวันลา</label>
+                                        <select class="form-control" id="Leave_characteristics" #Leave_characteristics
+                                            (change)="onseletday(LeaveDateStart.value,LeaveDateLast.value,Leave_characteristics.value,date_chack.value)">
+                                            <option value="เต็มวัน">เต็มวัน</option>
+                                            <option value="ครึ่งวันเช้า">ครึ่งวันเช้า</option>
+                                            <option value="ครึ่งวันบ่าย">ครึ่งวันบ่าย</option>
+                                        </select>
+                                    </div>
 
                                     <div class="col-md-2 mb-2">
+
                                         <label>จำนวนวันลา</label>
                                         <input type="text" class="form-control" id="LeaveTotal" value="{{numberleave}}"
                                             #LeaveTotal readonly>
@@ -792,7 +673,7 @@
                                         <div class="form-group">
                                             <label for="exampleFormControlFile1">แนปไฟล์</label>
                                             <br>
-                                            <input type="file" #fileInput (change)="onFileChanged($event)">
+                                            <input type="file" #fileInput (change)="onFileChanged($event)" multiple>
                                             <button type="button" (click)="file_remove(fileInput)"
                                                 class="btn btn-danger btn-circle "><i class="fa fa-trash"
                                                     aria-hidden="true"></i></button>
@@ -815,9 +696,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="btn btn-primary" data-dismiss=`${modal_dismiss}`
-                    (click)="AddLeave(LeaveTotal.value,check_number.value,Remain_over.value,Name_Leave.value,
-                    To_Person.value,Leave_characteristics_dateStart.value,Leave_characteristics_dateLast.value,number_leave.value)">ยืนยัน</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddLeave(leave_ID.value,LeaveTotal.value,check_number.value,Remain_over.value,Name_Leave.value,
+                    To_Person.value,number_leave.value)">ยืนยัน</button>
 
             </div>
         </div>

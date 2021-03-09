@@ -110,13 +110,17 @@
                                         <td>
                                             {{item.LeaveStatus_Name}} </td>
                                     </div>
+                                    <div *ngIf="item.LeaveStatus_ID == 11" style="color:rgb(246, 99, 80);">
+                                        <td class="text-center">
+                                            {{item.LeaveStatus_Name}} </td>
+                                    </div>
                                     <td class="text-center">
                                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                             data-target="#exampleModal"
                                             (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
                                 item.EmpName,item.EmpLastName,item.PositionName,item.DeptName,item.SectorName,item.LTypeName,
                                 item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
-                              item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names)"><i
+                              item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names,item.LeaveStatus_ID)"><i
                                                 class="fa fa-cog" aria-hidden="true"></i></button>
 
                                     </td>
@@ -136,7 +140,7 @@
 
                 <div class="card-body">
                     <label for="" style="font-size: 16px;">เลือกรอบการประเมิน</label>
-                    <select class="form-control" (change)="getlleave_user($event.target.value)">
+                    <select class="form-control form-control-lg" (change)="getlleave_user($event.target.value)">
                         <option>เลือกรอบการประเมิน</option>
                         <option *ngFor="let item of showleave_limit; let i = index" value="{{item.limit_ID}}">
                             {{item.Name_limit}}</option>
@@ -184,7 +188,7 @@
                 </div>
             </div>
             <br>
-            <div class="card">
+            <!-- <div class="card">
 
                 <div class="card-body">
                     <div class="table-responsive-xl">
@@ -210,7 +214,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <br>
 
         </div>
@@ -249,8 +253,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">
-                                <h6>รหัส </h6>
-                                <input type="text" class="EmpName_show" value="{{Emp_ID_show}}" readonly>
+                                <h6 style="display: none;">รหัส </h6>
+                                <input type="text" style="display: none;" class="EmpName_show" value="{{Emp_ID_show}}"
+                                    readonly>
 
                             </div>
                             <div class="col-sm">
@@ -285,6 +290,7 @@
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div class="card-header text-left">
                         <b style="color: mediumblue;"> ข้อมูลการลา</b>
                     </div>
@@ -338,9 +344,12 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">แนปไฟล์ :</th>
-                                    <td><a
-                                            href="http://cpe.rmuti.ac.th/project/Leave_system/upload/{{file_names_show}}">{{file_names_show}}</a>
-                                    </td>
+                                    <td>
+                                <tr *ngFor="let item of show_file">
+                                    <a
+                                        href="http://cpe.rmuti.ac.th/project/Leave_system/upload/{{item.file_name}}">{{item.file_name}}</a>
+                                </tr>
+                                </td>
 
                                 </tr>
                                 <tr>

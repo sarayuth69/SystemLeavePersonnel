@@ -10,7 +10,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 // import { baseUrl } from '../baseUrl.service';
 import { GlobalVariable } from '../baseUrl';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-checkleaveinfo',
   templateUrl: './checkleaveinfo.component.html',
@@ -51,6 +51,8 @@ export class CheckleaveinfoComponent implements OnInit {
   btnDisable_Doc: boolean = true
   limit;
   showleave_limit;
+  Empstatus_ID_check
+
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -58,6 +60,30 @@ export class CheckleaveinfoComponent implements OnInit {
     public http: HttpClient,
   ) { }
   ngOnInit() {
+    this.maxDate = moment(new Date()).format('YYYY-MM-DD')
+    var day_work_month = moment(this.maxDate).startOf('day').diff(moment(localStorage.getItem('Work_day')).startOf('day'), 'months');
+
+
+    const tpyeUser = 'Emp_ID=' + this.Emp_ID_show
+      + '&limit_ID=' + this.limit
+      + '&Empstatus_ID=' + this.Empstatus_ID_check
+      + '&Work_day=' + day_work_month
+    console.log(tpyeUser);
+    const headers1 = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    this.http
+      .post(`${this.baseUrl}getLeave_type_User_day.php`, tpyeUser, {
+        headers: headers1
+      }).subscribe(
+        (data: any) => {
+          this.leavetypeUser = data;
+          console.log(this.leavetypeUser);
+
+        },
+        (error: any) => {
+        }
+      )
     this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
       (data: any) => {
         this.showleave_limit = data;
@@ -129,26 +155,23 @@ export class CheckleaveinfoComponent implements OnInit {
     }
 
   }
-
+  maxDate
   leavetypeUser_copy
   getlleave_user(event) {
     console.log(event);
     this.limit = event
-
-
-
-
-
-
-
+    this.maxDate = moment(new Date()).format('YYYY-MM-DD')
+    var day_work_month = moment(this.maxDate).startOf('day').diff(moment(this.Work_day).startOf('day'), 'months');
     const tpyeUser = 'Emp_ID=' + this.Emp_ID_show
       + '&limit_ID=' + this.limit
+      + '&Empstatus_ID=' + this.Empstatus_ID_check
+      + '&Work_day=' + day_work_month
     console.log(tpyeUser);
     const headers1 = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     this.http
-      .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
+      .post(`${this.baseUrl}getLeave_type_User_day.php`, tpyeUser, {
         headers: headers1
       }).subscribe(
         (data: any) => {
@@ -156,37 +179,14 @@ export class CheckleaveinfoComponent implements OnInit {
           console.log(this.leavetypeUser);
         },
         (error: any) => {
-          console.log(error);
         }
-
-      )
-
-
-    const tpyeUser_copy = 'Emp_ID=' + this.Emp_ID_show
-    console.log(tpyeUser_copy);
-    const headers2 = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    this.http
-      .post(`${this.baseUrl}getLeave_type_User copy.php`, tpyeUser, {
-        headers: headers1
-      }).subscribe(
-        (data: any) => {
-          this.leavetypeUser_copy = data;
-          console.log(this.leavetypeUser_copy);
-        },
-        (error: any) => {
-          console.log(error);
-        }
-
       )
   }
+  Work_day
   leaveSearch(Emp_ID_search, Day_leave_start, Day_leave_last) {
-
     this.Emp_ID_show = Emp_ID_search
     this.Day_leave_start_show = Day_leave_start
     this.Day_leave_last_show = Day_leave_last
-
     if (this.Day_leave_start_show.length < 1 || this.Day_leave_last_show.length < 1) {
       Swal.fire(
         'เลือกวันที่ไห้ครบ?',
@@ -205,6 +205,32 @@ export class CheckleaveinfoComponent implements OnInit {
             })
           } else {
             this.seachleave = data;
+            this.Empstatus_ID_check = this.seachleave[0].Empstatus_ID
+            console.log(this.seachleave, this.Empstatus_ID_check);
+            this.Work_day = data[0].Work_day
+            this.maxDate = moment(new Date()).format('YYYY-MM-DD')
+            var day_work_month = moment(this.maxDate).startOf('day').diff(moment(this.Work_day).startOf('day'), 'months');
+            const tpyeUser = 'Emp_ID=' + this.Emp_ID_show
+              + '&limit_ID=' + this.limit
+              + '&Empstatus_ID=' + this.Empstatus_ID_check
+              + '&Work_day=' + day_work_month
+            console.log(tpyeUser);
+            const headers1 = new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded'
+            });
+            this.http
+              .post(`${this.baseUrl}getLeave_type_User_day.php`, tpyeUser, {
+                headers: headers1
+              }).subscribe(
+                (data: any) => {
+                  this.leavetypeUser = data;
+                  console.log(this.leavetypeUser);
+
+                },
+                (error: any) => {
+                }
+              )
+
           }
         },
         (error: any) => {
@@ -215,64 +241,8 @@ export class CheckleaveinfoComponent implements OnInit {
           })
         }
       );
-      // const tpyeUser = 'Emp_ID=' + Emp_ID_search
-      // const headers1 = new HttpHeaders({
-      //   'Content-Type': 'application/x-www-form-urlencoded'
-      // });
-      // this.http
-      //   .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
-      //     headers: headers1
-      //   }).subscribe(
-      //     (data: any) => {
-      //       this.leavetypeUser = data;
-
-      //     },
-      //     (error: any) => {
-
-      //     }
-
-      // )
-      
-
-      const tpyeUser = 'Emp_ID=' + Emp_ID_search
-     
-      console.log(tpyeUser);
-      const headers1 = new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      });
-      this.http
-        .post(`${this.baseUrl}getLeave_type_User.php`, tpyeUser, {
-          headers: headers1
-        }).subscribe(
-          (data: any) => {
-            this.leavetypeUser = data;
-            console.log(this.leavetypeUser);
-          },
-          (error: any) => {
-            console.log(error);
-          }
-
-        )
 
 
-      const tpyeUser_copy = 'Emp_ID=' + this.Emp_ID_show
-      console.log(tpyeUser_copy);
-      const headers2 = new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      });
-      this.http
-        .post(`${this.baseUrl}getLeave_type_User copy.php`, tpyeUser, {
-          headers: headers1
-        }).subscribe(
-          (data: any) => {
-            this.leavetypeUser_copy = data;
-            console.log(this.leavetypeUser_copy);
-          },
-          (error: any) => {
-            console.log(error);
-          }
-
-        )
     }
 
   }
@@ -298,6 +268,7 @@ export class CheckleaveinfoComponent implements OnInit {
   Leave_characteristics_dateStart_show: any;
   Leave_characteristics_dateLast_show: any;
   file_names_show: any;
+  show_file
   show_data(Leave_ID, Name_Leave, To_Person, Emp_ID, EmpName, EmpLastName, PositionName, DeptName,
     SectorName, LTypeName, LeaveData, ContactInformation, employee, LeaveDateStart_month, LeaveDateLast_month,
     LeaveTotal,
@@ -324,7 +295,9 @@ export class CheckleaveinfoComponent implements OnInit {
     this.Leave_characteristics_dateStart_show = Leave_characteristics_dateStart
     this.Leave_characteristics_dateLast_show = Leave_characteristics_dateLast
     this.file_names_show = file_names
-
+    this.http.get(`${this.baseUrl}getLeave_show_file.php?Leave_ID=${Leave_ID}`).subscribe(data => {
+      this.show_file = data
+    })
 
   }
 

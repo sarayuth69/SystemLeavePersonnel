@@ -34,11 +34,11 @@
             &nbsp;
 
             <!-- <button type="button" class="btn btn-info" >ตรวจสอบ</button> -->
-            <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="No_allow(item.Leave_ID)"><i
-                class="fa fa-window-close" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-danger btn-circle btn-xl" *ngIf="item.LeaveStatus_ID ==='1'"
+              (click)="No_allow(item.Leave_ID)"><i class="fa fa-window-close" aria-hidden="true"></i></button>
 
-            <button type="button" class="btn btn-info btn-circle btn-xl" (click)="allow(item.Leave_ID)"><i
-                class="fa fa-check-square" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-info btn-circle btn-xl" *ngIf="item.LeaveStatus_ID ==='1'" (click)="
+              allow(item.Leave_ID)"><i class="fa fa-check-square" aria-hidden="true"></i></button>
 
             <!-- <button type="button" class="btn btn-info" (click)="allow(item.Leave_ID)">อนุญาต</button> -->
           </td>
@@ -88,11 +88,11 @@
             &nbsp;
             <!-- Button trigger modal -->
 
-            <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="No_allow(item.Leave_ID)"><i
-                class="fa fa-window-close" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-danger btn-circle btn-xl" *ngIf="item.LeaveStatus_ID ==='2'" (click)="
+              No_allow(item.Leave_ID)"><i class="fa fa-window-close" aria-hidden="true"></i></button>
 
-            <button type="button" class="btn btn-info btn-circle btn-xl" (click)="allow(item.Leave_ID)"><i
-                class="fa fa-check-square" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-info btn-circle btn-xl" *ngIf="item.LeaveStatus_ID ==='2'" (click)="
+              allow(item.Leave_ID)"><i class="fa fa-check-square" aria-hidden="true"></i></button>
 
           </td>
         </tbody>
@@ -141,11 +141,11 @@
             &nbsp;
             <!-- Button trigger modal -->
 
-            <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="No_allow(item.Leave_ID)"><i
-                class="fa fa-window-close" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-danger btn-circle btn-xl" *ngIf="item.LeaveStatus_ID ==='3'"
+              (click)="No_allow(item.Leave_ID)"><i class="fa fa-window-close" aria-hidden="true"></i></button>
 
-            <button type="button" class="btn btn-info btn-circle btn-xl" (click)="allow(item.Leave_ID)"><i
-                class="fa fa-check-square" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-info btn-circle btn-xl" *ngIf="item.LeaveStatus_ID ==='3'"
+              (click)="allow(item.Leave_ID)"><i class="fa fa-check-square" aria-hidden="true"></i></button>
 
           </td>
         </tbody>
@@ -208,11 +208,11 @@
                 &nbsp;
                 <!-- Button trigger modal -->
 
-                <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="No_allow(item.Leave_ID)"><i
-                    class="fa fa-window-close" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-danger btn-circle btn-xl" *ngIf="item.LeaveStatus_ID ==='4'"
+                  (click)="No_allow(item.Leave_ID)"><i class="fa fa-window-close" aria-hidden="true"></i></button>
 
-                <button type="button" class="btn btn-info btn-circle btn-xl" (click)="allow(item.Leave_ID)"><i
-                    class="fa fa-check-square" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-info btn-circle btn-xl" *ngIf="item.LeaveStatus_ID ==='4'"
+                  (click)="allow(item.Leave_ID)"><i class="fa fa-check-square" aria-hidden="true"></i></button>
               </td>
             </tbody>
           </table>
@@ -314,7 +314,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm">
-                <h6>รหัส : {{Emp_ID_show}} </h6>
+                <h6 style="display: none;">รหัส : {{Emp_ID_show}} </h6>
               </div>
               <div class="col-sm">
                 <h6> ชื่อ : {{EmpName_show}}</h6>
@@ -389,8 +389,9 @@
                 <tr>
                   <th scope="row">แนปไฟล์ :</th>
                   <td>
-                    <a
-                      href="http://cpe.rmuti.ac.th/project/Leave_system/upload/{{file_names_show}}">{{file_names_show}}</a>
+                    <tr *ngFor="let item of show_file">
+                      <a href="http://cpe.rmuti.ac.th/project/Leave_system/upload/{{item.file_name}}">{{item.file_name}}</a>
+                    </tr>
                   </td>
 
                 </tr>
@@ -408,12 +409,12 @@
 
         </form>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal"
           (click)="No_allow(Leave_ID.value)">ไม่อนุญาต</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal"
           (click)="allow(Leave_ID.value)">อนุญาต</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -452,7 +453,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm">
-                <h6>รหัส : {{Emp_ID_show}} </h6>
+                <h6 style="display: none;">รหัส : {{Emp_ID_show}} </h6>
               </div>
               <div class="col-sm">
                 <h6> ชื่อ : {{EmpName_show}}</h6>
@@ -546,12 +547,12 @@
 
         </form>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal"
           (click)="No_allow(Leave_ID.value)">ไม่อนุญาต</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal"
           (click)="allow(Leave_ID.value)">อนุญาต</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -588,7 +589,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm">
-                <h6>รหัส : {{Emp_ID_show}} </h6>
+                <h6 style="display: none;">รหัส : {{Emp_ID_show}} </h6>
               </div>
               <div class="col-sm">
                 <h6> ชื่อ : {{EmpName_show}}</h6>
@@ -682,12 +683,12 @@
 
         </form>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal"
           (click)="No_allow(Leave_ID.value)">ไม่อนุญาต</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal"
           (click)="allow(Leave_ID.value)">อนุญาต</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -712,7 +713,7 @@
           <br>
           <div class="container">
             <h6>เรื่อง : {{Name_Leave_show}}</h6>
-            <input type="text" #Leave_ID value="{{Leave_ID_show}}">
+            <input style="display: none;" type="text" #Leave_ID value="{{Leave_ID_show}}">
 
             <br>
             <h6>เรียน : {{To_Person_show}}</h6>
@@ -725,7 +726,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm">
-                <h6>รหัส : {{Emp_ID_show}} </h6>
+                <h6 style="display: none;">รหัส : {{Emp_ID_show}} </h6>
               </div>
               <div class="col-sm">
                 <h6> ชื่อ : {{EmpName_show}}</h6>
@@ -819,12 +820,12 @@
 
         </form>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal"
           (click)="No_allow(Leave_ID.value)">ไม่อนุญาต</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal"
           (click)="allow(Leave_ID.value)">อนุญาต</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -847,7 +848,7 @@
             <table class="table table-bordered hover ">
               <thead>
                 <tr>
-                  <th width="120">รหัสการลา</th>
+                  <th width="120" style="display: none;">รหัสการลา</th>
                   <td>{{Leave_ID_cancel}} </td>
                 </tr>
                 <tr>

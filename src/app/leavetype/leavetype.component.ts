@@ -727,7 +727,7 @@ export class LeavetypeComponent implements OnInit {
       this.date_limit = 1
 
     }
-    const body = 'limit_ID=' + 0
+    const body = 'limit_ID=' + this.limit_ID.value
       + '&Name_limit=' + this.Name_limit.value
       + '&Date_start=' + this.Date_start.value
       + '&Date_stop=' + this.Date_stop.value
@@ -743,7 +743,7 @@ export class LeavetypeComponent implements OnInit {
       .subscribe(
         (data: any) => {
           console.log(data);
-          this.edit_limit = data[0];
+          this.edit_limit = data;
         },
         (error: any) => {
           console.log(error);

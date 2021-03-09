@@ -30,12 +30,12 @@
   </div>
 </div>
 
-<div class="card-body">
+<div style="padding-left: 2%;padding-right: 2%;">
   <div class="table-responsive-xl">
     <table class="table table-hover">
       <thead>
         <tr class="text-center">
-          <th scope="col">รหัสตำแหน่ง</th>
+          <!-- <th scope="col">รหัสตำแหน่ง</th> -->
           <th scope="col">ชื่อตำแหน่ง</th>
           <th scope="col">ระดับสิทธิการเข้าใช้</th>
           <th scope="col">จัดการ</th>
@@ -43,7 +43,7 @@
       </thead>
       <tbody *ngFor="let item of positionEmp | paginate: { itemsPerPage: 10, currentPage: pageActual}; let i = index">
         <tr>
-          <td class="text-center">{{item.Position_ID}}</td>
+          <!-- <td class="text-center">{{item.Position_ID}}</td> -->
           <td>{{item.PositionName}}</td>
           <td class="text-center" *ngIf="item.Role == 6">ผู้ดูแลระบบ</td>
           <td class="text-center" *ngIf="item.Role == 5">หัวหน้าหน่วยงาน</td>
@@ -89,9 +89,9 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="EmployeepositionInput2">รหัสตำแหน่งบุคลากร</label>
+            <label for="EmployeepositionInput2" style=" display: none;">รหัสตำแหน่งบุคลากร</label>
             <input type="text" class="form-control" id="EmployeepositionInput2" [formControl]="Position_ID"
-              placeholder="รหัสตำแหน่งบุคลากร" style="background-color: rgb(226, 223, 223);">
+              placeholder="รหัสตำแหน่งบุคลากร" style=" display: none;">
           </div>
           <div class="form-group">
             <label for="EmployeepositionInput3">ชื่อตำแหน่งบุคลากร</label>
@@ -133,9 +133,9 @@
       <div class="modal-body">
         <form>
           <div class="form-group" style="display: none;">
-            <label for="PositionInput">รหัสตำแหน่ง</label>
+            <label for="PositionInput" style=" display: none;">รหัสตำแหน่ง</label>
             <input type="text" class="form-control" id="PositionInput" [formControl]="Position_ID"
-              placeholder="รหัสตำแหน่ง">
+              placeholder="รหัสตำแหน่ง" style=" display: none;">
           </div>
           <div class="form-group">
             <label for="PositionInput1">ชื่อตำแหน่ง</label>
