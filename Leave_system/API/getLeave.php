@@ -42,7 +42,7 @@
     JOIN `sector` ON `employee`.`Sector_ID` = `sector`.`Sector_ID`
 WHERE  
 leave.Emp_ID = '".$_POST["Emp_ID"]."' AND `leave`.LeaveStatus_ID < 7 OR leave.Emp_ID = '".$_POST["Emp_ID"]."'AND  `leave`.LeaveStatus_ID = 11
-ORDER BY `leave`.`Leave_ID` DESC
+ORDER BY `leave`.`Response_Time` DESC
 ";
 
 $result = mysqli_query($conn,$sql); 

@@ -184,25 +184,11 @@ export class SumleaveComponent implements OnInit {
             )
         } catch (e) {
         }
-
       },
       (error: any) => {
         console.log(error);
       }
     );
-
-
-    // this.http.get(`${this.baseUrl}getSumleave.php?Emp_ID=${this.Emp_ID_show}`).subscribe(
-    //   (data: any) => {
-    //     console.log(data);
-    //     this.sumleave = data;
-    //     // this.chart = "2d"
-    //     this.ngAfterViewInit(this.sumleave)
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // );
   }
 
   getsearchdayleave(Day_leave_start, Day_leave_last) {

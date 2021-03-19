@@ -41,7 +41,8 @@
         JOIN `leavestatus` ON `leave`.`LeaveStatus_ID` = `leavestatus`.`LeaveStatus_ID`
         WHERE  `leave`.`LeaveStatus_ID` <= 6 AND sector.Sector_ID =  '".$_POST["Sector_ID"]."'
         AND `position`.`Role` < 4 
-        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`,`leave`.`Leave_ID`";
+        GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`,`leave`.`Leave_ID`
+        ORDER BY  `leave`.`Response_Time` DESC ";
         $result = mysqli_query($conn,$sql); 
         $myArray = array();
         if ($result->num_rows > 0) {

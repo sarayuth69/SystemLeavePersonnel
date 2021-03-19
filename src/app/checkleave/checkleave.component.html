@@ -10,10 +10,52 @@
 
     <br>
     <div style="padding-left: 1%;padding-right: 2%;">
-
         <div class="card">
-
             <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h6>ชื่อ-นามสกุล : {{Employee.Prefix}} {{Employee.EmpName}} {{Employee.EmpLastName}} </h6>
+                        <h6>ตำแหน่ง : {{Employee.PositionName}}</h6>
+                        <h6>แผนก : {{Employee.DeptName}}</h6>
+                    </div>
+                    <div class="col">
+                        <h6>ฝ่ายงาน : {{Employee.SectorName}} </h6>
+                        <h6>สถานะบุคลากร : {{Employee.EmpstatusName}} </h6>
+                        <h6>อายุงาน : {{Employee.Duration_work}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <!-- <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="" style="font-size: 16px;">เลือกรอบการประเมิน</label>
+                            <select class="form-control" #Name_limit>
+                                <option>เลือกรอบการประเมิน</option>
+                                <option *ngFor="let item of showleave_limit; let i = index" value="{{item.Name_limit}}">
+                                    {{item.Name_limit}}</option>
+                            </select>
+                         
+                        </div>
+                        <div class="col-sm">
+                            <label style="font-size: 16px;">ประเภทการลา</label>
+                            <select #LType_ID (ngModelChange)="dataChanged($event)" name="data" id="type_leave"
+                                class="form-control">
+                                <option *ngFor="let currentData of leavetypeUser" [ngValue]="currentData">
+                                    {{currentData.LTypeName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm">
+                            <br>
+                            <button type="button" class="btn btn-primary"
+                                (click)="serch(Name_limit.value,LType_ID.value)">ค้นหา</button>
+                        </div>
+                    </div>
+                </div> -->
                 <label for="" style="font-size: 16px;">เลือกรอบการประเมิน</label>
                 <select class="form-control" (change)="getlleave_user($event.target.value)">
                     <option>เลือกรอบการประเมิน</option>
@@ -35,7 +77,7 @@
                                 <th scope="col">แจ้งล่วงหน้า</th>
                                 <th scope="col">จำนวนครั้งที่ลา</th>
                                 <!-- <th scope="col">สถานะสิทธิการลา</th> -->
-                                <th scope="col">สถานะบุคลากร</th>
+                                <!-- <th scope="col">สถานะบุคลากร</th> -->
                             </tr>
                         </thead>
                         <tbody *ngFor="let item of leavetypeUser_day ; let i = index">
@@ -54,7 +96,7 @@
                                 <td>{{item.AdvanceNotice}} /วัน</td>
                                 <td>{{item.number_leave_show}}</td>
                                 <!-- <td>{{item.QuotaStatus}}</td> -->
-                                <td>{{item.EmpstatusName}}</td>
+                                <!-- <td>{{item.EmpstatusName}}</td> -->
                             </tr>
                         </tbody>
                     </table>

@@ -30,28 +30,29 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <!-- <label for="exampleFormControlSelect1">เลือกบุคลากร :</label> -->
-                    </div>
-                    <div class="col-sm">
 
-                    </div>
-                    <div class="col-sm">
-
-
-
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
     <br>
 
-
-
+    <div class="card" *ngIf="display_card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h6>ชื่อ-นามสกุล : {{Employee[0].Prefix}} {{Employee[0].EmpName}} {{Employee[0].EmpLastName}} </h6>
+                    <h6>ตำแหน่ง : {{Employee[0].PositionName}}</h6>
+                    <h6>แผนก : {{Employee[0].DeptName}}</h6>
+                </div>
+                <div class="col">
+                    <h6>ฝ่ายงาน : {{Employee[0].SectorName}} </h6>
+                    <h6>สถานะบุคลากร : {{Employee[0].EmpstatusName}} </h6>
+                    <h6>อายุงาน : {{Employee[0].Duration_work}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
@@ -72,24 +73,24 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr class="text-center">
-                                    <th scope="col">ชื่อพนักงาน</th>
+                                    <!-- <th scope="col">ชื่อพนักงาน</th> -->
                                     <th scope="col">ประเภท</th>
                                     <th scope="col">วันที่ลา</th>
                                     <th scope="col">จำนวน/วัน</th>
                                     <!-- <th scope="col">ไฟล์แนบ</th> -->
                                     <th scope="col">สถานะใบลา</th>
                                     <th scope="col">สถานะ</th>
-                                    <th scope="col">จัดการ</th>
+                                    <!-- <th scope="col">จัดการ</th> -->
                                 </tr>
                             </thead>
                             <tbody
                                 *ngFor="let item of seachleave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
                                 <tr>
-                                    <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
+                                    <!-- <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
                                         <p>แผนก: {{item.DeptName}}</p>
-                                    </td>
+                                    </td> -->
                                     <td class="text-center">{{item.Name_Leave}}</td>
-                                    <td class="text-center"> {{item.LeaveDateStart_month}} <br> ถึงวันที่ <br>
+                                    <td class="text-center"> {{item.LeaveDateStart_month}}  ถึงวันที่ 
                                         {{item.LeaveDateLast_month}}</td>
                                     <td class="text-center"> {{item.LeaveTotal}}
                                         <p *ngIf="item.LeaveTotal == 0" style="color: red;">ขออนุญาตยกเลิก</p>
@@ -109,7 +110,7 @@
                                         <td class="text-center">
                                             {{item.LeaveStatus_Name}} </td>
                                     </div>
-                                    <td class="text-center">
+                                    <!-- <td class="text-center">
                                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                             data-target="#exampleModal"
                                             (click)="show_data(item.Leave_ID,item.Name_Leave,item.To_Person,item.Emp_ID,
@@ -117,7 +118,7 @@
                                 item.LeaveData,item.ContactInformation,item.employee,item.LeaveDateStart_month,item.LeaveDateLast_month,item.LeaveTotal,
                               item.LeaveStatus_Name, item.LeaveStatus_Document,item.Leave_characteristics_dateStart,item.Leave_characteristics_dateLast,item.file_names)"><i
                                                 class="fa fa-cog" aria-hidden="true"></i></button>
-                                    </td>
+                                    </td> -->
 
                                 </tr>
                             </tbody>

@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-sm">
                                 <button class="btn btn-warning" type="button" data-toggle="modal"
-                                    data-target="#exampleModalleave">
+                                    data-target="#exampleModalleave" (click)="click_limit()">
                                     ยื่นขอลา
                                 </button>
 
@@ -471,8 +471,6 @@
                                             {{item.Name_limit}}</option>
                                     </select>
                                     <label>ประเภทการลา</label>
-                                    <!-- <p style="color: red;">*หากเป็นการลาอื่นๆ
-                                        นอกจากลาป่วยและลากิจระบบจะบันทึกข้อมูลให้แต่ระบบยังไม่สามารถนำมาคำนวณได้</p> -->
                                     <select [formControl]="LType_ID" (ngModelChange)="dataChanged($event)" name="data"
                                         id="type_leave" class="custom-select {{invalid_type}}">
                                         <option *ngFor="let currentData of leavetypeUser" [ngValue]="currentData">

@@ -85,7 +85,7 @@ export class EditdayworkComponent implements OnInit {
           this.searchdaywork = error
           Swal.fire({
             icon: 'error',
-            title: 'ไม่พบข้อมูล1',
+            title: 'ไม่พบข้อมูล',
             text: ''
           })
 

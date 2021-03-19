@@ -145,16 +145,29 @@ export class LeavelistComponent implements OnInit {
   date_dissable_btn;
   leavetypeUser_copy
   chack_ID: number
+  check_limit
   ngOnInit() {
     this.date_dissable_btn = moment(new Date()).format('YYYY-MM-DD')
+    this.check_limit = moment(new Date()).format('YYYY-MM-DD')
+    console.log(this.check_limit);
+
     this.chack_ID = Math.floor((Math.random() * 1000000) + 1)
     console.log(this.chack_ID);
 
     this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
       (data: any) => {
+        this.showleave_limit = data;
+        for (let index = 0; index <= this.showleave_limit.length; index++) {
+          try {
+            console.log(this.showleave_limit[index].Date_start, this.showleave_limit[index].Date_stop);
+            if (this.check_limit >= this.showleave_limit[index].Date_start && this.check_limit <= this.showleave_limit[index].Date_stop) {
+              this.limit_ID = new FormControl(this.showleave_limit[index].Name_limit).value
+              console.log(this.limit_ID);
+              break
+            }
+          } catch (e) {
 
-        for (var i = 0; i <= data.length; i++) {
-          this.showleave_limit = data;
+          }
 
         }
 
@@ -525,6 +538,30 @@ export class LeavelistComponent implements OnInit {
     }
 
 
+  }
+  click_limit() {
+    this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
+      (data: any) => {
+        this.showleave_limit = data;
+        for (let index = 0; index <= this.showleave_limit.length; index++) {
+          try {
+            console.log(this.showleave_limit[index].Date_start, this.showleave_limit[index].Date_stop);
+            if (this.check_limit >= this.showleave_limit[index].Date_start && this.check_limit <= this.showleave_limit[index].Date_stop) {
+              this.limit_ID = new FormControl(this.showleave_limit[index].Name_limit).value
+              console.log(this.limit_ID);
+              this.change_limit(this.showleave_limit[index].limit_ID)
+              break
+            }
+          } catch (e) {
+
+          }
+
+        }
+
+      }, (error: any) => {
+        // console.log(error);
+      }
+    )
   }
   file_test: string[] = [];
   progressInfos: any;

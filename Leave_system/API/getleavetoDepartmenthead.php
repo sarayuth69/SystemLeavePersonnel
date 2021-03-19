@@ -44,7 +44,7 @@
     `employee`.`Dept_ID` = '".$_POST["Dept_ID"]."' AND `leave`.`LeaveStatus_ID` <= 6 
     AND `position`.`Role` < 2
     GROUP BY `leave`.`Emp_ID`,`leavetype`.`LType_ID`,`leave`.`Leave_ID`
-    ORDER BY  `leave`.`LeaveStatus_ID` ASC  ";
+    ORDER BY  `leave`.`Response_Time` DESC  ";
          $result = mysqli_query($conn,$sql); 
          $myArray = array();
          if ($result->num_rows > 0) {

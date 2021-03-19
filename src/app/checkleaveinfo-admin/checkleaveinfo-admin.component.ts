@@ -54,6 +54,8 @@ export class CheckleaveinfoAdminComponent implements OnInit {
   showleave_limit;
   maxDate
   Empstatus_ID_check
+  Employee
+
   constructor(public router: Router,
     public route: ActivatedRoute,
     public api: APIService,
@@ -154,6 +156,8 @@ export class CheckleaveinfoAdminComponent implements OnInit {
 
   }
   Work_day
+  display_card: boolean
+
   leaveSearch(Emp_ID_search, Day_leave_start, Day_leave_last) {
 
     this.Emp_ID_show = Emp_ID_search
@@ -180,6 +184,28 @@ export class CheckleaveinfoAdminComponent implements OnInit {
             this.seachleave = data;
             console.log(this.seachleave);
             this.Work_day = data[0].Work_day
+            const body1 = 'Emp_ID=' + this.Emp_ID_show
+            console.log(body1);
+            const headers2 = new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded'
+            });
+            this.http
+              .post(`${this.baseUrl}getEmployee_show.php`, body1, {
+                headers: headers2
+              }).subscribe(
+                (data: any) => {
+                  this.Employee = data;
+                  console.log(this.Employee);
+                  if (this.Employee.length > 0) {
+                    this.display_card = true
+                  }
+                  else {
+                    this.display_card = false
+                  }
+                },
+                (error: any) => {
+                }
+              )
           }
         },
         (error: any) => {

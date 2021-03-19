@@ -30,29 +30,27 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <!-- <label for="exampleFormControlSelect1">เลือกบุคลากร :</label> -->
-                    </div>
-                    <div class="col-sm">
 
-                    </div>
-                    <div class="col-sm">
-
-
-
-                    </div>
+        </div>
+    </div>
+    <br>
+    <div class="card" *ngIf="display_card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h6>ชื่อ-นามสกุล : {{Employee[0].Prefix}} {{Employee[0].EmpName}} {{Employee[0].EmpLastName}} </h6>
+                    <h6>ตำแหน่ง : {{Employee[0].PositionName}}</h6>
+                    <h6>แผนก : {{Employee[0].DeptName}}</h6>
                 </div>
-            </div>
-            <div class="table-responsive-lg">
-
-
+                <div class="col">
+                    <h6>ฝ่ายงาน : {{Employee[0].SectorName}} </h6>
+                    <h6>สถานะบุคลากร : {{Employee[0].EmpstatusName}} </h6>
+                    <h6>อายุงาน : {{Employee[0].Duration_work}}</h6>
+                </div>
             </div>
         </div>
     </div>
     <br>
-
 
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -72,12 +70,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive-xl">
-
-
                         <table class="table table-hover">
                             <thead>
                                 <tr class="text-center">
-                                    <th scope="col">ชื่อพนักงาน</th>
+                                    <!-- <th scope="col">ชื่อพนักงาน</th> -->
                                     <th scope="col">ประเภท</th>
                                     <th scope="col">วันที่ลา</th>
                                     <th scope="col">จำนวน/วัน</th>
@@ -90,11 +86,11 @@
                             <tbody
                                 *ngFor="let item of seachleave | paginate: { itemsPerPage: 10, currentPage: pageActual};">
                                 <tr>
-                                    <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
+                                    <!-- <td>ชื่อ: {{item.EmpName}} {{item.EmpLastName}}
                                         <p>แผนก: {{item.DeptName}}</p>
-                                    </td>
+                                    </td> -->
                                     <td class="text-center">{{item.Name_Leave}}</td>
-                                    <td class="text-center"> {{item.LeaveDateStart_month}} <br> ถึงวันที่ <br>
+                                    <td class="text-center"> {{item.LeaveDateStart_month}} ถึงวันที่
                                         {{item.LeaveDateLast_month}}</td>
                                     <td class="text-center"> {{item.LeaveTotal}}
                                         <p *ngIf="item.LeaveTotal == 0" style="color: red;">ขออนุญาตยกเลิก</p>

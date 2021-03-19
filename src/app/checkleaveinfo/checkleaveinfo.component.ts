@@ -52,7 +52,7 @@ export class CheckleaveinfoComponent implements OnInit {
   limit;
   showleave_limit;
   Empstatus_ID_check
-
+  Employee
   constructor(
     public router: Router,
     public route: ActivatedRoute,
@@ -62,8 +62,6 @@ export class CheckleaveinfoComponent implements OnInit {
   ngOnInit() {
     this.maxDate = moment(new Date()).format('YYYY-MM-DD')
     var day_work_month = moment(this.maxDate).startOf('day').diff(moment(localStorage.getItem('Work_day')).startOf('day'), 'months');
-
-
     const tpyeUser = 'Emp_ID=' + this.Emp_ID_show
       + '&limit_ID=' + this.limit
       + '&Empstatus_ID=' + this.Empstatus_ID_check
@@ -78,12 +76,12 @@ export class CheckleaveinfoComponent implements OnInit {
       }).subscribe(
         (data: any) => {
           this.leavetypeUser = data;
-          console.log(this.leavetypeUser);
-
         },
         (error: any) => {
         }
       )
+
+
     this.http.get(`${this.baseUrl}getleave_limit.php`).subscribe(
       (data: any) => {
         this.showleave_limit = data;
@@ -183,6 +181,7 @@ export class CheckleaveinfoComponent implements OnInit {
       )
   }
   Work_day
+  display_card: boolean
   leaveSearch(Emp_ID_search, Day_leave_start, Day_leave_last) {
     this.Emp_ID_show = Emp_ID_search
     this.Day_leave_start_show = Day_leave_start
@@ -225,12 +224,32 @@ export class CheckleaveinfoComponent implements OnInit {
                 (data: any) => {
                   this.leavetypeUser = data;
                   console.log(this.leavetypeUser);
-
                 },
                 (error: any) => {
                 }
               )
-
+            const body1 = 'Emp_ID=' + this.Emp_ID_show
+            console.log(body1);
+            const headers2 = new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded'
+            });
+            this.http
+              .post(`${this.baseUrl}getEmployee_show.php`, body1, {
+                headers: headers2
+              }).subscribe(
+                (data: any) => {
+                  this.Employee = data;
+                  console.log(this.Employee);
+                  if (this.Employee.length > 0) {
+                    this.display_card = true
+                  }
+                  else {
+                    this.display_card = false
+                  }
+                },
+                (error: any) => {
+                }
+              )
           }
         },
         (error: any) => {
